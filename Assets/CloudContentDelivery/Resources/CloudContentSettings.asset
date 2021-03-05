@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ff9f690edbc48cfa1b539e929746b6a, type: 3}
+  m_Name: CloudContentSettings
+  m_EditorClassIdentifier: 
+  version: v1.1.0
+  apiKey: c795fcf9df597d517964a458c71324f4
+  contentFolderPath: C:/Projects/Games/STPN-13197 Match Gifts/Assets/CloudContentDelivery/Editor/Resources/Content
+  lastBucketData: {fileID: 11400000, guid: ba7a99c7644b4441ab75da5bc4860367, type: 2}

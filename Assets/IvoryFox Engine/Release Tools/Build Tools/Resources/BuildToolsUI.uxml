@@ -1,0 +1,49 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="Root" style="height: 100%; -unity-background-image-tint-color: rgb(0, 0, 0); background-color: rgba(56, 56, 56, 0); align-items: center; width: 100%; justify-content: space-between; flex-shrink: 0;">
+        <ui:VisualElement style="align-items: stretch; -unity-background-scale-mode: scale-and-crop; -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; flex-direction: row; justify-content: center; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; opacity: 1; height: 50px; flex-shrink: 0;">
+            <ui:Label text="IVORYFOX BUILD TOOLS" style="display: flex; position: relative; right: auto; left: auto; align-items: center; -unity-font-style: bold; font-size: 20px; -unity-text-align: middle-center; padding-top: 30px; padding-bottom: 30px; padding-right: 0; justify-content: center; margin-right: 5px; color: rgb(255, 160, 105);" />
+            <ui:Label text="v0.0.0" name="BuildToolsVersionLabel" style="justify-content: center; align-items: center; -unity-text-align: middle-center; -unity-font-style: bold; color: rgb(255, 201, 0);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="PathesChooserContainer" style="justify-content: space-around; background-color: rgba(135, 0, 64, 0.77); padding-top: 0; padding-bottom: 0; -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; -unity-background-scale-mode: stretch-to-fill; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; height: auto; padding-left: 0; padding-right: 0; align-items: stretch; width: 500px; flex-shrink: 0;">
+            <ui:VisualElement style="flex-direction: row; align-items: center; justify-content: space-around; height: auto; width: auto; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+                <ui:TextField picking-mode="Ignore" label="Apk Signer Path" value="filler text" name="ApkSignerPathTextField" style="height: auto; width: auto; flex-basis: 80%; flex-direction: column;" />
+                <ui:Button text="Select Folder" name="SelectSignerFolderButton" style="height: 20px; justify-content: space-around;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-direction: row; align-items: center; justify-content: space-around; height: auto; width: auto; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+                <ui:TextField picking-mode="Ignore" label="Builds Folder Path" value="filler text" name="BuildsFolderPathTextField" style="height: auto; width: auto; justify-content: space-around; flex-basis: 80%; flex-direction: column;" />
+                <ui:Button text="Select Folder" name="SelectBuildsFolderButton" style="height: 20px; -unity-text-align: middle-center;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="CommonDataContiner" style="flex-direction: column; justify-content: space-around; align-items: stretch; background-color: rgba(15, 144, 250, 0.52); padding-top: 5px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; padding-bottom: 5px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 5px; padding-right: 5px; height: 80px; width: 500px; flex-basis: auto; opacity: 1; position: relative; left: auto; right: auto; flex-shrink: 0;">
+            <ui:VisualElement style="flex-direction: row; height: auto; justify-content: space-between; align-items: stretch; flex-wrap: nowrap; width: 400px;">
+                <ui:TextField picking-mode="Ignore" label="Task Number" value="filler text" name="TaskNumberField" text="12221" style="align-items: center; justify-content: center; flex-direction: row; flex-basis: 65%; height: auto; width: auto;" />
+                <ui:Button text="Get From Title" name="SetTaskNumberButton" style="flex-basis: 30%; width: auto;" />
+            </ui:VisualElement>
+            <ui:TextField picking-mode="Ignore" label="App Version" value="filler text" text="filler text" name="AppVersionField" style="height: auto; width: auto;" />
+            <uie:EnumField label="Screen Orientation" value="Center" name="ScreenOrientationEnum" />
+        </ui:VisualElement>
+        <ui:VisualElement name="BuildTypesContainer" style="align-items: stretch; flex-direction: row; justify-content: flex-start; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; height: auto; flex-shrink: 0; flex-basis: auto; background-color: rgba(144, 98, 0, 0); width: 500px;">
+            <ui:VisualElement name="Debug" style="background-color: rgb(176, 83, 0); justify-content: center; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; padding-right: 0; margin-right: 5px; padding-left: 0; padding-top: 0; padding-bottom: 0; margin-left: 5px; margin-top: 5px; margin-bottom: 5px; flex-basis: auto; width: 250px; height: 200px;">
+                <ui:Label text="Debug Settings" style="align-items: center; -unity-text-align: upper-center; -unity-font-style: bold; font-size: 12px; padding-top: 0; padding-bottom: 5px;" />
+                <ui:TextField picking-mode="Ignore" label="App Name" value="filler text" text="filler text" name="DebugAppName" style="-unity-font-style: normal; flex-direction: column; justify-content: flex-start;" />
+                <ui:TextField picking-mode="Ignore" label="Package ID" value="filler text" text="filler text" name="DebugPackageId" style="flex-direction: column;" />
+                <uie:ObjectField label="icon" name="DebugIcon" style="flex-direction: column;" />
+                <ui:Button text="Set data to player" name="DebugSetDataButton" />
+                <ui:Button text="Create Report" name="DebugReportButton" />
+                <ui:Button text="Build APK" name="DebugBuildButton" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Release" style="background-color: rgb(38, 113, 0); justify-content: center; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; margin-left: 5px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; flex-basis: auto; width: 250px; height: 200px;">
+                <ui:Label text="Release Settings" style="align-items: center; -unity-text-align: upper-center; -unity-font-style: bold; font-size: 12px; padding-top: 0; padding-bottom: 5px;" />
+                <ui:TextField picking-mode="Ignore" label="App Name" value="filler text" text="filler text" name="ReleaseAppName" style="flex-direction: column;" />
+                <ui:TextField picking-mode="Ignore" label="Package ID" value="filler text" text="filler text" name="ReleasePackageId" style="flex-direction: column;" />
+                <uie:ObjectField label="icon" name="ReleaseIcon" style="flex-direction: column;" />
+                <ui:Button text="Set data to player" name="ReleaseSetDataButton" />
+                <ui:Button text="Create Report" name="ReleaseReportButton" />
+                <ui:Button text="Build APK" name="ReleaseBuildButton" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement style="background-color: rgb(5, 6, 7); padding-top: 0; padding-bottom: 0; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; justify-content: space-around; align-items: center; flex-direction: column; height: 53px; width: 500px;">
+            <ui:Button text="Save Changes" name="SaveAllDataButton" style="-unity-text-align: middle-center; white-space: normal; height: 25px; width: 150px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

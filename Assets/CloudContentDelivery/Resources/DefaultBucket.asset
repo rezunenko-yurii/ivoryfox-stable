@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5352cd439fa1f4eaa2dc1f46664af3, type: 3}
+  m_Name: DefaultBucket
+  m_EditorClassIdentifier: 
+  bucketName: IvoryFox Bucket
+  bucketId: 60f4ebb2-4c47-433f-9771-769ce7d94d2c
+  lastReleaseId: f15eff62-1156-4aee-809e-08ee4948dfe3

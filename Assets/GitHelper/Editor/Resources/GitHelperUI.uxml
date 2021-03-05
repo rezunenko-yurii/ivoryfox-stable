@@ -1,0 +1,33 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="TitleContainer" style="flex-direction: row; align-items: center; justify-content: center; height: 50px; flex-shrink: 0;">
+        <ui:Label text="IVORYFOX GIT HELPER" display-tooltip-when-elided="true" name="Label" style="font-size: 15px; -unity-font-style: bold; color: rgb(255, 148, 0); display: flex; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; width: auto; flex-direction: column; flex-basis: auto; justify-content: center; align-items: center;" />
+        <ui:Label text="V 0.0.0" display-tooltip-when-elided="true" name="VersionLabel" style="-unity-font-style: bold; color: rgb(25, 172, 255); font-size: 11px; -unity-text-align: middle-right; align-items: center; justify-content: flex-end; flex-direction: row; width: 60px; white-space: normal;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="DataContainer" style="flex-direction: column; flex-shrink: 0;">
+        <ui:TextField picking-mode="Ignore" label="Token" name="TokenField" style="flex-direction: column; flex-basis: auto; justify-content: space-around; align-items: stretch; padding-left: 5%; padding-right: 5px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+        <ui:TextField picking-mode="Ignore" label="Project Key" name="ProjectKeyField" style="flex-direction: column; flex-basis: auto; justify-content: space-around; align-items: stretch; padding-left: 5%; padding-right: 5px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+        <ui:VisualElement name="RepoData" label="Token" style="flex-direction: column; flex-basis: auto; align-items: stretch; justify-content: center; display: flex; background-color: rgb(68, 27, 125); border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 5px; margin-bottom: 0; height: auto; flex-shrink: 0;">
+            <ui:VisualElement style="flex-direction: row-reverse; align-items: center; justify-content: center;">
+                <ui:Button text="Get From Title" display-tooltip-when-elided="true" name="GetTitleButton" label="Repo Name" style="flex-basis: 30%; flex-direction: column; align-items: center;" />
+                <ui:VisualElement style="flex-basis: 60%;">
+                    <ui:TextField picking-mode="Ignore" label="Repo Name" value="filler text" name="NameField" style="flex-direction: column; justify-content: center; align-items: stretch; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; flex-wrap: nowrap; flex-basis: auto;" />
+                    <ui:TextField picking-mode="Ignore" label="Slug Name" value="filler text" name="SlugNameField" style="flex-direction: column; justify-content: center; align-items: stretch; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; flex-wrap: nowrap; flex-basis: auto;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-direction: row; justify-content: center; align-items: center;">
+                <ui:TextField picking-mode="Ignore" label="Repo url" name="RepoUrlField" style="flex-direction: column; flex-basis: 60%;" />
+                <ui:Button text="Set Url" display-tooltip-when-elided="true" name="SetUrlButton" style="flex-basis: 30%; align-items: center; justify-content: center;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="ButtonsContainer" text="Get From Title" style="flex-basis: auto; display: flex; padding-top: 10px; flex-shrink: 0;">
+        <ui:Button text="Create Remote Repo" display-tooltip-when-elided="true" name="CreateButton" />
+    </ui:VisualElement>
+    <ui:VisualElement style="background-color: rgb(135, 24, 48); border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; margin-left: 0; margin-right: 0; margin-top: 5px; margin-bottom: 0; flex-direction: row-reverse; height: 100px; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; flex-shrink: 0;">
+        <ui:VisualElement style="flex-direction: column; justify-content: center; height: auto; align-items: center;">
+            <ui:Button text="Commit" display-tooltip-when-elided="true" name="CommitButton" style="flex-direction: column; flex-basis: auto;" />
+            <ui:Button text="Push" display-tooltip-when-elided="true" name="PushButton" style="flex-direction: column; flex-basis: auto;" />
+        </ui:VisualElement>
+        <ui:TextField picking-mode="Ignore" label="Commit Message" name="MessageField" style="flex-direction: column; flex-basis: 80%; justify-content: space-around; align-items: stretch; padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0; -unity-text-align: upper-left;" />
+    </ui:VisualElement>
+</ui:UXML>

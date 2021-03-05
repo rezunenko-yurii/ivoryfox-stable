@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43195808e902f9b43958caa050e4eb59, type: 3}
+  m_Name: BuildData_Release
+  m_EditorClassIdentifier: 
+  taskNumber: 13806
+  productName: Release App
+  packageId: game.spesialadvent.uretimmemanace
+  companyName: lustigovich
+  productVersion: 1
+  screenOrientation: 4
+  icon: {fileID: 0}
+  development: 0
+  useCustomKeystore: 1
+  scriptingImplementation: 1
+  androidArchitecture: 2
+  minAndroidSdkVersions: 21
+  targetSdkVersions: 0
+  compilerConfiguration: 1
+  buildType: 2
+  buildOptions: 2621440

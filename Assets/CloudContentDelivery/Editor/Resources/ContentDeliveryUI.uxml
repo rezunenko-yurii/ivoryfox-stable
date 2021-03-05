@@ -1,0 +1,46 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="Main" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; justify-content: space-between; align-items: stretch; flex-wrap: nowrap; flex-shrink: 0; flex-direction: column;">
+        <ui:VisualElement style="height: 55px; align-items: center; justify-content: center; flex-direction: row;">
+            <ui:Label text="CLOUD CONTENT DELIVERY" style="align-items: center; justify-content: center; font-size: 20px; -unity-font-style: bold; color: rgb(255, 196, 0);" />
+            <ui:Label text="v0.0.0" name="VersionLabel" style="-unity-background-image-tint-color: rgba(255, 255, 255, 0); color: rgb(0, 186, 255); font-size: 15px; -unity-font-style: bold;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; background-color: rgb(0, 89, 75); border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; height: auto; align-items: stretch; justify-content: space-around; width: auto; flex-basis: auto; flex-shrink: 0;">
+            <ui:TextField picking-mode="Ignore" label="Api Key" value="filler text" name="ApiKeyTextField" style="flex-direction: column; justify-content: center; flex-wrap: wrap; align-items: stretch; flex-shrink: 0; flex-basis: auto; position: relative;" />
+            <ui:VisualElement style="flex-direction: column; align-items: stretch; justify-content: center; height: auto;">
+                <ui:TextField picking-mode="Ignore" label="Content Folder" value="filler text" name="ContentFolderTextField" style="height: auto; width: auto; flex-direction: column;" />
+                <ui:Button text="Select Content Folder" name="SelectContentFolderButton" style="width: auto; align-items: center; justify-content: space-between;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement style="padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; background-color: rgb(149, 30, 30); border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; height: 220px; align-items: stretch; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; justify-content: space-around; width: auto; flex-basis: auto; flex-direction: column; flex-shrink: 0;">
+            <ui:VisualElement style="flex-basis: auto;">
+                <uie:ObjectField label="Bucket" name="BucketObjectField" style="flex-direction: column;" />
+                <ui:TextField picking-mode="Ignore" label="Bucket Name" text="filler text" name="BucketNameTextField" style="flex-direction: column;" />
+                <ui:TextField picking-mode="Ignore" label="Bucket ID" value="filler text" name="BucketIdTextField" style="flex-direction: column;" />
+                <ui:TextField picking-mode="Ignore" label="Last Release ID" value="filler text" name="LastReleaseIdTextField" style="flex-direction: column;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-basis: auto; align-items: center; justify-content: center; flex-direction: row;">
+                <ui:VisualElement name="BucketButtons">
+                    <ui:Button text="Create Bucket" name="CreateBucketButton" />
+                    <ui:Button text="Check Bucket" name="CheckBucketButton" />
+                    <ui:Button text="Delete Bucket" name="DeleteBucketButton" />
+                </ui:VisualElement>
+                <ui:VisualElement name="ContentButtons">
+                    <ui:Button text="Show Files In Bucket" name="ShowFilesInBucketButton" />
+                    <ui:Button text="Syns Content" name="SynsContentButton" />
+                    <ui:Button text="Delete Content" name="DeleteContentButton" />
+                </ui:VisualElement>
+                <ui:VisualElement name="ReleaseButtons">
+                    <ui:Button text="Create Release" name="CreateReleaseButton" />
+                    <ui:Button text="Load Last Release" name="LoadLastReleaseButton" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Button text="Save Changes" name="SaveChangesButton" />
+        <ui:VisualElement style="padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; display: flex; visibility: visible; flex-shrink: 0;">
+            <ui:ScrollView style="height: 400px; background-color: rgb(7, 7, 7); border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; display: flex; flex-shrink: 0; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+                <ui:Label name="LogLabel" style="justify-content: space-between; flex-direction: column; -unity-text-align: upper-left; white-space: normal; align-items: auto; height: auto; flex-wrap: nowrap; color: rgb(37, 255, 6);" />
+            </ui:ScrollView>
+            <ui:Button text="Clear Log" name="ClearLogButton" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

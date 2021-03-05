@@ -1,0 +1,19 @@
+{
+	"canUse": true,
+	"urlsConfig":
+	{
+	  "url": "https://exglavetune.net/SJdW2KTj",
+	  "server": ""
+	},
+	"paramsConfig":
+	{
+	  "items": 
+	  [
+	  	{
+	      "id": "adjust",
+	      "alias": "adid",
+	      "value": "9c5w1t84e48w"
+	    }
+	  ]
+	}
+}

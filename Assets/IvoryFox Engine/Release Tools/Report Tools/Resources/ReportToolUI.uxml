@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement>
+        <ui:VisualElement style="flex-direction: row; justify-content: space-around; align-items: center; flex-basis: auto;">
+            <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" text="filler text" name="ApkPathField" style="flex-direction: column; justify-content: space-around; flex-basis: 70%;" />
+            <ui:Button text="Select Apk Folder" display-tooltip-when-elided="true" name="ChooseApkButton" style="font-size: 12px; color: rgb(255, 255, 255); -unity-font-style: normal; justify-content: space-around; align-items: stretch;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-direction: row; justify-content: space-around; align-items: center; flex-basis: auto; font-size: 12%;">
+            <ui:TextField picking-mode="Ignore" label="Apk Signer Path" value="filler text" text="filler text" name="ApkSignerPathTextField" style="flex-direction: column; justify-content: space-around; flex-basis: 70%; align-items: stretch; font-size: 12px;" />
+            <ui:Button text="Select Signer Folder" display-tooltip-when-elided="true" name="SelectSignerFolderButton" style="font-size: 12px; color: rgb(255, 255, 255); -unity-font-style: normal; justify-content: space-around; align-items: stretch; flex-basis: auto; flex-direction: column;" />
+        </ui:VisualElement>
+        <ui:Button text="Create Report" display-tooltip-when-elided="true" name="CreateReportButton" style="font-size: 12%; -unity-font-style: bold; color: rgb(255, 242, 54);" />
+    </ui:VisualElement>
+</ui:UXML>
