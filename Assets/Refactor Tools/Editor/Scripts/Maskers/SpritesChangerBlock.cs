@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace IvoryFox_Engine.Release_Tools.Refactor_Tools.Editor.Scripts.Maskers
+namespace Refactor_Tools.Editor.Scripts.Maskers
 {
     public partial class AssetsMaskerWindow : EditorWindow
     {

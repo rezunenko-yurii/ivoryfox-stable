@@ -1,0 +1,20 @@
+{
+    "name": "RefactorTools.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:239ab2ce863ee4506b29f74add89aa3f",
+        "GUID:3fcb67fb12a5cef4aa29e87f3e42510d",
+        "GUID:0bc4c2c548993744697bb354a36f323a"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

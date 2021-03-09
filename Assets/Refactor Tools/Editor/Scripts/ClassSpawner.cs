@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using UnityRandom = UnityEngine.Random;
 
-namespace IvoryFox_Engine.Release_Tools.Refactor_Tools.Editor.Scripts
+namespace Refactor_Tools.Editor.Scripts
 {
     public class ClassSpawner
     {

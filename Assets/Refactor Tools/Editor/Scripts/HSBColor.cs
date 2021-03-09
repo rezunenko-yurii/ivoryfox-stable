@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace IvoryFox_Engine.Release_Tools.Refactor_Tools.Editor.Scripts
+namespace Refactor_Tools.Editor.Scripts
 {
     [System.Serializable]
     public struct HSBColor
