@@ -1,6 +1,6 @@
 {
-    "name": "BuildTools",
-    "rootNamespace": "BuildTools",
+    "name": "BuildTools.Editor",
+    "rootNamespace": "",
     "references": [
         "GUID:357729e51b10598438b30d868441f753"
     ],

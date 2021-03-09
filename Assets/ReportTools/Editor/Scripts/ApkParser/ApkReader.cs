@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using Debug = UnityEngine.Debug;
 
-namespace BuildTools.Editor.Scripts.ApkParser
+namespace ReportTools.Editor.Scripts.ApkParser
 {
     public class ApkReader
     {

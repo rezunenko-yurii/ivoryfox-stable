@@ -1,4 +1,4 @@
-namespace BuildTools.Editor.Scripts
+namespace ReportTools.Editor.Scripts
 {
     public enum AndroidScreenOrientation
     {

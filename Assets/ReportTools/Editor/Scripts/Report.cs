@@ -2,11 +2,11 @@
 using System.IO;
 using System.Linq;
 using System.Text;
-using BuildTools.Editor.Scripts.ApkParser;
+using ReportTools.Editor.Scripts.ApkParser;
 using UnityEditor;
 using UnityEngine;
 
-namespace BuildTools.Editor.Scripts
+namespace ReportTools.Editor.Scripts
 {
     public class Report
     {

@@ -1,6 +1,6 @@
 {
     "name": "ReportTool",
-    "rootNamespace": "ReportTool",
+    "rootNamespace": "",
     "references": [],
     "includePlatforms": [
         "Editor"

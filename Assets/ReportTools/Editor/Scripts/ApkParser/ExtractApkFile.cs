@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace BuildTools.Editor.Scripts.ApkParser
+namespace ReportTools.Editor.Scripts.ApkParser
 {
     public class ExtractApkFile
     {

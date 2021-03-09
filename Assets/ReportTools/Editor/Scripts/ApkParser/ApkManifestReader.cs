@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace BuildTools.Editor.Scripts.ApkParser
+namespace ReportTools.Editor.Scripts.ApkParser
 {
     public static class ApkManifestReader
     {

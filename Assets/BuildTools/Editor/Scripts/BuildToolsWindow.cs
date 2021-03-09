@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ReportTools.Editor.Scripts;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace BuildTools.Editor.Scripts
         private BuildData commonBuildData;
         private BuildData releaseBuildData;
         private BuildData debugBuildData;
-        private static BuildToolsSettings settings;
+        private static BuildToolsSettings _settings;
 
         private EnumField screenOrientationField;
         private TextField taskNumberField;
@@ -32,40 +33,40 @@ namespace BuildTools.Editor.Scripts
 
         private void Connect()
         {
-            settings = Resources.Load<BuildToolsSettings>("BuildToolsSettings");
+            _settings = Resources.Load<BuildToolsSettings>("BuildToolsSettings");
             commonBuildData = Resources.Load<BuildData>("BuildData_Common");
             debugBuildData = Resources.Load<BuildData>("BuildData_Debug");
             releaseBuildData = Resources.Load<BuildData>("BuildData_Release");
             
             var buildToolsVersionLabel = rootVisualElement.Q<Label>("BuildToolsVersionLabel");
-            buildToolsVersionLabel.text = settings.version;
+            buildToolsVersionLabel.text = _settings.version;
 
             var apkSignerPathTextField = rootVisualElement.Q<TextField>("ApkSignerPathTextField");
-            apkSignerPathTextField.value = settings.apkSignerPath;
+            apkSignerPathTextField.value = _settings.apkSignerPath;
             apkSignerPathTextField.RegisterCallback<InputEvent>((evt) =>
             {
-                settings.apkSignerPath = apkSignerPathTextField.value;
+                _settings.apkSignerPath = apkSignerPathTextField.value;
             });
             
             var apkSignerSelectFolderButton = rootVisualElement.Q<Button>("SelectSignerFolderButton");
             apkSignerSelectFolderButton.RegisterCallback<MouseUpEvent>((evt) =>
             {
                 apkSignerPathTextField.value = GetFolderPath();
-                settings.apkSignerPath = apkSignerPathTextField.value;
+                _settings.apkSignerPath = apkSignerPathTextField.value;
             });
             
             var buildPathTextField = rootVisualElement.Q<TextField>("BuildsFolderPathTextField");
-            buildPathTextField.value = settings.buildFolderPath;
+            buildPathTextField.value = _settings.buildFolderPath;
             buildPathTextField.RegisterCallback<InputEvent>((evt) =>
             {
-                settings.buildFolderPath = buildPathTextField.value;
+                _settings.buildFolderPath = buildPathTextField.value;
             });
             
             var buildSelectFolderButton = rootVisualElement.Q<Button>("SelectBuildsFolderButton");
             buildSelectFolderButton.RegisterCallback<MouseUpEvent>((evt) =>
             {
                 buildPathTextField.value = GetFolderPath();
-                settings.buildFolderPath = buildPathTextField.value;
+                _settings.buildFolderPath = buildPathTextField.value;
             });
             
             screenOrientationField = rootVisualElement.Q<EnumField>("ScreenOrientationEnum");
@@ -151,13 +152,13 @@ namespace BuildTools.Editor.Scripts
             var reportButton = rootVisualElement.Q<Button>(key + "ReportButton");
             reportButton.RegisterCallback<MouseUpEvent>((evt) =>
             {
-                if (SetPlayerData(data)) Report.CreateReport($"{settings.buildFolderPath}/{data.GetApkName}", settings.apkSignerPath);
+                if (SetPlayerData(data)) Report.CreateReport($"{_settings.buildFolderPath}/{data.GetApkName}", _settings.apkSignerPath);
             });
             
             var buildButton = rootVisualElement.Q<Button>(key + "BuildButton");
             buildButton.RegisterCallback<MouseUpEvent>((evt) =>
             {
-                if (SetPlayerData(data)) ApkBuilder.BuildApk(data, settings.buildFolderPath);
+                if (SetPlayerData(data)) ApkBuilder.BuildApk(data, _settings.buildFolderPath);
             });
         }
 
@@ -174,7 +175,7 @@ namespace BuildTools.Editor.Scripts
 
         private void SaveDataChanges()
         {
-            EditorUtility.SetDirty(settings);
+            EditorUtility.SetDirty(_settings);
             EditorUtility.SetDirty(commonBuildData);
             EditorUtility.SetDirty(debugBuildData);
             EditorUtility.SetDirty(releaseBuildData);

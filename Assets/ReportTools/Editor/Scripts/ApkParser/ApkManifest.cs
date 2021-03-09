@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BuildTools.Editor.Scripts.ApkParser
+namespace ReportTools.Editor.Scripts.ApkParser
 {
     public class ApkManifest
     {

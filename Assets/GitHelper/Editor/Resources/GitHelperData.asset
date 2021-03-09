@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e148951b4acc425d9871adcffab3b92f, type: 3}
   m_Name: GitHelperData
   m_EditorClassIdentifier: 
-  version: v1.1.5
+  version: v1.1.7
   token: MjY0MDM3NjAyNDQ3Ogrgu+c0a+HYuJVFWeN5ON83wxie
   projectKey: AAEX
   repositoryName: ivoryfox stable

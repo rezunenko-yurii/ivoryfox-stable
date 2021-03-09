@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace BuildTools.Editor.Scripts.ApkParser
+namespace ReportTools.Editor.Scripts.ApkParser
 {
     public class ApkResourceFinder
     {
