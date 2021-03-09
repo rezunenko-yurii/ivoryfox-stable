@@ -9,6 +9,6 @@
     "email": "exhale@syneforge.com"
   },
   "dependencies": {
-    "com.ivoryfox.toolbar-extender": "1.0.1"
+    "com.ivoryfox.toolbar-extender": "https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=/Assets/ToolbarExtenderPlugin"
   }
 }
