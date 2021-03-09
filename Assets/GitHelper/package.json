@@ -4,9 +4,11 @@
   "displayName": "IvoryFox Git Helper",
   "description": "---",
   "unity": "2019.4",
-  "dependencies": {},
   "author": {
     "name": "exhale",
     "email": "exhale@syneforge.com"
+  },
+  "dependencies": {
+    "com.ivoryfox.toolbar-extender": "1.0.1"
   }
 }
