@@ -17,4 +17,4 @@ MonoBehaviour:
   projectKey: AAEX
   repositoryName: ivoryfox stable
   repositorySlugName: ivoryfox-stable
-  repositoryUrl: https://github.com/rezunenko-yurii/ivoryfox-stable.git
+  repositoryUrl: git@github.com:rezunenko-yurii/ivoryfox-stable.git
