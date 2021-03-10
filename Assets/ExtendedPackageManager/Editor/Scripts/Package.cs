@@ -96,7 +96,7 @@ namespace ExtendedPackageManager.Editor.Scripts
         
         public void TryToUpdate()
         {
-            List<string> toUpdate = new List<string>();
+            List<string> toUpdate = new List<string> {url};
             GetAllGitDependencies(toUpdate);
             UnityRegistryHelper.Download(toUpdate);
         }

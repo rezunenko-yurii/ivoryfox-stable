@@ -16,6 +16,12 @@ namespace ExtendedPackageManager.Editor.Scripts
         {
             if(packages is null || packages.Count == 0) return;
             _packages = packages;
+
+            Debug.Log("Next packages will be installed/updated:");
+            foreach (var package in packages)
+            {
+                Debug.Log(package);
+            }
             
             _listRequest = Client.List();
             EditorApplication.update += ListProgress;
