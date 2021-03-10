@@ -7,11 +7,12 @@ namespace ExtendedPackageManager.Editor.Scripts
     [CreateAssetMenu(fileName = "PackageModel", menuName = "IvoryFox/Create/PackageModel", order = 0)]
     public class Package : ScriptableObject
     {
+        public string packageName;
         public string packageId;
         public PackageTypes type;
         public string url;
         public List<string> unityDependencies = new List<string>();
-        public List<string> gitDependencies = new List<string>();
+        public List<Package> gitDependencies = new List<Package>();
 
         public void Install()
         {
@@ -56,9 +57,9 @@ namespace ExtendedPackageManager.Editor.Scripts
             var helper = ManifestHelper.GetInstance();
             var all = Resources.LoadAll<Package>("");
             
-            foreach (string dependency in gitDependencies)
+            foreach (var dependency in gitDependencies)
             {
-                if (!helper.Contains(dependency))
+                if (!helper.Contains(dependency.url))
                 {
                     var p = all.FirstOrDefault(x => x.packageId.Equals(dependency));
                     if (p != null)
@@ -67,6 +68,29 @@ namespace ExtendedPackageManager.Editor.Scripts
                     }
                 }
             }
+        }
+
+        public List<string> GetAllGitDependencies(List<string> toUpdate)
+        {
+            foreach (Package gitDependency in gitDependencies)
+            {
+                if (!toUpdate.Contains(gitDependency.url))
+                {
+                    toUpdate.Add(gitDependency.url);
+                    
+                    var n = gitDependency.GetAllGitDependencies(toUpdate);
+                    toUpdate = toUpdate.Concat(n).ToList();
+                }
+            }
+
+            return toUpdate;
+        }
+        
+        public void TryToUpdate()
+        {
+            List<string> toUpdate = new List<string>();
+            GetAllGitDependencies(toUpdate);
+            UnityRegistryHelper.Download(toUpdate);
         }
     }
 }

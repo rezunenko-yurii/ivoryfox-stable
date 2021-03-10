@@ -45,8 +45,11 @@ namespace ExtendedPackageManager.Editor.Scripts
             foreach (var package in _packages)
             {
                 Debug.Log($"Checking {package}...");
-                    
-                if (_listRequest.Result.Any(p => p.name.Equals(package)))
+                
+                Debug.Log($"Downloading and installing {package}...");
+                Client.Add(package);
+                
+                /*if (_listRequest.Result.Any(p => p.name.Equals(package)))
                 {
                     Debug.Log($"{package} is already in project");
                 }
@@ -54,7 +57,7 @@ namespace ExtendedPackageManager.Editor.Scripts
                 {
                     Debug.Log($"Downloading and installing {package}...");
                     Client.Add(package);
-                }
+                }*/
             }
 
             _packages = null;
