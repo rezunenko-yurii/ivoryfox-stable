@@ -25,7 +25,7 @@ namespace ExtendedPackageManager.Editor.Scripts
                 GUI.backgroundColor = Color.green;
                 if(GUILayout.Button("Install"))
                 {
-                    package.Install();
+                    package.InstallOrUpdate();
                 }
             }
         }

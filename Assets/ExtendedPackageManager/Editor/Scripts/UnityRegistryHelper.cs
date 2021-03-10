@@ -46,12 +46,13 @@ namespace ExtendedPackageManager.Editor.Scripts
 
         private static void TryToDownload()
         {
-            Debug.Log($"Trying To Download Unity Registry Packages | found files {_packages.Count} to download");
+            //Debug.Log($"Trying To Download Unity Registry Packages | found files {_packages.Count} to download");
 
             foreach (var package in _packages)
             {
-                Debug.Log($"Checking {package}...");
+                //Debug.Log($"Checking {package}...");
                 
+                Debug.Log($"---------------------");
                 Debug.Log($"Downloading and installing {package}...");
                 Client.Add(package);
                 

@@ -52,7 +52,7 @@ public class PackageManagerWindow : EditorWindow
                 GUI.backgroundColor = Color.yellow;
                 if (GUILayout.Button("Update"))
                 {
-                    package.TryToUpdate();
+                    package.InstallOrUpdate();
                 }
                 
                 GUI.backgroundColor = Color.red;
@@ -66,7 +66,7 @@ public class PackageManagerWindow : EditorWindow
                 GUI.backgroundColor = Color.green;
                 if (GUILayout.Button("Install"))
                 {
-                    package.Install();
+                    package.InstallOrUpdate();
                 }
             }
 

@@ -14,11 +14,12 @@ namespace ExtendedPackageManager.Editor.Scripts
         public List<string> unityDependencies = new List<string>();
         public List<Package> gitDependencies = new List<Package>();
 
-        public void Install()
+        public void InstallOrUpdate()
         {
-            List<string> toUpdate = new List<string>();
-            toUpdate.Add(url);
+            List<string> toUpdate = new List<string> {url};
             GetAllGitDependencies(toUpdate);
+            toUpdate.Reverse();
+            
             UnityRegistryHelper.Download(toUpdate);
             
             /*var helper = ManifestHelper.GetInstance();
@@ -69,7 +70,7 @@ namespace ExtendedPackageManager.Editor.Scripts
                     var p = all.FirstOrDefault(x => x.packageId.Equals(dependency.url));
                     if (p != null)
                     {
-                        p.Install();
+                        p.InstallOrUpdate();
                     }
                 }
             }
@@ -92,14 +93,6 @@ namespace ExtendedPackageManager.Editor.Scripts
             }
 
             return toUpdate;
-        }
-        
-        public void TryToUpdate()
-        {
-            List<string> toUpdate = new List<string> {url};
-            GetAllGitDependencies(toUpdate);
-            toUpdate.Reverse();
-            UnityRegistryHelper.Download(toUpdate);
         }
     }
 }
