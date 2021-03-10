@@ -14,7 +14,7 @@ namespace ExtendedPackageManager.Editor.Scripts
         private static ManifestHelper _instance;
         public static ManifestHelper GetInstance() => _instance ??= new ManifestHelper();
 
-        [MenuItem("Ivoryfox/Reload ManifestHelper")]
+        [MenuItem("IvoryFox/Reload ManifestHelper")]
         public static void Reload()
         {
             GetInstance().Read(true);
