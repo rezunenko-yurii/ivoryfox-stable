@@ -10,6 +10,7 @@ namespace ExtendedPackageManager.Editor.Scripts
     public static class UnityRegistryHelper
     {
         static ListRequest _listRequest;
+        static AddRequest _addRequest;
         private static List<string> _packages;
 
         public static void Download(List<string> packages)
@@ -23,8 +24,10 @@ namespace ExtendedPackageManager.Editor.Scripts
                 Debug.Log(package);
             }
             
-            _listRequest = Client.List();
-            EditorApplication.update += ListProgress;
+            TryToDownload();
+            
+            /*_listRequest = Client.List();
+            EditorApplication.update += ListProgress;*/
         }
 
         static void ListProgress()
@@ -48,15 +51,22 @@ namespace ExtendedPackageManager.Editor.Scripts
         {
             //Debug.Log($"Trying To Download Unity Registry Packages | found files {_packages.Count} to download");
 
-            foreach (var package in _packages)
+            if (_packages.Count > 0)
             {
-                //Debug.Log($"Checking {package}...");
+                string f = _packages.First();
+                _packages.RemoveAt(0);
                 
                 Debug.Log($"---------------------");
-                Debug.Log($"Downloading and installing {package}...");
-                Client.Add(package);
-                
-                /*if (_listRequest.Result.Any(p => p.name.Equals(package)))
+                Debug.Log($"Downloading and installing {f}...");
+                _addRequest = Client.Add(f);
+                EditorApplication.update += AddProgress;
+            }
+
+            /*foreach (var package in _packages)
+            {
+                //Debug.Log($"Checking {package}...");
+
+                if (_listRequest.Result.Any(p => p.name.Equals(package)))
                 {
                     Debug.Log($"{package} is already in project");
                 }
@@ -64,10 +74,27 @@ namespace ExtendedPackageManager.Editor.Scripts
                 {
                     Debug.Log($"Downloading and installing {package}...");
                     Client.Add(package);
-                }*/
-            }
+                }
+            }*/
 
-            _packages = null;
+            //_packages = null;
+        }
+
+        private static void AddProgress()
+        {
+            if (_addRequest.IsCompleted)
+            {
+                EditorApplication.update -= AddProgress;
+                
+                if (_addRequest.Status == StatusCode.Success)
+                {
+                    TryToDownload();
+                }
+                else if (_addRequest.Status >= StatusCode.Failure)
+                {
+                    Debug.Log(_addRequest.Error.message);
+                }
+            }
         }
     }
 }
