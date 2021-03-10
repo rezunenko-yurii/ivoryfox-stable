@@ -61,7 +61,7 @@ namespace ExtendedPackageManager.Editor.Scripts
             {
                 if (!helper.Contains(dependency.url))
                 {
-                    var p = all.FirstOrDefault(x => x.packageId.Equals(dependency));
+                    var p = all.FirstOrDefault(x => x.packageId.Equals(dependency.url));
                     if (p != null)
                     {
                         p.Install();
