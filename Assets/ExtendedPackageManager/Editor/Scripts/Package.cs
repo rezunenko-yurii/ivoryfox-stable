@@ -98,6 +98,7 @@ namespace ExtendedPackageManager.Editor.Scripts
         {
             List<string> toUpdate = new List<string> {url};
             GetAllGitDependencies(toUpdate);
+            toUpdate.Reverse();
             UnityRegistryHelper.Download(toUpdate);
         }
     }
