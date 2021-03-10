@@ -19,4 +19,4 @@ MonoBehaviour:
   unityDependencies:
   - com.unity.remote-config
   gitDependencies:
-  - com.ivoryfox.toolbar-extender
+  - {fileID: 11400000, guid: 38de392f148b922448aeded6a8f19e23, type: 2}

@@ -72,15 +72,18 @@ namespace ExtendedPackageManager.Editor.Scripts
 
         public List<string> GetAllGitDependencies(List<string> toUpdate)
         {
-            foreach (Package gitDependency in gitDependencies)
+            if (gitDependencies != null)
             {
-                if (!toUpdate.Contains(gitDependency.url))
+                foreach (Package package in gitDependencies)
                 {
-                    toUpdate.Add(gitDependency.url);
+                    if (!toUpdate.Contains(package.url))
+                    {
+                        toUpdate.Add(package.url);
                     
-                    var n = gitDependency.GetAllGitDependencies(toUpdate);
-                    toUpdate = toUpdate.Concat(n).ToList();
-                }
+                        var n = package.GetAllGitDependencies(toUpdate);
+                        toUpdate = toUpdate.Concat(n).ToList();
+                    }
+                } 
             }
 
             return toUpdate;
