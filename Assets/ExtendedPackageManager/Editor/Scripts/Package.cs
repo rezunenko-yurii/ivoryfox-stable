@@ -16,7 +16,12 @@ namespace ExtendedPackageManager.Editor.Scripts
 
         public void Install()
         {
-            var helper = ManifestHelper.GetInstance();
+            List<string> toUpdate = new List<string>();
+            toUpdate.Add(url);
+            GetAllGitDependencies(toUpdate);
+            UnityRegistryHelper.Download(toUpdate);
+            
+            /*var helper = ManifestHelper.GetInstance();
             helper.Read();
 
             if (!helper.Contains(packageId))
@@ -25,7 +30,7 @@ namespace ExtendedPackageManager.Editor.Scripts
                 WriteAndUpdate();
 
                 CheckDependencies();
-            }
+            }*/
         }
 
         public void Remove()
