@@ -18,19 +18,15 @@ namespace ExtendedPackageManager.Editor.Scripts
             if(packages is null || packages.Count == 0) return;
             _packages = packages;
 
-            Debug.Log("Next packages will be installed/updated:");
-            foreach (var package in packages)
-            {
-                Debug.Log(package);
-            }
-            
-            TryToDownload();
-            
+            AddPackages(_packages);
+
+            //TryToDownload();
+
             /*_listRequest = Client.List();
             EditorApplication.update += ListProgress;*/
         }
 
-        static void ListProgress()
+        /*static void ListProgress()
         {
             if (_listRequest.IsCompleted)
             {
@@ -45,9 +41,9 @@ namespace ExtendedPackageManager.Editor.Scripts
 
                 EditorApplication.update -= ListProgress;
             }
-        }
+        }*/
 
-        private static void TryToDownload()
+        /*private static void TryToDownload()
         {
             //Debug.Log($"Trying To Download Unity Registry Packages | found files {_packages.Count} to download");
 
@@ -75,7 +71,7 @@ namespace ExtendedPackageManager.Editor.Scripts
                     Debug.Log($"Downloading and installing {package}...");
                     Client.Add(package);
                 }
-            }*/
+            }#1#
 
             //_packages = null;
         }
@@ -93,6 +89,37 @@ namespace ExtendedPackageManager.Editor.Scripts
                 else if (_addRequest.Status >= StatusCode.Failure)
                 {
                     Debug.Log(_addRequest.Error.message);
+                }
+            }
+        }*/
+        
+        private static void AddPackage(string package)
+        {
+            AddPackage(new List<string> {package});
+        }
+ 
+        private static void AddPackage(List<string> package)
+        {
+            AddPackages(package);
+        }
+ 
+        private static void AddPackages(List<string> packageList)
+        {
+            foreach (string package in packageList)
+            {
+                if (!string.IsNullOrEmpty(package))
+                {
+                    AddRequest request = Client.Add(package);
+ 
+                    while (!request.IsCompleted)
+                    {
+                        System.Threading.Tasks.Task.Delay(100);
+                    }
+ 
+                    if (request.Status != StatusCode.Success)
+                    {
+                        Debug.LogError("Cannot import " + package + ": " + request.Error.message);
+                    }
                 }
             }
         }
