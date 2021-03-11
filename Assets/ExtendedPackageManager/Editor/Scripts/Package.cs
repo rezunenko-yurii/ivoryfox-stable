@@ -21,6 +21,7 @@ namespace ExtendedPackageManager.Editor.Scripts
             toUpdate.Reverse();
             
             UnityRegistryHelper.Download(toUpdate);
+            UnityRegistryHelper.Download(unityDependencies);
             
             /*var helper = ManifestHelper.GetInstance();
             helper.Read();
@@ -36,29 +37,30 @@ namespace ExtendedPackageManager.Editor.Scripts
 
         public void Remove()
         {
-            var helper = ManifestHelper.GetInstance();
+            UnityRegistryHelper.Remove(new List<string>(){packageId});
+            /*var helper = ManifestHelper.GetInstance();
 
             helper.Remove(packageId);
-            WriteAndUpdate();
+            WriteAndUpdate();*/
         }
 
-        private void WriteAndUpdate()
+        /*private void WriteAndUpdate()
         {
             ManifestHelper.GetInstance().Write();
-        }
+        }*/
 
-        private void CheckDependencies()
+        /*private void CheckDependencies()
         {
             LoadGitDependencies();
             LoadUnityDependecies();
-        }
+        }*/
 
-        private void LoadUnityDependecies()
+        /*private void LoadUnityDependecies()
         {
             UnityRegistryHelper.Download(unityDependencies);
-        }
+        }*/
 
-        private void LoadGitDependencies()
+        /*private void LoadGitDependencies()
         {
             var helper = ManifestHelper.GetInstance();
             var all = Resources.LoadAll<Package>("");
@@ -74,7 +76,7 @@ namespace ExtendedPackageManager.Editor.Scripts
                     }
                 }
             }
-        }
+        }*/
 
         public List<string> GetAllGitDependencies(List<string> toUpdate)
         {
