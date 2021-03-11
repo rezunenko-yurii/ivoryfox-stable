@@ -24,6 +24,7 @@ namespace GitHelper.Editor.Scripts
 
         private const string GitHelperFirstInit = "GitHelperFirstInit";
         [InitializeOnLoadMethod]
+        [MenuItem("IvoryFox/Git Helper/First Init")]
         private static void FirstInit()
         {
             int d = PlayerPrefs.GetInt(GitHelperFirstInit, 0);

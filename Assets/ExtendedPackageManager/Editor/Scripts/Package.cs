@@ -22,62 +22,12 @@ namespace ExtendedPackageManager.Editor.Scripts
             
             UnityRegistryHelper.Download(toUpdate);
             UnityRegistryHelper.Download(unityDependencies);
-            
-            /*var helper = ManifestHelper.GetInstance();
-            helper.Read();
-
-            if (!helper.Contains(packageId))
-            {
-                helper.Add(packageId, url);
-                WriteAndUpdate();
-
-                CheckDependencies();
-            }*/
         }
 
         public void Remove()
         {
             UnityRegistryHelper.Remove(new List<string>(){packageId});
-            /*var helper = ManifestHelper.GetInstance();
-
-            helper.Remove(packageId);
-            WriteAndUpdate();*/
         }
-
-        /*private void WriteAndUpdate()
-        {
-            ManifestHelper.GetInstance().Write();
-        }*/
-
-        /*private void CheckDependencies()
-        {
-            LoadGitDependencies();
-            LoadUnityDependecies();
-        }*/
-
-        /*private void LoadUnityDependecies()
-        {
-            UnityRegistryHelper.Download(unityDependencies);
-        }*/
-
-        /*private void LoadGitDependencies()
-        {
-            var helper = ManifestHelper.GetInstance();
-            var all = Resources.LoadAll<Package>("");
-            
-            foreach (var dependency in gitDependencies)
-            {
-                if (!helper.Contains(dependency.url))
-                {
-                    var p = all.FirstOrDefault(x => x.packageId.Equals(dependency.url));
-                    if (p != null)
-                    {
-                        p.InstallOrUpdate();
-                    }
-                }
-            }
-        }*/
-
         public List<string> GetAllGitDependencies(List<string> toUpdate)
         {
             if (gitDependencies != null)
