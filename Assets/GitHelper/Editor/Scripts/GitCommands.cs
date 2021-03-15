@@ -121,7 +121,7 @@ namespace GitHelper.Editor.Scripts
                 WriteLog("Trying to commit...");
                 
                 string s = "/k git add -A" 
-                           + $" && git commit -m \"{message}\"" 
+                           + $" && git commit --no-verify -m \"{message}\"" 
                            + " & pause";
                 StartCmd(s); 
                 WriteLog("Commit created");
