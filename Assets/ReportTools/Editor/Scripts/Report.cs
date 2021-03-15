@@ -8,18 +8,16 @@ using UnityEngine;
 
 namespace ReportTools.Editor.Scripts
 {
-    public class Report
+    public static class Report
     {
-        //private static string GetFullApkPath(BuildData buildData, string buildFolder) => $"{buildFolder}/{buildData.GetApkName}";
-
-        /*public static void CreateReport(BuildData buildData, BuildToolsSettings settings)
-        {
-            var info = ApkManifestReader.ReadApkFromPath(GetFullApkPath(buildData, settings.buildFolderPath), settings.apkSignerPath);
-            AnalyzeReport(info,buildData, settings.buildFolderPath);
-        }*/
-        
         public static void CreateReport(string apkLocation, string apkSignerPath)
         {
+            if (!Directory.Exists(apkSignerPath))
+            {
+                Debug.LogError($"{apkSignerPath} doesn`t exists");
+                return;
+            }
+
             var info = ApkManifestReader.ReadApkFromPath(apkLocation, apkSignerPath);
             AnalyzeReport(info, apkLocation);
         }
