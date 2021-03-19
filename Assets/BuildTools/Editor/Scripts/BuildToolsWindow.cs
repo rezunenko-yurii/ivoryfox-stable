@@ -228,8 +228,5 @@ namespace BuildTools.Editor.Scripts
             if (digits.Length == 0) return commonBuildData.taskNumber;
             else return digits;
         }
-
-        /*public int callbackOrder { get; }
-        public void OnPreprocessBuild(BuildReport report) => PipelineBuilder.PreprocessBuildCheck();*/
     }
 }

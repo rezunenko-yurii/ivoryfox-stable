@@ -40,6 +40,6 @@ namespace BuildTools.Editor.Scripts
             return !a.Any(string.IsNullOrEmpty);
         }
         
-        public string GetApkName => $"V{PlayerSettings.bundleVersion}_{taskNumber}_{(development ? "test" : "release")}.apk";
+        public string GetApkName => $"V{PlayerSettings.bundleVersion}_{taskNumber}_{(development ? "test" : "release")}_{BuildVersion.GetBuildVersionAsString()}.apk";
     }
 }

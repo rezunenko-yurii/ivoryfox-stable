@@ -25,12 +25,13 @@ namespace BuildTools.Editor.Scripts
                 scenes = GetScenePaths(),
                 locationPathName = buildPath
             };
-
+            
             var report = BuildPipeline.BuildPlayer(buildPlayerOptions);
             Debug.Log($"Build {(report.summary.result == BuildResult.Succeeded ? $"<color=green>{report.summary.result.ToString()}</color>" : $"<color=red>{report.summary.result.ToString()}</color>")}");
             
             if (report.summary.result != BuildResult.Succeeded) return;
             
+            BuildVersion.IncreaseNumber();
             EditorUtility.RevealInFinder(buildPath);
         }
 
