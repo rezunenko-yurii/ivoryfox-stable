@@ -35,6 +35,9 @@ namespace BuildTools.Editor.Scripts
                 Debug.Log($"Build <color=green>{report.summary.result.ToString()}</color>");
                 
                 data.buildVersion.Increase();
+                EditorUtility.SetDirty(data);
+                AssetDatabase.SaveAssets();
+                
                 EditorUtility.RevealInFinder(buildPath);
                 
                 OnBuildSuccess?.Invoke();
