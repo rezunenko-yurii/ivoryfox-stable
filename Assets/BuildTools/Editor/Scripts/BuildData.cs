@@ -9,6 +9,7 @@ namespace BuildTools.Editor.Scripts
     [Serializable, CreateAssetMenu(fileName = "BuildData", menuName = "IvoryFox/Build Tools/Create BuildData")]
     public class BuildData : ScriptableObject
     {
+        public BuildVersion buildVersion;
         public string taskNumber;
         public string productName;
         public string packageId;
@@ -32,14 +33,14 @@ namespace BuildTools.Editor.Scripts
     
         public bool IsAllDataInput()
         {
-            List<string> a = new List<string>()
-            {
-                taskNumber, companyName, productName, packageId, companyName, productVersion
-            };
-        
+            List<string> a = new List<string>{taskNumber, companyName, productName, packageId, companyName, productVersion};
             return !a.Any(string.IsNullOrEmpty);
         }
-        
-        public string GetApkName => $"V{PlayerSettings.bundleVersion}_{taskNumber}_{(development ? "test" : "release")}_{BuildVersion.GetBuildVersionAsString()}.apk";
+
+        public string GetApkName(bool next = false)
+        {
+            string build = next ? buildVersion.GetNextBuildVersionAsString() : buildVersion.GetBuildVersionAsString();
+            return $"V{PlayerSettings.bundleVersion}_{taskNumber}_{(development ? "test" : "release")}_{build}.apk";
+        }
     }
 }

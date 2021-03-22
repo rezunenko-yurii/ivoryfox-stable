@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: v1.1.0
   apiKey: c795fcf9df597d517964a458c71324f4
-  contentFolderPath: C:/Projects/Games/STPN-13197 Match Gifts/Assets/CloudContentDelivery/Editor/Resources/Content
+  contentFolderPath: C:/Projects/Games/dunk-fall-ball/Assets/CloudContentDelivery/Editor/Resources/Content
   lastBucketData: {fileID: 11400000, guid: ba7a99c7644b4441ab75da5bc4860367, type: 2}

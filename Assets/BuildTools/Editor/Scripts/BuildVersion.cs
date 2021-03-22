@@ -1,13 +1,13 @@
-using UnityEngine;
+using System;
 
 namespace BuildTools.Editor.Scripts
 {
-    public static class BuildVersion
+    [Serializable]
+    public class BuildVersion
     {
-        private const string BuildNumberConst = "build_number";
-
-        public static int CurrentNumber() => PlayerPrefs.GetInt(BuildNumberConst, 1);
-        public static void IncreaseNumber() => PlayerPrefs.SetInt(BuildNumberConst, CurrentNumber() + 1);
-        public static string GetBuildVersionAsString() => $"build_{CurrentNumber()}";
+        public int currentNumber = 0;
+        public string GetBuildVersionAsString() => $"build_{currentNumber}";
+        public string GetNextBuildVersionAsString() => $"build_{currentNumber + 1}";
+        public void Increase() => currentNumber++;
     }
 }

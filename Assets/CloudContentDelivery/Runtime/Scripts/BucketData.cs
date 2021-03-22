@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using CloudContentDeliveryManagment.Model;
 using UnityEngine;
 
-namespace CloudContentDelivery.Editor.Scripts
+namespace CloudContentDelivery.Runtime.Scripts
 {
     [Serializable]
     [CreateAssetMenu(fileName = "BucketSettings", menuName = "IvoryFox/Create Bucket Settings", order = 0)]

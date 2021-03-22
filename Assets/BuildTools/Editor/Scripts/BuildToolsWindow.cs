@@ -11,14 +11,14 @@ namespace BuildTools.Editor.Scripts
 {
     public class BuildToolsWindow : EditorWindow
     {
-        private BuildData commonBuildData;
-        private BuildData releaseBuildData;
-        private BuildData debugBuildData;
+        private BuildData _commonBuildData;
+        private BuildData _releaseBuildData;
+        private BuildData _debugBuildData;
         private static BuildToolsSettings _settings;
 
-        private EnumField screenOrientationField;
-        private TextField taskNumberField;
-        private TextField appVersionField;
+        private EnumField _screenOrientationField;
+        private TextField _taskNumberField;
+        private TextField _appVersionField;
     
         [MenuItem("IvoryFox/Build Tools")]
         public static void ShowWindow() => GetWindow<BuildToolsWindow>("Build Tools");
@@ -27,6 +27,7 @@ namespace BuildTools.Editor.Scripts
         {
             var visualTree = Resources.Load<VisualTreeAsset>("BuildToolsUI");
             visualTree.CloneTree(rootVisualElement);
+            
             Connect();
             OnSelectionChange();
         }
@@ -34,9 +35,9 @@ namespace BuildTools.Editor.Scripts
         private void Connect()
         {
             _settings = Resources.Load<BuildToolsSettings>("BuildToolsSettings");
-            commonBuildData = Resources.Load<BuildData>("BuildData_Common");
-            debugBuildData = Resources.Load<BuildData>("BuildData_Debug");
-            releaseBuildData = Resources.Load<BuildData>("BuildData_Release");
+            _commonBuildData = Resources.Load<BuildData>("BuildData_Common");
+            _debugBuildData = Resources.Load<BuildData>("BuildData_Debug");
+            _releaseBuildData = Resources.Load<BuildData>("BuildData_Release");
             
             var buildToolsVersionLabel = rootVisualElement.Q<Label>("BuildToolsVersionLabel");
             buildToolsVersionLabel.text = _settings.version;
@@ -69,51 +70,51 @@ namespace BuildTools.Editor.Scripts
                 _settings.buildFolderPath = buildPathTextField.value;
             });
             
-            screenOrientationField = rootVisualElement.Q<EnumField>("ScreenOrientationEnum");
-            screenOrientationField.Init(commonBuildData.screenOrientation);
-            screenOrientationField.value = commonBuildData.screenOrientation;
-            screenOrientationField.RegisterCallback<ChangeEvent<Enum>>((evt) =>
+            _screenOrientationField = rootVisualElement.Q<EnumField>("ScreenOrientationEnum");
+            _screenOrientationField.Init(_commonBuildData.screenOrientation);
+            _screenOrientationField.value = _commonBuildData.screenOrientation;
+            _screenOrientationField.RegisterCallback<ChangeEvent<Enum>>((evt) =>
             {
-                Debug.Log($"Changed Screen Orientation | from {commonBuildData.screenOrientation} to {(UIOrientation) evt.newValue}");
-                commonBuildData.screenOrientation = (UIOrientation) evt.newValue;
+                Debug.Log($"Changed Screen Orientation | from {_commonBuildData.screenOrientation} to {(UIOrientation) evt.newValue}");
+                _commonBuildData.screenOrientation = (UIOrientation) evt.newValue;
             });
 
-            taskNumberField = rootVisualElement.Q<TextField>("TaskNumberField");
-            taskNumberField.value = commonBuildData.taskNumber;
-            taskNumberField.RegisterCallback<InputEvent>((evt) =>
+            _taskNumberField = rootVisualElement.Q<TextField>("TaskNumberField");
+            _taskNumberField.value = _commonBuildData.taskNumber;
+            _taskNumberField.RegisterCallback<InputEvent>((evt) =>
             {
-                Debug.Log($"Changed Task Number | from {commonBuildData.taskNumber} to {evt.newData}");
-                commonBuildData.taskNumber = evt.newData;
+                Debug.Log($"Changed Task Number | from {_commonBuildData.taskNumber} to {evt.newData}");
+                _commonBuildData.taskNumber = evt.newData;
             });
             
-            if (string.IsNullOrEmpty(commonBuildData.taskNumber))
+            if (string.IsNullOrEmpty(_commonBuildData.taskNumber))
             {
-                taskNumberField.value = SetTaskNumber();
-                commonBuildData.taskNumber = taskNumberField.value;
+                _taskNumberField.value = SetTaskNumber();
+                _commonBuildData.taskNumber = _taskNumberField.value;
             }
             
             var autoSetTaskNumberToggle = rootVisualElement.Q<Button>("SetTaskNumberButton");
             autoSetTaskNumberToggle.RegisterCallback<MouseUpEvent>((evt) =>
             {
                 var newTaskNumber = SetTaskNumber();
-                Debug.Log($"Changed Task Number from Button | from {commonBuildData.taskNumber} to {newTaskNumber}");
-                commonBuildData.taskNumber = newTaskNumber;
-                taskNumberField.value = newTaskNumber;
+                Debug.Log($"Changed Task Number from Button | from {_commonBuildData.taskNumber} to {newTaskNumber}");
+                _commonBuildData.taskNumber = newTaskNumber;
+                _taskNumberField.value = newTaskNumber;
             });
 
-            appVersionField = rootVisualElement.Q<TextField>("AppVersionField");
-            appVersionField.value = commonBuildData.productVersion;
-            appVersionField.RegisterCallback<InputEvent>((evt) =>
+            _appVersionField = rootVisualElement.Q<TextField>("AppVersionField");
+            _appVersionField.value = _commonBuildData.productVersion;
+            _appVersionField.RegisterCallback<InputEvent>((evt) =>
             {
-                Debug.Log($"Changed App Version | from {commonBuildData.productVersion} to {evt.newData}");
-                commonBuildData.productVersion = evt.newData;
+                Debug.Log($"Changed App Version | from {_commonBuildData.productVersion} to {evt.newData}");
+                _commonBuildData.productVersion = evt.newData;
             });
             
             var uxmlButton = rootVisualElement.Q<Button>("SaveAllDataButton");
             uxmlButton.RegisterCallback<MouseUpEvent>((evt) => SaveDataChanges());
 
-            ConnectSpecificData(debugBuildData, "Debug");
-            ConnectSpecificData(releaseBuildData, "Release");
+            ConnectSpecificData(_debugBuildData, "Debug");
+            ConnectSpecificData(_releaseBuildData, "Release");
         }
 
         private void ConnectSpecificData(BuildData data, string key)
@@ -152,7 +153,7 @@ namespace BuildTools.Editor.Scripts
             var reportButton = rootVisualElement.Q<Button>(key + "ReportButton");
             reportButton.RegisterCallback<MouseUpEvent>((evt) =>
             {
-                if (SetPlayerData(data)) Report.CreateReport($"{_settings.buildFolderPath}/{data.GetApkName}", _settings.apkSignerPath);
+                if (SetPlayerData(data)) Report.CreateReport($"{_settings.buildFolderPath}/{data.GetApkName()}", _settings.apkSignerPath);
             });
             
             var buildButton = rootVisualElement.Q<Button>(key + "BuildButton");
@@ -176,9 +177,9 @@ namespace BuildTools.Editor.Scripts
         private void SaveDataChanges()
         {
             EditorUtility.SetDirty(_settings);
-            EditorUtility.SetDirty(commonBuildData);
-            EditorUtility.SetDirty(debugBuildData);
-            EditorUtility.SetDirty(releaseBuildData);
+            EditorUtility.SetDirty(_commonBuildData);
+            EditorUtility.SetDirty(_debugBuildData);
+            EditorUtility.SetDirty(_releaseBuildData);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
@@ -188,9 +189,9 @@ namespace BuildTools.Editor.Scripts
 
         private bool SetPlayerData(BuildData data)
         {
-            data.productVersion = commonBuildData.productVersion;
-            data.screenOrientation = commonBuildData.screenOrientation;
-            data.taskNumber = commonBuildData.taskNumber;
+            data.productVersion = _commonBuildData.productVersion;
+            data.screenOrientation = _commonBuildData.screenOrientation;
+            data.taskNumber = _commonBuildData.taskNumber;
             
             if (!data.IsAllDataInput())
             {
@@ -225,7 +226,7 @@ namespace BuildTools.Editor.Scripts
             string projectName = s[s.Length - 2];
             string digits = String.Join("", projectName.Where(char.IsDigit));
 
-            if (digits.Length == 0) return commonBuildData.taskNumber;
+            if (digits.Length == 0) return _commonBuildData.taskNumber;
             else return digits;
         }
     }

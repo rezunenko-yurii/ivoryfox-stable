@@ -8,6 +8,8 @@ namespace BuildTools.Editor.Scripts
 {
     public static class ApkBuilder
     {
+        public static event Action OnBuildSuccess;
+        public static event Action OnBuildFailed;
         public static void BuildApk(BuildData data, string buildsFolderPath)
         {
             ManifestsChecker.Inspect();
@@ -15,7 +17,7 @@ namespace BuildTools.Editor.Scripts
             CheckIcons();
             if (!data.development && !KeyGenerator.DetectKey("STPN-" + data.taskNumber)) Debug.LogError("Нет ключа");
 
-            string buildPath = $"{buildsFolderPath}\\{data.GetApkName}";
+            string buildPath = $"{buildsFolderPath}\\{data.GetApkName(true)}";
             Debug.Log($"<color=green>Полный путь apk {buildPath}</color>");
             
             var buildPlayerOptions = new BuildPlayerOptions
@@ -27,12 +29,22 @@ namespace BuildTools.Editor.Scripts
             };
             
             var report = BuildPipeline.BuildPlayer(buildPlayerOptions);
-            Debug.Log($"Build {(report.summary.result == BuildResult.Succeeded ? $"<color=green>{report.summary.result.ToString()}</color>" : $"<color=red>{report.summary.result.ToString()}</color>")}");
             
-            if (report.summary.result != BuildResult.Succeeded) return;
-            
-            BuildVersion.IncreaseNumber();
-            EditorUtility.RevealInFinder(buildPath);
+            if (report.summary.result == BuildResult.Succeeded)
+            {
+                Debug.Log($"Build <color=green>{report.summary.result.ToString()}</color>");
+                
+                data.buildVersion.Increase();
+                EditorUtility.RevealInFinder(buildPath);
+                
+                OnBuildSuccess?.Invoke();
+            }
+            else
+            {
+                Debug.Log($"Build <color=red>{report.summary.result.ToString()}</color>");
+                
+                OnBuildFailed?.Invoke();
+            }
         }
 
         private static void CheckIcons()

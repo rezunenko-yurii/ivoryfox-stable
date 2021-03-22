@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using CloudContentDelivery.Runtime.Scripts;
 using CloudContentDeliveryManagment.Api;
 using CloudContentDeliveryManagment.Model;
 using UnityEditor;
