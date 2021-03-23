@@ -283,6 +283,11 @@ public class UniWebViewInterface {
         plugin.CallStatic("print", name);
     }
 
+    public static void CaptureSnapshot(string name, string filename) { 
+        CheckPlatform();
+        plugin.CallStatic("captureSnapshot", name, filename);
+    }
+
     public static void ScrollTo(string name, int x, int y, bool animated) {
         CheckPlatform();
         plugin.CallStatic("scrollTo", name, x, y, animated);

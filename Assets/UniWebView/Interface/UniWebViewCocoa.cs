@@ -522,6 +522,13 @@ public class UniWebViewInterface {
     }
 
     [DllImport(DllLib)]
+    private static extern void uv_captureSnapshot(string name, string fileName);
+    public static void CaptureSnapshot(string name, string fileName) {
+        CheckPlatform();
+        uv_captureSnapshot(name, fileName);
+    }
+
+    [DllImport(DllLib)]
     private static extern void uv_scrollTo(string name, int x, int y, bool animated);
     public static void ScrollTo(string name, int x, int y, bool animated) {
         CheckPlatform();
@@ -567,6 +574,41 @@ public class UniWebViewInterface {
         #else
         return uv_nativeScreenHeight();
         #endif
+    }
+
+    [DllImport(DllLib)]
+    private static extern void uv_addDownloadURL(string name, string urlString);
+    public static void AddDownloadURL(string name, string urlString) {
+        CheckPlatform();
+        uv_addDownloadURL(name, urlString);
+    }
+
+    [DllImport(DllLib)]
+    private static extern void uv_removeDownloadURL(string name, string urlString);
+    public static void RemoveDownloadURL(string name, string urlString) {
+        CheckPlatform();
+        uv_removeDownloadURL(name, urlString);
+    }
+
+    [DllImport(DllLib)]
+    private static extern void uv_addDownloadMIMEType(string name, string MIMEType);
+    public static void AddDownloadMIMEType(string name, string MIMEType) {
+        CheckPlatform();
+        uv_addDownloadMIMEType(name, MIMEType);
+    }
+
+    [DllImport(DllLib)]
+    private static extern void uv_removeDownloadMIMETypes(string name, string MIMEType);
+    public static void RemoveDownloadMIMETypes(string name, string MIMEType) {
+        CheckPlatform();
+        uv_removeDownloadMIMETypes(name, MIMEType);
+    }
+
+    [DllImport(DllLib)]
+    private static extern void uv_setAllowUserChooseActionAfterDownloading(string name, bool allowed);
+    public static void SetAllowUserChooseActionAfterDownloading(string name, bool allowed) {
+        CheckPlatform();
+        uv_setAllowUserChooseActionAfterDownloading(name, allowed);
     }
 
     [DllImport(DllLib)]

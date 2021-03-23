@@ -62,6 +62,7 @@ public class UniWebViewInterface {
     public static void SetWebContentsDebuggingEnabled(bool enabled) { CheckPlatform(); }
     public static void SetAllowHTTPAuthPopUpWindow(string name, bool flag) { CheckPlatform(); }
     public static void Print(string name) { CheckPlatform(); }
+    public static void CaptureSnapshot(string name, string filename) { CheckPlatform(); }
     public static void SetCalloutEnabled(string name, bool flag) { CheckPlatform(); }
     public static void SetSupportMultipleWindows(string name, bool flag) { CheckPlatform(); }
     public static void SetDragInteractionEnabled(string name, bool flag) { CheckPlatform(); }

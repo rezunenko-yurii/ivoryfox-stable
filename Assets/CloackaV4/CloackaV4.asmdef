@@ -1,0 +1,19 @@
+{
+    "name": "CloackaV4",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1102bbe56ede3b644b8ff5a859e2434d",
+        "GUID:dde7fcfde9ad367408184a5296d2dc6a",
+        "GUID:b158e58fb8bd8774d83f310915b25b64",
+        "GUID:4ca033ee547ec451c8a2d3c33d7620ad"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

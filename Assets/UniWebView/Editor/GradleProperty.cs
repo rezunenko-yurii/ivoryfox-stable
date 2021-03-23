@@ -23,7 +23,7 @@ public class UniWebViewGradlePropertyPatcher {
             builder.AppendLine("android.useAndroidX=true");
         }
 
-        if (!hasJetifierProperty) {
+        if (!hasJetifierProperty && UniWebViewEditorSettings.GetOrCreateSettings().enableJetifier) {
             builder.AppendLine("android.enableJetifier=true");
         }
 

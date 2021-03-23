@@ -133,7 +133,7 @@ public class UniWebViewNativeListener: MonoBehaviour {
 
     public void WebContentProcessDidTerminate(string param) {
         UniWebViewLogger.Instance.Info("Web Content Process Terminate Event.");
-        webView.InternalWebContentProcessDidTerminate();
+        webView.InternalOnWebContentProcessDidTerminate();
     }
 
     public void SafeBrowsingFinished(string param) {
@@ -143,12 +143,33 @@ public class UniWebViewNativeListener: MonoBehaviour {
 
     public void MultipleWindowOpened(string param) {
         UniWebViewLogger.Instance.Info("MultipleWindowOpened Event. Multi Window: " + param);
-        webView.InternalMultipleWindowOpened(param);
+        webView.InternalOnMultipleWindowOpened(param);
     }
 
     public void MultipleWindowClosed(string param) {
         UniWebViewLogger.Instance.Info("MultipleWindowClose Event. Multi Window: " + param);
-        webView.InternalMultipleWindowClosed(param);
+        webView.InternalOnMultipleWindowClosed(param);
+    }
+
+    public void FileDownloadStarted(string result) {
+        UniWebViewLogger.Instance.Info("FileDownloadStarted Event. Result: " + result);
+
+        var payload = JsonUtility.FromJson<UniWebViewNativeResultPayload>(result);
+        webView.InternalOnFileDownloadStarted(payload);
+    }
+
+    public void FileDownloadFinished(string result) {
+        UniWebViewLogger.Instance.Info("FileDownloadFinished Event. Result: " + result);
+
+        var payload = JsonUtility.FromJson<UniWebViewNativeResultPayload>(result);
+        webView.InternalOnFileDownloadFinished(payload);
+    }
+
+    public void CaptureSnapshotFinished(string result) {
+        UniWebViewLogger.Instance.Info("CaptureSnapshotFinished Event. Result: " + result);
+        
+        var payload = JsonUtility.FromJson<UniWebViewNativeResultPayload>(result);
+        webView.InternalOnCaptureSnapshotFinished(payload);
     }
 }
 

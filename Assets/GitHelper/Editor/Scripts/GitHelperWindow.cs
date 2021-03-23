@@ -27,10 +27,21 @@ namespace GitHelper.Editor.Scripts
         [MenuItem("IvoryFox/Git Helper/First Init")]
         private static void FirstInit()
         {
-            int d = PlayerPrefs.GetInt(GitHelperFirstInit, 0);
-            bool isInited = Convert.ToBoolean(d);
+            /*int d = PlayerPrefs.GetInt(GitHelperFirstInit, 0);
+            bool isInited = Convert.ToBoolean(d);*/
 
-            if (!isInited)
+            string gitFolderPath = Application.dataPath.Replace("/Assets", "");
+            gitFolderPath = $"{gitFolderPath}/.git";
+            
+            if (!Directory.Exists(gitFolderPath))
+            {
+                GitCommands.Instance().SetGitIgnore();
+                GitCommands.Instance().InitGit();
+                
+                PlayerSettings.assemblyVersionValidation = false;
+            }
+            
+            /*if (!isInited)
             {
                 GitCommands.Instance().SetGitIgnore();
                 
@@ -43,7 +54,7 @@ namespace GitHelper.Editor.Scripts
                 
                 PlayerSettings.assemblyVersionValidation = false;
                 PlayerPrefs.SetInt(GitHelperFirstInit, 1);
-            }
+            }*/
         }
 
         public void OnEnable()

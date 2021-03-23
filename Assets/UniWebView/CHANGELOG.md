@@ -1,5 +1,33 @@
 # Release Note
 
+### 4.5.1
+
+#### Fix
+
+* Now file uploading from Android contains a more readable file name in its `Content-Disposition` field.
+* An issue which causes external keyboard input is not valid while opening the web view on iOS.
+
+### 4.5.0
+
+#### Add
+
+* A new method to capture the current web view content and store it on a temporary folder on disk. Check `CaptureSnapshot` method and `OnCaptureSnapshotFinished` event for more.
+
+#### Fix
+
+* A potential issue that Safe Browsing crashes on certain devices without Chrome and Google Mobile Services (GMS) properly installed.
+
+### 4.4.0 (26 Jan, 2021)
+
+#### Add
+
+* Support download files in the general web view. Now, a download task will be triggered if the loading of resource cannot be rendered in place. See the [Downloading Files Guide](https://docs.uniwebview.com/guide/download-files.html) for more information.
+
+#### Fix
+
+* Now Jetifier is not required when Android exporting. If you need Jetifier for other third-party libraries, set it in UniWebView's setting panel.
+* The `Hide` method now correctly hides the web view even when a full-screen view is being used on Android.
+
 ### 4.3.1 (18 Dec, 2020)
 
 #### Fix

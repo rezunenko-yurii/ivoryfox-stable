@@ -23,6 +23,8 @@ class UniWebViewEditorSettings: ScriptableObject
     [SerializeField]
     internal bool addsAndroidBrowser = true;
 
+    [SerializeField]
+    internal bool enableJetifier = true;
 
     internal static UniWebViewEditorSettings GetOrCreateSettings() {
         var settings = AssetDatabase.LoadAssetAtPath<UniWebViewEditorSettings>(assetPath);
@@ -92,6 +94,8 @@ static class UniWebViewSettingsProvider {
         DrawDetailLabel("Turn off this if another library is already adding Kotlin runtime.");
         EditorGUILayout.PropertyField(settings.FindProperty("addsAndroidBrowser"));
         DrawDetailLabel("Turn off this if another library is already adding 'androidx.browser:browser'.");
+        EditorGUILayout.PropertyField(settings.FindProperty("enableJetifier"));
+        DrawDetailLabel("Turn off this if you do not need Jetifier (for converting other legacy support dependencies to Android X).");
 
         EditorGUILayout.EndVertical();
         

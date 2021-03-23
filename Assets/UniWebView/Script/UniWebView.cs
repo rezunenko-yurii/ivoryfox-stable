@@ -140,6 +140,57 @@ public class UniWebView: MonoBehaviour {
     public event OnWebContentProcessTerminatedDelegate OnWebContentProcessTerminated;
 
     /// <summary>
+    /// Delegate for file download task starting event.
+    /// </summary>
+    /// <param name="webView">The web view component which raises this event.</param>
+    /// <param name="remoteUrl">The remote URL of this download task. This is also the download URL for the task.</param>
+    /// <param name="fileName">The file name which user chooses to use.</param>
+    public delegate void FileDownloadStarted(UniWebView webView, string remoteUrl, string fileName);
+    /// <summary>
+    /// Raised when a file download task starts.
+    /// </summary>
+    public event FileDownloadStarted OnFileDownloadStarted;
+
+    /// <summary>
+    /// Delegate for file download task finishing event.
+    /// </summary>
+    /// <param name="webView">The web view component which raises this event.</param>
+    /// <param name="errorCode">
+    /// The error code of the download task result. Value `0` means the download finishes without a problem. 
+    /// Any other non-`0` value indicates an issue. The detail meaning of the error code depends on system. 
+    /// On iOS, it is usually the `errorCode` of the received `NSURLError`. On Android, the value usually represents
+    /// an `ERROR_*` value in `DownloadManager`.
+    /// </param>
+    /// <param name="remoteUrl">The remote URL of this download task.</param>
+    /// <param name="diskPath">
+    /// The file path of the downloaded file. On iOS, the downloader file is in a temporary folder of your app sandbox.
+    /// On Android, it is in the "Download" folder of your app.
+    /// </param>
+    public delegate void FileDownloadFinished(UniWebView webView, int errorCode, string remoteUrl, string diskPath);
+    /// <summary>
+    /// Raised when a file download task finishes with either an error or success.
+    /// </summary>
+    public event FileDownloadFinished OnFileDownloadFinished;
+
+    /// <summary>
+    /// Delegate for capturing snapshot finished event.
+    /// </summary>
+    /// <param name="webView">The web view component which raises this event.</param>
+    /// <param name="errorCode">
+    /// The error code of the event. If the snapshot is captured and stored without a problem, the error code is 0.
+    /// Any other number indicates an error happened. In most cases, the screenshot capturing only fails due to lack
+    /// of disk storage.
+    /// </param>
+    /// <param name="diskPath">
+    /// An accessible disk path to the captured snapshot image. If an error happens, it is an empty string.
+    /// </param>
+    public delegate void CaptureSnapshotFinished(UniWebView webView, int errorCode, string diskPath);
+    /// <summary>
+    /// Raised when an image captured and stored in a cache path on disk.
+    /// </summary>
+    public event CaptureSnapshotFinished OnCaptureSnapshotFinished;
+
+    /// <summary>
     /// Delegate for multiple window opening event.
     /// </summary>
     /// <param name="webView">The web view component which opens the new multiple (pop-up) window.</param>
@@ -1269,6 +1320,23 @@ public class UniWebView: MonoBehaviour {
     }
 
     /// <summary>
+    /// Capture the content of web view and store it to the cache path on disk with the given file name.
+    /// 
+    /// When the capturing finishes, `OnCaptureSnapshotFinished` event will be raised, with an error code to indicate
+    /// whether the operation succeeded and an accessible disk path of the image. 
+    /// 
+    /// The captured image will be stored as a PNG file under the `fileName` in app's cache folder. If a file with the 
+    /// same file name already exists, it will be overridden by the new captured image.
+    /// </summary>
+    /// <param name="fileName">
+    /// The file name to which the captured image is stored to, for example "screenshot.png". If empty, UniWebView will
+    /// pick a random UUID with "png" file extension as the file name.
+    /// </param>
+    public void CaptureSnapshot(string fileName) {
+        UniWebViewInterface.CaptureSnapshot(listener.Name, fileName);
+    }
+
+    /// <summary>
     /// Scrolls the web view to a certain point.
     /// 
     /// Use 0 for both `x` and `y` value to scroll the web view to its origin.
@@ -1284,6 +1352,85 @@ public class UniWebView: MonoBehaviour {
     /// </param>
     public void ScrollTo(int x, int y, bool animated) {
         UniWebViewInterface.ScrollTo(listener.Name, x, y, animated);
+    }
+
+    /// <summary>
+    /// Adds the URL to download inspecting list.
+    /// 
+    /// If a response is received in main frame and its URL is already in the inspecting list, a download task will be 
+    /// triggered. Check "Download Files" guide for more.
+    /// 
+    /// This method only works on iOS and macOS Editor.
+    /// </summary>
+    /// <param name="urlString">The inspected URL.</param>
+    public void AddDownloadURL(string urlString) {
+        #if (UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX || UNITY_IOS) && !UNITY_EDITOR_WIN && !UNITY_EDITOR_LINUX
+        UniWebViewInterface.AddDownloadURL(listener.Name, urlString);
+        #endif
+    }
+
+    /// <summary>
+    /// Removes the URL from download inspecting list.
+    /// 
+    /// If a response is received in main frame and its URL is already in the inspecting list, a download task will be 
+    /// triggered. Check "Download Files" guide for more.
+    /// 
+    /// This method only works on iOS and macOS Editor.
+    /// </summary>
+    /// <param name="urlString">The inspected URL.</param>
+    public void RemoveDownloadURL(string urlString) {
+        #if (UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX || UNITY_IOS) && !UNITY_EDITOR_WIN && !UNITY_EDITOR_LINUX
+        UniWebViewInterface.RemoveDownloadURL(listener.Name, urlString);
+        #endif
+    }
+
+    /// <summary>
+    /// Adds the MIME type to download inspecting list.
+    /// 
+    /// If a response is received in main frame and its MIME type is already in the inspecting list, a 
+    /// download task will be triggered. Check "Download Files" guide for more.
+    /// 
+    /// This method only works on iOS and macOS Editor.
+    /// </summary>
+    /// <param name="MIMEType">The inspected MIME type of the response.</param>
+    public void AddDownloadMIMEType(string MIMEType) {
+        #if (UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX || UNITY_IOS) && !UNITY_EDITOR_WIN && !UNITY_EDITOR_LINUX
+        UniWebViewInterface.AddDownloadMIMEType(listener.Name, MIMEType);
+        #endif
+    }
+
+    /// <summary>
+    /// Removes the MIME type from download inspecting list.
+    /// 
+    /// If a response is received in main frame and its MIME type is already in the inspecting list, a 
+    /// download task will be triggered. Check "Download Files" guide for more.
+    /// 
+    /// This method only works on iOS and macOS Editor.
+    /// </summary>
+    /// <param name="MIMEType">The inspected MIME type of the response.</param>
+    public void RemoveDownloadMIMETypes(string MIMEType) {
+        #if (UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX || UNITY_IOS) && !UNITY_EDITOR_WIN && !UNITY_EDITOR_LINUX
+        UniWebViewInterface.RemoveDownloadMIMETypes(listener.Name, MIMEType);
+        #endif
+    }
+
+    /// <summary>
+    /// Sets whether allowing users to choose the way to handle the downloaded file. Default is `true`.
+    /// 
+    /// On iOS, the downloaded file will be stored in a temporary folder. Setting this to `true` will show a system 
+    /// default share sheet and give the user a chance to send and store the file to another location (such as the 
+    /// File app or iCloud).
+    /// 
+    /// On macOS Editor, setting this to `true` will allow UniWebView to open the file in Finder.
+    /// 
+    /// This method does not have any effect on Android. On Android, the file is downloaded to the Download folder.
+    /// 
+    /// </summary>
+    /// <param name="allowed"></param>
+    public void SetAllowUserChooseActionAfterDownloading(bool allowed) {
+        #if (UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX || UNITY_IOS) && !UNITY_EDITOR_WIN && !UNITY_EDITOR_LINUX
+        UniWebViewInterface.SetAllowUserChooseActionAfterDownloading(listener.Name, allowed);
+        #endif
     }
 
     void OnDestroy() {
@@ -1389,21 +1536,41 @@ public class UniWebView: MonoBehaviour {
         }
     }
 
-    internal void InternalWebContentProcessDidTerminate() {
+    internal void InternalOnWebContentProcessDidTerminate() {
         if (OnWebContentProcessTerminated != null) {
             OnWebContentProcessTerminated(this);
         }
     }
 
-    internal void InternalMultipleWindowOpened(string multiWindowId) {
+    internal void InternalOnMultipleWindowOpened(string multiWindowId) {
         if (OnMultipleWindowOpened != null) {
             OnMultipleWindowOpened(this, multiWindowId);
         }
     }
 
-    internal void InternalMultipleWindowClosed(string multiWindowId) {
+    internal void InternalOnMultipleWindowClosed(string multiWindowId) {
         if (OnMultipleWindowClosed != null) {
             OnMultipleWindowClosed(this, multiWindowId);
+        }
+    }
+
+    internal void InternalOnFileDownloadStarted(UniWebViewNativeResultPayload payload) {
+        if (OnFileDownloadStarted != null) {
+            OnFileDownloadStarted(this, payload.identifier, payload.data);
+        }
+    }
+
+    internal void InternalOnFileDownloadFinished(UniWebViewNativeResultPayload payload) {
+        if (OnFileDownloadFinished != null) {
+            int errorCode = int.TryParse(payload.resultCode, out errorCode) ? errorCode : -1;
+            OnFileDownloadFinished(this, errorCode, payload.identifier, payload.data);
+        }
+    }
+
+    internal void InternalOnCaptureSnapshotFinished(UniWebViewNativeResultPayload payload) {
+        if (OnCaptureSnapshotFinished != null) {
+            int errorCode = int.TryParse(payload.resultCode, out errorCode) ? errorCode : -1;
+            OnCaptureSnapshotFinished(this, errorCode,  payload.data);
         }
     }
 
