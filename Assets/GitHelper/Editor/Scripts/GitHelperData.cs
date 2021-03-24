@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GitHelper.Editor.Scripts
 {
-    [Serializable, CreateAssetMenu(fileName = "GitHelperData", menuName = "IvoryFox/Create GitHelperData")]
+    [Serializable, CreateAssetMenu(fileName = "GitHelperData", menuName = "IvoryFox/GitHelper/Create GitHelperData")]
     public class GitHelperData : ScriptableObject
     {
         public string version;

@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e148951b4acc425d9871adcffab3b92f, type: 3}
-  m_Name: GitHelperData
+  m_Script: {fileID: 11500000, guid: 1a3df9039b14463b99ef40865c2a7a48, type: 3}
+  m_Name: UnitydevGitProfile
   m_EditorClassIdentifier: 
-  version: v1.1.8
-  token: MjY0MDM3NjAyNDQ3Ogrgu+c0a+HYuJVFWeN5ON83wxie
-  projectKey: AAEX
-  repositoryName: 
-  repositorySlugName: 
-  repositoryUrl: 
+  userName: 
+  token: 
+  projectKey: 

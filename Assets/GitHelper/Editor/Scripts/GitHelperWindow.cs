@@ -63,12 +63,19 @@ namespace GitHelper.Editor.Scripts
             visualTree.CloneTree(rootVisualElement);
             
             Connect();
-            OnSelectionChange();
+            //OnSelectionChange();
         }
         
         private void Connect()
         {
             data = Resources.Load<GitHelperData>("GitHelperData");
+
+            if (data is null)
+            {
+                Debug.LogError("Cannot find GitHelperData.asset // Create it in PackageManagerAssets/Resources/GitHelperData.asset");
+                return;
+            }
+            
             messageField = rootVisualElement.Q<TextField>("MessageField");
           
             var version = rootVisualElement.Q<Label>("VersionLabel");
