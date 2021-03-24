@@ -4,7 +4,6 @@
         <ui:Label text="V 0.0.0" display-tooltip-when-elided="true" name="VersionLabel" style="-unity-font-style: bold; color: rgb(25, 172, 255); font-size: 11px; -unity-text-align: middle-right; align-items: center; justify-content: flex-end; flex-direction: row; width: 60px; white-space: normal;" />
     </ui:VisualElement>
     <ui:VisualElement name="DataContainer" style="flex-direction: column; flex-shrink: 0;">
-        <ui:Foldout text="Users" name="PickUserFoldout" />
         <ui:TextField picking-mode="Ignore" label="Token" name="TokenField" style="flex-direction: column; flex-basis: auto; justify-content: space-around; align-items: stretch; padding-left: 5%; padding-right: 5px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
         <ui:TextField picking-mode="Ignore" label="Project Key" name="ProjectKeyField" style="flex-direction: column; flex-basis: auto; justify-content: space-around; align-items: stretch; padding-left: 5%; padding-right: 5px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
         <ui:VisualElement name="RepoData" label="Token" style="flex-direction: column; flex-basis: auto; align-items: stretch; justify-content: center; display: flex; background-color: rgb(68, 27, 125); border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 5px; margin-bottom: 0; height: auto; flex-shrink: 0;">

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a3df9039b14463b99ef40865c2a7a48, type: 3}
   m_Name: ExhaleGitProfile
   m_EditorClassIdentifier: 
-  userName: 
-  token: 
-  projectKey: 
+  userName: Exhale
+  token: MjY0MDM3NjAyNDQ3Ogrgu+c0a+HYuJVFWeN5ON83wxie
+  projectKey: AAEX

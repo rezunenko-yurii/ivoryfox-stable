@@ -81,6 +81,8 @@ namespace GitHelper.Editor.Scripts
             var version = rootVisualElement.Q<Label>("VersionLabel");
             version.text = data.version;
             
+            var pickUserFoldout = rootVisualElement.Q<Foldout>("PickUserFoldout");
+            
             var tokenField = rootVisualElement.Q<TextField>("TokenField");
             tokenField.value = data.token;
             tokenField.RegisterCallback<FocusOutEvent>(evt => SaveData());
