@@ -12,8 +12,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: '[]'
-  _rsLastCachedKeyList: '[]'
-  _environments: '[]'
-  _rulesList: '[]'
-  _lastCachedRulesList: '[]'
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"828a7cc3-86b5-49e8-a9bf-b31e67bfa40e\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"urlsConfig\",\r\n      \"type\": \"json\",\r\n     
+    \"value\": \"{}\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"a28e9aeb-ef4e-4c58-a63f-64a010126651\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"paramsConfig\",\r\n      \"type\": \"json\",\r\n      \"value\": \"{}\"\r\n   
+    }\r\n  }\r\n]"
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"828a7cc3-86b5-49e8-a9bf-b31e67bfa40e\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"urlsConfig\",\r\n      \"type\": \"json\",\r\n     
+    \"value\": \"{}\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"a28e9aeb-ef4e-4c58-a63f-64a010126651\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"paramsConfig\",\r\n      \"type\": \"json\",\r\n      \"value\": \"{}\"\r\n   
+    }\r\n  }\r\n]"
+  _environments: "[\r\n  {\r\n    \"projectId\": \"ab908d3b-3861-4155-a12b-61eecf11311e\",\r\n   
+    \"name\": \"IvoryFox\",\r\n    \"id\": \"b73aa325-a8b3-4f66-bd64-7f56ddf804da\",\r\n   
+    \"createdAt\": \"2021-03-25T14:49:06Z\",\r\n    \"updatedAt\": \"2021-03-25T14:49:06Z\",\r\n   
+    \"isDefault\": true\r\n  }\r\n]"
+  _rulesList: "[\r\n  {\r\n    \"id\": \"70f57960-53d3-4bd3-ac4e-dc8332db664e\",\r\n   
+    \"name\": \"canShow\",\r\n    \"type\": \"segmentation\",\r\n    \"condition\":
+    \"true\",\r\n    \"rolloutPercentage\": 100,\r\n    \"startDate\": \"\",\r\n   
+    \"endDate\": \"\",\r\n    \"priority\": 1000,\r\n    \"enabled\": true,\r\n   
+    \"value\": [\r\n      {\r\n        \"metadata\": {\r\n          \"entityId\":
+    \"828a7cc3-86b5-49e8-a9bf-b31e67bfa40e\"\r\n        },\r\n        \"rs\": {\r\n         
+    \"key\": \"urlsConfig\",\r\n          \"type\": \"json\",\r\n          \"value\":
+    \"{   \\\"url\\\": \\\"https://exglavetune.net/SJdW2KTj\\\",   \\\"server\\\":
+    \\\"\\\" }\"\r\n        }\r\n      },\r\n      {\r\n        \"metadata\": {\r\n         
+    \"entityId\": \"a28e9aeb-ef4e-4c58-a63f-64a010126651\"\r\n        },\r\n       
+    \"rs\": {\r\n          \"key\": \"paramsConfig\",\r\n          \"type\": \"json\",\r\n         
+    \"value\": \"{   \\\"items\\\": [     {       \\\"id\\\": \\\"adjust\\\",      
+    \\\"alias\\\": \\\"adid\\\",       \\\"value\\\": \\\"9c5w1t84e48w\\\"     }  
+    ] }\"\r\n        }\r\n      }\r\n    ]\r\n  }\r\n]"
+  _lastCachedRulesList: "[\r\n  {\r\n    \"projectId\": \"ab908d3b-3861-4155-a12b-61eecf11311e\",\r\n   
+    \"environmentId\": \"b73aa325-a8b3-4f66-bd64-7f56ddf804da\",\r\n    \"configId\":
+    \"ac71eb71-54c5-44b3-9370-84547708b5b4\",\r\n    \"name\": \"canShow\",\r\n   
+    \"enabled\": true,\r\n    \"condition\": \"true\",\r\n    \"rolloutPercentage\":
+    100,\r\n    \"value\": [\r\n      {\r\n        \"metadata\": {\r\n          \"entityId\":
+    \"828a7cc3-86b5-49e8-a9bf-b31e67bfa40e\"\r\n        },\r\n        \"rs\": {\r\n         
+    \"key\": \"urlsConfig\",\r\n          \"type\": \"json\",\r\n          \"value\":
+    \"{   \\\"url\\\": \\\"https://exglavetune.net/SJdW2KTj\\\",   \\\"server\\\":
+    \\\"\\\" }\"\r\n        }\r\n      },\r\n      {\r\n        \"metadata\": {\r\n         
+    \"entityId\": \"a28e9aeb-ef4e-4c58-a63f-64a010126651\"\r\n        },\r\n       
+    \"rs\": {\r\n          \"key\": \"paramsConfig\",\r\n          \"type\": \"json\",\r\n         
+    \"value\": \"{   \\\"items\\\": [     {       \\\"id\\\": \\\"adjust\\\",      
+    \\\"alias\\\": \\\"adid\\\",       \\\"value\\\": \\\"9c5w1t84e48w\\\"     }  
+    ] }\"\r\n        }\r\n      }\r\n    ],\r\n    \"id\": \"70f57960-53d3-4bd3-ac4e-dc8332db664e\",\r\n   
+    \"priority\": 1000,\r\n    \"type\": \"segmentation\",\r\n    \"startDate\":
+    null,\r\n    \"endDate\": null,\r\n    \"metadata\": null,\r\n    \"audience\":
+    null,\r\n    \"kpi\": null,\r\n    \"createdAt\": \"2021-03-25T14:49:07Z\",\r\n   
+    \"updatedAt\": \"2021-03-25T14:49:07Z\"\r\n  }\r\n]"

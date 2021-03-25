@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43195808e902f9b43958caa050e4eb59, type: 3}
   m_Name: BuildData_Debug
   m_EditorClassIdentifier: 
+  buildVersion:
+    currentNumber: 0
   taskNumber: 0001
   productName: Exhale Test App
   packageId: app.lustigovich.testadjusti

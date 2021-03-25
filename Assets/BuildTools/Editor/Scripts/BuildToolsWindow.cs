@@ -116,9 +116,6 @@ namespace BuildTools.Editor.Scripts
                 _commonBuildData.productVersion = evt.newData;
             });
             
-            /*var uxmlButton = rootVisualElement.Q<Button>("SaveAllDataButton");
-            uxmlButton.RegisterCallback<MouseUpEvent>((evt) => SaveDataChanges());*/
-
             ConnectSpecificData(_debugBuildData, "Debug");
             ConnectSpecificData(_releaseBuildData, "Release");
         }
@@ -127,6 +124,7 @@ namespace BuildTools.Editor.Scripts
         {
             var appNameField = rootVisualElement.Q<TextField>(key+ "AppName");
             appNameField.value = data.productName;
+            appNameField.RegisterCallback<FocusOutEvent>(evt => SaveDataChanges());
             appNameField.RegisterCallback<InputEvent>((evt) =>
             {
                 Debug.Log($"Changed App Name | from {data.productName} to {evt.newData}");
@@ -135,6 +133,7 @@ namespace BuildTools.Editor.Scripts
             
             var packageIdField = rootVisualElement.Q<TextField>(key+ "PackageId");
             packageIdField.value = data.packageId;
+            packageIdField.RegisterCallback<FocusOutEvent>(evt => SaveDataChanges());
             packageIdField.RegisterCallback<InputEvent>((evt) =>
             {
                 Debug.Log($"Changed Package Id | from {data.packageId} to {evt.newData}");
@@ -145,6 +144,7 @@ namespace BuildTools.Editor.Scripts
             var iconField = rootVisualElement.Q<ObjectField>(key + "Icon");
             iconField.objectType = typeof(Texture2D);
             iconField.value = data.icon;
+            iconField.RegisterCallback<FocusOutEvent>(evt => SaveDataChanges());
             iconField.RegisterCallback<ChangeEvent<Object>>((evt) =>
             {
                 data.icon = (Texture2D) evt.newValue;

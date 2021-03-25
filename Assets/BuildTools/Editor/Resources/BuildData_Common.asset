@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43195808e902f9b43958caa050e4eb59, type: 3}
   m_Name: BuildData_Common
   m_EditorClassIdentifier: 
+  buildVersion:
+    currentNumber: 0
   taskNumber: 0001
   productName: 
   packageId: 
   companyName: 
   productVersion: 1
-  screenOrientation: 4
+  screenOrientation: 0
   icon: {fileID: 2800000, guid: 00277dd4e62e0a3479e6ab660708a216, type: 3}
   development: 1
   useCustomKeystore: 0

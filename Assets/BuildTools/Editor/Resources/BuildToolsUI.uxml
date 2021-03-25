@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:VisualElement name="Root" style="height: 100%; -unity-background-image-tint-color: rgb(0, 0, 0); background-color: rgba(56, 56, 56, 0); align-items: center; width: 100%; justify-content: space-between; flex-shrink: 0;">
         <ui:VisualElement style="align-items: stretch; -unity-background-scale-mode: scale-and-crop; -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; flex-direction: row; justify-content: center; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; opacity: 1; height: 50px; flex-shrink: 0;">
             <ui:Label text="IVORYFOX BUILD TOOLS" style="display: flex; position: relative; right: auto; left: auto; align-items: center; -unity-font-style: bold; font-size: 20px; -unity-text-align: middle-center; padding-top: 30px; padding-bottom: 30px; padding-right: 0; justify-content: center; margin-right: 5px; color: rgb(255, 160, 105);" />
@@ -41,9 +41,6 @@
                 <ui:Button text="Create Report" name="ReleaseReportButton" />
                 <ui:Button text="Build APK" name="ReleaseBuildButton" />
             </ui:VisualElement>
-        </ui:VisualElement>
-        <ui:VisualElement style="background-color: rgb(5, 6, 7); padding-top: 0; padding-bottom: 0; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; padding-left: 0; padding-right: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; justify-content: space-around; align-items: center; flex-direction: column; height: 53px; width: 500px;">
-            <ui:Button text="Save Changes" name="SaveAllDataButton" style="-unity-text-align: middle-center; white-space: normal; height: 25px; width: 150px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
