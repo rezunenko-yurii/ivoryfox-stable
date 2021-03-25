@@ -7,10 +7,13 @@ namespace GitHelper.Editor.Scripts
     public class GitHelperData : ScriptableObject
     {
         public string version;
-        public string token;
+        public GitProfile lastGitProfile;
+        public RepositoryData lastRepositoryData;
+        
+        /*public string token;
         public string projectKey;
         public string repositoryName;
         public string repositorySlugName;
-        public string repositoryUrl;
+        public string repositoryUrl;*/
     }
 }

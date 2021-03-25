@@ -1,12 +1,12 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
     <ui:VisualElement name="TitleContainer" style="flex-direction: row; align-items: center; justify-content: center; height: 50px; flex-shrink: 0;">
         <ui:Label text="IVORYFOX GIT HELPER" display-tooltip-when-elided="true" name="Label" style="font-size: 15px; -unity-font-style: bold; color: rgb(255, 148, 0); display: flex; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; width: auto; flex-direction: column; flex-basis: auto; justify-content: center; align-items: center;" />
         <ui:Label text="V 0.0.0" display-tooltip-when-elided="true" name="VersionLabel" style="-unity-font-style: bold; color: rgb(25, 172, 255); font-size: 11px; -unity-text-align: middle-right; align-items: center; justify-content: flex-end; flex-direction: row; width: 60px; white-space: normal;" />
     </ui:VisualElement>
     <ui:VisualElement name="DataContainer" style="flex-direction: column; flex-shrink: 0;">
-        <ui:Foldout text="Users" name="PickUserFoldout" />
-        <ui:TextField picking-mode="Ignore" label="Token" name="TokenField" style="flex-direction: column; flex-basis: auto; justify-content: space-around; align-items: stretch; padding-left: 5%; padding-right: 5px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
-        <ui:TextField picking-mode="Ignore" label="Project Key" name="ProjectKeyField" style="flex-direction: column; flex-basis: auto; justify-content: space-around; align-items: stretch; padding-left: 5%; padding-right: 5px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+        <uie:ObjectField label="Git Profile" name="GitProfileObjectField" />
+        <ui:TextField picking-mode="Ignore" label="Token" name="TokenField" style="flex-direction: column; flex-basis: auto; justify-content: space-around; align-items: stretch; padding-left: 5%; padding-right: 5px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; display: none;" />
+        <ui:TextField picking-mode="Ignore" label="Project Key" name="ProjectKeyField" style="flex-direction: column; flex-basis: auto; justify-content: space-around; align-items: stretch; padding-left: 5%; padding-right: 5px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; display: none;" />
         <ui:VisualElement name="RepoData" label="Token" style="flex-direction: column; flex-basis: auto; align-items: stretch; justify-content: center; display: flex; background-color: rgb(68, 27, 125); border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 5px; margin-bottom: 0; height: auto; flex-shrink: 0;">
             <ui:VisualElement style="flex-direction: row-reverse; align-items: center; justify-content: center;">
                 <ui:Button text="Get From Title" display-tooltip-when-elided="true" name="GetTitleButton" label="Repo Name" style="flex-basis: 30%; flex-direction: column; align-items: center;" />

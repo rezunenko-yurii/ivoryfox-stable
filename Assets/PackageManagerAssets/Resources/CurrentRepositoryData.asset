@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e148951b4acc425d9871adcffab3b92f, type: 3}
-  m_Name: GitHelperData
+  m_Script: {fileID: 11500000, guid: 1a6434ac764f46fbaf3ff32c5a4f792c, type: 3}
+  m_Name: CurrentRepositoryData
   m_EditorClassIdentifier: 
-  version: v1.1.8
-  lastGitProfile: {fileID: 11400000, guid: 0b032e2f05ff05942ab4fbd967f90fa7, type: 2}
-  lastRepositoryData: {fileID: 11400000, guid: 573d06b8392a6ca4495b7eb055f9a29d, type: 2}
+  repositoryName: git helper test 2
+  repositorySlugName: 
+  repositoryUrl: 
