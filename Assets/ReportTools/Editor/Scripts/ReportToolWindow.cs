@@ -9,7 +9,7 @@ namespace ReportTools.Editor.Scripts
     public class ReportToolWindow : EditorWindow
     {
         
-        private static ReportToolSettings settings;
+        private static ReportToolSettings _settings;
         
         [MenuItem("IvoryFox/Report Tool")]
         public static void ShowWindow() => GetWindow<ReportToolWindow>("Report Tool");
@@ -20,15 +20,9 @@ namespace ReportTools.Editor.Scripts
             Connect();
             OnSelectionChange();
         }
-        
-        //private string fileLocation = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
         private void Connect()
         {
-            settings = Resources.Load<ReportToolSettings>("ReportToolSettings");
-            
-            /*var reportToolVersionLabel = rootVisualElement.Q<Label>("ReportToolVersionLabel");
-            reportToolVersionLabel.text = settings.version;*/
+            _settings = Resources.Load<ReportToolSettings>("ReportToolSettings");
             
             var apkPathField = rootVisualElement.Q<TextField>("ApkPathField");
             apkPathField.RegisterCallback<InputEvent>((evt) =>
@@ -41,21 +35,7 @@ namespace ReportTools.Editor.Scripts
             {
                 apkPathField.value = GetFilePath();
             });
-            
-            var apkSignerPathTextField = rootVisualElement.Q<TextField>("ApkSignerPathTextField");
-            apkSignerPathTextField.value = settings.apkSignerPath;
-            apkSignerPathTextField.RegisterCallback<InputEvent>((evt) =>
-            {
-                settings.apkSignerPath = apkSignerPathTextField.value;
-            });
-            
-            var apkSignerSelectFolderButton = rootVisualElement.Q<Button>("SelectSignerFolderButton");
-            apkSignerSelectFolderButton.RegisterCallback<MouseUpEvent>((evt) =>
-            {
-                apkSignerPathTextField.value = GetFolderPath();
-                settings.apkSignerPath = apkSignerPathTextField.value;
-            });
-            
+
             var createReportButton = rootVisualElement.Q<Button>("CreateReportButton");
             createReportButton.RegisterCallback<MouseUpEvent>((evt) =>
             {
