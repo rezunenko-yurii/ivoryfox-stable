@@ -8,6 +8,5 @@ namespace BuildTools.Editor.Scripts
     {
         public string version;
         public string buildFolderPath;
-        public string apkSignerPath;
     }
 }

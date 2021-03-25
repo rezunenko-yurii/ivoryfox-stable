@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 559a55979e564fa489aaf5e1efe3fc81, type: 3}
   m_Name: BuildToolsSettings
   m_EditorClassIdentifier: 
-  version: 1.0.10
+  version: 1.0.11
   buildFolderPath: C:/Users/Exhale New/Desktop/builds
-  apkSignerPath: C:/Projects/Android SDK Build Tools

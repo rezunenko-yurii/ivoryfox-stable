@@ -42,21 +42,6 @@ namespace BuildTools.Editor.Scripts
             var buildToolsVersionLabel = rootVisualElement.Q<Label>("BuildToolsVersionLabel");
             buildToolsVersionLabel.text = _settings.version;
 
-            var apkSignerPathTextField = rootVisualElement.Q<TextField>("ApkSignerPathTextField");
-            apkSignerPathTextField.value = _settings.apkSignerPath;
-            apkSignerPathTextField.RegisterCallback<FocusOutEvent>(evt => SaveDataChanges());
-            apkSignerPathTextField.RegisterCallback<InputEvent>((evt) =>
-            {
-                _settings.apkSignerPath = apkSignerPathTextField.value;
-            });
-            
-            var apkSignerSelectFolderButton = rootVisualElement.Q<Button>("SelectSignerFolderButton");
-            apkSignerSelectFolderButton.RegisterCallback<MouseUpEvent>((evt) =>
-            {
-                apkSignerPathTextField.value = GetFolderPath();
-                _settings.apkSignerPath = apkSignerPathTextField.value;
-            });
-            
             var buildPathTextField = rootVisualElement.Q<TextField>("BuildsFolderPathTextField");
             buildPathTextField.value = _settings.buildFolderPath;
             buildPathTextField.RegisterCallback<FocusOutEvent>(evt => SaveDataChanges());
