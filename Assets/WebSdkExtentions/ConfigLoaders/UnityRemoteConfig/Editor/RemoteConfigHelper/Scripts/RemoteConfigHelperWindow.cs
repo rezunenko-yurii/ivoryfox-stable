@@ -11,8 +11,8 @@ namespace RemoteConfigHelper.Scripts
         [MenuItem("IvoryFox/Remote Config Helper")]
         public static void ShowWindow() => GetWindow<RemoteConfigHelperWindow>("Remote Config Helper");
 
-        private EnvironmentData data;
-        private RemoteConfigModel model;
+        private EnvironmentData _data;
+        private RemoteConfigModel _model;
         private void OnGUI()
         {
             if (string.IsNullOrEmpty(Application.cloudProjectId))
@@ -23,8 +23,8 @@ namespace RemoteConfigHelper.Scripts
         
             EditorGUILayout.Space(20);
         
-            model = (RemoteConfigModel) EditorGUILayout.ObjectField("Remote Config Model",model, typeof(RemoteConfigModel),false);
-            if (model is null)
+            _model = (RemoteConfigModel) EditorGUILayout.ObjectField("Remote Config Model",_model, typeof(RemoteConfigModel),false);
+            if (_model is null)
             {
                 EditorGUILayout.Space(20);
                 EditorGUILayout.LabelField(label:"Error", label2:"Chose RemoteConfigModel");
@@ -38,37 +38,37 @@ namespace RemoteConfigHelper.Scripts
 
         private void SetEnvironment()
         {
-            data = new EnvironmentData();
+            _data = new EnvironmentData();
         
-            RemoteConfigWebApiClient.CreateEnvironment(Application.cloudProjectId, model.environmentName, OnException);
+            RemoteConfigWebApiClient.CreateEnvironment(Application.cloudProjectId, _model.environmentName, OnException);
             RemoteConfigWebApiClient.environmentCreated += OnEnvironmentCreated;
         }
         private void OnEnvironmentCreated(string responce)
         {
             RemoteConfigWebApiClient.environmentCreated -= OnEnvironmentCreated;
-            data.environmentId = responce;
+            _data.environmentId = responce;
         
-            RemoteConfigWebApiClient.SetDefaultEnvironment(Application.cloudProjectId, data.environmentId);
+            RemoteConfigWebApiClient.SetDefaultEnvironment(Application.cloudProjectId, _data.environmentId);
         
             JArray ja = new JArray();
-            foreach (var configItem in model.configItems)
+            foreach (var configItem in _model.configItems)
             {
                 ja.Add(new JObject{["key"] = configItem.name, ["value"] = configItem.value, ["type"] = configItem.type});
             }
 
             RemoteConfigWebApiClient.postConfigRequestFinished += OnConfigPosted;
-            RemoteConfigWebApiClient.PostConfig(Application.cloudProjectId, data.environmentId, ja);
+            RemoteConfigWebApiClient.PostConfig(Application.cloudProjectId, _data.environmentId, ja);
         }
         private void OnConfigPosted(string configId)
         {
             RemoteConfigWebApiClient.postConfigRequestFinished -= OnConfigPosted;
-            data.configId = configId;
+            _data.configId = configId;
 
             PostRules();
         }
         private void PostRules()
         {
-            foreach (var rule in model.rules)
+            foreach (var rule in _model.rules)
             {
                 var ja = new JArray();
 
@@ -80,8 +80,8 @@ namespace RemoteConfigHelper.Scripts
                 var newRule = new JObject
                 {
                     ["projectId"] = Application.cloudProjectId,
-                    ["environmentId"] = data.environmentId,
-                    ["configId"] = data.configId,
+                    ["environmentId"] = _data.environmentId,
+                    ["configId"] = _data.configId,
                     ["id"] = Guid.NewGuid().ToString(),
                     ["name"] = rule.name,
                     ["enabled"] = rule.enabled,
@@ -93,7 +93,7 @@ namespace RemoteConfigHelper.Scripts
                     ["value"] = ja
                 };
             
-                RemoteConfigWebApiClient.PostAddRule(Application.cloudProjectId, data.environmentId, data.configId, newRule, OnException);
+                RemoteConfigWebApiClient.PostAddRule(Application.cloudProjectId, _data.environmentId, _data.configId, newRule, OnException);
             }
         
             Debug.Log("RemoteConfigHelper Done");

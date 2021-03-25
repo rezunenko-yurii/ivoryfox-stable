@@ -9,7 +9,7 @@ using UnityEngine;
 using Debug = UnityEngine.Debug;
 using ILogger = GlobalBlock.Interfaces.ILogger;
 
-namespace GlobalBlock.GlobalUnityVariant.Scripts
+namespace WebSdkRealizations.DefaultAccessManager.Runtime.Scripts
 {
     public class AccessManager : MonoBehaviour, IGlobalBlock
     {
@@ -18,8 +18,8 @@ namespace GlobalBlock.GlobalUnityVariant.Scripts
         private IInternetChecker InternetChecker { get; set; }
         private IConfigsLoader ConfigLoader { get; set; }
         private INotification Notification { get; set; }
-        private IWebBlock webBlock;
-        private Stopwatch stopwatch;
+        private IWebBlock _webBlock;
+        private Stopwatch _stopwatch;
 
         #region Initialization
         private void Awake()
@@ -35,7 +35,7 @@ namespace GlobalBlock.GlobalUnityVariant.Scripts
             
             DontDestroyOnLoad(this);
             
-            stopwatch = Stopwatch.StartNew();
+            _stopwatch = Stopwatch.StartNew();
             
             Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
 
@@ -55,7 +55,7 @@ namespace GlobalBlock.GlobalUnityVariant.Scripts
             InternetChecker = factory.CreateInternetChecker();
             ConfigLoader = factory.CreateConfigLoader();
             Notification = factory.CreateNotifications();
-            webBlock = factory.CreateWebBlock();
+            _webBlock = factory.CreateWebBlock();
             
             ConnectToFacade();
         }
@@ -108,7 +108,7 @@ namespace GlobalBlock.GlobalUnityVariant.Scripts
         
         public void InitConfigs(Dictionary<string, string> configs)
         {
-            Debug.Log($"GlobalBlockUnity InitConfigs / StopWatch = {stopwatch.Elapsed.Seconds} FromStart = {Time.realtimeSinceStartup}");
+            Debug.Log($"GlobalBlockUnity InitConfigs / StopWatch = {_stopwatch.Elapsed.Seconds} FromStart = {Time.realtimeSinceStartup}");
 
             configs.TryGetValue("canUse", out var canUseString);
             bool.TryParse(canUseString, out var canUse);
@@ -117,10 +117,10 @@ namespace GlobalBlock.GlobalUnityVariant.Scripts
                 Helper.SetConfigsToConsumables(configs, Logger, Notification);
                 Helper.LoadNextScene();
             
-                Debug.Log($"GlobalBlockUnity Complete / StopWatch = {stopwatch.Elapsed.Seconds} FromStart = {Time.realtimeSinceStartup}");
-                stopwatch.Stop();
+                Debug.Log($"GlobalBlockUnity Complete / StopWatch = {_stopwatch.Elapsed.Seconds} FromStart = {Time.realtimeSinceStartup}");
+                _stopwatch.Stop();
             
-                webBlock.Init();
+                _webBlock.Init();
             }
             else
             {

@@ -1,6 +1,7 @@
 ﻿using GlobalBlock.Interfaces.Notifications;
 using GlobalBlock.Interfaces.WebPart;
 using UnityEngine;
+using WebSdk.Runtime.AccessCheckers;
 
 namespace GlobalBlock.Interfaces
 {

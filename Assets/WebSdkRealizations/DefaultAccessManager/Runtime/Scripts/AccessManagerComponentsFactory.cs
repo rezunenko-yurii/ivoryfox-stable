@@ -1,5 +1,4 @@
 ﻿using GlobalBlock.ConfigLoaders.CloudContentDelivery.Runtime.Scripts;
-using GlobalBlock.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
 using GlobalBlock.Interfaces;
 using GlobalBlock.Interfaces.Notifications;
 using GlobalBlock.Interfaces.WebPart;
@@ -10,7 +9,7 @@ using UnityEngine;
 using WebBlock.WebBlockVariant1.Scripts;
 using ILogger = GlobalBlock.Interfaces.ILogger;
 
-namespace GlobalBlock.GlobalUnityVariant.Scripts
+namespace WebSdkRealizations.DefaultAccessManager.Runtime.Scripts
 {
     public class AccessManagerComponentsFactory: IGlobalFactory
     {

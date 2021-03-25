@@ -44,6 +44,7 @@ namespace BuildTools.Editor.Scripts
 
             var apkSignerPathTextField = rootVisualElement.Q<TextField>("ApkSignerPathTextField");
             apkSignerPathTextField.value = _settings.apkSignerPath;
+            apkSignerPathTextField.RegisterCallback<FocusOutEvent>(evt => SaveDataChanges());
             apkSignerPathTextField.RegisterCallback<InputEvent>((evt) =>
             {
                 _settings.apkSignerPath = apkSignerPathTextField.value;
@@ -58,6 +59,7 @@ namespace BuildTools.Editor.Scripts
             
             var buildPathTextField = rootVisualElement.Q<TextField>("BuildsFolderPathTextField");
             buildPathTextField.value = _settings.buildFolderPath;
+            buildPathTextField.RegisterCallback<FocusOutEvent>(evt => SaveDataChanges());
             buildPathTextField.RegisterCallback<InputEvent>((evt) =>
             {
                 _settings.buildFolderPath = buildPathTextField.value;
@@ -73,6 +75,7 @@ namespace BuildTools.Editor.Scripts
             _screenOrientationField = rootVisualElement.Q<EnumField>("ScreenOrientationEnum");
             _screenOrientationField.Init(_commonBuildData.screenOrientation);
             _screenOrientationField.value = _commonBuildData.screenOrientation;
+            _screenOrientationField.RegisterCallback<FocusOutEvent>(evt => SaveDataChanges());
             _screenOrientationField.RegisterCallback<ChangeEvent<Enum>>((evt) =>
             {
                 Debug.Log($"Changed Screen Orientation | from {_commonBuildData.screenOrientation} to {(UIOrientation) evt.newValue}");
@@ -81,6 +84,7 @@ namespace BuildTools.Editor.Scripts
 
             _taskNumberField = rootVisualElement.Q<TextField>("TaskNumberField");
             _taskNumberField.value = _commonBuildData.taskNumber;
+            _taskNumberField.RegisterCallback<FocusOutEvent>(evt => SaveDataChanges());
             _taskNumberField.RegisterCallback<InputEvent>((evt) =>
             {
                 Debug.Log($"Changed Task Number | from {_commonBuildData.taskNumber} to {evt.newData}");
@@ -94,6 +98,7 @@ namespace BuildTools.Editor.Scripts
             }
             
             var autoSetTaskNumberToggle = rootVisualElement.Q<Button>("SetTaskNumberButton");
+            autoSetTaskNumberToggle.RegisterCallback<FocusOutEvent>(evt => SaveDataChanges());
             autoSetTaskNumberToggle.RegisterCallback<MouseUpEvent>((evt) =>
             {
                 var newTaskNumber = SetTaskNumber();
@@ -104,14 +109,15 @@ namespace BuildTools.Editor.Scripts
 
             _appVersionField = rootVisualElement.Q<TextField>("AppVersionField");
             _appVersionField.value = _commonBuildData.productVersion;
+            _appVersionField.RegisterCallback<FocusOutEvent>(evt => SaveDataChanges());
             _appVersionField.RegisterCallback<InputEvent>((evt) =>
             {
                 Debug.Log($"Changed App Version | from {_commonBuildData.productVersion} to {evt.newData}");
                 _commonBuildData.productVersion = evt.newData;
             });
             
-            var uxmlButton = rootVisualElement.Q<Button>("SaveAllDataButton");
-            uxmlButton.RegisterCallback<MouseUpEvent>((evt) => SaveDataChanges());
+            /*var uxmlButton = rootVisualElement.Q<Button>("SaveAllDataButton");
+            uxmlButton.RegisterCallback<MouseUpEvent>((evt) => SaveDataChanges());*/
 
             ConnectSpecificData(_debugBuildData, "Debug");
             ConnectSpecificData(_releaseBuildData, "Release");
