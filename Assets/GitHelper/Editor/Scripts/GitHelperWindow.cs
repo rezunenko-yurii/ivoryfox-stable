@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Debug = UnityEngine.Debug;
 using Object = UnityEngine.Object;
 
 namespace GitHelper.Editor.Scripts
@@ -17,20 +19,17 @@ namespace GitHelper.Editor.Scripts
         [MenuItem("IvoryFox/Git Helper")]
         public static void ShowWindow() => GetWindow<GitHelperWindow>("Git Helper");
 
-        private GitHelperData data;
+        private GitHelperData _gitHelperData;
         private TextField _messageField;
+        private TextField _repoNameField;
         private TextField _slugNameField;
         private TextField _repoUrlField;
-        private BitbucketClient _client;
-
-        private const string GitHelperFirstInit = "GitHelperFirstInit";
+        private BitbucketClient _bitbucketClient;
+        
         [InitializeOnLoadMethod]
         [MenuItem("IvoryFox/Git Helper/First Init")]
         private static void FirstInit()
         {
-            /*int d = PlayerPrefs.GetInt(GitHelperFirstInit, 0);
-            bool isInited = Convert.ToBoolean(d);*/
-
             string gitFolderPath = Application.dataPath.Replace("/Assets", "");
             gitFolderPath = $"{gitFolderPath}/.git";
             
@@ -41,21 +40,6 @@ namespace GitHelper.Editor.Scripts
                 
                 PlayerSettings.assemblyVersionValidation = false;
             }
-            
-            /*if (!isInited)
-            {
-                GitCommands.Instance().SetGitIgnore();
-                
-                string gitFolderPath = Application.dataPath.Replace("/Assets", "");
-                gitFolderPath = $"{gitFolderPath}/.git";
-                if (Directory.Exists(gitFolderPath))
-                {
-                    GitCommands.Instance().InitGit();
-                }
-                
-                PlayerSettings.assemblyVersionValidation = false;
-                PlayerPrefs.SetInt(GitHelperFirstInit, 1);
-            }*/
         }
 
         public void OnEnable()
@@ -64,14 +48,13 @@ namespace GitHelper.Editor.Scripts
             visualTree.CloneTree(rootVisualElement);
             
             Connect();
-            //OnSelectionChange();
         }
         
         private void Connect()
         {
-            data = Resources.Load<GitHelperData>("GitHelperData");
+            _gitHelperData = Resources.Load<GitHelperData>("GitHelperData");
 
-            if (data is null)
+            if (_gitHelperData is null)
             {
                 Debug.LogError("Cannot find GitHelperData.asset // Create it in PackageManagerAssets/Resources/GitHelperData.asset");
                 return;
@@ -80,58 +63,66 @@ namespace GitHelper.Editor.Scripts
             _messageField = rootVisualElement.Q<TextField>("MessageField");
           
             var version = rootVisualElement.Q<Label>("VersionLabel");
-            version.text = data.version;
+            version.text = _gitHelperData.version;
 
             var gitProfileObjectField = rootVisualElement.Q<ObjectField>("GitProfileObjectField");
             gitProfileObjectField.objectType = typeof(GitProfile);
-            gitProfileObjectField.value = data.lastGitProfile;
+            gitProfileObjectField.value = _gitHelperData.lastGitProfile;
             gitProfileObjectField.RegisterCallback<FocusOutEvent>(evt => SaveData());
             gitProfileObjectField.RegisterCallback<ChangeEvent<Object>>((evt) =>
             {
-                data.lastGitProfile = (GitProfile) evt.newValue;
+                _gitHelperData.lastGitProfile = (GitProfile) evt.newValue;
             });
             
-            if(data.lastGitProfile is null) return;
+            if(_gitHelperData.lastGitProfile is null) return;
 
             LoadRepositoryData();
             
             var tokenField = rootVisualElement.Q<TextField>("TokenField");
-            tokenField.value = data.lastGitProfile.token;
+            tokenField.value = _gitHelperData.lastGitProfile.token;
             tokenField.RegisterCallback<FocusOutEvent>(evt => SaveData());
-            tokenField.RegisterCallback<InputEvent>((evt) => data.lastGitProfile.token = evt.newData);
+            tokenField.RegisterCallback<InputEvent>((evt) => _gitHelperData.lastGitProfile.token = evt.newData);
             
-            var repoNameField = rootVisualElement.Q<TextField>("NameField");
-            repoNameField.value = data.lastRepositoryData.repositoryName;
-            repoNameField.RegisterCallback<FocusOutEvent>(evt => SaveData());
-            repoNameField.RegisterCallback<InputEvent>((evt) => data.lastRepositoryData.repositoryName = evt.newData);
+            _repoNameField = rootVisualElement.Q<TextField>("NameField");
+            _repoNameField.value = _gitHelperData.lastRepositoryData.repositoryName;
+            _repoNameField.RegisterCallback<FocusOutEvent>(evt => SaveData());
+            _repoNameField.RegisterCallback<InputEvent>((evt) =>
+            {
+                _gitHelperData.lastRepositoryData.repositoryName = evt.newData;
+                ConvertToSlugButton();
+            });
             
             _slugNameField = rootVisualElement.Q<TextField>("SlugNameField");
-            _slugNameField.value = data.lastRepositoryData.repositorySlugName;
+            _slugNameField.value = _gitHelperData.lastRepositoryData.repositorySlugName;
             _slugNameField.RegisterCallback<FocusOutEvent>(evt => SaveData());
-            _slugNameField.RegisterCallback<InputEvent>((evt) => data.lastRepositoryData.repositorySlugName = evt.newData);
+            _slugNameField.RegisterCallback<InputEvent>((evt) => _gitHelperData.lastRepositoryData.repositorySlugName = evt.newData);
             
             _repoUrlField = rootVisualElement.Q<TextField>("RepoUrlField");
-            _repoUrlField.value = data.lastRepositoryData.repositoryUrl;
+            _repoUrlField.value = _gitHelperData.lastRepositoryData.repositoryUrl;
             _repoUrlField.RegisterCallback<FocusOutEvent>(evt => SaveData());
-            _repoUrlField.RegisterCallback<InputEvent>((evt) => data.lastRepositoryData.repositoryUrl = evt.newData);
+            _repoUrlField.RegisterCallback<InputEvent>((evt) => _gitHelperData.lastRepositoryData.repositoryUrl = evt.newData);
+            
+            var convertToSlugButton = rootVisualElement.Q<Button>("ConvertToSlugButton");
+            convertToSlugButton.RegisterCallback<MouseUpEvent>((evt) =>
+            {
+                ConvertToSlugButton();
+            });
             
             var repoUrlButton = rootVisualElement.Q<Button>("SetUrlButton");
-            repoUrlButton.RegisterCallback<MouseUpEvent>((evt) => GitCommands.Instance().SetRemoteBranch(data.lastRepositoryData.repositoryUrl));
+            repoUrlButton.RegisterCallback<MouseUpEvent>((evt) => GitCommands.Instance().SetRemoteBranch(_gitHelperData.lastRepositoryData.repositoryUrl));
             
             var projectKeyField = rootVisualElement.Q<TextField>("ProjectKeyField");
-            projectKeyField.value = data.lastGitProfile.projectKey;
+            projectKeyField.value = _gitHelperData.lastGitProfile.projectKey;
             projectKeyField.RegisterCallback<FocusOutEvent>(evt => SaveData());
-            projectKeyField.RegisterCallback<InputEvent>((evt) => data.lastGitProfile.projectKey = evt.newData);
+            projectKeyField.RegisterCallback<InputEvent>((evt) => _gitHelperData.lastGitProfile.projectKey = evt.newData);
             
             var autoSetTaskNumberToggle = rootVisualElement.Q<Button>("GetTitleButton");
             autoSetTaskNumberToggle.RegisterCallback<MouseUpEvent>((evt) =>
             {
-                repoNameField.value = SetRepoNameFromTitle();
-                _slugNameField.value = repoNameField.value.Replace(" ", "-");
-
-                data.lastRepositoryData.repositoryName = repoNameField.value;
-                data.lastRepositoryData.repositorySlugName = _slugNameField.value;
+                _repoNameField.value = SetRepoNameFromTitle();
+                _gitHelperData.lastRepositoryData.repositoryName = _repoNameField.value;
                 
+                ConvertToSlugButton();
                 SaveData();
             });
 
@@ -145,9 +136,15 @@ namespace GitHelper.Editor.Scripts
             commitButton.RegisterCallback<MouseUpEvent>((evt) => GitCommands.Instance().CommitChanges(_messageField.value));
         }
 
+        private void ConvertToSlugButton()
+        {
+            _slugNameField.value = _repoNameField.value.Replace(" ", "-");
+            _gitHelperData.lastRepositoryData.repositorySlugName = _slugNameField.value;
+        }
+
         private void LoadRepositoryData()
         {
-            if(data.lastRepositoryData != null) return;
+            if(_gitHelperData.lastRepositoryData != null) return;
             
             RepositoryData repositoryData = Resources.Load<RepositoryData>("CurrentRepositoryData");
 
@@ -163,25 +160,25 @@ namespace GitHelper.Editor.Scripts
                 AssetDatabase.SaveAssets();
             }
 
-            data.lastRepositoryData = repositoryData;
+            _gitHelperData.lastRepositoryData = repositoryData;
         }
 
         private void SaveData()
         {
-            EditorUtility.SetDirty(data);
-            EditorUtility.SetDirty(data);
+            EditorUtility.SetDirty(_gitHelperData);
+            EditorUtility.SetDirty(_gitHelperData);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
 
         private void Auth()
         {
-            if (_client is null)
+            if (_bitbucketClient is null)
             {
-                if (!string.IsNullOrEmpty(data.lastGitProfile.token))
+                if (!string.IsNullOrEmpty(_gitHelperData.lastGitProfile.token))
                 {
-                    _client = new BitbucketClient("https://git.syneforge.com/", ()=> data.lastGitProfile.token);
-                    WriteLog(_client != null ? "Successfully authorized" : "Authorization failed");
+                    _bitbucketClient = new BitbucketClient("https://git.syneforge.com/", ()=> _gitHelperData.lastGitProfile.token);
+                    WriteLog(_bitbucketClient != null ? "Successfully authorized" : "Authorization failed");
                 }
                 else WriteLog("Token is empty");
             }
@@ -193,17 +190,6 @@ namespace GitHelper.Editor.Scripts
             string[] s = Application.dataPath.Split('/');
             string projectName = s[s.Length - 2];
             return projectName;
-        }
-        
-        public void OnSelectionChange()
-        {
-            GameObject selectedObject = Selection.activeObject as GameObject;
-            if (selectedObject != null)
-            {
-                SerializedObject so = new SerializedObject(selectedObject);
-                rootVisualElement.Bind(so);
-            }
-            else rootVisualElement.Unbind();
         }
 
         private async void CreateProjectRepository()
@@ -217,12 +203,13 @@ namespace GitHelper.Editor.Scripts
                 if (newRepository != null)
                 {
                     WriteLog("New Repo Successfully created");
+                    
                     _slugNameField.value = newRepository.Slug;
-                    data.lastRepositoryData.repositorySlugName = newRepository.Slug;
+                    _gitHelperData.lastRepositoryData.repositorySlugName = newRepository.Slug;
                     SaveData();
                 
                     string link = newRepository.Links.Clone.FirstOrDefault(cloneLink => cloneLink.Href.Contains("https"))?.Href;
-                    data.lastRepositoryData.repositoryUrl = link;
+                    _gitHelperData.lastRepositoryData.repositoryUrl = link;
                     _repoUrlField.value = link;
                     
                     GitCommands.Instance().AddRemoteBranch(link); 
@@ -234,14 +221,26 @@ namespace GitHelper.Editor.Scripts
 
         private async Task<bool> IsRemoteRepoExists()
         {
-            if (!string.IsNullOrEmpty(data.lastGitProfile.projectKey) && !string.IsNullOrEmpty(data.lastRepositoryData.repositorySlugName))
+            if (!string.IsNullOrEmpty(_gitHelperData.lastGitProfile.projectKey) && !string.IsNullOrEmpty(_gitHelperData.lastRepositoryData.repositorySlugName))
             {
                 WriteLog("Trying to get repository...");
-                Task<Repository> remoteRepo;
+                //Task<Repository> remoteRepo;
                 try
                 {
-                    remoteRepo = _client.GetProjectRepositoryAsync(data.lastGitProfile.projectKey, data.lastRepositoryData.repositorySlugName);
-                    await remoteRepo;
+                    /*remoteRepo = _bitbucketClient.GetProjectRepositoryAsync(_gitHelperData.lastGitProfile.projectKey, _gitHelperData.lastRepositoryData.repositorySlugName);
+                    remoteRepo = new Task<Repository>(() =>
+                    {
+                        _bitbucketClient.GetProjectRepositoryAsync(_gitHelperData.lastGitProfile.projectKey,
+                            _gitHelperData.lastRepositoryData.repositorySlugName);
+                        
+                        return null;
+                    });
+                    remoteRepo.Start();
+                    await remoteRepo;*/
+                    
+                    var repo = await _bitbucketClient.GetProjectRepositoryAsync(_gitHelperData.lastGitProfile.projectKey,
+                        _gitHelperData.lastRepositoryData.repositorySlugName);
+                    return !(repo is null);
                 }
                 catch (Exception e)
                 {
@@ -250,12 +249,22 @@ namespace GitHelper.Editor.Scripts
                     return false;
                 }
                 
+                /*Stopwatch stopwatch = Stopwatch.StartNew();
                 while (!remoteRepo.IsCompleted)
                 {
-                    await Task.Yield();
+                    if (stopwatch.ElapsedMilliseconds < 10000)
+                    {
+                        await Task.Yield();
+                    }
+                    else
+                    {
+                        stopwatch.Stop();
+                        WriteLog("Can`t check repo / waiting time is out");
+                        break;
+                    }
                 }
 
-                return !(remoteRepo.Result is null);
+                return !(remoteRepo.Result is null);*/
             }
             else
             {
@@ -266,27 +275,37 @@ namespace GitHelper.Editor.Scripts
 
         private async Task<Repository> CreateRepo()
         {
-            if (!string.IsNullOrEmpty(data.lastGitProfile.projectKey) && !string.IsNullOrEmpty(data.lastRepositoryData.repositoryName))
+            if (!string.IsNullOrEmpty(_gitHelperData.lastGitProfile.projectKey) && !string.IsNullOrEmpty(_gitHelperData.lastRepositoryData.repositoryName))
             {
                 WriteLog("Creating of new remote repository...");
-                Task<Repository> newRepo;
+      
                 try
                 {
-                    newRepo = _client.CreateProjectRepositoryAsync(data.lastGitProfile.projectKey, data.lastRepositoryData.repositoryName);
-                    await newRepo;
+                    Repository newRepo = await _bitbucketClient.CreateProjectRepositoryAsync(_gitHelperData.lastGitProfile.projectKey, _gitHelperData.lastRepositoryData.repositoryName);
+                    return newRepo;
+                    //await newRepo;
                 }
                 catch (Exception e)
                 {
                     WriteLog(e.Message);
                     return null;
                 }
-                
-                while (!newRepo.IsCompleted)
+                /*Stopwatch stopwatch = Stopwatch.StartNew();
+                /*while (!newRepo.IsCompleted)
                 {
-                    await Task.Yield();
-                }
+                    if (stopwatch.ElapsedMilliseconds < 10000)
+                    {
+                        await Task.Yield();
+                    }
+                    else
+                    {
+                        stopwatch.Stop();
+                        WriteLog("Can`t create repo / waiting time is out");
+                        break;
+                    }
+                }#1#
 
-                return newRepo.Result;
+                return newRepo.Result;*/
             }
             else
             {
