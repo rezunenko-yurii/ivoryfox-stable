@@ -19,12 +19,12 @@ MonoBehaviour:
   packageId: app.lustigovich.testadjusti
   companyName: lustigovich
   productVersion: 1
-  screenOrientation: 4
+  screenOrientation: 0
   icon: {fileID: 2800000, guid: 00277dd4e62e0a3479e6ab660708a216, type: 3}
   development: 1
   useCustomKeystore: 0
-  scriptingImplementation: 0
-  androidArchitecture: 1
+  scriptingImplementation: 1
+  androidArchitecture: 2
   minAndroidSdkVersions: 21
   targetSdkVersions: 0
   compilerConfiguration: 0

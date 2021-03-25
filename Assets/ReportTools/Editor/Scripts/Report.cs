@@ -10,15 +10,18 @@ namespace ReportTools.Editor.Scripts
 {
     public static class Report
     {
-        public static void CreateReport(string apkLocation, string apkSignerPath)
+        public static string ApkSignerPath
         {
-            if (!Directory.Exists(apkSignerPath))
+            get
             {
-                Debug.LogError($"{apkSignerPath} doesn`t exists");
-                return;
+                var directories = Directory.GetDirectories(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Android\Sdk\build-tools"));
+                return directories[directories.Length - 1];
             }
-
-            var info = ApkManifestReader.ReadApkFromPath(apkLocation, apkSignerPath);
+        }
+        
+        public static void CreateReport(string apkLocation)
+        {
+            var info = ApkManifestReader.ReadApkFromPath(apkLocation, ApkSignerPath);
             AnalyzeReport(info, apkLocation);
         }
 

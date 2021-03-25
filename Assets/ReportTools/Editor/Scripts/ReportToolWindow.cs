@@ -59,7 +59,7 @@ namespace ReportTools.Editor.Scripts
             var createReportButton = rootVisualElement.Q<Button>("CreateReportButton");
             createReportButton.RegisterCallback<MouseUpEvent>((evt) =>
             {
-                Report.CreateReport(apkPathField.value, settings.apkSignerPath);
+                Report.CreateReport(apkPathField.value);
             });
         }
         

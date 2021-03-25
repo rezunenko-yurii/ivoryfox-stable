@@ -159,7 +159,7 @@ namespace BuildTools.Editor.Scripts
             var reportButton = rootVisualElement.Q<Button>(key + "ReportButton");
             reportButton.RegisterCallback<MouseUpEvent>((evt) =>
             {
-                if (SetPlayerData(data)) Report.CreateReport($"{_settings.buildFolderPath}/{data.GetApkName()}", _settings.apkSignerPath);
+                if (SetPlayerData(data)) Report.CreateReport($"{_settings.buildFolderPath}/{data.GetApkName()}");
             });
             
             var buildButton = rootVisualElement.Q<Button>(key + "BuildButton");

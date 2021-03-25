@@ -1,10 +1,11 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
+using RemoteConfigHelper.Scripts;
 using Unity.RemoteConfig.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace RemoteConfigHelper.Scripts
+namespace WebSdkExtentions.ConfigLoaders.UnityRemoteConfig.Editor.RemoteConfigHelper.Scripts
 {
     public class RemoteConfigHelperWindow : EditorWindow
     {
