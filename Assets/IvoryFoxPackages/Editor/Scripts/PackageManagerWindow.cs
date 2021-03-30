@@ -5,7 +5,7 @@ namespace IvoryFoxPackages.Editor.Scripts
 {
     public class PackageManagerWindow : EditorWindow
     {
-        [MenuItem("IvoryFox/Package Manager")]
+        [MenuItem("IvoryFox/Packages/Package Manager Window")]
         public static void ShowWindow() => GetWindow<PackageManagerWindow>("Package Manager");
 
         private Package[] all;

@@ -1,14 +1,12 @@
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.PackageManager;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
-namespace IvoryFoxPackagesHelper
+namespace IvoryFoxPackagesHelper.Scripts
 {
     public static class IvoryFoxPackagesInstaller
     {
-        private const string PackageName = "com.ivoryfox.package-manager";
+        private const string PackageName = "https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/IvoryFoxPackages";
     
         [MenuItem("IvoryFox/Packages/Install Package Manager")]
         public static void Install()
