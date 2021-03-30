@@ -16,7 +16,7 @@ namespace GitHelper.Editor.Scripts
 {
     public class GitHelperWindow : EditorWindow
     {
-        [MenuItem("IvoryFox/Git Helper")]
+        [MenuItem("IvoryFox/Git Helper Window")]
         public static void ShowWindow() => GetWindow<GitHelperWindow>("Git Helper");
 
         private GitHelperData _gitHelperData;
@@ -30,6 +30,8 @@ namespace GitHelper.Editor.Scripts
         [MenuItem("IvoryFox/Git Helper/First Init")]
         private static void FirstInit()
         {
+            PlayerSettings.assemblyVersionValidation = false;
+            
             string gitFolderPath = Application.dataPath.Replace("/Assets", "");
             gitFolderPath = $"{gitFolderPath}/.git";
             
@@ -37,8 +39,6 @@ namespace GitHelper.Editor.Scripts
             {
                 GitCommands.Instance().SetGitIgnore();
                 GitCommands.Instance().InitGit();
-                
-                PlayerSettings.assemblyVersionValidation = false;
             }
         }
 
