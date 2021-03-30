@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" show-vertical-scroller="true" name="ScrollContainer" style="justify-content: space-around; align-items: stretch; flex-basis: 100%;">
+        <ui:VisualElement name="PackageContainer" style="-unity-background-image-tint-color: rgb(236, 66, 66); background-color: rgb(13, 5, 55); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+            <ui:VisualElement>
+                <ui:Label text="Label" display-tooltip-when-elided="true" name="TitleLabel" style="font-size: 20px; -unity-text-align: upper-center;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-direction: row; justify-content: space-around;">
+                <ui:Button text="Install" display-tooltip-when-elided="true" name="InstallButton" />
+                <ui:Button text="Remove" display-tooltip-when-elided="true" name="RemoveButton" />
+                <ui:Button text="Update" display-tooltip-when-elided="true" name="UpdateButton" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:ScrollView>
+</ui:UXML>
