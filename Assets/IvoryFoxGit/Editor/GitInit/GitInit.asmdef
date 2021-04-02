@@ -1,0 +1,18 @@
+{
+    "name": "GitInit",
+    "rootNamespace": "",
+    "references": [
+        "GUID:614b5afb570dc8d4fb0c4da13a1f9e77"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
