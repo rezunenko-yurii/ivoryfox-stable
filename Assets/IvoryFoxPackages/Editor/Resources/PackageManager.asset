@@ -15,6 +15,6 @@ MonoBehaviour:
   packageName: Package Manager
   packageId: com.ivoryfox.package-manager
   type: 0
-  url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/ExtendedPackageManager
+  url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/IvoryFoxPackages
   unityDependencies: []
   gitDependencies: []
