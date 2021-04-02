@@ -15,7 +15,7 @@ MonoBehaviour:
   packageName: Git Helper
   packageId: com.ivoryfox.git-helper
   type: 0
-  url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/GitHelper
+  url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/IvoryFoxGit
   unityDependencies:
   - com.unity.remote-config
   gitDependencies:

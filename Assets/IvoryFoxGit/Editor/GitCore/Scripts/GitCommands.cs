@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-namespace GitHelper.Editor.Scripts
+namespace IvoryFoxGit.Editor.GitCore.Scripts
 {
     public class GitCommands
     {

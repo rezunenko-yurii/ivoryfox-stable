@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace GitHelper.Editor.Scripts
+namespace IvoryFoxGit.Editor.GitHelper.Scripts
 {
     [Serializable, CreateAssetMenu(fileName = "GitHelperData", menuName = "IvoryFox/GitHelper/Create GitHelperData")]
     public class GitHelperData : ScriptableObject

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using IvoryFoxGit.Editor.GitCore.Scripts;
 using ToolbarExtenderPlugin.Editor.Scripts;
 using UnityEditor;
 using UnityEngine;
 
-namespace GitHelper.Editor.Scripts
+namespace IvoryFoxGit.Editor.GitHelper.Scripts
 {
     [InitializeOnLoad]
     public class GitHelperButtons

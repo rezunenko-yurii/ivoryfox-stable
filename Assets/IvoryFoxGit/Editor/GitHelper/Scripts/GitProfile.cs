@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GitHelper.Editor.Scripts
+namespace IvoryFoxGit.Editor.GitHelper.Scripts
 {
     [CreateAssetMenu(fileName = "GitProfile", menuName = "IvoryFox/GitHelper/Create Git Profile", order = 0)]
     public class GitProfile : ScriptableObject

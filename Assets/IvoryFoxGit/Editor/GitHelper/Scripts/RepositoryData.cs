@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GitHelper.Editor.Scripts
+namespace IvoryFoxGit.Editor.GitHelper.Scripts
 {
     [CreateAssetMenu(fileName = "RepositoryData", menuName = "IvoryFox/GitHelper/Create RepositoryData", order = 0)]
     public class RepositoryData : ScriptableObject

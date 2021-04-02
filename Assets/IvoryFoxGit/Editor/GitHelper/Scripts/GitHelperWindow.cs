@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Bitbucket.Net;
 using Bitbucket.Net.Models.Core.Projects;
+using IvoryFoxGit.Editor.GitCore.Scripts;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -12,7 +12,7 @@ using UnityEngine.UIElements;
 using Debug = UnityEngine.Debug;
 using Object = UnityEngine.Object;
 
-namespace GitHelper.Editor.Scripts
+namespace IvoryFoxGit.Editor.GitHelper.Scripts
 {
     public class GitHelperWindow : EditorWindow
     {
@@ -26,22 +26,6 @@ namespace GitHelper.Editor.Scripts
         private TextField _repoUrlField;
         private BitbucketClient _bitbucketClient;
         
-        [InitializeOnLoadMethod]
-        [MenuItem("IvoryFox/Git Helper/First Init")]
-        private static void FirstInit()
-        {
-            PlayerSettings.assemblyVersionValidation = false;
-            
-            string gitFolderPath = Application.dataPath.Replace("/Assets", "");
-            gitFolderPath = $"{gitFolderPath}/.git";
-            
-            if (!Directory.Exists(gitFolderPath))
-            {
-                GitCommands.Instance().SetGitIgnore();
-                GitCommands.Instance().InitGit();
-            }
-        }
-
         public void OnEnable()
         {
             var visualTree = Resources.Load<VisualTreeAsset>("GitHelperUI");

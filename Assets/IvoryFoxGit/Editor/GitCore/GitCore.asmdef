@@ -1,9 +1,7 @@
 {
-    "name": "GitHelper.Editor",
+    "name": "GitCore",
     "rootNamespace": "",
-    "references": [
-        "GUID:1125332302a610645a61c14704b4481b"
-    ],
+    "references": [],
     "includePlatforms": [
         "Editor"
     ],
