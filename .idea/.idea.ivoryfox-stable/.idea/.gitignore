@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/projectSettingsUpdater.xml
+/contentModel.xml
+/.idea.ivoryfox-stable.iml
+# Datasource local storage ignored files
+/../../../../../../../../:\Users\exhale\Documents\ivoryfox-stable\.idea\.idea.ivoryfox-stable\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
