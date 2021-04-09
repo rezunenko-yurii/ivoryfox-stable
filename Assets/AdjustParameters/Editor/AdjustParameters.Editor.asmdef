@@ -1,11 +1,12 @@
 {
-    "name": "PluginsResolver.Editor",
+    "name": "AdjustParameters.Editor",
+    "rootNamespace": "",
     "references": [],
     "includePlatforms": [
         "Editor"
     ],
     "excludePlatforms": [],
-    "allowUnsafeCode": true,
+    "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,

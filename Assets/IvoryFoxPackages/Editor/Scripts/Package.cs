@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using IvoryFoxPackages.Editor.Scripts.UnityPackages;
 using UnityEngine;
 
 namespace IvoryFoxPackages.Editor.Scripts
@@ -13,6 +14,8 @@ namespace IvoryFoxPackages.Editor.Scripts
         public string url;
         public List<string> unityDependencies = new List<string>();
         public List<Package> gitDependencies = new List<Package>();
+        
+        public List<UnityPackageData> unityPackages = new List<UnityPackageData>();
 
         public void InstallOrUpdate()
         {
@@ -20,6 +23,7 @@ namespace IvoryFoxPackages.Editor.Scripts
             GetAllGitDependencies(toUpdate);
             toUpdate.Reverse();
             
+            UnityPackagesInstaller.Install(unityPackages);
             UnityRegistryHelper.Download(toUpdate);
             UnityRegistryHelper.Download(unityDependencies);
         }

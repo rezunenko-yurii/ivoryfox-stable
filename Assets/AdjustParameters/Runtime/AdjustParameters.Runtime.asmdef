@@ -1,0 +1,18 @@
+{
+    "name": "AdjustParameters.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b158e58fb8bd8774d83f310915b25b64",
+        "GUID:0757f9d8a63e79f4b86db76555f6c764",
+        "GUID:3eb8fcefcd9a5d643bd6a0eb95714e4d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

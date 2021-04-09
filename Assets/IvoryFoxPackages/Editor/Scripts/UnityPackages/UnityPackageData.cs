@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace PluginsResolver.Editor.Scripts
+namespace IvoryFoxPackages.Editor.Scripts.UnityPackages
 {
     [Serializable]
-    public class LocalPackageData
+    public class UnityPackageData
     {
         public string packageName;
         public string pathToPackage;
