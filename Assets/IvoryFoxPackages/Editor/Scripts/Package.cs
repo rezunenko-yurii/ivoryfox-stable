@@ -22,10 +22,15 @@ namespace IvoryFoxPackages.Editor.Scripts
             List<string> toUpdate = new List<string> {url};
             GetAllGitDependencies(toUpdate);
             toUpdate.Reverse();
-            
-            UnityPackagesInstaller.Install(unityPackages);
+
+            InstallUnityPackages();
             UnityRegistryHelper.Download(toUpdate);
             UnityRegistryHelper.Download(unityDependencies);
+        }
+
+        public void InstallUnityPackages()
+        {
+            UnityPackagesInstaller.Install(unityPackages);
         }
 
         public void Remove()

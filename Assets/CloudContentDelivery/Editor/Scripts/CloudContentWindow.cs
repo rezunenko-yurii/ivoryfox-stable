@@ -243,7 +243,8 @@ namespace CloudContentDelivery.Editor.Scripts
 
         private List<LocalContent> GetLocalContent()
         {
-            var files = CcdHelper.FindAll(_settings.contentFolderPath, new []{".meta"}).ToList();
+            string path = Application.dataPath + "/CloudContentDelivery/Editor/Resources/Content";
+            var files = CcdHelper.FindAll(path, new []{".meta"}).ToList();
             List<LocalContent> localContent = new List<LocalContent>();
         
             foreach (var file in files) localContent.Add(new LocalContent(file));

@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Diagnostics;
-using com.ivoryfox.websdk.parameters.Runtime;
 using UnityEngine;
 using WebBlock.ivoryfox.websdk.parameters.Runtime;
+using WebSdkExtentions.Parameters.Runtime.Scripts;
 using Debug = UnityEngine.Debug;
 
 namespace AdjustParameters.Runtime.Scripts

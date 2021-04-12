@@ -8,7 +8,7 @@ namespace com.adjust.sdk
 #if UNITY_ANDROID
     public class AdjustAndroid
     {
-        private const string sdkPrefix = "unity4.23.2";
+        private const string sdkPrefix = "unity4.28.0";
         private static bool launchDeferredDeeplink = true;
         private static AndroidJavaClass ajcAdjust = new AndroidJavaClass("com.adjust.sdk.Adjust");
         private static AndroidJavaObject ajoCurrentActivity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
@@ -86,6 +86,18 @@ namespace com.adjust.sdk
                 ajoAdjustConfig.Call("setSendInBackground", adjustConfig.sendInBackground.Value);
             }
 
+            // Check if user wants to get cost data in attribution callback.
+            if (adjustConfig.needsCost != null)
+            {
+                ajoAdjustConfig.Call("setNeedsCost", adjustConfig.needsCost.Value);
+            }
+
+            // Check if user wants to run preinstall campaigns.
+            if (adjustConfig.preinstallTrackingEnabled != null)
+            {
+                ajoAdjustConfig.Call("setPreinstallTrackingEnabled", adjustConfig.preinstallTrackingEnabled.Value);
+            }
+
             // Check if user has set user agent value.
             if (adjustConfig.userAgent != null)
             {
@@ -122,6 +134,11 @@ namespace com.adjust.sdk
                 {
                     AndroidJavaObject ajoUrlStrategyIndia = new AndroidJavaClass("com.adjust.sdk.AdjustConfig").GetStatic<AndroidJavaObject>("URL_STRATEGY_INDIA");
                     ajoAdjustConfig.Call("setUrlStrategy", ajoUrlStrategyIndia);
+                }
+                else if (adjustConfig.urlStrategy == AdjustConfig.AdjustDataResidencyEU)
+                {
+                    AndroidJavaObject ajoDataResidencyEU = new AndroidJavaClass("com.adjust.sdk.AdjustConfig").GetStatic<AndroidJavaObject>("DATA_RESIDENCY_EU");
+                    ajoAdjustConfig.Call("setUrlStrategy", ajoDataResidencyEU);
                 }
             }
 
@@ -311,6 +328,21 @@ namespace com.adjust.sdk
                     null : ajoAttribution.Get<string>(AdjustUtils.KeyClickLabel);
                 adjustAttribution.adid = ajoAttribution.Get<string>(AdjustUtils.KeyAdid) == "" ?
                     null : ajoAttribution.Get<string>(AdjustUtils.KeyAdid);
+                adjustAttribution.costType = ajoAttribution.Get<string>(AdjustUtils.KeyCostType) == "" ?
+                    null : ajoAttribution.Get<string>(AdjustUtils.KeyCostType);
+                AndroidJavaObject ajoCostAmount = ajoAttribution.Get<AndroidJavaObject>(AdjustUtils.KeyCostAmount) == null ?
+                    null : ajoAttribution.Get<AndroidJavaObject>(AdjustUtils.KeyCostAmount);
+                if (ajoCostAmount == null)
+                {
+                    adjustAttribution.costAmount = null;
+                }
+                else
+                {
+                    double costAmount = ajoCostAmount.Call<double>("doubleValue");
+                    adjustAttribution.costAmount = costAmount;
+                }
+                adjustAttribution.costCurrency = ajoAttribution.Get<string>(AdjustUtils.KeyCostCurrency) == "" ?
+                    null : ajoAttribution.Get<string>(AdjustUtils.KeyCostCurrency);
                 return adjustAttribution;
             }
             catch (Exception) {}
@@ -431,6 +463,40 @@ namespace com.adjust.sdk
             ajcAdjust.CallStatic("trackPlayStoreSubscription", ajoSubscription);
         }
 
+        public static void TrackThirdPartySharing(AdjustThirdPartySharing thirdPartySharing)
+        {
+            AndroidJavaObject ajoIsEnabled;
+            AndroidJavaObject ajoAdjustThirdPartySharing;
+            if (thirdPartySharing.isEnabled != null)
+            {
+                ajoIsEnabled = new AndroidJavaObject("java.lang.Boolean", thirdPartySharing.isEnabled.Value);
+                ajoAdjustThirdPartySharing = new AndroidJavaObject("com.adjust.sdk.AdjustThirdPartySharing", ajoIsEnabled);
+            }
+            else
+            {
+                string[] parameters = null;
+                ajoAdjustThirdPartySharing = new AndroidJavaObject("com.adjust.sdk.AdjustThirdPartySharing", parameters);
+            }
+
+            if (thirdPartySharing.granularOptions != null)
+            {
+                foreach (KeyValuePair<string, List<string>> entry in thirdPartySharing.granularOptions)
+                {
+                    for (int i = 0; i < entry.Value.Count;)
+                    {
+                        ajoAdjustThirdPartySharing.Call("addGranularOption", entry.Key, entry.Value[i++], entry.Value[i++]);
+                    }
+                }
+            }
+
+            ajcAdjust.CallStatic("trackThirdPartySharing", ajoAdjustThirdPartySharing);
+        }
+
+        public static void TrackMeasurementConsent(bool measurementConsent)
+        {
+            ajcAdjust.CallStatic("trackMeasurementConsent", measurementConsent);
+        }
+
         // Android specific methods.
         public static void OnPause()
         {
@@ -506,6 +572,21 @@ namespace com.adjust.sdk
                     null : attribution.Get<string>(AdjustUtils.KeyClickLabel);
                 adjustAttribution.adid = attribution.Get<string>(AdjustUtils.KeyAdid) == "" ?
                     null : attribution.Get<string>(AdjustUtils.KeyAdid);
+                adjustAttribution.costType = attribution.Get<string>(AdjustUtils.KeyCostType) == "" ?
+                    null : attribution.Get<string>(AdjustUtils.KeyCostType);
+                AndroidJavaObject ajoCostAmount = attribution.Get<AndroidJavaObject>(AdjustUtils.KeyCostAmount) == null ?
+                    null : attribution.Get<AndroidJavaObject>(AdjustUtils.KeyCostAmount);
+                if (ajoCostAmount == null)
+                {
+                    adjustAttribution.costAmount = null;
+                }
+                else
+                {
+                    double costAmount = ajoCostAmount.Call<double>("doubleValue");
+                    adjustAttribution.costAmount = costAmount;
+                }
+                adjustAttribution.costCurrency = attribution.Get<string>(AdjustUtils.KeyCostCurrency) == "" ?
+                    null : attribution.Get<string>(AdjustUtils.KeyCostCurrency);
                 callback(adjustAttribution);
             }
         }

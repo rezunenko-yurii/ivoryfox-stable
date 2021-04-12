@@ -12,6 +12,7 @@ namespace Global.Helpers.Runtime
         public static Type FindType(string typeName)
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            
             foreach (Assembly assembly in assemblies)
             {
                 var allTypesInAssembly = assembly.GetTypes();
@@ -34,17 +35,21 @@ namespace Global.Helpers.Runtime
         public static Generic.Dictionary<Type, T> GetTypesWithAttribute<T>() 
         {
             Generic.Dictionary<Type,T> all = new Generic.Dictionary<Type, T>();
-            var ass = GetAssemblyByName("Assembly-CSharp");
-
-            foreach(Type type in ass.GetTypes())
+            //var ass = GetAssemblyByName("Assembly-CSharp");
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            
+            foreach (var assembly in assemblies)
             {
-                object attribute = type.GetCustomAttribute(typeof(T), true);
-                if (attribute != null) 
+                foreach(Type type in assembly.GetTypes())
                 {
-                    all.Add(type,(T) attribute);
+                    object attribute = type.GetCustomAttribute(typeof(T), true);
+                    if (attribute != null) 
+                    {
+                        all.Add(type,(T) attribute);
+                    }
                 }
             }
-
+            
             return all;
         }
         

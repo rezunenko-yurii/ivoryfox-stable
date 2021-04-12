@@ -1,8 +1,7 @@
 ﻿using System;
 using UnityEngine;
-using WebSdkExtentions.Parameters.Runtime.Scripts;
 
-namespace com.ivoryfox.websdk.parameters.Runtime
+namespace WebSdkExtentions.Parameters.Runtime.Scripts
 {
     public abstract class Parameter
     {

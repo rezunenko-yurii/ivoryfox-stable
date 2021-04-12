@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using com.ivoryfox.websdk.parameters.Runtime;
 using Global.Helpers.Runtime;
 using GlobalBlock.Interfaces;
 using GlobalBlock.Interfaces.WebPart;
@@ -30,14 +29,6 @@ namespace IvoryFox.WebSDK.Parameters
         
         public void Init()
         {
-            /*parameterItems.items.ForEach(param =>
-            {
-                logger.Send($"::{nameof(ParametersManager)}.{nameof(SetConfig)}:: " 
-                                      + $"ParameterModel To Init -> name = {param.alias}" 
-                                      + $"/ id = {param.id}"
-                                      + $"/ value = {param.value}");
-            });*/
-            
             SerialiseParams(parameterItems.items);
             
             foreach (Parameter param in parameters)
@@ -56,16 +47,7 @@ namespace IvoryFox.WebSDK.Parameters
                     param.onUnReady += RemoveFromReadyParams;
                 }
             }
-
-            /*List<Parameter> inputables = parameters.Where(param => param is IInputableParameter).ToList();;
-            if (inputables.Count > 0)
-            {
-                Object prefab = Resources.Load("ParametersUI", typeof(GameObject));
-                GameObject ui = GameObject.Instantiate(prefab, monoBehaviour.transform.parent) as GameObject;
-                userParamsInput = ui.GetComponent<InputableParameters>();
-                userParamsInput.Init(inputables, this);
-            }*/
-
+            
             if (parameters.Count == 0)
             {
                 OnComplete?.Invoke();
@@ -105,8 +87,6 @@ namespace IvoryFox.WebSDK.Parameters
         {
             if (readyParams.Contains(parameter)) return;
             
-            //logger.Send($"::{nameof(ParametersManager)}.{nameof(CheckParamsReady)}:: Parameter {parameter.GetAlias()} is ready | value = {parameter.GetValue()}");
-            
             readyParams.Add(parameter);
             readyAttributesCounter++;
 
@@ -134,8 +114,6 @@ namespace IvoryFox.WebSDK.Parameters
         {
             if (readyParams.Contains(parameter))
             {
-                //logger.Send($"::{nameof(ParametersManager)}.{nameof(RemoveFromReadyParams)}:: Attribute {parameter.GetAlias()} is UNready", "", LogType.Warning);
-            
                 readyParams.Remove(parameter);
                 readyAttributesCounter--;
             }
@@ -154,6 +132,7 @@ namespace IvoryFox.WebSDK.Parameters
         #endregion
         
         #region FIND ATTRIBUTES REGION
+        
         private void SerialiseParams(List<ParameterModel> parameterModels)
         {
             Dictionary<Type, IdAttribute> typesWithAttribute =  ReflectionHelper.GetTypesWithAttribute<IdAttribute>();
@@ -170,8 +149,7 @@ namespace IvoryFox.WebSDK.Parameters
             });
         }
         #endregion
-
-
+        
         public IMediator mediator { get; private set; }
         public void SetMediator(IMediator mediator)
         {

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace com.ivoryfox.websdk.parameters.Runtime
+namespace WebSdkExtentions.Parameters.Runtime.Scripts
 {
     public class WaitableParameter: Parameter
     {

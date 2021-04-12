@@ -21,6 +21,9 @@ namespace com.adjust.sdk
         public static string KeyTrackerName = "trackerName";
         public static string KeyTrackerToken = "trackerToken";
         public static string KeyJsonResponse = "jsonResponse";
+        public static string KeyCostType = "costType";
+        public static string KeyCostAmount = "costAmount";
+        public static string KeyCostCurrency = "costCurrency";
 
         // For testing purposes.
         public static string KeyTestOptionsBaseUrl = "baseUrl";
@@ -38,6 +41,7 @@ namespace com.adjust.sdk
         public static string KeyTestOptionsTeardown = "teardown";
         public static string KeyTestOptionsNoBackoffWait = "noBackoffWait";
         public static string KeyTestOptionsiAdFrameworkEnabled = "iAdFrameworkEnabled";
+        public static string KeyTestOptionsAdServicesFrameworkEnabled = "adServicesFrameworkEnabled";
 
         public static int ConvertLogLevel(AdjustLogLevel? logLevel)
         {

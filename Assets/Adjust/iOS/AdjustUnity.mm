@@ -68,7 +68,13 @@ BOOL isStringValid(const char* cString) {
 
 void addValueOrEmpty(NSMutableDictionary *dictionary, NSString *key, NSObject *value) {
     if (nil != value) {
-        [dictionary setObject:[NSString stringWithFormat:@"%@", value] forKey:key];
+        if ([value isKindOfClass:[NSString class]]) {
+            [dictionary setObject:[NSString stringWithFormat:@"%@", value] forKey:key];
+        } else if ([value isKindOfClass:[NSNumber class]]) {
+            [dictionary setObject:[NSString stringWithFormat:@"%@", [((NSNumber *)value) stringValue]] forKey:key];
+        } else {
+            [dictionary setObject:@"" forKey:key];
+        }
     } else {
         [dictionary setObject:@"" forKey:key];
     }
@@ -92,8 +98,10 @@ extern "C"
                           int eventBuffering,
                           int sendInBackground,
                           int allowiAdInfoReading,
+                          int allowAdServicesInfoReading,
                           int allowIdfaReading,
                           int deactivateSkAdNetworkHandling,
+                          int needsCost,
                           int64_t secretId,
                           int64_t info1,
                           int64_t info2,
@@ -168,6 +176,11 @@ extern "C"
             [adjustConfig setAllowiAdInfoReading:(BOOL)allowiAdInfoReading];
         }
 
+        // Allow AdServices info reading.
+        if (allowAdServicesInfoReading != -1) {
+            [adjustConfig setAllowAdServicesInfoReading:(BOOL)allowAdServicesInfoReading];
+        }
+
         // Deactivate default SKAdNetwork handling.
         if (deactivateSkAdNetworkHandling != -1) {
             [adjustConfig deactivateSKAdNetworkHandling];
@@ -186,6 +199,11 @@ extern "C"
         // Delay start.
         if (delayStart != -1) {
             [adjustConfig setDelayStart:delayStart];
+        }
+
+        // Cost data in attribution callback.
+        if (needsCost != -1) {
+            [adjustConfig setNeedsCost:(BOOL)needsCost];
         }
 
         // User agent.
@@ -209,6 +227,8 @@ extern "C"
                 [adjustConfig setUrlStrategy:ADJUrlStrategyChina];
             } else if ([stringUrlStrategy isEqualToString:@"india"]) {
                 [adjustConfig setUrlStrategy:ADJUrlStrategyIndia];
+            } else if ([stringUrlStrategy isEqualToString:@"data-residency-eu"]) {
+                [adjustConfig setUrlStrategy:ADJDataResidencyEU];
             }
         }
 
@@ -400,6 +420,9 @@ extern "C"
         addValueOrEmpty(dictionary, @"adgroup", attribution.adgroup);
         addValueOrEmpty(dictionary, @"clickLabel", attribution.clickLabel);
         addValueOrEmpty(dictionary, @"adid", attribution.adid);
+        addValueOrEmpty(dictionary, @"costType", attribution.costType);
+        addValueOrEmpty(dictionary, @"costAmount", attribution.costAmount);
+        addValueOrEmpty(dictionary, @"costCurrency", attribution.costCurrency);
 
         NSData *dataAttribution = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:nil];
         NSString *stringAttribution = [[NSString alloc] initWithBytes:[dataAttribution bytes]
@@ -556,12 +579,59 @@ extern "C"
         [Adjust trackSubscription:subscription];
     }
 
-    void _AdjustRequestTrackingAuthorizationWithCompletionHandler() {
+    void _AdjustTrackThirdPartySharing(int enabled, const char* jsonGranularOptions) {
+        NSNumber *nEnabled = enabled >= 0 ? [NSNumber numberWithInt:enabled] : nil;
+        ADJThirdPartySharing *adjustThirdPartySharing = [[ADJThirdPartySharing alloc] initWithIsEnabledNumberBool:nEnabled];
+
+        NSArray *arrayGranularOptions = convertArrayParameters(jsonGranularOptions);
+        if (arrayGranularOptions != nil) {
+            NSUInteger count = [arrayGranularOptions count];
+            for (int i = 0; i < count;) {
+                NSString *partnerName = arrayGranularOptions[i++];
+                NSString *granularOptions = arrayGranularOptions[i++];
+                // granularOptions is now NSString which pretty much contains array of partner key-value pairs
+                if (granularOptions != nil) {
+                    NSData *dataJson = [granularOptions dataUsingEncoding:NSUTF8StringEncoding];
+                    NSArray *partnerGranularOptions = [NSJSONSerialization JSONObjectWithData:dataJson options:0 error:nil];
+                    if (partnerGranularOptions != nil) {
+                        // in here we have partner and key-value pair for it
+                        for (int j = 0; j < [partnerGranularOptions count];) {
+                            [adjustThirdPartySharing addGranularOption:partnerName
+                                                     key:partnerGranularOptions[j++]
+                                                     value:partnerGranularOptions[j++]];
+                        }
+                    }
+                }
+            }
+        }
+
+        [Adjust trackThirdPartySharing:adjustThirdPartySharing];
+    }
+
+    void _AdjustTrackMeasurementConsent(int enabled) {
+        BOOL bEnabled = (BOOL)enabled;
+        [Adjust trackMeasurementConsent:bEnabled];
+    }
+
+    void _AdjustRequestTrackingAuthorizationWithCompletionHandler(const char* sceneName) {
+        NSString *stringSceneName = isStringValid(sceneName) == true ? [NSString stringWithUTF8String:sceneName] : nil;
+        if (stringSceneName == nil) {
+            return;
+        }
+
         [Adjust requestTrackingAuthorizationWithCompletionHandler:^(NSUInteger status) {
             NSString *stringStatus = [NSString stringWithFormat:@"%tu", status];
             const char* charStatus = [stringStatus UTF8String];
-            UnitySendMessage([@"Adjust" UTF8String], "GetAuthorizationStatus", charStatus);
+            UnitySendMessage([stringSceneName UTF8String], "GetAuthorizationStatus", charStatus);
         }];
+    }
+
+    void _AdjustUpdateConversionValue(int conversionValue) {
+        [Adjust updateConversionValue:conversionValue];
+    }
+
+    int _AdjustGetAppTrackingAuthorizationStatus() {
+        return [Adjust appTrackingAuthorizationStatus];
     }
 
     void _AdjustSetTestOptions(const char* baseUrl,
@@ -575,7 +645,8 @@ extern "C"
                                int teardown,
                                int deleteState,
                                int noBackoffWait,
-                               int iAdFrameworkEnabled) {
+                               int iAdFrameworkEnabled,
+                               int adServicesFrameworkEnabled) {
         AdjustTestOptions *testOptions = [[AdjustTestOptions alloc] init];
 
         NSString *stringBaseUrl = isStringValid(baseUrl) == true ? [NSString stringWithUTF8String:baseUrl] : nil;
@@ -615,6 +686,9 @@ extern "C"
         }
         if (iAdFrameworkEnabled != -1) {
             [testOptions setIAdFrameworkEnabled:(BOOL)iAdFrameworkEnabled];
+        }
+        if (adServicesFrameworkEnabled != -1) {
+            [testOptions setAdServicesFrameworkEnabled:(BOOL)adServicesFrameworkEnabled];
         }
 
         [Adjust setTestOptions:testOptions];

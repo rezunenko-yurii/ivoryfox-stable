@@ -77,7 +77,6 @@ namespace AdjustParameters.Runtime.Scripts
         }
         
         #region Event Handlers
-
         private void onDeepLinkActivated(string url)
         {
             Console.WriteLine("Unity Deeplink URL: " + url);

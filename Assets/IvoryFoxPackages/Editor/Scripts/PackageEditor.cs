@@ -28,6 +28,12 @@ namespace IvoryFoxPackages.Editor.Scripts
                     package.InstallOrUpdate();
                 }
             }
+            
+            GUI.backgroundColor = Color.yellow;
+            if(GUILayout.Button("Install Unity Packages"))
+            {
+                package.InstallUnityPackages();
+            }
         }
     }
 }
