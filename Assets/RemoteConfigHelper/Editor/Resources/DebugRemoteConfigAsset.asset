@@ -20,6 +20,9 @@ MonoBehaviour:
   - name: paramsConfig
     type: json
     value: '{}'
+  - name: adjustToken
+    type: string
+    value: 
   rules:
   - name: canShow
     enabled: 1
@@ -31,5 +34,8 @@ MonoBehaviour:
       value: '{   "url": "https://exglavetune.net/SJdW2KTj",   "server": "" }'
     - name: paramsConfig
       type: json
-      value: '{   "items": [     {       "id": "adjust",       "alias": "adid",      
-        "value": "9c5w1t84e48w"     }   ] }'
+      value: '{   "items": [     {       "id": "adjust",       "alias": "adid" }  
+        ] }'
+    - name: adjustToken
+      type: string
+      value: 9c5w1t84e48w
