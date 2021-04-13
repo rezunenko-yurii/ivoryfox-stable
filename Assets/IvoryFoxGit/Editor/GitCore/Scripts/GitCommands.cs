@@ -44,6 +44,7 @@ namespace IvoryFoxGit.Editor.GitCore.Scripts
                         UseShellExecute = false,
                         RedirectStandardError = true,
                         RedirectStandardOutput = true,
+                        Verb = "runas",
                         Arguments = arguments
                     }
                 };

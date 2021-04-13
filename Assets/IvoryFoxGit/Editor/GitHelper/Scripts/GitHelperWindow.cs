@@ -130,7 +130,7 @@ namespace IvoryFoxGit.Editor.GitHelper.Scripts
         {
             if(_gitHelperData.lastRepositoryData != null) return;
             
-            RepositoryData repositoryData = Resources.Load<RepositoryData>("CurrentRepositoryData");
+            var repositoryData = Resources.Load<RepositoryData>("CurrentRepositoryData");
 
             if (repositoryData is null)
             {
