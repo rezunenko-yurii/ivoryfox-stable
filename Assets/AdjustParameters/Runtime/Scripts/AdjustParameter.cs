@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
-using WebBlock.ivoryfox.websdk.parameters.Runtime;
+using WebSdk.Runtime.WebPart;
 using WebSdkExtentions.Parameters.Runtime.Scripts;
 using Debug = UnityEngine.Debug;
 

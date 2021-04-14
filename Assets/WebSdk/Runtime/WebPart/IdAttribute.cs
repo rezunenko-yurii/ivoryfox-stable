@@ -1,6 +1,6 @@
-﻿﻿using System;
+﻿using System;
 
-namespace WebBlock.ivoryfox.websdk.parameters.Runtime
+namespace WebSdk.Runtime.WebPart
 {
     public class IdAttribute: Attribute
     {

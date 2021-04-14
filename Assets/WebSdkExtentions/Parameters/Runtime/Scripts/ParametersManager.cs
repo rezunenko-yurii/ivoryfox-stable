@@ -6,10 +6,10 @@ using GlobalBlock.Interfaces;
 using GlobalBlock.Interfaces.WebPart;
 using IvoryFox.WebSDK.WebSdkCore.Parameters;
 using UnityEngine;
-using WebBlock.ivoryfox.websdk.parameters.Runtime;
-using WebSdkExtentions.Parameters.Runtime.Scripts;
+using WebSdk.Runtime.Helpers.Scripts;
+using WebSdk.Runtime.WebPart;
 
-namespace IvoryFox.WebSDK.Parameters
+namespace WebSdkExtentions.Parameters.Runtime.Scripts
 {
     public class ParametersManager : IParamsManager
     {
@@ -135,18 +135,28 @@ namespace IvoryFox.WebSDK.Parameters
         
         private void SerialiseParams(List<ParameterModel> parameterModels)
         {
+            Debug.Log(" In ParametersManager.SerialiseParams");
+            
             Dictionary<Type, IdAttribute> typesWithAttribute =  ReflectionHelper.GetTypesWithAttribute<IdAttribute>();
 
-            parameterModels.ForEach((model) =>
+            if (typesWithAttribute.Count > 0 && parameterModels.Count > 0)
             {
-                var attribute = typesWithAttribute.Single((a) => a.Value.IsEquals(model.id));
-                if(attribute.Key is null) return;
+                parameterModels.ForEach((model) =>
+                {
+                    var attribute = typesWithAttribute.Single((a) => a.Value.IsEquals(model.id));
+                    if(attribute.Key is null) return;
                 
-                Parameter parameter = ReflectionHelper.CreateByType<Parameter>(attribute.Key).InitByModel(model);
-                parameters.Add(parameter);
+                    Parameter parameter = ReflectionHelper.CreateByType<Parameter>(attribute.Key).InitByModel(model);
+                    parameters.Add(parameter);
                         
-                Debug.Log($"::{nameof(ParametersManager)}.{nameof(SerialiseParams)}:: Serialised {model.id} {attribute.Key}");
-            });
+                    Debug.Log($"::{nameof(ParametersManager)}.{nameof(SerialiseParams)}:: Serialised {model.id} {attribute.Key}");
+                });
+            }
+            else
+            {
+                Debug.Log($"::{nameof(ParametersManager)}.{nameof(SerialiseParams)}:: ------------------ CAN`T SERIALISE PARAMS MODELS / CAN`T FIND ATTRIBUTES WITH LIST IDS ----------");
+            }
+            
         }
         #endregion
         

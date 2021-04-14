@@ -1,8 +1,7 @@
-﻿using GlobalBlock.ConfigLoaders.CloudContentDelivery.Runtime.Scripts;
+﻿using GlobalBlock.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
 using GlobalBlock.Interfaces;
 using GlobalBlock.Interfaces.Notifications;
 using GlobalBlock.Interfaces.WebPart;
-using GlobalBlock.Notifications.UnityAndroidNotifications.Scripts;
 using InternetCheckers.Scripts;
 using Loggers.Scripts;
 using UnityEngine;
@@ -27,12 +26,12 @@ namespace WebSdkRealizations.DefaultAccessManager.Runtime.Scripts
 
         public IConfigsLoader CreateConfigLoader()
         {
-            return new CloudContentLoader();
+            return new RemoteConfigsLoader();
         }
 
         public INotification CreateNotifications()
         {
-            return new UnityAndroidNotificationsClient();
+            return new DummyNotificationsClient();
         }
 
         public IWebBlock CreateWebBlock()

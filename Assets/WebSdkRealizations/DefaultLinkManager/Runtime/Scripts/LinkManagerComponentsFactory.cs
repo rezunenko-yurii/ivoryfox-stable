@@ -1,8 +1,8 @@
 ﻿using GlobalBlock.Interfaces;
 using GlobalBlock.Interfaces.WebPart;
-using IvoryFox.WebSDK.Parameters;
 using WebBlock.UrlLoaders.Unity.Scripts;
 using WebBlock.WebViewClients.BrowserWebview.Runtime;
+using WebSdkExtentions.Parameters.Runtime.Scripts;
 
 namespace WebBlock.WebBlockVariant1.Scripts
 {

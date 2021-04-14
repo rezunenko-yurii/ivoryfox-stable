@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Global.Helpers.Runtime;
+using GlobalBlock.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
 using GlobalBlock.Interfaces;
 using GlobalBlock.Interfaces.Notifications;
 using GlobalBlock.Interfaces.WebPart;
+using RemoteConfigHelper.Scripts;
 using TMPro;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
@@ -37,7 +39,7 @@ namespace WebSdkRealizations.DefaultAccessManager.Runtime.Scripts
             
             _stopwatch = Stopwatch.StartNew();
             
-            Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
+            //Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
 
             var factory = new AccessManagerComponentsFactory {GameObject = gameObject};
             InitModules(factory);
@@ -112,7 +114,7 @@ namespace WebSdkRealizations.DefaultAccessManager.Runtime.Scripts
 
             configs.TryGetValue("canUse", out var canUseString);
             bool.TryParse(canUseString, out var canUse);
-            if (canUse)
+            if (canUse || ConfigLoader is RemoteConfigsLoader)
             {
                 Helper.SetConfigsToConsumables(configs, Logger, Notification);
                 Helper.LoadNextScene();
