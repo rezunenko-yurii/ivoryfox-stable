@@ -36,8 +36,12 @@ namespace IvoryFoxPackages.Editor.Scripts.UnityPackages
             if (Queue.Count > 0)
             {
                 UnityPackageData package = Queue.Dequeue();
-                
-                if (!Directory.Exists(package.installedPackageLocation)) AssetDatabase.ImportPackage(package.pathToPackage, true);
+
+                if (!Directory.Exists(package.installedPackageLocation))
+                {
+                    Debug.Log($"Trying to install {package.packageName} {package.pathToPackage}");
+                    AssetDatabase.ImportPackage(package.pathToPackage, true);
+                }
                 else Debug.Log($"{package.packageName} is exists in project");
             }
             else
