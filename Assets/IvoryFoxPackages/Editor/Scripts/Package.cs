@@ -50,16 +50,6 @@ namespace IvoryFoxPackages.Editor.Scripts
             }
         }
 
-        /*private void UnityPackagesInstallerOnOnAllInstalled()
-        {
-            List<string> toUpdate = new List<string> {url};
-            GetAllGitDependencies(toUpdate);
-            toUpdate.Reverse();
-            
-            UnityRegistryHelper.Download(toUpdate);
-            //UnityRegistryHelper.Download(unityDependencies);
-        }*/
-
         public void Remove()
         {
             UnityRegistryHelper.Remove(new List<string>(){packageId});
@@ -88,7 +78,7 @@ namespace IvoryFoxPackages.Editor.Scripts
                         toUpdate.Add(package.url);
                     
                         var n = package.GetAllGitDependencies(toUpdate);
-                        toUpdate = toUpdate.Concat(n).ToList();
+                        toUpdate = toUpdate.Union(n).ToList();
                         
                         Debug.Log("-+-+ After concat");
                         foreach (string s in toUpdate)
