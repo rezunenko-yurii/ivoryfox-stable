@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using IvoryFoxPackages.Editor.Scripts.UnityPackages;
 using UnityEngine;
@@ -32,7 +33,7 @@ namespace IvoryFoxPackages.Editor.Scripts
 
         public void InstallUnityPackages()
         {
-            UnityPackagesInstaller.Install(unityPackages);
+            UnityPackagesInstaller.Install(unityPackages, Path.GetFullPath($"Packages/{packageId}"));
         }
 
         private void UnityPackagesInstallerOnOnAllInstalled()
