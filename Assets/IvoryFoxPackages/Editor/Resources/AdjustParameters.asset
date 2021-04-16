@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: AdjustParameters
   m_EditorClassIdentifier: 
-  packageName: Adjust Parameters
+  packageName: AdjustParameters
   packageId: com.ivoryfox.adjust-parameters
   type: 0
   url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/AdjustParameters
