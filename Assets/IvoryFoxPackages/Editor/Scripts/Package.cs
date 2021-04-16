@@ -38,6 +38,10 @@ namespace IvoryFoxPackages.Editor.Scripts
             {
                 UnityPackagesInstaller.Install(unityPackages, a.resolvedPath);
             }
+            else
+            {
+                Debug.Log($"Ca`nt find installed package {packageId}");
+            }
         }
 
         private void UnityPackagesInstallerOnOnAllInstalled()

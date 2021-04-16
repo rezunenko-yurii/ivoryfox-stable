@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 using UnityEngine;
@@ -65,14 +66,10 @@ namespace IvoryFoxPackages.Editor.Scripts
         
         public static PackageInfo GetInstalledPackage(string packageId)
         {
-            SearchRequest request = Client.Search(packageId);
- 
-            while (!request.IsCompleted)
-            {
-                System.Threading.Tasks.Task.Delay(100);
-            }
-
-            return request.Result[0];
+            var a =GetInstalledPackages();
+            var packageInfo = a.SingleOrDefault(x => x.packageId.Equals(packageId));
+            
+            return packageInfo;
         }
     }
 }
