@@ -66,7 +66,15 @@ namespace IvoryFoxPackages.Editor.Scripts
         }
         public List<string> GetAllGitDependencies(List<string> toUpdate)
         {
-            if (!toUpdate.Contains(url)) toUpdate.Add(url);
+            if (!toUpdate.Contains(url))
+            {
+                Debug.Log($"adding to list {url}");
+                toUpdate.Add(url);
+            }
+            else
+            {
+                Debug.Log($"already in list {url}");
+            }
                 
             if (gitDependencies != null)
             {
@@ -74,10 +82,15 @@ namespace IvoryFoxPackages.Editor.Scripts
                 {
                     if (!toUpdate.Contains(package.url))
                     {
+                        Debug.Log($"adding to list {package.packageName}");
                         toUpdate.Add(package.url);
                     
                         var n = package.GetAllGitDependencies(toUpdate);
                         toUpdate = toUpdate.Concat(n).ToList();
+                    }
+                    else
+                    {
+                        Debug.Log($"already in list {package.packageName}");
                     }
                 } 
             }
