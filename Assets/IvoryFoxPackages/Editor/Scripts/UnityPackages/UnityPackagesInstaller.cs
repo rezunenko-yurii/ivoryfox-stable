@@ -61,23 +61,31 @@ namespace IvoryFoxPackages.Editor.Scripts.UnityPackages
             StartInstall();
         }
         
+        private static void ImportStarted(string packageName)
+        {
+            Debug.Log($"Import started {packageName}");
+        }
+        
+        private static void ImportCompleted(string packageName)
+        {
+            Debug.Log($"Import completed {packageName}");
+            StartInstall();
+        }
+        
         private static void AddSubscribes()
         {
-            AssetDatabase.importPackageCompleted += ImportStarted;
+            AssetDatabase.importPackageStarted += ImportStarted;
+            AssetDatabase.importPackageCompleted += ImportCompleted;
             AssetDatabase.importPackageFailed += ImportFailed;
             AssetDatabase.importPackageCancelled += ImportCancelled;
         }
 
         private static void RemoveSubscribes()
         {
-            AssetDatabase.importPackageCompleted -= ImportStarted;
+            AssetDatabase.importPackageStarted -= ImportStarted;
+            AssetDatabase.importPackageCompleted -= ImportCompleted;
             AssetDatabase.importPackageFailed -= ImportFailed;
             AssetDatabase.importPackageCancelled -= ImportCancelled;
-        }
-
-        private static void ImportStarted(string packageName)
-        {
-            Debug.Log($"Import started {packageName}");
         }
     }
 }

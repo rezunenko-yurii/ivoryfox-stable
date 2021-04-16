@@ -16,10 +16,11 @@ MonoBehaviour:
   packageId: com.ivoryfox.adjust-parameters
   type: 0
   url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/AdjustParameters
-  unityDependencies: []
+  unityDependencies:
+  - 
   gitDependencies:
   - {fileID: 11400000, guid: f8921bbcd16d7b547aac91ab995ad4c3, type: 2}
   unityPackages:
   - packageName: Adjust
-    pathToPackage: Assets/AdjustParameters/Editor/Resources/Adjust_v4.28.0.unitypackage
+    pathToPackage: Packages/AdjustParameters/Editor/Resources/Adjust_v4.28.0.unitypackage
     installedPackageLocation: Assets/Adjust
