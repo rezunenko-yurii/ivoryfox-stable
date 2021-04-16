@@ -25,7 +25,7 @@ namespace IvoryFoxPackages.Editor.Scripts
             
             //List<string> toUpdate = new List<string> {url};
             List<string> toUpdate = new List<string>();
-            GetAllGitDependencies(toUpdate);
+            toUpdate = GetAllGitDependencies(toUpdate);
             toUpdate.Reverse();
 
             Debug.Log("-------------- Packages to install:");
