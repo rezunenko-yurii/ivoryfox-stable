@@ -10,7 +10,9 @@ namespace IvoryFoxPackages.Editor.Scripts.UnityPackages
     {
         public static event Action OnAllInstalled;
         private static readonly Queue<UnityPackageData> Queue = new Queue<UnityPackageData>();
+        
         private static string PackageLocation;
+        //private static string 
         static UnityPackagesInstaller()
         {
             //packagesPath = Application.dataPath.Replace("/Assets", "");
@@ -46,8 +48,6 @@ namespace IvoryFoxPackages.Editor.Scripts.UnityPackages
 
                 if (!Directory.Exists(package.installedPackageLocation))
                 {
-                    string packagePath = Path.GetFullPath("Packages/com.unity.textmeshpro");
-                    
                     Debug.Log($"Trying to install {package.packageName} {PackageLocation + package.pathToPackage}");
                     AssetDatabase.ImportPackage(PackageLocation + package.pathToPackage, true);
                 }

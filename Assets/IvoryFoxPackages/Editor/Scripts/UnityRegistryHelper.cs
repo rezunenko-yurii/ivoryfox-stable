@@ -50,5 +50,29 @@ namespace IvoryFoxPackages.Editor.Scripts
                 }
             }
         }
+        
+        public static PackageCollection GetInstalledPackages()
+        {
+            ListRequest request = Client.List();
+ 
+            while (!request.IsCompleted)
+            {
+                System.Threading.Tasks.Task.Delay(100);
+            }
+
+            return request.Result;
+        }
+        
+        public static PackageInfo GetInstalledPackage(string packageId)
+        {
+            SearchRequest request = Client.Search(packageId);
+ 
+            while (!request.IsCompleted)
+            {
+                System.Threading.Tasks.Task.Delay(100);
+            }
+
+            return request.Result[0];
+        }
     }
 }

@@ -33,7 +33,11 @@ namespace IvoryFoxPackages.Editor.Scripts
 
         public void InstallUnityPackages()
         {
-            UnityPackagesInstaller.Install(unityPackages, Path.GetFullPath($"Packages/{packageId}"));
+            var a = UnityRegistryHelper.GetInstalledPackage(packageId);
+            if (a != null)
+            {
+                UnityPackagesInstaller.Install(unityPackages, a.resolvedPath);
+            }
         }
 
         private void UnityPackagesInstallerOnOnAllInstalled()
