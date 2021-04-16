@@ -26,6 +26,13 @@ namespace IvoryFoxPackages.Editor.Scripts
             List<string> toUpdate = new List<string> {url};
             GetAllGitDependencies(toUpdate);
             toUpdate.Reverse();
+
+            Debug.Log("-------------- Packages to install:");
+            foreach (string s in toUpdate)
+            {
+                Debug.Log(s);
+            }
+            Debug.Log("-------------- ");
             
             UnityRegistryHelper.Download(toUpdate);
             InstallUnityPackages();
