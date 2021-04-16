@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace IvoryFoxPackages.Editor.Scripts
 {
     public static class UnityRegistryHelper
     {
+        //public static event Action OnInstallComplete;
         public static void Download(List<string> packageList)
         {
             foreach (string package in packageList)
