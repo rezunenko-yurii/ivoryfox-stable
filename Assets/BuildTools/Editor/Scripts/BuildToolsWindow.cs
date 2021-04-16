@@ -49,10 +49,10 @@ namespace BuildTools.Editor.Scripts
             _debugBuildData = Resources.Load<BuildData>("BuildData_Debug") ?? LoadData("BuildData_Debug");
             _releaseBuildData = Resources.Load<BuildData>("BuildData_Release") ?? LoadData("BuildData_Release");
 
-            /*var buildToolsVersionLabel = rootVisualElement.Q<Label>("BuildToolsVersionLabel");
+            var buildToolsVersionLabel = rootVisualElement.Q<Label>("BuildToolsVersionLabel");
             buildToolsVersionLabel.text = _settings.version;
 
-            var buildPathTextField = rootVisualElement.Q<TextField>("BuildsFolderPathTextField");
+            /*var buildPathTextField = rootVisualElement.Q<TextField>("BuildsFolderPathTextField");
             buildPathTextField.value = _settings.buildFolderPath;
             buildPathTextField.RegisterCallback<FocusOutEvent>(evt => SaveDataChanges());
             buildPathTextField.RegisterCallback<InputEvent>((evt) =>

@@ -5,7 +5,6 @@ using GlobalBlock.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
 using GlobalBlock.Interfaces;
 using GlobalBlock.Interfaces.Notifications;
 using GlobalBlock.Interfaces.WebPart;
-using RemoteConfigHelper.Scripts;
 using TMPro;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
