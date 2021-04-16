@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace IvoryFoxPackages.Editor.Scripts.UnityPackages
 {
     public static class UnityPackagesInstaller
     {
+        public static event Action OnAllInstalled;
         private static readonly Queue<UnityPackageData> Queue = new Queue<UnityPackageData>();
         public static void Install(List<UnityPackageData> all)
         {
@@ -22,6 +24,11 @@ namespace IvoryFoxPackages.Editor.Scripts.UnityPackages
                 AddSubscribes();
                 StartInstall();
             }
+            else
+            {
+                OnAllInstalled?.Invoke();
+                OnAllInstalled = null;
+            }
         }
 
         private static void StartInstall()
@@ -33,7 +40,13 @@ namespace IvoryFoxPackages.Editor.Scripts.UnityPackages
                 if (!Directory.Exists(package.installedPackageLocation)) AssetDatabase.ImportPackage(package.pathToPackage, true);
                 else Debug.Log($"{package.packageName} is exists in project");
             }
-            else RemoveSubscribes();
+            else
+            {
+                RemoveSubscribes();
+                
+                OnAllInstalled?.Invoke();
+                OnAllInstalled = null;
+            }
         }
         
         private static void ImportCancelled(string packageName)

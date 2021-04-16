@@ -19,18 +19,23 @@ namespace IvoryFoxPackages.Editor.Scripts
 
         public void InstallOrUpdate()
         {
-            List<string> toUpdate = new List<string> {url};
-            GetAllGitDependencies(toUpdate);
-            toUpdate.Reverse();
-
+            UnityPackagesInstaller.OnAllInstalled += UnityPackagesInstallerOnOnAllInstalled;
             InstallUnityPackages();
-            UnityRegistryHelper.Download(toUpdate);
-            UnityRegistryHelper.Download(unityDependencies);
         }
 
         public void InstallUnityPackages()
         {
             UnityPackagesInstaller.Install(unityPackages);
+        }
+
+        private void UnityPackagesInstallerOnOnAllInstalled()
+        {
+            List<string> toUpdate = new List<string> {url};
+            GetAllGitDependencies(toUpdate);
+            toUpdate.Reverse();
+            
+            UnityRegistryHelper.Download(toUpdate);
+            UnityRegistryHelper.Download(unityDependencies);
         }
 
         public void Remove()
