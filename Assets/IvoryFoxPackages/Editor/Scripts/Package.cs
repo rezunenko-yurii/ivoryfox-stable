@@ -56,16 +56,16 @@ namespace IvoryFoxPackages.Editor.Scripts
         }
         private List<string> GetAllGitDependencies(List<string> toUpdate)
         {
-            Debug.Log($"In GetAllGitDependencies of {packageName}");
+            //Debug.Log($"In GetAllGitDependencies of {packageName}");
             
             if (!toUpdate.Contains(url))
             {
-                Debug.Log($"adding to list {url}");
+                //Debug.Log($"adding to list {url}");
                 toUpdate.Add(url);
             }
             else
             {
-                Debug.Log($"already in list {url}");
+                //Debug.Log($"already in list {url}");
             }
                 
             if (gitDependencies != null)
@@ -74,22 +74,22 @@ namespace IvoryFoxPackages.Editor.Scripts
                 {
                     if (!toUpdate.Contains(package.url))
                     {
-                        Debug.Log($"adding to list {package.packageName}");
+                        //Debug.Log($"adding to list {package.packageName}");
                         toUpdate.Add(package.url);
                     
                         var n = package.GetAllGitDependencies(toUpdate);
                         toUpdate = toUpdate.Union(n).ToList();
                         
-                        Debug.Log("-+-+ After concat");
+                        /*Debug.Log("-+-+ After concat");
                         foreach (string s in toUpdate)
                         {
                             Debug.Log(s);
                         }
-                        Debug.Log("-+-+ ");
+                        Debug.Log("-+-+ ");*/
                     }
                     else
                     {
-                        Debug.Log($"already in list {package.packageName}");
+                        //Debug.Log($"already in list {package.packageName}");
                     }
                 } 
             }
