@@ -65,15 +65,15 @@ namespace IvoryFoxPackages.Editor.Scripts
             return request.Result;
         }
         
-        public static PackageInfo GetInstalledPackage(string packageId)
+        public static PackageInfo GetInstalledPackage(string packageName)
         {
             var a = GetInstalledPackages();
             foreach (var p in a)
             {
-                Debug.Log(p.packageId);
+                Debug.Log(p.packageId + " " + p.resolvedPath);
             }
             
-            var packageInfo = a.SingleOrDefault(x => x.packageId.Equals(packageId));
+            var packageInfo = a.SingleOrDefault(x => x.packageId.Contains(packageName));
             
             return packageInfo;
         }
