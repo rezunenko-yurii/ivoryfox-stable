@@ -60,6 +60,7 @@ namespace WebSdk.Runtime.Helpers.Scripts
                     {
                         Debug.Log($"------------- Found Type {type.FullName}");
                         all.Add(type,(T) attribute);
+                        break;
                     }
                 }
             }

@@ -42,5 +42,19 @@ namespace BuildTools.Editor.Scripts
             string build = next ? buildVersion.GetNextBuildVersionAsString() : buildVersion.GetBuildVersionAsString();
             return $"V{PlayerSettings.bundleVersion}_{taskNumber}_{(development ? "test" : "release")}_{build}.apk";
         }
+
+        public void Copy(BuildData newBuildData)
+        {
+            newBuildData.buildVersion = buildVersion;
+            newBuildData.taskNumber = taskNumber;
+            newBuildData.productName = productName;
+            newBuildData.packageId = packageId;
+            newBuildData.companyName = companyName;
+            newBuildData.productVersion = productVersion;
+            newBuildData.screenOrientation = screenOrientation;
+            newBuildData.icon = icon;
+            newBuildData.development = development;
+            newBuildData.useCustomKeystore = useCustomKeystore;
+        }
     }
 }

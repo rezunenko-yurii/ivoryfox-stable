@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using ReportTools.Editor.Scripts;
 using UnityEditor;
@@ -19,9 +20,16 @@ namespace BuildTools.Editor.Scripts
         private EnumField _screenOrientationField;
         private TextField _taskNumberField;
         private TextField _appVersionField;
+
+        private string buildsFolderPath;
     
         [MenuItem("IvoryFox/Build Tools")]
         public static void ShowWindow() => GetWindow<BuildToolsWindow>("Build Tools");
+
+        private void Awake()
+        {
+            buildsFolderPath = Application.dataPath.Replace("/Assets", "") + "/Builds";
+        }
 
         public void OnEnable()
         {
@@ -34,12 +42,14 @@ namespace BuildTools.Editor.Scripts
 
         private void Connect()
         {
-            _settings = Resources.Load<BuildToolsSettings>("BuildToolsSettings");
-            _commonBuildData = Resources.Load<BuildData>("BuildData_Common");
-            _debugBuildData = Resources.Load<BuildData>("BuildData_Debug");
-            _releaseBuildData = Resources.Load<BuildData>("BuildData_Release");
             
-            var buildToolsVersionLabel = rootVisualElement.Q<Label>("BuildToolsVersionLabel");
+            _settings = Resources.Load<BuildToolsSettings>("BuildToolsSettings");
+            
+            _commonBuildData = Resources.Load<BuildData>("BuildData_Common") ?? LoadData("BuildData_Common");
+            _debugBuildData = Resources.Load<BuildData>("BuildData_Debug") ?? LoadData("BuildData_Debug");
+            _releaseBuildData = Resources.Load<BuildData>("BuildData_Release") ?? LoadData("BuildData_Release");
+
+            /*var buildToolsVersionLabel = rootVisualElement.Q<Label>("BuildToolsVersionLabel");
             buildToolsVersionLabel.text = _settings.version;
 
             var buildPathTextField = rootVisualElement.Q<TextField>("BuildsFolderPathTextField");
@@ -55,7 +65,7 @@ namespace BuildTools.Editor.Scripts
             {
                 buildPathTextField.value = GetFolderPath();
                 _settings.buildFolderPath = buildPathTextField.value;
-            });
+            });*/
             
             _screenOrientationField = rootVisualElement.Q<EnumField>("ScreenOrientationEnum");
             _screenOrientationField.Init(_commonBuildData.screenOrientation);
@@ -105,6 +115,20 @@ namespace BuildTools.Editor.Scripts
             ConnectSpecificData(_releaseBuildData, "Release");
         }
 
+        private BuildData LoadData(string assetName)
+        {
+            string packageManagerFolder = Application.dataPath + "/PackageManagerAssets/Resources";
+            string originalDataPath = $"Assets/BuildTools/Editor/Resources/Samples/{assetName}.asset";
+            string assetDataPath = $"Assets/PackageManagerAssets/Resources/{assetName}.asset";
+
+            if (!Directory.Exists(packageManagerFolder)) Directory.CreateDirectory(packageManagerFolder);
+            
+            AssetDatabase.CopyAsset(originalDataPath, assetDataPath);
+            AssetDatabase.SaveAssets();
+                
+            return Resources.Load<BuildData>(assetName);
+        }
+
         private void ConnectSpecificData(BuildData data, string key)
         {
             var appNameField = rootVisualElement.Q<TextField>(key+ "AppName");
@@ -144,13 +168,13 @@ namespace BuildTools.Editor.Scripts
             var reportButton = rootVisualElement.Q<Button>(key + "ReportButton");
             reportButton.RegisterCallback<MouseUpEvent>((evt) =>
             {
-                if (SetPlayerData(data)) Report.CreateReport($"{_settings.buildFolderPath}/{data.GetApkName()}");
+                if (SetPlayerData(data)) Report.CreateReport($"{buildsFolderPath}/{data.GetApkName()}");
             });
             
             var buildButton = rootVisualElement.Q<Button>(key + "BuildButton");
             buildButton.RegisterCallback<MouseUpEvent>((evt) =>
             {
-                if (SetPlayerData(data)) ApkBuilder.BuildApk(data, _settings.buildFolderPath);
+                if (SetPlayerData(data)) ApkBuilder.BuildApk(data, buildsFolderPath);
             });
         }
 
