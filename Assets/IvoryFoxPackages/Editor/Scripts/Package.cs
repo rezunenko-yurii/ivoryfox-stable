@@ -38,7 +38,7 @@ namespace IvoryFoxPackages.Editor.Scripts
                 var packageInfo = UnityRegistryHelper.GetInstalledPackage(packageName);
                 
                 if (packageInfo != null) UnityPackagesInstaller.Install(unityPackages, packageInfo.resolvedPath);
-                else Debug.Log($"Ca`nt find installed package {packageId}");
+                else Debug.Log($"Ca`nt find installed package {packageName}");
             }
         }
 

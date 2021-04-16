@@ -20,6 +20,7 @@ MonoBehaviour:
   - 
   gitDependencies:
   - {fileID: 11400000, guid: f8921bbcd16d7b547aac91ab995ad4c3, type: 2}
+  - {fileID: 11400000, guid: 8a199c3e686f40d44adda39ac098a9e7, type: 2}
   unityPackages:
   - packageName: Adjust
     pathToPackage: /Package Resources/Adjust_v4.28.0.unitypackage

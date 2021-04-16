@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using UnityEngine;
 using WebSdk.Runtime.WebPart;
-using WebSdkExtentions.Parameters.Runtime.Scripts;
+using WebSdkExtensions.Parameters.Runtime.Scripts;
 using Debug = UnityEngine.Debug;
 
 namespace AdjustParameters.Runtime.Scripts

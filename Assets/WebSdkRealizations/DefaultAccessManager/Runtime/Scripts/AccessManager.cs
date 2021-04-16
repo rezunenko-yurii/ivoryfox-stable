@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Global.Helpers.Runtime;
-using GlobalBlock.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
 using GlobalBlock.Interfaces;
 using GlobalBlock.Interfaces.Notifications;
 using GlobalBlock.Interfaces.WebPart;
 using TMPro;
 using UnityEngine;
+using WebSdkExtensions.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
 using Debug = UnityEngine.Debug;
 using ILogger = GlobalBlock.Interfaces.ILogger;
 

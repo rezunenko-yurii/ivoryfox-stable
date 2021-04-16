@@ -1,8 +1,8 @@
 ﻿using GlobalBlock.Interfaces;
 using GlobalBlock.Interfaces.WebPart;
-using WebBlock.UrlLoaders.Unity.Scripts;
-using WebBlock.WebViewClients.BrowserWebview.Runtime;
-using WebSdkExtentions.Parameters.Runtime.Scripts;
+using WebSdkExtensions.Parameters.Runtime.Scripts;
+using WebSdkExtensions.UrlLoaders.Unity.Scripts;
+using WebSdkExtensions.WebViewClients.BrowserWebview.Runtime;
 
 namespace WebBlock.WebBlockVariant1.Scripts
 {

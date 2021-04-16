@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using CloackaV4.Scripts.Commands;
-using GlobalBlock.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
 using UnityEngine;
 using UnityEngine.Networking;
+using WebSdkExtensions.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
 using Debug = UnityEngine.Debug;
 
 namespace CloackaV4.Scripts
