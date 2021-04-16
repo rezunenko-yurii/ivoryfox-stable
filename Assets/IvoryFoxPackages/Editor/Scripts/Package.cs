@@ -23,7 +23,8 @@ namespace IvoryFoxPackages.Editor.Scripts
             //UnityPackagesInstaller.OnAllInstalled += UnityPackagesInstallerOnOnAllInstalled;
             //InstallUnityPackages();
             
-            List<string> toUpdate = new List<string> {url};
+            //List<string> toUpdate = new List<string> {url};
+            List<string> toUpdate = new List<string>();
             GetAllGitDependencies(toUpdate);
             toUpdate.Reverse();
 
@@ -65,6 +66,8 @@ namespace IvoryFoxPackages.Editor.Scripts
         }
         public List<string> GetAllGitDependencies(List<string> toUpdate)
         {
+            if (!toUpdate.Contains(url)) toUpdate.Add(url);
+                
             if (gitDependencies != null)
             {
                 foreach (Package package in gitDependencies)
