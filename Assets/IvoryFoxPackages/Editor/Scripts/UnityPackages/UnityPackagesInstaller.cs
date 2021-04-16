@@ -10,6 +10,11 @@ namespace IvoryFoxPackages.Editor.Scripts.UnityPackages
     {
         public static event Action OnAllInstalled;
         private static readonly Queue<UnityPackageData> Queue = new Queue<UnityPackageData>();
+        private static string packagesPath;
+        static UnityPackagesInstaller()
+        {
+            packagesPath = Application.dataPath.Replace("/Assets", "");
+        }
         public static void Install(List<UnityPackageData> all)
         {
             bool shouldStart = Queue.Count == 0;
@@ -39,8 +44,8 @@ namespace IvoryFoxPackages.Editor.Scripts.UnityPackages
 
                 if (!Directory.Exists(package.installedPackageLocation))
                 {
-                    Debug.Log($"Trying to install {package.packageName} {package.pathToPackage}");
-                    AssetDatabase.ImportPackage(package.pathToPackage, true);
+                    Debug.Log($"Trying to install {package.packageName} {packagesPath + package.pathToPackage}");
+                    AssetDatabase.ImportPackage(packagesPath + package.pathToPackage, true);
                 }
                 else Debug.Log($"{package.packageName} is exists in project");
             }
