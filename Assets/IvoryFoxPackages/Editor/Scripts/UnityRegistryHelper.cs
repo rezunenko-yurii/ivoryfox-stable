@@ -54,7 +54,8 @@ namespace IvoryFoxPackages.Editor.Scripts
         
         public static PackageCollection GetInstalledPackages()
         {
-            ListRequest request = Client.List();
+            ListRequest request = Client.List(false, true);
+            //ListRequest request = Client.List();
  
             while (!request.IsCompleted)
             {
@@ -66,7 +67,12 @@ namespace IvoryFoxPackages.Editor.Scripts
         
         public static PackageInfo GetInstalledPackage(string packageId)
         {
-            var a =GetInstalledPackages();
+            var a = GetInstalledPackages();
+            foreach (var p in a)
+            {
+                Debug.Log(p.packageId);
+            }
+            
             var packageInfo = a.SingleOrDefault(x => x.packageId.Equals(packageId));
             
             return packageInfo;
