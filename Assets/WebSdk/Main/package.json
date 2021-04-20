@@ -7,5 +7,12 @@
   "author": {
     "name": "exhale",
     "email": "exhale@syneforge.com"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "Main Scenes",
+      "description": "----",
+      "path": "Samples/Scenes"
+    }
+  ]
 }
