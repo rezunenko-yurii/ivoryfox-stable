@@ -1,7 +1,9 @@
 {
     "name": "SdkConfigurations.RemoteConfigBased.Editor",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:1224698a8ca70584eb6ff80bfa7f9639"
+    ],
     "includePlatforms": [
         "Editor"
     ],
