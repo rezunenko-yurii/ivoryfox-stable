@@ -1,0 +1,17 @@
+{
+    "name": "Notifications.UnityAndroid.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0757f9d8a63e79f4b86db76555f6c764",
+        "GUID:ac145e6b8c6034cdbadc8c6e26aedbcf"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

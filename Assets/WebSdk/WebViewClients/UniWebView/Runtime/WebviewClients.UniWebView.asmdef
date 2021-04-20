@@ -1,0 +1,17 @@
+{
+    "name": "WebviewClients.UniWebView",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0757f9d8a63e79f4b86db76555f6c764",
+        "GUID:4ca033ee547ec451c8a2d3c33d7620ad"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,16 @@
+{
+    "name": "Notifications.UnityAndroid.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:85a7f7b2e1fe24ff2b4c8b5d1a746334"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

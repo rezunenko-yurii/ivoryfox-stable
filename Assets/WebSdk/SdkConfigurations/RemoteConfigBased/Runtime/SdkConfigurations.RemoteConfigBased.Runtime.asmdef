@@ -1,0 +1,20 @@
+{
+    "name": "SdkConfigurations.RemoteConfigBased.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0757f9d8a63e79f4b86db76555f6c764",
+        "GUID:6c76de0989b910745ae6849c8b351aaf",
+        "GUID:dde7fcfde9ad367408184a5296d2dc6a",
+        "GUID:8c98013c63290ec4fa948516ac2e61e4",
+        "GUID:34663b92b1882824ca8fa7a76b61b363"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

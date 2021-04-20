@@ -1,7 +1,7 @@
 {
-  "name": "com.ivoryfox.package-manager",
-  "version": "1.2.0",
-  "displayName": "IvoryFox Package Manager",
+  "name": "com.ivoryfox.remote-logger",
+  "version": "1.0.0",
+  "displayName": "Remote Logger",
   "description": "---",
   "unity": "2019.4",
   "author": {

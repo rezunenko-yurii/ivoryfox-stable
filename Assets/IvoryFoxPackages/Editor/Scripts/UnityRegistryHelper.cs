@@ -68,6 +68,7 @@ namespace IvoryFoxPackages.Editor.Scripts
         public static PackageInfo GetInstalledPackage(string packageName)
         {
             var a = GetInstalledPackages();
+            
             /*foreach (var p in a)
             {
                 Debug.Log(p.packageId + " " + p.resolvedPath);

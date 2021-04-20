@@ -1,0 +1,11 @@
+{
+  "name": "com.ivoryfox.remote-config-based-configuration",
+  "version": "1.0.0",
+  "displayName": "Remote Config Based Configuration",
+  "description": "---",
+  "unity": "2019.4",
+  "author": {
+    "name": "exhale",
+    "email": "exhale@syneforge.com"
+  }
+}
