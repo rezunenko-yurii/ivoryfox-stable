@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
-namespace Assets.IvoryFoxPackagesHelper.Editor.Scripts
+namespace IvoryFoxPackagesHelper.Editor.Scripts
 {
     public static class IvoryFoxPackagesInstaller
     {

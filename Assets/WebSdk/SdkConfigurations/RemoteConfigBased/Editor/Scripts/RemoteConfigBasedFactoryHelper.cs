@@ -5,7 +5,7 @@ using WebSdk.SdkConfigurations.RemoteConfigBased.Runtime.Scripts;
 
 namespace WebSdk.SdkConfigurations.RemoteConfigBased.Editor.Scripts
 {
-    public class RemoteConfigBasedFactoryHelper: MonoBehaviour
+    public static class RemoteConfigBasedFactoryHelper
     {
         [MenuItem("IvoryFox/WebSdk/Create RemoteConfigBasedFactoryAsset")]
         public static void RemoteConfigBasedFactoryAsset()
