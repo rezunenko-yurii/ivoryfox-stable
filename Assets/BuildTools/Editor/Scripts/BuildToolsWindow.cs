@@ -118,12 +118,13 @@ namespace BuildTools.Editor.Scripts
         private BuildData LoadData(string assetName)
         {
             string packageManagerFolder = Application.dataPath + "/PackageManagerAssets/Resources";
-            string originalDataPath = $"Assets/BuildTools/Editor/Resources/Samples/{assetName}.asset";
-            string assetDataPath = $"Assets/PackageManagerAssets/Resources/{assetName}.asset";
+            string originalDataPath = $"Packages/com.ivoryfox.build-tools/Editor/Resources/Samples/{assetName}.asset";
+            //string originalDataPath = $"Assets/BuildTools/Editor/Resources/Samples/{assetName}.asset";
+            string savePath = $"Assets/PackageManagerAssets/Resources/{assetName}.asset";
 
             if (!Directory.Exists(packageManagerFolder)) Directory.CreateDirectory(packageManagerFolder);
             
-            AssetDatabase.CopyAsset(originalDataPath, assetDataPath);
+            AssetDatabase.CopyAsset(originalDataPath, savePath);
             AssetDatabase.SaveAssets();
                 
             return Resources.Load<BuildData>(assetName);
