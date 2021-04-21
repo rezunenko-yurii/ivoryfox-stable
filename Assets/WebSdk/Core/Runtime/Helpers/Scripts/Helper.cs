@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using GlobalBlock.Interfaces;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using WebSdk.Core.Runtime.ConfigLoader;
+using WebSdk.Core.Runtime.GlobalPart;
 
-namespace Global.Helpers.Runtime
+namespace WebSdk.Core.Runtime.Helpers.Scripts
 {
     public static class Helper
     {

@@ -1,4 +1,4 @@
-namespace GlobalBlock.Interfaces.Notifications
+namespace WebSdk.Core.Runtime.Notifications
 {
     public enum NotificationRepeat
     {

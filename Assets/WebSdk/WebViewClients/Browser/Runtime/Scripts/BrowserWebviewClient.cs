@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
-using GlobalBlock.Interfaces;
 using UnityEngine;
+using WebSdk.Core.Runtime.GlobalPart;
 using WebSdk.Core.Runtime.WebCore;
 
 namespace WebSdk.WebViewClients.Browser.Runtime.Scripts

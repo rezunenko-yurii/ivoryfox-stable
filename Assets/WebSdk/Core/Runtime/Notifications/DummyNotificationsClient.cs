@@ -1,8 +1,6 @@
 ﻿using System;
-using GlobalBlock.Interfaces.Notifications;
-using WebSdk.Core.Runtime.Notifications;
 
-namespace GlobalBlock.Interfaces
+namespace WebSdk.Core.Runtime.Notifications
 {
     public class DummyNotificationsClient: INotification
     {

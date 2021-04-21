@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-namespace GlobalBlock.Interfaces
+namespace WebSdk.Core.Runtime.ConfigLoader
 {
     public class DummyConfigLoader : IConfigsLoader
     {

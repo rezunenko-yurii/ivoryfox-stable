@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
-using GlobalBlock.Interfaces;
 using UnityEngine;
 using UnityEngine.Networking;
+using WebSdk.Core.Runtime.GlobalPart;
 using WebSdk.Core.Runtime.WebCore;
 
-namespace WebSdk.Extensions.UrlLoaders.Unity.Runtime.Scripts
+namespace WebSdk.UrlLoaders.Unity.Runtime.Scripts
 {
     public class UnityUrlLoader: IUrlLoader
     {

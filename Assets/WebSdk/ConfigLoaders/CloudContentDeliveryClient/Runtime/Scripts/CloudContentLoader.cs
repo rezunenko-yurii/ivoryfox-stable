@@ -6,9 +6,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using CloudContentDelivery.Runtime.Scripts;
 using CloudContentDeliveryClient.Api;
-using GlobalBlock.Interfaces;
 using Newtonsoft.Json;
 using UnityEngine;
+using WebSdk.Core.Runtime.ConfigLoader;
 
 namespace WebSdk.ConfigLoaders.CloudContentDeliveryClient.Runtime.Scripts
 {

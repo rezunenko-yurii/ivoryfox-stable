@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
-using UnityEngine;
 
-namespace GlobalBlock.Interfaces
+namespace WebSdk.Core.Runtime.InternetChecker
 {
     public class DummyInternetChecker : IInternetChecker
     {

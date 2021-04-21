@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace GlobalBlock.Interfaces.Notifications
+namespace WebSdk.Core.Runtime.Notifications
 {
     public abstract class NotificationBase
     {

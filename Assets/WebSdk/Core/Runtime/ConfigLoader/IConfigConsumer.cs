@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace GlobalBlock.Interfaces
+﻿namespace WebSdk.Core.Runtime.ConfigLoader
 {
     public interface IConfigConsumer
     {

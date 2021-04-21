@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using com.adjust.sdk;
-using GlobalBlock.Interfaces;
 using UnityEngine;
+using WebSdk.Core.Runtime.GlobalPart;
 
 namespace WebSdk.AdjustParameters.Runtime.Scripts
 {

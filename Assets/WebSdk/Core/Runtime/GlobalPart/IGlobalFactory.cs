@@ -1,9 +1,9 @@
-﻿using GlobalBlock.Interfaces;
-using GlobalBlock.Interfaces.Notifications;
-using UnityEngine;
+﻿using UnityEngine;
+using WebSdk.Core.Runtime.ConfigLoader;
+using WebSdk.Core.Runtime.InternetChecker;
 using WebSdk.Core.Runtime.Notifications;
 using WebSdk.Core.Runtime.WebCore;
-using ILogger = GlobalBlock.Interfaces.ILogger;
+using ILogger = WebSdk.Core.Runtime.Logger.ILogger;
 
 namespace WebSdk.Core.Runtime.GlobalPart
 {

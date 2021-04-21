@@ -1,7 +1,8 @@
 ﻿using System;
 using UnityEngine;
+using WebSdk.Core.Runtime.GlobalPart;
 
-namespace GlobalBlock.Interfaces
+namespace WebSdk.Core.Runtime.Logger
 {
     public interface ILogger : IModule
     {

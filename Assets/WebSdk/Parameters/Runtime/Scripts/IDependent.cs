@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebSdkExtensions.Parameters.Runtime.Scripts
+namespace WebSdk.Parameters.Runtime.Scripts
 {
     public interface IDependent
     {

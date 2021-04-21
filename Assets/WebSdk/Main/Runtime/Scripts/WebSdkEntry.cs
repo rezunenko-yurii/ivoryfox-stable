@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using Global.Helpers.Runtime;
-using GlobalBlock.Interfaces;
 using TMPro;
 using UnityEngine;
+using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.GlobalPart;
+using WebSdk.Core.Runtime.Helpers.Scripts;
+using WebSdk.Core.Runtime.InternetChecker;
 using WebSdk.Core.Runtime.WebCore;
 using Debug = UnityEngine.Debug;
-using ILogger = GlobalBlock.Interfaces.ILogger;
+using ILogger = WebSdk.Core.Runtime.Logger.ILogger;
 using INotification = WebSdk.Core.Runtime.Notifications.INotification;
 
 namespace WebSdk.Main.Runtime.Scripts

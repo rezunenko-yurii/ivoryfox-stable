@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using WebSdk.Core.Runtime.GlobalPart;
 
-namespace GlobalBlock.Interfaces
+namespace WebSdk.Core.Runtime.ConfigLoader
 {
     public interface IConfigsLoader: IModule
     {

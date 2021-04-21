@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using UnityEngine;
 
-namespace GlobalBlock.Interfaces.Notifications
+namespace WebSdk.Core.Runtime.Notifications
 {
     public static class NotificationsHelper
     {

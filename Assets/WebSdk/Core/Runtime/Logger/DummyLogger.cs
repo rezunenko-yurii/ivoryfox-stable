@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using ILogger = WebSdk.Core.Runtime.Logger.ILogger;
 
-namespace GlobalBlock.Interfaces
+namespace WebSdk.Core.Runtime.Logger
 {
     public class DummyLogger : ILogger
     {

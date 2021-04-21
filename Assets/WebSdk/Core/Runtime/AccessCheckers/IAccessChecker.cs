@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebSdk.Runtime.AccessCheckers
+namespace WebSdk.Core.Runtime.AccessCheckers
 {
     public interface IAccessChecker
     {

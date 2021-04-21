@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WebSdkExtensions.Parameters.Runtime.Scripts
+namespace WebSdk.Parameters.Runtime.Scripts
 {
     [Serializable]
     public class ParameterItems

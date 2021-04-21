@@ -1,8 +1,11 @@
-﻿using GlobalBlock.Interfaces.Notifications;
-using UnityEngine;
+﻿using UnityEngine;
+using WebSdk.Core.Runtime.ConfigLoader;
+using WebSdk.Core.Runtime.InternetChecker;
+using WebSdk.Core.Runtime.Logger;
 using WebSdk.Core.Runtime.Notifications;
+using ILogger = WebSdk.Core.Runtime.Logger.ILogger;
 
-namespace GlobalBlock.Interfaces
+namespace WebSdk.Core.Runtime.GlobalPart
 {
     public sealed class GlobalFacade
     {

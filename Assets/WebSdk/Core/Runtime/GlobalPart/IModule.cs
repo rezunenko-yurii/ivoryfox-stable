@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace GlobalBlock.Interfaces
+﻿namespace WebSdk.Core.Runtime.GlobalPart
 {
     public interface IModule
     {

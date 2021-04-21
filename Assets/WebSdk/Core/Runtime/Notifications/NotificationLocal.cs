@@ -1,6 +1,6 @@
 using System;
 
-namespace GlobalBlock.Interfaces.Notifications
+namespace WebSdk.Core.Runtime.Notifications
 {
     [Serializable]
     public class NotificationLocal

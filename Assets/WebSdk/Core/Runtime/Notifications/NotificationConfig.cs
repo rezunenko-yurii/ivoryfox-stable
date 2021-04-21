@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GlobalBlock.Interfaces.Notifications
+namespace WebSdk.Core.Runtime.Notifications
 {
     [Serializable]
     public class NotificationConfig

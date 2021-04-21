@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections;
+using WebSdk.Core.Runtime.GlobalPart;
 
-namespace GlobalBlock.Interfaces
+namespace WebSdk.Core.Runtime.InternetChecker
 {
     public interface IInternetChecker : IModule
     {

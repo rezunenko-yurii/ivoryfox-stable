@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Global.Helpers.Runtime;
-using GlobalBlock.Interfaces;
 using UnityEngine;
 using UnityEngine.Networking;
-using ILogger = GlobalBlock.Interfaces.ILogger;
+using WebSdk.Core.Runtime.ConfigLoader;
+using WebSdk.Core.Runtime.GlobalPart;
+using WebSdk.Core.Runtime.Helpers.Scripts;
+using WebSdk.Core.Runtime.Logger;
 
-namespace WebSdkExtensions.Loggers.Scripts
+namespace WebSdk.Loggers.Remote.Scripts
 {
-    public class RemoteLogger : ILogger, IConfigConsumer
+    public class RemoteLogger : WebSdk.Core.Runtime.Logger.ILogger, IConfigConsumer
     {
         public static event Action OnReady;
 

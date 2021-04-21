@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace WebSdkExtensions.Parameters.Runtime.Scripts
+namespace WebSdk.Parameters.Runtime.Scripts
 {
     public class WaitableParameter: Parameter
     {

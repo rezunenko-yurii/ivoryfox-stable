@@ -1,13 +1,12 @@
 ﻿using System.Linq;
 using System.Reflection;
-using Global.Helpers.Runtime;
 using UnityEngine;
 using Type = System.Type;
 using AppDomain = System.AppDomain;
 using Activator = System.Activator;
 using Generic = System.Collections.Generic;
 
-namespace WebSdk.Runtime.Helpers.Scripts
+namespace WebSdk.Core.Runtime.Helpers.Scripts
 {
     public static class ReflectionHelper
     {
@@ -41,7 +40,7 @@ namespace WebSdk.Runtime.Helpers.Scripts
             Generic.Dictionary<Type,T> all = new Generic.Dictionary<Type, T>();
             //var ass = GetAssemblyByName("Assembly-CSharp");
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            
+
             foreach (var assembly in assemblies)
             {
                 if(assembly.FullName.Contains("mscorlib") || 

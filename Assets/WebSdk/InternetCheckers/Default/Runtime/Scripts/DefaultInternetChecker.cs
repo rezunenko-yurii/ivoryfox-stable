@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
-using GlobalBlock.Interfaces;
 using UnityEngine;
 using UnityEngine.Networking;
+using WebSdk.Core.Runtime.InternetChecker;
 
 namespace WebSdk.InternetCheckers.Default.Runtime.Scripts
 {

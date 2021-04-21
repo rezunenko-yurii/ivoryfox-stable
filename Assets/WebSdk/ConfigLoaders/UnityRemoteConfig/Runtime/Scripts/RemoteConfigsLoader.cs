@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using GlobalBlock.Interfaces;
 using Unity.RemoteConfig;
 using UnityEngine;
+using WebSdk.Core.Runtime.ConfigLoader;
 
 namespace WebSdkExtensions.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using GlobalBlock.Interfaces;
+using WebSdk.Core.Runtime.ConfigLoader;
+using WebSdk.Core.Runtime.GlobalPart;
 
 namespace WebSdk.Core.Runtime.WebCore
 {

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Globalization;
-using GlobalBlock.Interfaces;
-using GlobalBlock.Interfaces.Notifications;
 using UnityEngine;
+using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.Notifications; //using EasyMobile;
-using NotificationRepeat = GlobalBlock.Interfaces.Notifications.NotificationRepeat;
+using NotificationRepeat = WebSdk.Core.Runtime.Notifications.NotificationRepeat;
 
 /*using EasyNotifs = EasyMobile.Notifications;
 using LocalNotification = EasyMobile.LocalNotification;

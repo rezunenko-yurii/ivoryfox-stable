@@ -1,5 +1,5 @@
 {
-    "name": "AdjustParameters.Runtime",
+    "name": "WebSdk.AdjustParameters.Runtime",
     "rootNamespace": "",
     "references": [
         "GUID:0757f9d8a63e79f4b86db76555f6c764",

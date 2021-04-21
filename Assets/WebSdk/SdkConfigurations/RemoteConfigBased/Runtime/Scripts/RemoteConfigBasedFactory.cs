@@ -1,13 +1,14 @@
-﻿using GlobalBlock.Interfaces;
-using UnityEngine;
+﻿using UnityEngine;
+using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.GlobalPart;
+using WebSdk.Core.Runtime.InternetChecker;
 using WebSdk.Core.Runtime.Notifications;
 using WebSdk.Core.Runtime.WebCore;
 using WebSdk.InternetCheckers.Default.Runtime.Scripts;
+using WebSdk.Loggers.Remote.Scripts;
 using WebSdk.WebManagers.Default.Runtime.Scripts;
 using WebSdkExtensions.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
-using WebSdkExtensions.Loggers.Scripts;
-using ILogger = GlobalBlock.Interfaces.ILogger;
+using ILogger = WebSdk.Core.Runtime.Logger.ILogger;
 
 namespace WebSdk.SdkConfigurations.RemoteConfigBased.Runtime.Scripts
 {

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GlobalBlock.Interfaces;
 using UnityEngine;
+using WebSdk.Core.Runtime.GlobalPart;
+using WebSdk.Core.Runtime.Helpers.Scripts;
 using WebSdk.Core.Runtime.WebCore;
-using WebSdk.Runtime.Helpers.Scripts;
 
-namespace WebSdkExtensions.Parameters.Runtime.Scripts
+namespace WebSdk.Parameters.Runtime.Scripts
 {
     public class ParametersManager : IParamsManager
     {

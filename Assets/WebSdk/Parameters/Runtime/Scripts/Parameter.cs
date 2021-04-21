@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace WebSdkExtensions.Parameters.Runtime.Scripts
+namespace WebSdk.Parameters.Runtime.Scripts
 {
     public abstract class Parameter
     {

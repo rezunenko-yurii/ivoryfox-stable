@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
-using GlobalBlock.Interfaces;
-using GlobalBlock.Interfaces.Notifications;
 using Unity.Notifications.Android;
 using UnityEngine;
+using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.Notifications;
 
 namespace WebSdk.Notifications.UnityAndroid.Runtime.Scripts

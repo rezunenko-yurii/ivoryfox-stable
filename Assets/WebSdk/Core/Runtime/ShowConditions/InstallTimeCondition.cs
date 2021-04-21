@@ -1,4 +1,4 @@
-namespace WebSdk.Runtime.ShowConditions
+namespace WebSdk.Core.Runtime.ShowConditions
 {
     public class InstallTimeCondition : IShowCondition
     {
