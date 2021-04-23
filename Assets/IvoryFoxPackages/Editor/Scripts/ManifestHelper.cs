@@ -12,7 +12,7 @@ namespace IvoryFoxPackages.Editor.Scripts
         private Dictionary<string, object> _dependencies;
     
         private static ManifestHelper _instance;
-        public static ManifestHelper GetInstance() => _instance ??= new ManifestHelper();
+        public static ManifestHelper GetInstance() => _instance = _instance ?? new ManifestHelper();
 
         [MenuItem("IvoryFox/Reload ManifestHelper")]
         public static void Reload()
