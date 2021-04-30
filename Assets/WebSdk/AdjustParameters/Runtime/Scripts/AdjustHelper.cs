@@ -8,14 +8,15 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
 {
     public class AdjustHelper
     {
-        public bool isReady;
+        public bool IsReady;
         private AdjustEnvironment GetEnvironment => AdjustEnvironment.Production;
-        private static AdjustHelper instance;
+        private static AdjustHelper _instance;
         
-        public static AdjustHelper Instance => instance ??= new AdjustHelper();
+        public static AdjustHelper Instance => _instance ??= new AdjustHelper();
 
         private AdjustHelper()
         {
+            Debug.Log($"In AdjustHelper constructor");
             GlobalFacade.configsLoader.Load(new List<string>(){"adjustToken"}, Init);
         }
 
@@ -24,17 +25,17 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
             Application.deepLinkActivated += onDeepLinkActivated;
 
             string token = data["adjustToken"];
-            Console.WriteLine($"Adjust Token {token}");
+            Debug.Log($"AdjustHelper Init // Token {token}");
             
             if (string.IsNullOrEmpty(token))
             {
-                Console.WriteLine("Error: Adjust Token is Empty ");
+                Debug.Log("Error: Adjust Token is Empty ");
                 return;
             }
             
             AdjustConfig config = new AdjustConfig(token, GetEnvironment, false);
             config.setLogLevel(AdjustLogLevel.Verbose);
-            config.setLogDelegate(msg => Debug.Log(msg));
+            config.setLogDelegate(Debug.Log);
 
             config.setEventSuccessDelegate(EventSuccessCallback);
             config.setEventFailureDelegate(EventFailureCallback);
@@ -46,22 +47,25 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
             Adjust.start(config);
         }
         
-        private void AttributionChangedCallback(AdjustAttribution obj)
+        public void AttributionChangedCallback(AdjustAttribution obj)
         {
-            Console.WriteLine($"Adjust Attribution Changed: campaign = {obj.campaign} " +
-                              $"adgroup = {obj.adgroup} " +
-                              $"network = {obj.network} " +
-                              $"clickLabel = {obj.clickLabel}" +
-                              $"trackerName = {obj.trackerName} " +
-                              $"trackerToken = {obj.trackerToken} ");
+            Debug.Log("Adjust AttributionChangedCallback Received!");
+            Debug.Log($"Adjust Attribution Changed: " +
+                      $"adid = {obj?.adid} " +
+                      $"campaign = {obj?.campaign} " +
+                      $"adgroup = {obj?.adgroup} " +
+                      $"network = {obj?.network} " +
+                      $"clickLabel = {obj?.clickLabel}" +
+                      $"trackerName = {obj?.trackerName} " +
+                      $"trackerToken = {obj?.trackerToken} ");
 
-            isReady = true;
+            IsReady = true;
         }
 
         public string GetAttribution(string request)
         {
-            Console.WriteLine($"Adjust GetAttribution {request}");
-            AdjustAttribution attribution = Adjust.getAttribution();
+            Debug.Log($"Adjust GetAttribution {request}");
+            var attribution = Adjust.getAttribution();
             
             return request switch
             {
@@ -79,32 +83,34 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
         #region Event Handlers
         private void onDeepLinkActivated(string url)
         {
-            Console.WriteLine("Unity Deeplink URL: " + url);
+            Application.deepLinkActivated -= onDeepLinkActivated;
+            
+            Debug.Log("Unity Deeplink URL: " + url);
         }
         
         private void DeferredDeeplinkCallback(string deeplinkURL) 
         {
-            Console.WriteLine("Adjust Deeplink URL: " + deeplinkURL);
+            Debug.Log("Adjust Deeplink URL: " + deeplinkURL);
         }
                 
         private void EventSuccessCallback(AdjustEventSuccess data) 
         {
-            Console.WriteLine($"Adjust Event Success Event message = {data.Message} jsonResponse = {data.GetJsonResponse()}");
+            Debug.Log($"Adjust Event Success Event message = {data.Message} jsonResponse = {data.GetJsonResponse()}");
         }
                 
         private void EventFailureCallback(AdjustEventFailure data)
         {
-            Console.WriteLine($"Adjust Event Failure Event message = {data.Message} jsonResponse = {data.GetJsonResponse()}");
+            Debug.Log($"Adjust Event Failure Event message = {data.Message} jsonResponse = {data.GetJsonResponse()}");
         }
                 
         private void SessionFailureCallback (AdjustSessionFailure data) 
         {
-            Console.WriteLine($"Adjust Session Failure message = {data.Message} jsonResponse = {data.GetJsonResponse()}");
+            Debug.Log($"Adjust Session Failure message = {data.Message} jsonResponse = {data.GetJsonResponse()}");
         }
                 
         private void SessionSuccessCallback (AdjustSessionSuccess data) 
         {
-            Console.WriteLine($"Adjust Session Success message = {data.Message} jsonResponse = {data.GetJsonResponse()}");
+            Debug.Log($"Adjust Session Success message = {data.Message} jsonResponse = {data.GetJsonResponse()}");
         }
 
         #endregion
