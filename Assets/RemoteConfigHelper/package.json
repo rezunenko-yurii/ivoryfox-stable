@@ -1,8 +1,8 @@
 {
   "name": "com.ivoryfox.remote-config-helper",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "displayName": "Remote Config Helper",
-  "description": "---",
+  "description": "added canUse",
   "unity": "2019.4",
   "author": {
     "name": "exhale",
