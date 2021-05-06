@@ -22,6 +22,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 811fe61e0b50ade41b43d6b6d52d8d56, type: 2}
   - {fileID: 11400000, guid: 8a199c3e686f40d44adda39ac098a9e7, type: 2}
   - {fileID: 11400000, guid: 8ec61b80c87a7b34baef9296e2f165b2, type: 2}
-  - {fileID: 11400000}
   - {fileID: 11400000, guid: 4965dba26867df14d9af682ec8f17f8b, type: 2}
   unityPackages: []
