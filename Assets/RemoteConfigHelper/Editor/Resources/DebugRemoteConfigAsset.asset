@@ -29,7 +29,7 @@ MonoBehaviour:
   rules:
   - name: canShow
     enabled: 1
-    conditions: true
+    conditions: unity.country != 'US'
     rolloutPercentage: 100
     configItems:
     - name: urlsConfig
