@@ -19,21 +19,33 @@ namespace IvoryFoxPackages.Editor.Scripts
                 if (!string.IsNullOrEmpty(package))
                 {
                     Debug.Log($"Start to download {package}");
+                    
                     AddRequest request = Client.Add(package);
  
-                    while (!request.IsCompleted)
+                    while (request.Status == StatusCode.InProgress)
                     {
                         yield return null;
-                        //System.Threading.Tasks.Task.Delay(100);
                     }
  
-                    if (request.Status != StatusCode.Success)
+                    if (request.Status == StatusCode.Success)
                     {
-                        Debug.LogError("Cannot import " + package + ": " + request.Error.message);
+                        Debug.Log($"{package} successfully downloaded");
                     }
                     else
                     {
-                        Debug.Log($"{package} successfully downloaded");
+                        Debug.LogError("Cannot import " + package + ": " + request.Error.message);
+                    }
+
+                    if (!request.IsCompleted)
+                    {
+                        Debug.Log($"request still isn`t complete // waiting");
+                        
+                        while (!request.IsCompleted)
+                        {
+                            yield return null;
+                        }
+                        
+                        Debug.Log($"request is complete");
                     }
                 }
             }
