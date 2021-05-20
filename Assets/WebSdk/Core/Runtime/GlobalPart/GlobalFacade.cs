@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using WebSdk.Core.Runtime.AdjustHelpers;
 using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.InternetChecker;
 using WebSdk.Core.Runtime.Logger;
@@ -14,6 +15,7 @@ namespace WebSdk.Core.Runtime.GlobalPart
         public static IConfigsLoader configsLoader;
         public static INotification notification;
         public static MonoBehaviour monoBehaviour;
+        public static IAdjustHelper adjustHelper;
 
         static GlobalFacade()
         {
@@ -21,6 +23,7 @@ namespace WebSdk.Core.Runtime.GlobalPart
             internetChecker = new DummyInternetChecker();
             configsLoader = new DummyConfigLoader();
             notification = new DummyNotificationsClient();
+            adjustHelper = new DummyAdjustHelper();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using TMPro;
 using UnityEngine;
+using WebSdk.Core.Runtime.AdjustHelpers;
 using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.GlobalPart;
 using WebSdk.Core.Runtime.Helpers.Scripts;
@@ -20,6 +21,7 @@ namespace WebSdk.Main.Runtime.Scripts
         private IInternetChecker InternetChecker { get; set; }
         private IConfigsLoader ConfigLoader { get; set; }
         private INotification Notification { get; set; }
+        private IAdjustHelper AdjustHelper { get; set; }
         private IWebManager _webManager;
         private Stopwatch _stopwatch;
 
@@ -53,7 +55,8 @@ namespace WebSdk.Main.Runtime.Scripts
         public void InitModules(IGlobalFactory factory)
         {
             Debug.Log("GlobalBlockUnity InitModules");
-            
+
+            AdjustHelper = factory.CreateAdjustHelper();
             Logger = factory.CreateLogger();
             InternetChecker = factory.CreateInternetChecker();
             ConfigLoader = factory.CreateConfigLoader();
@@ -71,6 +74,8 @@ namespace WebSdk.Main.Runtime.Scripts
             GlobalFacade.internetChecker = InternetChecker;
             GlobalFacade.configsLoader = ConfigLoader;
             GlobalFacade.notification = Notification;
+            GlobalFacade.adjustHelper = AdjustHelper;
+            
             GlobalFacade.monoBehaviour = this;
         }
         
@@ -119,7 +124,7 @@ namespace WebSdk.Main.Runtime.Scripts
             //if (canUse || ConfigLoader is RemoteConfigsLoader)
             if (canUse)
             {
-                Helper.SetConfigsToConsumables(configs, Logger, Notification);
+                Helper.SetConfigsToConsumables(configs, Logger, Notification, AdjustHelper);
                 Helper.LoadNextScene();
             
                 Debug.Log($"GlobalBlockUnity Complete / StopWatch = {_stopwatch.Elapsed.Seconds} FromStart = {Time.realtimeSinceStartup}");

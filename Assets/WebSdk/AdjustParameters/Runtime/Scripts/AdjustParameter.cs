@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Diagnostics;
 using com.adjust.sdk;
 using UnityEngine;
+using WebSdk.Core.Runtime.GlobalPart;
 using WebSdk.Core.Runtime.WebCore;
 using WebSdk.Parameters.Runtime.Scripts;
 using Debug = UnityEngine.Debug;
@@ -18,53 +20,23 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
 
         public override void Init(MonoBehaviour monoBehaviour)
         {
+            _stopwatch = Stopwatch.StartNew();
             _monoBehaviour = monoBehaviour;
             
             Debug.Log($"AdjustParameter Init");
-            Debug.Log($"AdjustHelper is ready {AdjustHelper.Instance.IsReady}");
-            
-#if UNITY_IOS && !UNITY_EDITOR
-            Version currentVersion = new Version(Device.systemVersion); // Parse the version of the current OS
-            Version ios14_5 = new Version("14.5"); // Parse the iOS 13.0 version constant
-            Debug.Log($"AdjustHelper IOS version is {currentVersion}");
- 
-            if(currentVersion >= ios14_5)
-            {
-                Debug.Log($"AdjustHelper IOS version is >= 14.5");
-                InitForIos();
-            }
-            else
-            {
-                Start();
-            }
-            
-#else
-            Start();
-#endif
-        }
 
-        private void Start()
-        {
-            _stopwatch = Stopwatch.StartNew();
+            if (GlobalFacade.adjustHelper.IsUsedAtt)
+            {
+                if (GlobalFacade.adjustHelper.AttStatus == 0 || GlobalFacade.adjustHelper.AttStatus == 1)
+                {
+                    Debug.Log($"AdjustParameter // ATT status = {GlobalFacade.adjustHelper.AttStatus} set organic");
+                    SetAdjustValue(Organic);
+                }
+            }
+
             base.Init(_monoBehaviour);
         }
 
-        private void InitForIos()
-        {
-            Debug.Log($"::{nameof(AdjustParameter)}.{nameof(Init)}:: Request IOS 14 Tracking status");
-            
-            Adjust.requestTrackingAuthorizationWithCompletionHandler((status) =>
-            {
-                Debug.Log($"::{nameof(AdjustParameter)}.{nameof(Init)}:: Request status is {status}");
-                if (status == 0 || status == 1)
-                {
-                    SetAdjustValue(Organic);
-                }
-                
-                Start();
-            });
-        }
-        
         protected override IEnumerator WatchValue()
         {
 #if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
@@ -88,7 +60,7 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
 
         private void TryToGetDataFromAdjust()
         {
-            if (AdjustHelper.Instance.IsReady)
+            if (GlobalFacade.adjustHelper.IsReady)
             {
                 Debug.Log($"Adjust TryToGetDataFromAdjust: Adjust is Ready");
                 OnAdjustReady();
@@ -105,7 +77,7 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
         private void OnAdjustReady()
         {
             Debug.Log($"On Adjust Instance is Ready // trying to get attribution");
-            string v = AdjustHelper.Instance.GetAttribution(parameterAlias);
+            string v = GlobalFacade.adjustHelper.GetAttribution(parameterAlias);
 
             Debug.Log($"Adjust attribution key={parameterAlias} value={v}");
             SetAdjustValue(string.IsNullOrEmpty(v) ? "organic" : v);

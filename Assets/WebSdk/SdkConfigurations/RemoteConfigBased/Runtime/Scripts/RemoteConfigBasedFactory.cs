@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Adjust.Runtime.Scripts;
+using UnityEngine;
+using WebSdk.Core.Runtime.AdjustHelpers;
 using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.GlobalPart;
 using WebSdk.Core.Runtime.InternetChecker;
@@ -40,6 +42,11 @@ namespace WebSdk.SdkConfigurations.RemoteConfigBased.Runtime.Scripts
         public IWebManager CreateWebBlock()
         {
             return new WebManager();
+        }
+
+        public IAdjustHelper CreateAdjustHelper()
+        {
+            return new AdjustHelper();
         }
     }
 }

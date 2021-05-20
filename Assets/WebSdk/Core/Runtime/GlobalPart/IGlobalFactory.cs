@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using WebSdk.Core.Runtime.AdjustHelpers;
 using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.InternetChecker;
 using WebSdk.Core.Runtime.Notifications;
@@ -15,5 +16,6 @@ namespace WebSdk.Core.Runtime.GlobalPart
         IConfigsLoader CreateConfigLoader();
         INotification CreateNotifications();
         IWebManager CreateWebBlock();
+        IAdjustHelper CreateAdjustHelper();
     }
 }

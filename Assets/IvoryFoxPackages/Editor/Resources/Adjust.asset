@@ -10,16 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
-  m_Name: AdjustParameters
+  m_Name: Adjust
   m_EditorClassIdentifier: 
-  packageName: AdjustParameters
-  packageId: com.ivoryfox.adjust-parameters
+  packageName: IvoryFox Adjust
+  packageId: com.ivotyfox.adjust
   type: 0
-  url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/WebSdk/AdjustParameters
-  unityDependencies:
-  - 
+  url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/Adjust
+  unityDependencies: []
   gitDependencies:
   - {fileID: 11400000, guid: f8921bbcd16d7b547aac91ab995ad4c3, type: 2}
-  - {fileID: 11400000, guid: 8a199c3e686f40d44adda39ac098a9e7, type: 2}
-  - {fileID: 11400000, guid: e0274c6e189aa7d4b88d9ac23e7a3b1b, type: 2}
   unityPackages: []
