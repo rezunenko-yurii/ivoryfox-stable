@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.PackageManager;
@@ -9,26 +10,35 @@ namespace IvoryFoxPackages.Editor.Scripts
 {
     public static class UnityRegistryHelper
     {
-        //public static event Action OnInstallComplete;
-        public static void Download(List<string> packageList)
+        public static IEnumerator Download(List<string> packageList)
         {
+            Debug.Log($"In UnityRegistryHelper Download // {packageList.Count} packages to download");
+            
             foreach (string package in packageList)
             {
                 if (!string.IsNullOrEmpty(package))
                 {
+                    Debug.Log($"Start to download {package}");
                     AddRequest request = Client.Add(package);
  
                     while (!request.IsCompleted)
                     {
-                        System.Threading.Tasks.Task.Delay(100);
+                        yield return null;
+                        //System.Threading.Tasks.Task.Delay(100);
                     }
  
                     if (request.Status != StatusCode.Success)
                     {
                         Debug.LogError("Cannot import " + package + ": " + request.Error.message);
                     }
+                    else
+                    {
+                        Debug.Log($"{package} successfully downloaded");
+                    }
                 }
             }
+            
+            Debug.Log($"UnityRegistryHelper Download Complete");
         }
         
         public static void Remove(List<string> packageList)
@@ -54,9 +64,10 @@ namespace IvoryFoxPackages.Editor.Scripts
         
         public static PackageCollection GetInstalledPackages()
         {
+            Debug.Log($"In UnityRegistryHelper GetInstalledPackages");
+            
             ListRequest request = Client.List(false, true);
-            //ListRequest request = Client.List();
- 
+
             while (!request.IsCompleted)
             {
                 System.Threading.Tasks.Task.Delay(100);

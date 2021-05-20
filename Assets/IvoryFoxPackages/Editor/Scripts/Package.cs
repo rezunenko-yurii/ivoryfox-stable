@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using IvoryFoxPackages.Editor.Scripts.UnityPackages;
+using Unity.EditorCoroutines.Editor;
 using UnityEngine;
 
 namespace IvoryFoxPackages.Editor.Scripts
@@ -35,7 +36,8 @@ namespace IvoryFoxPackages.Editor.Scripts
             }
             Debug.Log("-------------- ");
             
-            UnityRegistryHelper.Download(toUpdate);
+            EditorCoroutineUtility.StartCoroutine(UnityRegistryHelper.Download(toUpdate), this);
+            //UnityRegistryHelper.Download(toUpdate);
             InstallUnityPackages();
         }
 
