@@ -39,8 +39,11 @@ namespace WebSdk.Core.Runtime.Helpers.Scripts
             
             Generic.Dictionary<Type,T> all = new Generic.Dictionary<Type, T>();
             //var ass = GetAssemblyByName("Assembly-CSharp");
+            
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-
+    
+            Debug.Log($"Found {assemblies.Length} assemblies");
+            
             foreach (var assembly in assemblies)
             {
                 if(assembly.FullName.Contains("mscorlib") || 
@@ -51,13 +54,13 @@ namespace WebSdk.Core.Runtime.Helpers.Scripts
                    assembly.FullName.Contains("Unity.") || 
                    assembly.FullName.Contains("Mono.")) continue;
                 
-                Debug.Log($"Found assembly {assembly.FullName}");
+                Debug.Log($"Checking assembly {assembly.FullName}");
                 foreach(Type type in assembly.GetTypes())
                 {
                     object attribute = type.GetCustomAttribute(typeof(T), true);
                     if (attribute != null) 
                     {
-                        Debug.Log($"------------- Found Type {type.FullName}");
+                        Debug.Log($"------------- Found Type {type.Name}");
                         all.Add(type,(T) attribute);
                         break;
                     }
