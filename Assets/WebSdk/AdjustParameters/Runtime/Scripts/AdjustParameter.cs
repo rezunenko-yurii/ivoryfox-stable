@@ -3,10 +3,13 @@ using System.Collections;
 using System.Diagnostics;
 using com.adjust.sdk;
 using UnityEngine;
+using UnityEngine.Scripting;
 using WebSdk.Core.Runtime.GlobalPart;
 using WebSdk.Core.Runtime.WebCore;
 using WebSdk.Parameters.Runtime.Scripts;
 using Debug = UnityEngine.Debug;
+
+[assembly: Preserve]
 
 namespace WebSdk.AdjustParameters.Runtime.Scripts
 {
