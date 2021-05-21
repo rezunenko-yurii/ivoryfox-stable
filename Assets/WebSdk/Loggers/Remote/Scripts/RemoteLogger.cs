@@ -88,12 +88,6 @@ namespace WebSdk.Loggers.Remote.Scripts
             OnReady = null;
             Application.logMessageReceived -= Send;
         }
-
-        private void OnDestroy()
-        {
-            Clear();
-        }
-        
         public string ConfigName { get; } = "logger";
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using TMPro;
 using UnityEngine;
@@ -151,6 +152,11 @@ namespace WebSdk.Main.Runtime.Scripts
             {
                 Helper.LoadNextScene();
             }
+        }
+
+        private void OnDestroy()
+        {
+            Logger.Clear();
         }
     }
 }
