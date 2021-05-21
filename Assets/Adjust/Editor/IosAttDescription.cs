@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEditor.Callbacks;
 using System.IO;
 #if UNITY_IOS
-    using Unity.Advertisement.IosSupport;
+    //using Unity.Advertisement.IosSupport;
     using UnityEditor.iOS.Xcode;
 #endif
 
