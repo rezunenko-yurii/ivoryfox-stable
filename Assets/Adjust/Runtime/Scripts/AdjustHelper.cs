@@ -19,7 +19,7 @@ namespace Adjust.Runtime.Scripts
         {
             Debug.Log($"In AdjustHelper constructor");
             
-//#if UNITY_IOS && !UNITY_EDITOR
+#if UNITY_IOS && !UNITY_EDITOR
 
             Version currentVersion = new Version(Device.systemVersion); // Parse the version of the current OS
             Version versionForCheck = new Version("14.5"); // Parse the iOS 13.0 version constant
@@ -31,8 +31,7 @@ namespace Adjust.Runtime.Scripts
                 IsUsedAtt = true;
 
                 GetAttStatus();
-            }
-//#endif
+#endif
         }
         
         private void GetAttStatus()
