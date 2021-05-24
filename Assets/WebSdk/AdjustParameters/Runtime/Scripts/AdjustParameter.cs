@@ -9,7 +9,7 @@ using WebSdk.Core.Runtime.WebCore;
 using WebSdk.Parameters.Runtime.Scripts;
 using Debug = UnityEngine.Debug;
 
-[assembly: Preserve]
+[assembly: AlwaysLinkAssembly]
 
 namespace WebSdk.AdjustParameters.Runtime.Scripts
 {

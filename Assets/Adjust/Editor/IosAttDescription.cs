@@ -17,29 +17,33 @@ namespace Adjust.Editor
         /// </summary>
         const string TrackingDescription =
             "We collect Device ID data to analyze in-app purchases and make better propositions for you.";
+        
         [PostProcessBuild(0)]
-        public static void OnPostprocessBuild(BuildTarget buildTarget, string pathToXcode)
+        public static void OnPostProcessBuild(BuildTarget buildTarget, string pathToXcode)
         {
             if (buildTarget == BuildTarget.iOS)
             {
                 AddPListValues(pathToXcode);
             }
         }
-        static void AddPListValues(string pathToXcode)
-        {
-#if UNITY_IOS
-            // Get Plist from Xcode project 
+        // Implement a function to read and write values to the plist file:
+        static void AddPListValues(string pathToXcode) {
+            // Retrieve the plist file from the Xcode project directory:
             string plistPath = pathToXcode + "/Info.plist";
-            // Read in Plist 
             PlistDocument plistObj = new PlistDocument();
+
+
+            // Read the values from the plist file:
             plistObj.ReadFromString(File.ReadAllText(plistPath));
-            // set values from the root obj
+
+            // Set values from the root object:
             PlistElementDict plistRoot = plistObj.root;
-            // Set value in plist
+
+            // Set the description key-value in the plist:
             plistRoot.SetString("NSUserTrackingUsageDescription", TrackingDescription);
-            // save
+
+            // Save changes to the plist:
             File.WriteAllText(plistPath, plistObj.WriteToString());
-#endif
         }
     }
 }
