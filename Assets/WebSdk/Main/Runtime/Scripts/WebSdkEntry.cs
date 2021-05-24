@@ -102,7 +102,7 @@ namespace WebSdk.Main.Runtime.Scripts
 
         private void LoadConfigs()
         {
-            List<string> ids = Helper.GetConsumableIds(Logger, Notification);
+            List<string> ids = Helper.GetConsumableIds(Logger, Notification, AdjustHelper);
             ids.Add("canUse");
 
             if (ids.Count > 0)
