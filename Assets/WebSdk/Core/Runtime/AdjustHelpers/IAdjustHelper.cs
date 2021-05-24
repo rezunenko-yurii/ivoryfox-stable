@@ -10,10 +10,4 @@ namespace WebSdk.Core.Runtime.AdjustHelpers
         int AttStatus { get; }
         string GetAttribution(string request);
     }
-    
-    [Serializable]
-    public class AdjustData
-    {
-        public string token;
-    }
 }

@@ -49,6 +49,8 @@ namespace Adjust.Runtime.Scripts
         public string ConfigName { get; } = "adjust";
         public void SetConfig(string json)
         {
+            Debug.Log($"---- AdjustHelper SetConfig // Json {json}");
+            
             if (!string.IsNullOrEmpty(json) && !json.Equals("{}"))
             {
                 _adjustData = JsonUtility.FromJson<AdjustData>(json);
@@ -73,6 +75,10 @@ namespace Adjust.Runtime.Scripts
                 config.setAttributionChangedDelegate(AttributionChangedCallback);
             
                 com.adjust.sdk.Adjust.start(config);
+            }
+            else
+            {
+                Debug.Log($"---- AdjustHelper isn`t inited");
             }
         }
         
