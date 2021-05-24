@@ -82,10 +82,17 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
             }
             else if (Time.time - TimeFromInit > _waitTime)
             {
-                Debug.Log("Adjust TryToGetDataFromAdjust: Waiting is over // add organic");
-                Debug.Log($"Adjust TryToGetDataFromAdjust: Adjust.adid = {Adjust.getAdid()}");
-                
-                SetAdjustValue(Organic);
+                string adid = Adjust.getAdid();
+                if (string.IsNullOrEmpty(adid))
+                {
+                    Debug.Log("Adjust TryToGetDataFromAdjust: Waiting is over // add organic");
+                    SetAdjustValue(Organic);
+                }
+                else
+                {
+                    Debug.Log($"Adjust TryToGetDataFromAdjust: Waiting is over // Adjust.adid = {Adjust.getAdid()}");
+                    SetAdjustValue(adid);
+                }
             }
         }
         
