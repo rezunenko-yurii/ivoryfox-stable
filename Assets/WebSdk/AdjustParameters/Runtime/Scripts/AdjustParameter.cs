@@ -21,6 +21,11 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
         private Stopwatch _stopwatch;
         private MonoBehaviour _monoBehaviour;
 
+        [RuntimeInitializeOnLoadMethod]
+        public void Initialize()
+        {
+            Debug.Log("AdjustParameter Initialize");
+        }
         public override void Init(MonoBehaviour monoBehaviour)
         {
             _stopwatch = Stopwatch.StartNew();
