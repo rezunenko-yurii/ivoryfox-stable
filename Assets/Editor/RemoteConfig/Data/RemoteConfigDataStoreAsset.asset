@@ -40,7 +40,7 @@ MonoBehaviour:
   _rulesList: "[\r\n  {\r\n    \"id\": \"b411f954-76c6-410f-bf4d-ad72a30de2f1\",\r\n   
     \"name\": \"canShow\",\r\n    \"type\": \"segmentation\",\r\n    \"condition\":
     \"true\",\r\n    \"rolloutPercentage\": 100,\r\n    \"startDate\": \"\",\r\n   
-    \"endDate\": \"\",\r\n    \"priority\": 1000,\r\n    \"enabled\": true,\r\n   
+    \"endDate\": \"\",\r\n    \"priority\": 1000,\r\n    \"enabled\": false,\r\n   
     \"value\": [\r\n      {\r\n        \"metadata\": {\r\n          \"entityId\":
     \"36265139-08b7-4b74-a8fb-41260d1b504e\"\r\n        },\r\n        \"rs\": {\r\n         
     \"key\": \"urlsConfig\",\r\n          \"type\": \"json\",\r\n          \"value\":

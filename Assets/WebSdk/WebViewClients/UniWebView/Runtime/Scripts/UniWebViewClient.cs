@@ -67,6 +67,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             _webView.Frame = new Rect(0, 0, Screen.safeArea.width, Screen.safeArea.height);
             _webView.OnOrientationChanged += ChangeOrientation;
             _webView.OnShouldClose += OnShouldClose;
+            
+            _webView.SetShowToolbar(true, true, false, true);
 
             Screen.orientation = ScreenOrientation.AutoRotation;
             Screen.autorotateToPortrait = true;
