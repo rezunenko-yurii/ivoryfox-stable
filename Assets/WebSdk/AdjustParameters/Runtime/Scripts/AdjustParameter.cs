@@ -22,11 +22,12 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
         private MonoBehaviour _monoBehaviour;
 
         [RuntimeInitializeOnLoadMethod]
-        public void Initialize()
+        public static void Initialize()
         {
             Debug.Log("AdjustParameter Initialize");
         }
 
+        [Preserve]
         public AdjustParameter()
         {
             Debug.Log("AdjustParameter Constructor");
