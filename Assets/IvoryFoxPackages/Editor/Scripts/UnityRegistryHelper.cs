@@ -15,6 +15,11 @@ namespace IvoryFoxPackages.Editor.Scripts
         static AddRequest _addRequest;
         static Queue<string> packagesQueue;
         public static Action OnAddRequestComplete;
+
+        static UnityRegistryHelper()
+        {
+            Client.LogLevel = LogLevel.Verbose;
+        }
  
 // this is called via a UI button
         static public void Download(Queue<string> packageList)
@@ -77,10 +82,12 @@ namespace IvoryFoxPackages.Editor.Scripts
                 {
                     Debug.Log("All packages had been loaded");
                     
-                    AssemblyReloadEvents.afterAssemblyReload += InvokeComplete;
+                    //AssemblyReloadEvents.afterAssemblyReload += InvokeComplete;
                     
                     EditorApplication.update -= AddProgress;
                     EditorApplication.UnlockReloadAssemblies();
+
+                    InvokeComplete();
                 }
             }
         }
