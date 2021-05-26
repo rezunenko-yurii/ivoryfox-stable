@@ -1,11 +1,14 @@
 {
   "name": "com.ivoryfox.package-manager",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "displayName": "IvoryFox Package Manager",
-  "description": "---",
+  "description": "last modified 26/05/21",
   "unity": "2019.4",
   "author": {
     "name": "exhale",
     "email": "exhale@syneforge.com"
+  },
+  "dependencies": {
+    "com.unity.editorcoroutines": "1.0.0"
   }
 }
