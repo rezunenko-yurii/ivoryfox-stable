@@ -19,7 +19,7 @@ namespace IvoryFoxPackages.Editor.Scripts.UnityPackages
         }
         public static void Install(List<UnityPackageData> all, string packageLocation)
         {
-            Debug.Log($"UnityPackagesInstaller Install {Queue.Count}");
+            Debug.Log($"UnityPackagesInstaller Install {Queue.Count} // package location {packageLocation}");
             
             bool shouldStart = Queue.Count == 0;
 

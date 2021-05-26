@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using IvoryFoxPackages.Editor.Scripts.UnityPackages;
 using Unity.EditorCoroutines.Editor;
+using UnityEditor;
 using UnityEngine;
 
 namespace IvoryFoxPackages.Editor.Scripts
@@ -46,9 +47,29 @@ namespace IvoryFoxPackages.Editor.Scripts
             if (unityPackages.Count > 0)
             {
                 var packageInfo = UnityRegistryHelper.GetInstalledPackage(packageName);
-                
+
+                /*var count = unityPackages.Count;
+                for (var i = 0; i < count; i++)
+                {
+                    var unityPackage = unityPackages[i];
+                    if (AssetDatabase.IsValidFolder(unityPackage.pathToPackage))
+                    {
+                        Debug.Log($"Can`t instal package {unityPackage.packageName} // Is already exist in project");
+                        unityPackages.Remove(unityPackages[i]);
+                        continue;
+                    }
+                    else
+                    {
+                        //Debug.Log($"Can`t instal package {unityPackage.packageName} // Is invalid folder path");
+                    }
+                    
+                }
+
                 if (packageInfo != null) UnityPackagesInstaller.Install(unityPackages, packageInfo.resolvedPath);
-                else Debug.Log($"Can`t find installed package {packageName}");
+                else Debug.Log($"Can`t find installed package {packageName}");*/
+                
+                Debug.Log($"Can`t find installed package {packageName}");
+                UnityPackagesInstaller.Install(unityPackages, packageInfo.resolvedPath);
             }
         }
 
