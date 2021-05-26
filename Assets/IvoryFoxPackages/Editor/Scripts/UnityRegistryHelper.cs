@@ -14,6 +14,7 @@ namespace IvoryFoxPackages.Editor.Scripts
     {
         static AddRequest _addRequest;
         static Queue<string> packagesQueue;
+        public static Action OnAddRequestComplete;
  
 // this is called via a UI button
         static public void Download(Queue<string> packageList)
@@ -32,7 +33,7 @@ namespace IvoryFoxPackages.Editor.Scripts
         {
             packagesQueue = packageList;
             
-            EditorApplication.update += AddProgress;
+            EditorApplication.update += RemoveProgress;
             EditorApplication.LockReloadAssemblies();
  
             var nextRequestStr = packagesQueue.Dequeue();
@@ -60,12 +61,16 @@ namespace IvoryFoxPackages.Editor.Scripts
                 if (packagesQueue.Count > 0) 
                 {
                     var nextRequestStr = packagesQueue.Dequeue();
-                    Debug.Log("Requesting removal of '" + nextRequestStr + "'.");
+                    Debug.Log("Requesting adding of '" + nextRequestStr + "'.");
                     _addRequest = Client.Add(nextRequestStr);
  
-                } else {    // no more packages to remove
+                } else 
+                {
                     EditorApplication.update -= AddProgress;
                     EditorApplication.UnlockReloadAssemblies();
+
+                    OnAddRequestComplete();
+                    OnAddRequestComplete = null;
                 }
             }
         }
@@ -77,14 +82,14 @@ namespace IvoryFoxPackages.Editor.Scripts
                 switch (_removeRequest.Status) 
                 {
                     case StatusCode.Failure:    // couldn't remove package
-                        Debug.LogError("Couldn't Download package '" + _removeRequest.PackageIdOrName + "': " + _addRequest.Error.message);
+                        Debug.LogError("Couldn't remove package '" + _removeRequest.PackageIdOrName + "': " + _addRequest.Error.message);
                         break;
  
                     case StatusCode.InProgress:
                         break;
  
                     case StatusCode.Success:
-                        Debug.Log("Download package: " + _removeRequest.PackageIdOrName);
+                        Debug.Log("removed package: " + _removeRequest.PackageIdOrName);
                         break;
                 }
  

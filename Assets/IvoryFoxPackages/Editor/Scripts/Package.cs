@@ -36,8 +36,8 @@ namespace IvoryFoxPackages.Editor.Scripts
             Debug.Log("-------------- ");
 
             //yield return EditorCoroutineUtility.StartCoroutine(UnityRegistryHelper.Download(toUpdate), this);
+            UnityRegistryHelper.OnAddRequestComplete += InstallUnityPackages;
             UnityRegistryHelper.Download(toUpdate);
-            InstallUnityPackages();
         }
 
         public void InstallUnityPackages()
