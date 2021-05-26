@@ -24,31 +24,7 @@ namespace IvoryFoxPackages.Editor.Scripts
 
         public void InstallOrUpdate()
         {
-            //UnityPackagesInstaller.OnAllInstalled += UnityPackagesInstallerOnOnAllInstalled;
-            //InstallUnityPackages();
-            
-            //List<string> toUpdate = new List<string> {url};
-            /*List<string> toUpdate = new List<string>();
-            toUpdate = GetAllGitDependencies(toUpdate);
-            toUpdate.Reverse();
-
-            Debug.Log("-------------- Packages to install:");
-            foreach (string s in toUpdate)
-            {
-                Debug.Log(s);
-            }
-            Debug.Log("-------------- ");
-            
-            EditorCoroutineUtility.StartCoroutine(UnityRegistryHelper.Download(toUpdate), this);
-            //UnityRegistryHelper.Download(toUpdate);
-            InstallUnityPackages();*/
-
-            EditorCoroutineUtility.StartCoroutine(SS(), this);
-        }
-
-        private IEnumerator SS()
-        {
-            List<string> toUpdate = new List<string>();
+            Queue<string> toUpdate = new Queue<string>();
             toUpdate = GetAllGitDependencies(toUpdate);
             toUpdate.Reverse();
 
@@ -59,12 +35,14 @@ namespace IvoryFoxPackages.Editor.Scripts
             }
             Debug.Log("-------------- ");
 
-            yield return EditorCoroutineUtility.StartCoroutine(UnityRegistryHelper.Download(toUpdate), this);
+            //yield return EditorCoroutineUtility.StartCoroutine(UnityRegistryHelper.Download(toUpdate), this);
+            UnityRegistryHelper.Download(toUpdate);
             InstallUnityPackages();
         }
 
         public void InstallUnityPackages()
         {
+            Debug.Log($"InstallUnityPackages // count {unityPackages.Count}");
             if (unityPackages.Count > 0)
             {
                 var packageInfo = UnityRegistryHelper.GetInstalledPackage(packageName);
@@ -93,16 +71,19 @@ namespace IvoryFoxPackages.Editor.Scripts
 
         public void Remove()
         {
-            UnityRegistryHelper.Remove(new List<string>(){packageId});
+            var removeQueue = new Queue<string>();
+            removeQueue.Enqueue(packageId);
+            
+            UnityRegistryHelper.Remove(removeQueue);
         }
-        private List<string> GetAllGitDependencies(List<string> toUpdate)
+        private Queue<string> GetAllGitDependencies(Queue<string> toUpdate)
         {
             //Debug.Log($"In GetAllGitDependencies of {packageName}");
             
             if (!toUpdate.Contains(url))
             {
                 //Debug.Log($"adding to list {url}");
-                toUpdate.Add(url);
+                toUpdate.Enqueue(url);
             }
             else
             {
@@ -116,17 +97,11 @@ namespace IvoryFoxPackages.Editor.Scripts
                     if (!toUpdate.Contains(package.url))
                     {
                         //Debug.Log($"adding to list {package.packageName}");
-                        toUpdate.Add(package.url);
+                        toUpdate.Enqueue(package.url);
                     
                         var n = package.GetAllGitDependencies(toUpdate);
-                        toUpdate = toUpdate.Union(n).ToList();
-                        
-                        /*Debug.Log("-+-+ After concat");
-                        foreach (string s in toUpdate)
-                        {
-                            Debug.Log(s);
-                        }
-                        Debug.Log("-+-+ ");*/
+                        toUpdate = new Queue<string>(toUpdate.Union(n));
+                        //toUpdate = toUpdate.Union(n).ToList();
                     }
                     else
                     {
