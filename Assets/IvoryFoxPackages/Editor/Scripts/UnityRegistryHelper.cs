@@ -19,14 +19,21 @@ namespace IvoryFoxPackages.Editor.Scripts
 // this is called via a UI button
         static public void Download(Queue<string> packageList)
         {
-            packagesQueue = packageList;
+            if (packageList.Count > 0)
+            {
+                packagesQueue = packageList;
             
-            EditorApplication.update += AddProgress;
-            EditorApplication.LockReloadAssemblies();
+                EditorApplication.update += AddProgress;
+                EditorApplication.LockReloadAssemblies();
  
-            var nextRequestStr = packageList.Dequeue();
-            Debug.Log("Requesting adding of '" + nextRequestStr + "'.");
-            _addRequest = Client.Add(nextRequestStr);
+                var nextRequestStr = packageList.Dequeue();
+                Debug.Log("Requesting adding of '" + nextRequestStr + "'.");
+                _addRequest = Client.Add(nextRequestStr);
+            }
+            else
+            {
+                InvokeComplete();
+            }
         }
         
         static RemoveRequest _removeRequest;
@@ -67,13 +74,21 @@ namespace IvoryFoxPackages.Editor.Scripts
  
                 } else 
                 {
+                    AssemblyReloadEvents.afterAssemblyReload += InvokeComplete;
+                    
                     EditorApplication.update -= AddProgress;
                     EditorApplication.UnlockReloadAssemblies();
-
-                    OnAddRequestComplete();
-                    OnAddRequestComplete = null;
                 }
             }
+        }
+
+        private static void InvokeComplete()
+        {
+            Debug.Log("InvokeComplete");
+            AssemblyReloadEvents.afterAssemblyReload -= InvokeComplete;
+            
+            OnAddRequestComplete();
+            OnAddRequestComplete = null;
         }
         
         static void RemoveProgress() 
@@ -189,10 +204,10 @@ namespace IvoryFoxPackages.Editor.Scripts
         {
             var a = GetInstalledPackages();
             
-            foreach (var p in a)
+            /*foreach (var p in a)
             {
                 Debug.Log(p.packageId + " " + p.resolvedPath);
-            }
+            }*/
             
             var packageInfo = a.SingleOrDefault(x => x.packageId.Contains(packageName));
             
