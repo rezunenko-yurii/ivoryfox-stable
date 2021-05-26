@@ -20,9 +20,9 @@ MonoBehaviour:
   - name: paramsConfig
     type: json
     value: '{}'
-  - name: adjustToken
-    type: string
-    value: 
+  - name: adjust
+    type: json
+    value: '{}'
   - name: canUse
     type: string
     value: false
@@ -39,9 +39,9 @@ MonoBehaviour:
       type: json
       value: '{   "items": [     {       "id": "adjust",       "alias": "adid" }  
         ] }'
-    - name: adjustToken
-      type: string
-      value: 9c5w1t84e48w
+    - name: adjust
+      type: json
+      value: '{ "token": " 9c5w1t84e48w" }'
     - name: canUse
       type: string
       value: true
