@@ -11,7 +11,7 @@ namespace IvoryFoxPackages.Editor.Scripts.UnityPackages
         public static event Action OnAllInstalled;
         private static readonly Queue<UnityPackageData> Queue = new Queue<UnityPackageData>();
         
-        private static string PackageLocation;
+        private static string _packageLocation;
         //private static string 
         static UnityPackagesInstaller()
         {
@@ -19,22 +19,31 @@ namespace IvoryFoxPackages.Editor.Scripts.UnityPackages
         }
         public static void Install(List<UnityPackageData> all, string packageLocation)
         {
+            Debug.Log($"UnityPackagesInstaller Install {Queue.Count}");
+            
             bool shouldStart = Queue.Count == 0;
 
             foreach (var toInstall in all)
             {
-                if (!Queue.Contains(toInstall)) Queue.Enqueue(toInstall);
+                if (!Queue.Contains(toInstall))
+                {
+                    Debug.Log($"UnityPackagesInstaller Added {toInstall} to queue");
+                    Queue.Enqueue(toInstall);
+                }
             }
 
             if (shouldStart)
             {
-                PackageLocation = packageLocation;
+                Debug.Log($"UnityPackagesInstaller Install shouldStart == true");
+                _packageLocation = packageLocation;
                 
                 AddSubscribes();
                 StartInstall();
             }
             else
             {
+                Debug.Log($"UnityPackagesInstaller Install shouldStart == false");
+                
                 OnAllInstalled?.Invoke();
                 OnAllInstalled = null;
             }
@@ -42,19 +51,22 @@ namespace IvoryFoxPackages.Editor.Scripts.UnityPackages
 
         private static void StartInstall()
         {
+            Debug.Log($"UnityPackagesInstaller StartInstall {Queue.Count}");
+            
             if (Queue.Count > 0)
             {
                 UnityPackageData package = Queue.Dequeue();
 
                 if (!Directory.Exists(package.installedPackageLocation))
                 {
-                    Debug.Log($"Trying to install {package.packageName} {PackageLocation + package.pathToPackage}");
-                    AssetDatabase.ImportPackage(PackageLocation + package.pathToPackage, true);
+                    Debug.Log($"UnityPackagesInstaller Trying to install {package.packageName} {_packageLocation + package.pathToPackage}");
+                    AssetDatabase.ImportPackage(_packageLocation + package.pathToPackage, true);
                 }
                 else Debug.Log($"{package.packageName} is exists in project");
             }
             else
             {
+                Debug.Log("UnityPackagesInstaller Queue.Count < 0");
                 RemoveSubscribes();
                 
                 OnAllInstalled?.Invoke();
