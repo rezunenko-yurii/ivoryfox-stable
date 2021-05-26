@@ -25,6 +25,7 @@ namespace IvoryFoxPackages.Editor.Scripts
             EditorApplication.LockReloadAssemblies();
  
             var nextRequestStr = packageList.Dequeue();
+            Debug.Log("Requesting adding of '" + nextRequestStr + "'.");
             _addRequest = Client.Add(nextRequestStr);
         }
         
@@ -188,10 +189,10 @@ namespace IvoryFoxPackages.Editor.Scripts
         {
             var a = GetInstalledPackages();
             
-            /*foreach (var p in a)
+            foreach (var p in a)
             {
                 Debug.Log(p.packageId + " " + p.resolvedPath);
-            }*/
+            }
             
             var packageInfo = a.SingleOrDefault(x => x.packageId.Contains(packageName));
             
