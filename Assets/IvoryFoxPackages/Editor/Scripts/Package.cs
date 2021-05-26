@@ -45,7 +45,7 @@ namespace IvoryFoxPackages.Editor.Scripts
             Debug.Log($"InstallUnityPackages // count {unityPackages.Count}");
             if (unityPackages.Count > 0)
             {
-                var packageInfo = UnityRegistryHelper.GetInstalledPackage(packageName);
+                var packageInfo = UnityRegistryHelper.GetInstalledPackage(packageId);
 
                 /*var count = unityPackages.Count;
                 for (var i = 0; i < count; i++)
