@@ -60,7 +60,7 @@ namespace IvoryFoxPackages.Editor.Scripts.UnityPackages
                 if (!Directory.Exists(package.installedPackageLocation))
                 {
                     Debug.Log($"UnityPackagesInstaller Trying to install {package.packageName} {_packageLocation + package.pathToPackage}");
-                    AssetDatabase.ImportPackage(_packageLocation + package.pathToPackage, false);
+                    AssetDatabase.ImportPackage(_packageLocation + package.pathToPackage, true);
                 }
                 else Debug.Log($"{package.packageName} is exists in project");
             }

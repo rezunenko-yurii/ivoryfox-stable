@@ -62,18 +62,21 @@ namespace IvoryFoxPackages.Editor.Scripts
                         break;
  
                     case StatusCode.Success:
-                        Debug.Log("Download package: " + _addRequest.Result.name);
+                        Debug.Log("Downloaded package: " + _addRequest.Result.name);
                         break;
                 }
  
                 if (packagesQueue.Count > 0) 
                 {
                     var nextRequestStr = packagesQueue.Dequeue();
+                    
                     Debug.Log("Requesting adding of '" + nextRequestStr + "'.");
                     _addRequest = Client.Add(nextRequestStr);
  
                 } else 
                 {
+                    Debug.Log("All packages had been loaded");
+                    
                     AssemblyReloadEvents.afterAssemblyReload += InvokeComplete;
                     
                     EditorApplication.update -= AddProgress;
