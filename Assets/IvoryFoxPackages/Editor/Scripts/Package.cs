@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using IvoryFoxPackages.Editor.Scripts.UnityPackages;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
@@ -26,7 +28,7 @@ namespace IvoryFoxPackages.Editor.Scripts
             //InstallUnityPackages();
             
             //List<string> toUpdate = new List<string> {url};
-            List<string> toUpdate = new List<string>();
+            /*List<string> toUpdate = new List<string>();
             toUpdate = GetAllGitDependencies(toUpdate);
             toUpdate.Reverse();
 
@@ -37,9 +39,28 @@ namespace IvoryFoxPackages.Editor.Scripts
             }
             Debug.Log("-------------- ");
             
-            InstallUnityPackages();
             EditorCoroutineUtility.StartCoroutine(UnityRegistryHelper.Download(toUpdate), this);
             //UnityRegistryHelper.Download(toUpdate);
+            InstallUnityPackages();*/
+
+            EditorCoroutineUtility.StartCoroutine(SS(), this);
+        }
+
+        private IEnumerator SS()
+        {
+            List<string> toUpdate = new List<string>();
+            toUpdate = GetAllGitDependencies(toUpdate);
+            toUpdate.Reverse();
+
+            Debug.Log("-------------- Packages to install:");
+            foreach (string s in toUpdate)
+            {
+                Debug.Log(s);
+            }
+            Debug.Log("-------------- ");
+
+            yield return EditorCoroutineUtility.StartCoroutine(UnityRegistryHelper.Download(toUpdate), this);
+            InstallUnityPackages();
         }
 
         public void InstallUnityPackages()
@@ -63,13 +84,10 @@ namespace IvoryFoxPackages.Editor.Scripts
                         //Debug.Log($"Can`t instal package {unityPackage.packageName} // Is invalid folder path");
                     }
                     
-                }
+                }*/
 
                 if (packageInfo != null) UnityPackagesInstaller.Install(unityPackages, packageInfo.resolvedPath);
-                else Debug.Log($"Can`t find installed package {packageName}");*/
-                
-                Debug.Log($"Can`t find installed package {packageName}");
-                UnityPackagesInstaller.Install(unityPackages, packageInfo.resolvedPath);
+                else Debug.Log($"Can`t find installed package {packageName}");
             }
         }
 
