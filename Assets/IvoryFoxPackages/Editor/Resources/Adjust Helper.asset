@@ -21,5 +21,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f8921bbcd16d7b547aac91ab995ad4c3, type: 2}
   unityPackages:
   - packageName: Adjust
-    pathToPackage: /Package Resources/Adjust_4_28_0.unitypackage
+    pathToPackage: /Package Resources/Adjust_4_29_1.unitypackage
     installedPackageLocation: Assets/Adjust
