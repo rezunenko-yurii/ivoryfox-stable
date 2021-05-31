@@ -65,7 +65,7 @@ namespace Adjust.Runtime.Scripts
                 
                 AdjustConfig config = new AdjustConfig(_adjustData.token, GetEnvironment, false);
                 config.setLogLevel(AdjustLogLevel.Verbose);
-                config.setLogDelegate(Debug.Log);
+                config.setLogDelegate(msg => Debug.Log(msg));
 
                 config.setEventSuccessDelegate(EventSuccessCallback);
                 config.setEventFailureDelegate(EventFailureCallback);
