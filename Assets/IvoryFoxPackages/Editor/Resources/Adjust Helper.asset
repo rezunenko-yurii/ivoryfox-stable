@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
-  m_Name: Adjust
+  m_Name: Adjust Helper
   m_EditorClassIdentifier: 
-  packageName: IvoryFox Adjust
-  packageId: com.ivotyfox.adjust
+  packageName: IvoryFox Adjust Helper
+  packageId: com.ivotyfox.adjust-helper
   type: 0
-  url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/Adjust
+  url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/AdjustHelper
   unityDependencies: []
   gitDependencies:
   - {fileID: 11400000, guid: f8921bbcd16d7b547aac91ab995ad4c3, type: 2}
-  unityPackages: []
+  unityPackages:
+  - packageName: Adjust
+    pathToPackage: /Package Resources/Adjust_4_28_0.unitypackage
+    installedPackageLocation: Assets/Adjust

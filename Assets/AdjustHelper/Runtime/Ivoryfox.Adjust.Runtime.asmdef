@@ -1,5 +1,5 @@
 {
-    "name": "Ivoryfox.Adjust.Runtime",
+    "name": "Ivoryfox.AdjustHelper.Runtime",
     "rootNamespace": "",
     "references": [
         "GUID:e332b8b2849050747b1c80f666edf746",
