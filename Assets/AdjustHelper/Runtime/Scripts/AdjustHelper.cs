@@ -67,10 +67,10 @@ namespace Adjust.Runtime.Scripts
                 config.setLogLevel(AdjustLogLevel.Verbose);
                 config.setLogDelegate(msg => Debug.Log(msg));
 
-                config.setEventSuccessDelegate(EventSuccessCallback);
-                config.setEventFailureDelegate(EventFailureCallback);
-                config.setSessionFailureDelegate(SessionFailureCallback);
-                config.setSessionSuccessDelegate(SessionSuccessCallback);
+                //config.setEventSuccessDelegate(EventSuccessCallback);
+                //config.setEventFailureDelegate(EventFailureCallback);
+                //config.setSessionFailureDelegate(SessionFailureCallback);
+                //config.setSessionSuccessDelegate(SessionSuccessCallback);
                 config.setDeferredDeeplinkDelegate(DeferredDeeplinkCallback);
                 config.setAttributionChangedDelegate(AttributionChangedCallback);
             
