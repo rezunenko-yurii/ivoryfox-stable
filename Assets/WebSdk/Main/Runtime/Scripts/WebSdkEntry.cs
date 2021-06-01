@@ -118,26 +118,27 @@ namespace WebSdk.Main.Runtime.Scripts
         public void InitConfigs(Dictionary<string, string> configs)
         {
             Debug.Log($"GlobalBlockUnity InitConfigs / StopWatch = {_stopwatch.Elapsed.Seconds} FromStart = {Time.realtimeSinceStartup}");
+            
+            Helper.SetConfigsToConsumables(configs, AdjustHelper);
 
             configs.TryGetValue("canUse", out var canUseString);
             bool.TryParse(canUseString, out var canUse);
-            
-            //if (canUse || ConfigLoader is RemoteConfigsLoader)
+
             if (canUse)
             {
-                Helper.SetConfigsToConsumables(configs, Logger, Notification, AdjustHelper);
-                Helper.LoadNextScene();
-            
+                Helper.SetConfigsToConsumables(configs, Logger, Notification);
+                
                 Debug.Log($"GlobalBlockUnity Complete / StopWatch = {_stopwatch.Elapsed.Seconds} FromStart = {Time.realtimeSinceStartup}");
-                _stopwatch.Stop();
-            
+                
                 _webManager.Init();
             }
             else
             {
                 Debug.Log($"GlobalBlockUnity InitConfigs / canUse = false");
-                Helper.LoadNextScene();
             }
+            
+            _stopwatch.Stop();
+            Helper.LoadNextScene();
         }
         
         #endregion
