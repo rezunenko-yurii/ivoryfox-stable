@@ -2,14 +2,15 @@
 using Unity.Advertisement.IosSupport;
 using UnityEngine;
 using UnityEngine.iOS;
+using UnityEngine.PlayerLoop;
 
 namespace IosHelpers.Runtime.Scripts
 {
-    public class AppTransparencyTracker
+    public static class AppTransparencyTracker
     {
         //public event Action sentTrackingAuthorizationRequest;
 
-        public AppTransparencyTracker()
+        public static void Init()
         {
 #if UNITY_IOS
             Version currentVersion = new Version(Device.systemVersion); // Parse the version of the current OS
@@ -28,7 +29,7 @@ namespace IosHelpers.Runtime.Scripts
 #endif
         }
 #if UNITY_IOS
-        private void GetAttStatus()
+        private static void GetAttStatus()
         {
             var status = ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
 

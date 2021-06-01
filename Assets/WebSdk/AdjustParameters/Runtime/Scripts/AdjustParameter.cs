@@ -40,14 +40,14 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
             
             Debug.Log($"AdjustParameter Init");
 
-            if (GlobalFacade.adjustHelper.IsUsedAtt)
+            /*if (GlobalFacade.adjustHelper.IsUsedAtt)
             {
                 if (GlobalFacade.adjustHelper.AttStatus < 3)
                 {
                     Debug.Log($"AdjustParameter // ATT status = {GlobalFacade.adjustHelper.AttStatus} set organic");
                     SetAdjustValue(Organic);
                 }
-            }
+            }*/
 
             base.Init(_monoBehaviour);
         }

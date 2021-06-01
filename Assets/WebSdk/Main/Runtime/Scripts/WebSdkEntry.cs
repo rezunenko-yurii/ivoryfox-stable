@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using IosHelpers.Runtime.Scripts;
 using TMPro;
 using UnityEngine;
 using WebSdk.Core.Runtime.AdjustHelpers;
@@ -42,7 +43,14 @@ namespace WebSdk.Main.Runtime.Scripts
             
             _stopwatch = Stopwatch.StartNew();
             
-            //Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
+#if UNITY_IOS
+            Debug.Log("Trying to get ATT");
+            
+            AppTransparencyTracker.Init();
+            
+            Debug.Log("After Trying to get ATT");
+#endif
+            Debug.Log("GlobalBlockUnity Creating factory");
 
             var factory = Resources.Load<ScriptableObject>("WebSdkComponentsFactory") as IGlobalFactory; //new AccessManagerComponentsFactory {GameObject = gameObject};
             factory.GameObject = this.gameObject;
