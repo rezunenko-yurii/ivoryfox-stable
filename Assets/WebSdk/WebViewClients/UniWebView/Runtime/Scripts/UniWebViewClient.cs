@@ -69,6 +69,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             _webView.OnShouldClose += OnShouldClose;
             
             _webView.SetShowToolbar(true, true, false, true);
+            _webView.SetToolbarDoneButtonText("Exit");
 
             Screen.orientation = ScreenOrientation.AutoRotation;
             Screen.autorotateToPortrait = true;

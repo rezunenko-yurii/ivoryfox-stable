@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Adjust.Runtime.Scripts
+namespace AdjustHelper.Runtime.Scripts
 {
     [Serializable]
     public class AdjustData

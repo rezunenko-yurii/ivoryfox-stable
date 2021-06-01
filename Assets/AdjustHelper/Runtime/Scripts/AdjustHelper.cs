@@ -1,11 +1,9 @@
-using System;
 using com.adjust.sdk;
 using UnityEngine;
-using UnityEngine.iOS;
 using WebSdk.Core.Runtime.AdjustHelpers;
 using WebSdk.Core.Runtime.ConfigLoader;
 
-namespace Adjust.Runtime.Scripts
+namespace AdjustHelper.Runtime.Scripts
 {
     public class AdjustHelper : IAdjustHelper, IConfigConsumer
     {
@@ -18,7 +16,10 @@ namespace Adjust.Runtime.Scripts
         public AdjustHelper()
         {
             Debug.Log($"In AdjustHelper constructor");
-            
+        }
+
+        private void InitATT()
+        {
 #if UNITY_IOS && !UNITY_EDITOR
 
             Version currentVersion = new Version(Device.systemVersion); // Parse the version of the current OS
@@ -75,6 +76,8 @@ namespace Adjust.Runtime.Scripts
                 config.setAttributionChangedDelegate(AttributionChangedCallback);
             
                 com.adjust.sdk.Adjust.start(config);
+                
+                InitATT();
             }
             else
             {

@@ -1,5 +1,4 @@
-﻿using Adjust.Runtime.Scripts;
-using UnityEngine;
+﻿using UnityEngine;
 using WebSdk.Core.Runtime.AdjustHelpers;
 using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.GlobalPart;
@@ -46,7 +45,7 @@ namespace WebSdk.SdkConfigurations.RemoteConfigBased.Runtime.Scripts
 
         public IAdjustHelper CreateAdjustHelper()
         {
-            return new AdjustHelper();
+            return new AdjustHelper.Runtime.Scripts.AdjustHelper();
         }
     }
 }
