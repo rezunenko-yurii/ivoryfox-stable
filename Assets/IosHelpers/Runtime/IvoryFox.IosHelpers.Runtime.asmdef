@@ -1,0 +1,19 @@
+{
+    "name": "IvoryFox.IosHelpers.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:00c479e63b1c74419820a39073267645"
+    ],
+    "includePlatforms": [
+        "Editor",
+        "iOS"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
