@@ -1,8 +1,8 @@
 {
   "name": "com.ivoryfox.web-sdk-core",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "displayName": "IvoryFox Web SDK",
-  "description": "---",
+  "description": "last modified 1/06/2021",
   "unity": "2019.4",
   "author": {
     "name": "exhale",

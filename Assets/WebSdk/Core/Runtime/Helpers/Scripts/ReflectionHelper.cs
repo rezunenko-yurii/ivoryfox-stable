@@ -54,7 +54,7 @@ namespace WebSdk.Core.Runtime.Helpers.Scripts
                    assembly.FullName.Contains("Unity.") || 
                    assembly.FullName.Contains("Mono.")) continue;
                 
-                Debug.Log($"Checking assembly {assembly.FullName}");
+                //Debug.Log($"Checking assembly {assembly.FullName}");
                 foreach(Type type in assembly.GetTypes())
                 {
                     object attribute = type.GetCustomAttribute(typeof(T), true);
