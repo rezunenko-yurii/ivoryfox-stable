@@ -42,7 +42,7 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
 
             if (GlobalFacade.adjustHelper.IsUsedAtt)
             {
-                if (GlobalFacade.adjustHelper.AttStatus == 0 || GlobalFacade.adjustHelper.AttStatus == 1)
+                if (GlobalFacade.adjustHelper.AttStatus < 3)
                 {
                     Debug.Log($"AdjustParameter // ATT status = {GlobalFacade.adjustHelper.AttStatus} set organic");
                     SetAdjustValue(Organic);
