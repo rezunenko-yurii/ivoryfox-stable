@@ -68,17 +68,12 @@ namespace AdjustHelper.Runtime.Scripts
                 
                 AdjustConfig config = new AdjustConfig(_adjustData.token, GetEnvironment, false);
                 config.setLogLevel(AdjustLogLevel.Verbose);
-                config.setLogDelegate(msg => Debug.Log(msg));
-
-                //config.setEventSuccessDelegate(EventSuccessCallback);
-                //config.setEventFailureDelegate(EventFailureCallback);
-                //config.setSessionFailureDelegate(SessionFailureCallback);
-                //config.setSessionSuccessDelegate(SessionSuccessCallback);
-                config.setDeferredDeeplinkDelegate(DeferredDeeplinkCallback);
+                config.setSendInBackground(true);
+                //config.setLogDelegate(msg => Debug.Log(msg));
                 config.setAttributionChangedDelegate(AttributionChangedCallback);
             
-                com.adjust.sdk.Adjust.start(config);
-                
+                Adjust.start(config);
+
                 InitATT();
             }
             else
