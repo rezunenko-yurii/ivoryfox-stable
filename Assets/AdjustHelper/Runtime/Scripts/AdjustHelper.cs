@@ -12,7 +12,6 @@ namespace AdjustHelper.Runtime.Scripts
         public bool IsReady { get; private set; }
         public bool IsUsedAtt { get; private set; }
         public int AttStatus { get; private set; }
-        private AdjustEnvironment GetEnvironment => AdjustEnvironment.Production;
         private AdjustData _adjustData;
 
         public AdjustHelper()
@@ -22,6 +21,7 @@ namespace AdjustHelper.Runtime.Scripts
 
         private void InitATT()
         {
+            Debug.Log($"---- AdjustHelper InitATT");
 #if UNITY_IOS && !UNITY_EDITOR
 
             Version currentVersion = new Version(Device.systemVersion); // Parse the version of the current OS
@@ -66,10 +66,9 @@ namespace AdjustHelper.Runtime.Scripts
                     return;
                 }
                 
-                AdjustConfig config = new AdjustConfig(_adjustData.token, GetEnvironment, false);
+                AdjustConfig config = new AdjustConfig(_adjustData.token, AdjustEnvironment.Production, false);
                 config.setLogLevel(AdjustLogLevel.Verbose);
                 config.setSendInBackground(true);
-                //config.setLogDelegate(msg => Debug.Log(msg));
                 config.setAttributionChangedDelegate(AttributionChangedCallback);
             
                 Adjust.start(config);
