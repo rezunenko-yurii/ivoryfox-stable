@@ -1,5 +1,7 @@
+using System;
 using com.adjust.sdk;
 using UnityEngine;
+using UnityEngine.iOS;
 using WebSdk.Core.Runtime.AdjustHelpers;
 using WebSdk.Core.Runtime.ConfigLoader;
 
