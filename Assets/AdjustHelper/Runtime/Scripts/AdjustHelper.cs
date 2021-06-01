@@ -19,7 +19,7 @@ namespace AdjustHelper.Runtime.Scripts
             Debug.Log($"In AdjustHelper constructor");
         }
 
-        private void InitATT()
+        /*private void InitATT()
         {
             Debug.Log($"---- AdjustHelper InitATT");
 #if UNITY_IOS && !UNITY_EDITOR
@@ -47,7 +47,7 @@ namespace AdjustHelper.Runtime.Scripts
                 Debug.Log($"Adjust ATT Request status is {status}");
                 AttStatus = status;
             });
-        }
+        }*/
 
         public string ConfigName { get; } = "adjust";
         public void SetConfig(string json)
@@ -73,7 +73,7 @@ namespace AdjustHelper.Runtime.Scripts
             
                 Adjust.start(config);
 
-                InitATT();
+                //InitATT();
             }
             else
             {
