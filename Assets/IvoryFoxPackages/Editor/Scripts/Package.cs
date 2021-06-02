@@ -14,7 +14,7 @@ namespace IvoryFoxPackages.Editor.Scripts
     [CreateAssetMenu(fileName = "PackageModel", menuName = "IvoryFox/Create/PackageModel", order = 0)]
     public class Package : ScriptableObject
     {
-        public TextAsset packageAsset;
+        //public TextAsset packageAsset;
         public PackageModel localPackage;
         public PackageModel gitPackage;
         
@@ -125,16 +125,22 @@ namespace IvoryFoxPackages.Editor.Scripts
 
         public void PreparePackages()
         {
-            if (packageAsset != null)
+            TextAsset packageAsset = (TextAsset)AssetDatabase.LoadAssetAtPath($"Packages/{packageId}/package.json", typeof(TextAsset));
+            if (packageAsset is null)
             {
-                localPackage = JsonUtility.FromJson<PackageModel>(packageAsset.text);
-                pathToPackageJson = AssetDatabase.GetAssetPath(packageAsset);
-                
-                Debug.Log($"{packageName} Path to local package.json is {pathToPackageJson}");
+                packageAsset = (TextAsset)AssetDatabase.LoadAssetAtPath($"{pathToPlugin}/package.json", typeof(TextAsset));
+            }
+
+            if (packageAsset is null)
+            {
+                Debug.Log($"---------- Can`t find {packageId} in the project");
             }
             else
             {
-                Debug.Log($"{packageName} Path to local package.json is null");
+                localPackage = JsonUtility.FromJson<PackageModel>(packageAsset.text);
+                //pathToPackageJson = AssetDatabase.GetAssetPath(packageAsset);
+                
+                Debug.Log($"{packageName} Path to local package.json is {packageAsset.text}");
             }
             
             EditorCoroutineUtility.StartCoroutineOwnerless(SendGet());
@@ -142,11 +148,11 @@ namespace IvoryFoxPackages.Editor.Scripts
         
         private IEnumerator SendGet()
         {
-            if (string.IsNullOrEmpty(pathToPackageJson))
+            /*if (string.IsNullOrEmpty(pathToPackageJson))
             {
                 Debug.Log($"{packageName} Path to git package.json is null");
                 yield break;
-            }
+            }*/
 
             string url =
                 $"https://raw.githubusercontent.com/rezunenko-yurii/ivoryfox-stable/master/{pathToPlugin}/package.json";
