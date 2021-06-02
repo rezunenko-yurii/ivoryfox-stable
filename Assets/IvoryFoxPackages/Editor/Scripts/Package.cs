@@ -126,6 +126,8 @@ namespace IvoryFoxPackages.Editor.Scripts
             {
                 localPackage = JsonUtility.FromJson<PackageModel>(packageAsset.text);
                 pathToPackageJson = AssetDatabase.GetAssetPath(packageAsset);
+                
+                Debug.Log($"{packageName} Path to local package.json is {pathToPackageJson}");
             }
             else
             {
