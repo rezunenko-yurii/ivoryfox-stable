@@ -25,6 +25,7 @@ MonoBehaviour:
     displayName: 
   packageName: Default Web Manager
   packageId: com.ivoryfox.default-web-manager
+  pathToPlugin: Assets/WebSdk/WebManagers/Default
   type: 0
   url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/WebSdk/WebManagers/Default
   unityDependencies: []

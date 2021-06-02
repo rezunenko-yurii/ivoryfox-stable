@@ -21,11 +21,14 @@ namespace IvoryFoxPackages.Editor.Scripts
         public string packageName;
         public string packageId;
         private string pathToPackageJson;
+        public string pathToPlugin;
         
         public PackageTypes type;
         public string url;
         public List<string> unityDependencies = new List<string>();
         public List<Package> gitDependencies = new List<Package>();
+
+        public string GetUrl => $"https://github.com/rezunenko-yurii/ivoryfox-stable.git?path={pathToPlugin}";
         
         public List<UnityPackageData> unityPackages = new List<UnityPackageData>();
 
@@ -87,10 +90,10 @@ namespace IvoryFoxPackages.Editor.Scripts
         {
             //Debug.Log($"In GetAllGitDependencies of {packageName}");
             
-            if (!toUpdate.Contains(url))
+            if (!toUpdate.Contains(GetUrl))
             {
                 //Debug.Log($"adding to list {url}");
-                toUpdate.Enqueue(url);
+                toUpdate.Enqueue(GetUrl);
             }
             else
             {
@@ -101,10 +104,10 @@ namespace IvoryFoxPackages.Editor.Scripts
             {
                 foreach (var package in gitDependencies)
                 {
-                    if (!toUpdate.Contains(package.url))
+                    if (!toUpdate.Contains(package.GetUrl))
                     {
                         //Debug.Log($"adding to list {package.packageName}");
-                        toUpdate.Enqueue(package.url);
+                        toUpdate.Enqueue(package.GetUrl);
                     
                         var n = package.GetAllGitDependencies(toUpdate);
                         toUpdate = new Queue<string>(toUpdate.Union(n));
@@ -146,7 +149,7 @@ namespace IvoryFoxPackages.Editor.Scripts
             }
 
             string url =
-                $"https://raw.githubusercontent.com/rezunenko-yurii/ivoryfox-stable/master/{pathToPackageJson}";
+                $"https://raw.githubusercontent.com/rezunenko-yurii/ivoryfox-stable/master/{pathToPlugin}/package.json";
             Debug.Log($"Package: Loading git package {url}");
             
             using (UnityWebRequest webRequest  = UnityWebRequest.Get(url))

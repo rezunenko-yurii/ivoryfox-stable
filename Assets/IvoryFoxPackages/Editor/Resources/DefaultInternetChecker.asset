@@ -25,6 +25,7 @@ MonoBehaviour:
     displayName: 
   packageName: Default Internet Checker
   packageId: com.ivoryfox.default-internet-checker
+  pathToPlugin: Assets/WebSdk/InternetCheckers/Default
   type: 0
   url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/WebSdk/InternetCheckers/Default
   unityDependencies: []

@@ -25,7 +25,7 @@ MonoBehaviour:
     displayName: 
   packageName: IvoryFox Adjust Helper
   packageId: com.ivotyfox.adjust-helper
-  pathToPackageJson: AdjustHelper/package.json
+  pathToPlugin: Assets/AdjustHelper
   type: 0
   url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/AdjustHelper
   unityDependencies: []

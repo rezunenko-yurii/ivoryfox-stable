@@ -25,6 +25,7 @@ MonoBehaviour:
     displayName: 
   packageName: Browser Client
   packageId: com.ivoryfox.browser-client
+  pathToPlugin: Assets/WebSdk/WebViewClients/Browser
   type: 0
   url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/WebSdk/WebViewClients/Browser
   unityDependencies: []

@@ -25,6 +25,7 @@ MonoBehaviour:
     displayName: 
   packageName: Build Tools
   packageId: com.ivoryfox.build-tools
+  pathToPlugin: Assets/BuildTools
   type: 0
   url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/BuildTools
   unityDependencies: []

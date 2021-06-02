@@ -25,6 +25,7 @@ MonoBehaviour:
     displayName: 
   packageName: AdjustParameters
   packageId: com.ivoryfox.adjust-parameters
+  pathToPlugin: Assets/WebSdk/AdjustParameters
   type: 0
   url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/WebSdk/AdjustParameters
   unityDependencies:
