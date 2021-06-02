@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: WebSdkCore
   m_EditorClassIdentifier: 
-  packageAsset: {fileID: 4900000, guid: f888bc489c2d10d4686e51cc511c8ab6, type: 3}
   localPackage:
-    name: 
-    version: 
-    description: 
-    displayName: 
+    name: com.ivoryfox.web-sdk-core
+    version: 1.0.3
+    description: last modified 1/06/2021
+    displayName: IvoryFox Web SDK
   gitPackage:
     name: 
     version: 
@@ -25,6 +24,7 @@ MonoBehaviour:
     displayName: 
   packageName: IvoryFox Web SDK Core
   packageId: com.ivoryfox.web-sdk-core
+  pathToPlugin: Assets/WebSdk/Core
   type: 0
   url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/WebSdk/Core
   unityDependencies: []

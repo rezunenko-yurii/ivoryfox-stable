@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: UniWebViewClient
   m_EditorClassIdentifier: 
-  packageAsset: {fileID: 4900000, guid: 350aa26ad7f6f4447b8a0719e6e20716, type: 3}
   localPackage:
-    name: 
-    version: 
-    description: 
-    displayName: 
+    name: com.ivoryfox.uniwebview-client
+    version: 1.0.2
+    description: last edited 24/05/2021
+    displayName: UniWebView Client
   gitPackage:
     name: 
     version: 
@@ -25,6 +24,7 @@ MonoBehaviour:
     displayName: 
   packageName: UniWebView Client
   packageId: com.ivoryfox.uniwebview-client
+  pathToPlugin: Assets/WebSdk/WebViewClients/UniWebView
   type: 0
   url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/WebSdk/WebViewClients/UniWebView
   unityDependencies: []

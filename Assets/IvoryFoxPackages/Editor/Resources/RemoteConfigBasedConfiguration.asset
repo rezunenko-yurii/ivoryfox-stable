@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: RemoteConfigBasedConfiguration
   m_EditorClassIdentifier: 
-  packageAsset: {fileID: 4900000, guid: 32d578c8d7446ba44bb5808e24b68db6, type: 3}
   localPackage:
-    name: 
-    version: 
-    description: 
-    displayName: 
+    name: com.ivoryfox.remote-config-based-configuration
+    version: 1.0.1
+    description: ---
+    displayName: Remote Config Based Configuration
   gitPackage:
     name: 
     version: 
@@ -25,6 +24,7 @@ MonoBehaviour:
     displayName: 
   packageName: Remote Config Based Configuration
   packageId: com.ivoryfox.remote-config-based-configuration
+  pathToPlugin: Assets/WebSdk/SdkConfigurations/RemoteConfigBased
   type: 0
   url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/WebSdk/SdkConfigurations/RemoteConfigBased
   unityDependencies: []

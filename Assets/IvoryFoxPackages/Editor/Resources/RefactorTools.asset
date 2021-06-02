@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: RefactorTools
   m_EditorClassIdentifier: 
-  packageAsset: {fileID: 4900000, guid: 30c9a8590a312a14abde27816fc54d8a, type: 3}
   localPackage:
-    name: 
-    version: 
-    description: 
-    displayName: 
+    name: com.ivoryfox.refactor-tools
+    version: 1.0.0
+    description: ---
+    displayName: IvoryFox Refactor Tools
   gitPackage:
     name: 
     version: 
@@ -25,6 +24,7 @@ MonoBehaviour:
     displayName: 
   packageName: Refactor Tools
   packageId: com.ivoryfox.refactor-tools
+  pathToPlugin: Assets/RefactorTools
   type: 0
   url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/RefactorTools
   unityDependencies: []
