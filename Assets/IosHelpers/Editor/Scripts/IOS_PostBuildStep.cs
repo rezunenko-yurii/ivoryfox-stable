@@ -1,11 +1,8 @@
 ﻿using System.IO;
 using UnityEditor;
 using UnityEditor.Callbacks;
-using UnityEngine;
-
-#if UNITY_IOS
 using UnityEditor.iOS.Xcode;
-#endif
+using UnityEngine;
 
 namespace IosHelpers.Editor.Scripts
 {
