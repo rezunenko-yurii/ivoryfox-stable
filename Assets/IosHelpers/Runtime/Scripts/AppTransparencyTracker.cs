@@ -1,15 +1,14 @@
 ﻿using System;
+#if UNITY_IOS
 using Unity.Advertisement.IosSupport;
-using UnityEngine;
 using UnityEngine.iOS;
-using UnityEngine.PlayerLoop;
+#endif
+using UnityEngine;
 
 namespace IosHelpers.Runtime.Scripts
 {
     public static class AppTransparencyTracker
     {
-        //public event Action sentTrackingAuthorizationRequest;
-
         public static void Init()
         {
 #if UNITY_IOS
@@ -19,25 +18,21 @@ namespace IosHelpers.Runtime.Scripts
  
             if(currentVersion >= versionForCheck)
             {
-                Debug.Log($"AdjustHelper IOS version is >= 14.5");
-                //IsUsedAtt = true;
-
+                Debug.Log($"AdjustHelper IOS version is >= 14.5 /// Need to ask for tracking");
                 GetAttStatus();
             }
-#else
-            //sentTrackingAuthorizationRequest?.Invoke();
 #endif
         }
 #if UNITY_IOS
         private static void GetAttStatus()
         {
             var status = ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
-
+            Debug.Log($"---------------- AppTransparencyTracker current status is {status}");
+            
             if (status == ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED)
             {
                 ATTrackingStatusBinding.RequestAuthorizationTracking();
-                Debug.Log($"AdjustHelper RequestAuthorizationTracking");
-                //sentTrackingAuthorizationRequest?.Invoke();
+                Debug.Log($"AppTransparencyTracker start of request authorization tracking");
             }
         }
 #endif
