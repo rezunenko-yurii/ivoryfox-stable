@@ -20,11 +20,11 @@ namespace IvoryFoxPackages.Editor.Scripts
         
         public string packageName;
         public string packageId;
-        private string pathToPackageJson;
+        //private string pathToPackageJson;
         public string pathToPlugin;
         
         public PackageTypes type;
-        public string url;
+        //public string url;
         public List<string> unityDependencies = new List<string>();
         public List<Package> gitDependencies = new List<Package>();
 
@@ -154,8 +154,7 @@ namespace IvoryFoxPackages.Editor.Scripts
                 yield break;
             }*/
 
-            string url =
-                $"https://raw.githubusercontent.com/rezunenko-yurii/ivoryfox-stable/master/{pathToPlugin}/package.json";
+            string url = $"https://raw.githubusercontent.com/rezunenko-yurii/ivoryfox-stable/master/{pathToPlugin}/package.json";
             Debug.Log($"Package: Loading git package {url}");
             
             using (UnityWebRequest webRequest  = UnityWebRequest.Get(url))
@@ -168,14 +167,12 @@ namespace IvoryFoxPackages.Editor.Scripts
 
                 if (!string.IsNullOrEmpty(webRequest.error))
                 {
-                    //OnFailure?.Invoke(webRequest.error);
-
                     yield break;
                 }
                 
                 gitPackage = JsonUtility.FromJson<PackageModel>(webRequest.downloadHandler.text);
                 
-                Debug.Log($"Package: Loading Complete --{webRequest.downloadHandler.text}");
+                Debug.Log($"Package: Loading Complete --{gitPackage.name} {gitPackage.version}");
             }
         }
     }
