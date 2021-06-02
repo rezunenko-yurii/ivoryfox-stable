@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: PackageManager
   m_EditorClassIdentifier: 
-  packageAsset: {fileID: 4900000, guid: 34a01f5374cf499419d2c749b96f770e, type: 3}
   localPackage:
-    name: 
-    version: 
-    description: 
-    displayName: 
+    name: com.ivoryfox.package-manager
+    version: 1.2.21
+    description: last modified 02/06/2021
+    displayName: IvoryFox Package Manager
   gitPackage:
     name: 
     version: 
@@ -25,6 +24,7 @@ MonoBehaviour:
     displayName: 
   packageName: Package Manager
   packageId: com.ivoryfox.package-manager
+  pathToPlugin: Assets/IvoryFoxPackages
   type: 0
   url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/IvoryFoxPackages
   unityDependencies:
