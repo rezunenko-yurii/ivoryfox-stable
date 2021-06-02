@@ -12,6 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: GitHelper
   m_EditorClassIdentifier: 
+  packageAsset: {fileID: 4900000, guid: e7fddac65fdf55e4f81c1d43029f6637, type: 3}
+  localPackage:
+    name: 
+    version: 
+    description: 
+    displayName: 
+  gitPackage:
+    name: 
+    version: 
+    description: 
+    displayName: 
   packageName: Git Helper
   packageId: com.ivoryfox.git-helper
   type: 0
@@ -20,3 +31,4 @@ MonoBehaviour:
   - com.unity.remote-config
   gitDependencies:
   - {fileID: 11400000, guid: 38de392f148b922448aeded6a8f19e23, type: 2}
+  unityPackages: []

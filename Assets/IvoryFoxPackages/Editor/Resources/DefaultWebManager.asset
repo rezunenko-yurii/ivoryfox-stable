@@ -12,6 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: DefaultWebManager
   m_EditorClassIdentifier: 
+  packageAsset: {fileID: 4900000, guid: 2a69b557a6716ed44b71f391f2d74476, type: 3}
+  localPackage:
+    name: 
+    version: 
+    description: 
+    displayName: 
+  gitPackage:
+    name: 
+    version: 
+    description: 
+    displayName: 
   packageName: Default Web Manager
   packageId: com.ivoryfox.default-web-manager
   type: 0

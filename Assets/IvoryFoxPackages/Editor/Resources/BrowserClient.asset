@@ -12,6 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: BrowserClient
   m_EditorClassIdentifier: 
+  packageAsset: {fileID: 4900000, guid: c8da6dfd01ed3294b9d6379dfcc93b91, type: 3}
+  localPackage:
+    name: 
+    version: 
+    description: 
+    displayName: 
+  gitPackage:
+    name: 
+    version: 
+    description: 
+    displayName: 
   packageName: Browser Client
   packageId: com.ivoryfox.browser-client
   type: 0

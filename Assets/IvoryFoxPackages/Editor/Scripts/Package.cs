@@ -7,14 +7,21 @@ using IvoryFoxPackages.Editor.Scripts.UnityPackages;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace IvoryFoxPackages.Editor.Scripts
 {
     [CreateAssetMenu(fileName = "PackageModel", menuName = "IvoryFox/Create/PackageModel", order = 0)]
     public class Package : ScriptableObject
     {
+        public TextAsset packageAsset;
+        public PackageModel localPackage;
+        public PackageModel gitPackage;
+        
         public string packageName;
         public string packageId;
+        private string pathToPackageJson;
+        
         public PackageTypes type;
         public string url;
         public List<string> unityDependencies = new List<string>();
@@ -111,6 +118,54 @@ namespace IvoryFoxPackages.Editor.Scripts
             }
 
             return toUpdate;
+        }
+
+        public void PreparePackages()
+        {
+            if (packageAsset != null)
+            {
+                localPackage = JsonUtility.FromJson<PackageModel>(packageAsset.text);
+                pathToPackageJson = AssetDatabase.GetAssetPath(packageAsset);
+            }
+            else
+            {
+                Debug.Log($"{packageName} Path to local package.json is null");
+            }
+            
+            EditorCoroutineUtility.StartCoroutineOwnerless(SendGet());
+        }
+        
+        private IEnumerator SendGet()
+        {
+            if (string.IsNullOrEmpty(pathToPackageJson))
+            {
+                Debug.Log($"{packageName} Path to git package.json is null");
+                yield break;
+            }
+
+            string url =
+                $"https://raw.githubusercontent.com/rezunenko-yurii/ivoryfox-stable/master/{pathToPackageJson}";
+            Debug.Log($"Package: Loading git package {url}");
+            
+            using (UnityWebRequest webRequest  = UnityWebRequest.Get(url))
+            {
+                webRequest.timeout = 12;
+                webRequest.disposeDownloadHandlerOnDispose = true;
+                webRequest.disposeUploadHandlerOnDispose = true;
+                
+                yield return webRequest.SendWebRequest();
+
+                if (!string.IsNullOrEmpty(webRequest.error))
+                {
+                    //OnFailure?.Invoke(webRequest.error);
+
+                    yield break;
+                }
+                
+                gitPackage = JsonUtility.FromJson<PackageModel>(webRequest.downloadHandler.text);
+                
+                Debug.Log($"Package: Loading Complete --{webRequest.downloadHandler.text}");
+            }
         }
     }
 }

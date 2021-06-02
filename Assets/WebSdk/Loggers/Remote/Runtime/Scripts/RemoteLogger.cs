@@ -8,7 +8,7 @@ using WebSdk.Core.Runtime.GlobalPart;
 using WebSdk.Core.Runtime.Helpers.Scripts;
 using WebSdk.Core.Runtime.Logger;
 
-namespace WebSdk.Loggers.Remote.Scripts
+namespace WebSdk.Loggers.Remote.Runtime.Scripts
 {
     public class RemoteLogger : WebSdk.Core.Runtime.Logger.ILogger, IConfigConsumer
     {

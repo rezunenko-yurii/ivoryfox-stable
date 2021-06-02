@@ -6,7 +6,7 @@ using WebSdk.Core.Runtime.InternetChecker;
 using WebSdk.Core.Runtime.Notifications;
 using WebSdk.Core.Runtime.WebCore;
 using WebSdk.InternetCheckers.Default.Runtime.Scripts;
-using WebSdk.Loggers.Remote.Scripts;
+using WebSdk.Loggers.Remote.Runtime.Scripts;
 using WebSdk.WebManagers.Default.Runtime.Scripts;
 using WebSdkExtensions.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
 using ILogger = WebSdk.Core.Runtime.Logger.ILogger;

@@ -12,6 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: RemoteConfigHelper
   m_EditorClassIdentifier: 
+  packageAsset: {fileID: 4900000, guid: b203918ee3e1ac24da6568d687bc0c67, type: 3}
+  localPackage:
+    name: 
+    version: 
+    description: 
+    displayName: 
+  gitPackage:
+    name: 
+    version: 
+    description: 
+    displayName: 
   packageName: Remote Config Helper
   packageId: com.ivoryfox.remote-config-helper
   type: 0
@@ -19,3 +30,4 @@ MonoBehaviour:
   unityDependencies:
   - com.unity.remote-config
   gitDependencies: []
+  unityPackages: []

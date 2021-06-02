@@ -12,6 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: Parameters
   m_EditorClassIdentifier: 
+  packageAsset: {fileID: 4900000, guid: cfe1b8e403277954b835f34e219dbf67, type: 3}
+  localPackage:
+    name: 
+    version: 
+    description: 
+    displayName: 
+  gitPackage:
+    name: 
+    version: 
+    description: 
+    displayName: 
   packageName: Parameters
   packageId: com.ivotyfox.websdk.parameters
   type: 0

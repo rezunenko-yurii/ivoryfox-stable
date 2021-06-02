@@ -12,6 +12,10 @@ namespace IvoryFoxPackages.Editor.Scripts
         private void Awake()
         {
             all = Resources.LoadAll<Package>("");
+            foreach (var package in all)
+            {
+                package.PreparePackages();
+            }
         }
 
         private void OnGUI()
@@ -24,6 +28,32 @@ namespace IvoryFoxPackages.Editor.Scripts
             {
                 GUILayout.BeginHorizontal();
                 GUILayout.Label(package.packageName);
+
+                /*if (package.packageAsset != null)
+                {
+                    GUILayout.Label("nan/nan");
+                }*/
+                string version = string.Empty;
+
+                if (package.localPackage is null)
+                {
+                    version += "null / ";
+                }
+                else
+                {
+                    version += $"{package.localPackage.version} / ";
+                }
+                
+                if (package.gitPackage is null)
+                {
+                    version += "null";
+                }
+                else
+                {
+                    version += $"{package.gitPackage.version}";
+                }
+                
+                GUILayout.Label(version);
             
                 if (manifest.Contains(package.packageId))
                 {

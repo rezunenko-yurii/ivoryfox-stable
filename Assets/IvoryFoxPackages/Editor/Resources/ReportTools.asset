@@ -12,9 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: ReportTools
   m_EditorClassIdentifier: 
+  packageAsset: {fileID: 4900000, guid: dc4643ec2f3dc4748aade570c249cf46, type: 3}
+  localPackage:
+    name: 
+    version: 
+    description: 
+    displayName: 
+  gitPackage:
+    name: 
+    version: 
+    description: 
+    displayName: 
   packageName: Report Tools
   packageId: com.ivoryfox.report-tools
   type: 0
   url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/ReportTools
   unityDependencies: []
   gitDependencies: []
+  unityPackages: []

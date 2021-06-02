@@ -12,6 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: UnityUrlLoader
   m_EditorClassIdentifier: 
+  packageAsset: {fileID: 4900000, guid: b08bd8b364e9fa843a5456731512b1d0, type: 3}
+  localPackage:
+    name: 
+    version: 
+    description: 
+    displayName: 
+  gitPackage:
+    name: 
+    version: 
+    description: 
+    displayName: 
   packageName: Unity Url Loader
   packageId: com.ivoryfox.unity-url-loader
   type: 0

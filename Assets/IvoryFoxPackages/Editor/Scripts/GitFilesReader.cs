@@ -77,6 +77,8 @@ namespace IvoryFoxPackages.Editor.Scripts
                     yield break;
                 }
                 Debug.Log(webRequest.downloadHandler.text);
+                
+                
                 //OnGetResponse(webRequest.downloadHandler.text);
             }
         }
