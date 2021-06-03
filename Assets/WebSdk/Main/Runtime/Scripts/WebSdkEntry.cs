@@ -155,7 +155,7 @@ namespace WebSdk.Main.Runtime.Scripts
             }
             
             _stopwatch.Stop();
-            Helper.LoadNextScene();
+            //Helper.LoadNextScene();
         }
         
         #endregion
