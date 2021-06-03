@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading;
 using IvoryFoxPackages.Editor.Scripts.UnityPackages;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
@@ -14,8 +12,10 @@ namespace IvoryFoxPackages.Editor.Scripts
     [CreateAssetMenu(fileName = "PackageModel", menuName = "IvoryFox/Create/PackageModel", order = 0)]
     public class Package : ScriptableObject
     {
-        //public TextAsset packageAsset;
+        [System.NonSerialized]
         public PackageModel localPackage;
+        
+        [System.NonSerialized]
         public PackageModel gitPackage;
         
         public string packageName;
