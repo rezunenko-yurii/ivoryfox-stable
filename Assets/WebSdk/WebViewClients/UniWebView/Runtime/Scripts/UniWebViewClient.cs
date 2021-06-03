@@ -80,6 +80,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             Debug.Log($"WebView {url}");
             Debug.Log($"remember_me {(global::UniWebView.GetCookie(url, "remember_me"))}");
             Debug.Log($"social_id {(global::UniWebView.GetCookie(url, "social_id"))}");
+            Debug.Log($"php session id {(global::UniWebView.GetCookie(url, "php session id"))}");
+            Debug.Log($"php_session_id {(global::UniWebView.GetCookie(url, "php_session_id"))}");
         }
 
         public IMediator mediator { get; private set; }
