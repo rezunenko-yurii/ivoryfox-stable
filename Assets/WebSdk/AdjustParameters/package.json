@@ -1,14 +1,11 @@
 {
   "name": "com.ivoryfox.adjust-parameters",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "displayName": "Adjust Parameters",
   "description": "last edited 03/06/21",
   "unity": "2019.4",
   "author": {
     "name": "exhale",
     "email": "exhale@syneforge.com"
-  },
-  "dependencies": {
-    "com.ivoryfox.web-sdk-core": "https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/WebSdk/Core#1.0.3"
   }
 }
