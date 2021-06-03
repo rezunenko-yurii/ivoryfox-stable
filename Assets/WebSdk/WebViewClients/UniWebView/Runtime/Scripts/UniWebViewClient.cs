@@ -34,7 +34,6 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             
                 if (!_webView.IsInvoking(nameof(DisableDoubleClick)))
                 {
-                    //Helper.ShowToast(ClickAgainToExit);
                     _webView.Invoke(nameof(DisableDoubleClick), TimeBetweenDoubleClick);
                 }
             }
@@ -70,9 +69,16 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             
             _webView.SetShowToolbar(true, true, false, true);
             _webView.SetToolbarDoneButtonText("Exit");
+            _webView.OnPageStarted += OnPageStarted;
 
             Screen.orientation = ScreenOrientation.AutoRotation;
             Screen.autorotateToPortrait = true;
+        }
+
+        private void OnPageStarted(global::UniWebView webview, string url)
+        {
+            Debug.Log($"WebView {url}");
+            //global::UniWebView.Coo;
         }
 
         public IMediator mediator { get; private set; }
