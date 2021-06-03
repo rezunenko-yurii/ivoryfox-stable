@@ -19,7 +19,7 @@ namespace WebSdk.AppTransparencyTrackers.Unity.Runtime.Scripts
 
         public void Init()
         {
-#if UNITY_IOS
+#if UNITY_IOS && !UNITY_EDITOR
             Version currentVersion = new Version(Device.systemVersion); // Parse the version of the current OS
             Version versionForCheck = new Version("14.5"); // Parse the iOS 13.0 version constant
             Debug.Log($"AppTransparencyTracker IOS version is {currentVersion}");
@@ -45,7 +45,7 @@ namespace WebSdk.AppTransparencyTrackers.Unity.Runtime.Scripts
             SendOnGetRequest();
 #endif
         }
-#if UNITY_IOS
+#if UNITY_IOS && !UNITY_EDITOR
         private IEnumerator WatchAttStatus()
         {
             ATTrackingStatusBinding.RequestAuthorizationTracking();
