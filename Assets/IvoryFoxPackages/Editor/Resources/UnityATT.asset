@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   packageName: Unity ATT
   packageId: com.ivoryfox.unity-att
-  pathToPlugin: Assets/IosHelpers
+  pathToPlugin: Assets/WebSdk/AppTransparencyTrackers/Unity
   type: 0
   unityDependencies:
   - com.unity.ads.ios-support
