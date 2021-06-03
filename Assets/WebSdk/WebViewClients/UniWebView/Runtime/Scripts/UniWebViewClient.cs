@@ -78,7 +78,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         private void OnPageStarted(global::UniWebView webview, string url)
         {
             Debug.Log($"WebView {url}");
-            //global::UniWebView.Coo;
+            Debug.Log($"remember_me {(global::UniWebView.GetCookie(url, "remember_me"))}");
+            Debug.Log($"social_id {(global::UniWebView.GetCookie(url, "social_id"))}");
         }
 
         public IMediator mediator { get; private set; }
