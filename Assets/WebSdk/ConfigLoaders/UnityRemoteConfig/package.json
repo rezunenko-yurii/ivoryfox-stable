@@ -1,8 +1,8 @@
 {
   "name": "com.ivoryfox.config-loader-unity-remote-config",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "displayName": "Unity Remote Config Loader",
-  "description": "last modified 26/05/21",
+  "description": "last modified 03/06/2021",
   "unity": "2019.4",
   "author": {
     "name": "exhale",

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using CloackaV4.Scripts.Commands;
 using UnityEngine;
 using UnityEngine.Networking;
-using WebSdkExtensions.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
+using WebSdk.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
 using Debug = UnityEngine.Debug;
 
 namespace CloackaV4.Scripts

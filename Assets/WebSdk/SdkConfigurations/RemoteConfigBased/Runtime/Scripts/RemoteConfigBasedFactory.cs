@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using WebSdk.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
 using WebSdk.Core.Runtime.AdjustHelpers;
 using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.GlobalPart;
@@ -8,7 +9,6 @@ using WebSdk.Core.Runtime.WebCore;
 using WebSdk.InternetCheckers.Default.Runtime.Scripts;
 using WebSdk.Loggers.Remote.Runtime.Scripts;
 using WebSdk.WebManagers.Default.Runtime.Scripts;
-using WebSdkExtensions.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
 using ILogger = WebSdk.Core.Runtime.Logger.ILogger;
 
 namespace WebSdk.SdkConfigurations.RemoteConfigBased.Runtime.Scripts

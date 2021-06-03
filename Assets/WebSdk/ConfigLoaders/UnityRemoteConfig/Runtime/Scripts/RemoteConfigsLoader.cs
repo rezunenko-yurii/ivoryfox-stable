@@ -4,7 +4,7 @@ using Unity.RemoteConfig;
 using UnityEngine;
 using WebSdk.Core.Runtime.ConfigLoader;
 
-namespace WebSdkExtensions.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts
+namespace WebSdk.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts
 {
     public class RemoteConfigsLoader : IConfigsLoader
     {
