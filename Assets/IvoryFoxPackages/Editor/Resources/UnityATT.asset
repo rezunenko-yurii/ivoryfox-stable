@@ -10,24 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
-  m_Name: IosHelpers
+  m_Name: UnityATT
   m_EditorClassIdentifier: 
-  localPackage:
-    name: com.ivoryfox.ios-helpers
-    version: 1.0.6
-    description: last modified 02/06/2021
-    displayName: IvoryFox IOS Helpers
-  gitPackage:
-    name: 
-    version: 
-    description: 
-    displayName: 
-  packageName: IvoryFox IOS Helpers
-  packageId: com.ivoryfox.ios-helpers
+  packageName: Unity ATT
+  packageId: com.ivoryfox.unity-att
   pathToPlugin: Assets/IosHelpers
   type: 0
-  url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/IosHelpers
   unityDependencies:
   - com.unity.ads.ios-support
-  gitDependencies: []
+  gitDependencies:
+  - {fileID: 11400000, guid: f8921bbcd16d7b547aac91ab995ad4c3, type: 2}
   unityPackages: []

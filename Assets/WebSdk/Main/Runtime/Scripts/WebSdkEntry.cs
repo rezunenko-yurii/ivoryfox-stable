@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using IosHelpers.Runtime.Scripts;
 using TMPro;
 using UnityEngine;
 using WebSdk.Core.Runtime.AdjustHelpers;
+using WebSdk.Core.Runtime.AppTransparencyTrackers;
 using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.GlobalPart;
 using WebSdk.Core.Runtime.Helpers.Scripts;
@@ -27,7 +26,8 @@ namespace WebSdk.Main.Runtime.Scripts
         private IWebManager _webManager;
         private Stopwatch _stopwatch;
 
-        #region Initialization
+        private IAppTransparencyTracker att;
+        
         private void Awake()
         {
             Debug.Log("GlobalBlockUnity Awake");
@@ -42,24 +42,20 @@ namespace WebSdk.Main.Runtime.Scripts
             DontDestroyOnLoad(this);
             
             _stopwatch = Stopwatch.StartNew();
-            
-#if UNITY_IOS
-            Debug.Log("Trying to get ATT");
-            
-            AppTransparencyTracker.Init();
-            
-            Debug.Log("After Trying to get ATT");
-#endif
-            Debug.Log("GlobalBlockUnity Creating factory");
 
-            var factory = Resources.Load<ScriptableObject>("WebSdkComponentsFactory") as IGlobalFactory; //new AccessManagerComponentsFactory {GameObject = gameObject};
-            factory.GameObject = this.gameObject;
-            InitModules(factory);
-            
-            InternetChecker.OnResult += TryLoadConfigs;
-            InternetChecker.Check(3);
+            StartFactory();
         }
         
+        private void StartFactory()
+        {
+            Debug.Log("GlobalBlockUnity Creating factory");
+
+            var factory = Resources.Load<ScriptableObject>("WebSdkComponentsFactory") as IGlobalFactory;
+            factory.GameObject = gameObject;
+            
+            InitModules(factory);
+            CheckAtt();
+        }
         
         public void InitModules(IGlobalFactory factory)
         {
@@ -71,10 +67,11 @@ namespace WebSdk.Main.Runtime.Scripts
             ConfigLoader = factory.CreateConfigLoader();
             Notification = factory.CreateNotifications();
             _webManager = factory.CreateWebBlock();
+            att = factory.CreateAppTransparencyTracker();
             
             ConnectToFacade();
         }
-        
+
         public void ConnectToFacade()
         {
             Debug.Log("GlobalBlockUnity ConnectToFacade");
@@ -84,11 +81,23 @@ namespace WebSdk.Main.Runtime.Scripts
             GlobalFacade.configsLoader = ConfigLoader;
             GlobalFacade.notification = Notification;
             GlobalFacade.adjustHelper = AdjustHelper;
+            GlobalFacade.att = att;
             
             GlobalFacade.monoBehaviour = this;
         }
-        
-        #endregion
+
+        private void CheckAtt()
+        {
+            Debug.Log("Trying to get ATT");
+            att.OnGetRequest += CheckInternetConnection;
+            att.Init();
+        }
+
+        private void CheckInternetConnection()
+        {
+            InternetChecker.OnResult += TryLoadConfigs;
+            InternetChecker.Check(3);
+        }
 
         #region Cofigs
         

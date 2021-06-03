@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using WebSdk.AppTransparencyTrackers.Unity.Runtime.Scripts;
 using WebSdk.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
 using WebSdk.Core.Runtime.AdjustHelpers;
+using WebSdk.Core.Runtime.AppTransparencyTrackers;
 using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.GlobalPart;
 using WebSdk.Core.Runtime.InternetChecker;
@@ -46,6 +48,11 @@ namespace WebSdk.SdkConfigurations.RemoteConfigBased.Runtime.Scripts
         public IAdjustHelper CreateAdjustHelper()
         {
             return new AdjustHelper.Runtime.Scripts.AdjustHelper();
+        }
+
+        public IAppTransparencyTracker CreateAppTransparencyTracker()
+        {
+            return GameObject.AddComponent<UnityAppTransparencyTracker>();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using WebSdk.Core.Runtime.AdjustHelpers;
+using WebSdk.Core.Runtime.AppTransparencyTrackers;
 using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.InternetChecker;
 using WebSdk.Core.Runtime.Notifications;
@@ -17,5 +18,6 @@ namespace WebSdk.Core.Runtime.GlobalPart
         INotification CreateNotifications();
         IWebManager CreateWebBlock();
         IAdjustHelper CreateAdjustHelper();
+        IAppTransparencyTracker CreateAppTransparencyTracker();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using WebSdk.Core.Runtime.AdjustHelpers;
+using WebSdk.Core.Runtime.AppTransparencyTrackers;
 using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.InternetChecker;
 using WebSdk.Core.Runtime.Logger;
@@ -16,6 +17,7 @@ namespace WebSdk.Core.Runtime.GlobalPart
         public static INotification notification;
         public static MonoBehaviour monoBehaviour;
         public static IAdjustHelper adjustHelper;
+        public static IAppTransparencyTracker att;
 
         static GlobalFacade()
         {
@@ -24,6 +26,7 @@ namespace WebSdk.Core.Runtime.GlobalPart
             configsLoader = new DummyConfigLoader();
             notification = new DummyNotificationsClient();
             adjustHelper = new DummyAdjustHelper();
+            att = new DummyAppTrackingTransparency();
         }
     }
 }

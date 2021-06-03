@@ -4,6 +4,7 @@ using System.Diagnostics;
 using com.adjust.sdk;
 using UnityEngine;
 using UnityEngine.Scripting;
+using WebSdk.Core.Runtime.AppTransparencyTrackers;
 using WebSdk.Core.Runtime.GlobalPart;
 using WebSdk.Core.Runtime.WebCore;
 using WebSdk.Parameters.Runtime.Scripts;
@@ -17,7 +18,7 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
     public class AdjustParameter : WaitableParameter
     {
         private const string Organic = "organic";
-        private readonly int _waitTime = 8;
+        private readonly int _waitTime = 4;
         private Stopwatch _stopwatch;
         private MonoBehaviour _monoBehaviour;
 
@@ -40,14 +41,11 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
             
             Debug.Log($"AdjustParameter Init");
 
-            /*if (GlobalFacade.adjustHelper.IsUsedAtt)
+            if (GlobalFacade.att.Status == AttStatus.DENIED)
             {
-                if (GlobalFacade.adjustHelper.AttStatus < 3)
-                {
-                    Debug.Log($"AdjustParameter // ATT status = {GlobalFacade.adjustHelper.AttStatus} set organic");
-                    SetAdjustValue(Organic);
-                }
-            }*/
+                Debug.Log($"AdjustParameter // ATT status = {GlobalFacade.att.Status} set organic");
+                SetAdjustValue(Organic);
+            }
 
             base.Init(_monoBehaviour);
         }

@@ -4,7 +4,7 @@ using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
 using UnityEngine;
 
-namespace IosHelpers.Editor.Scripts
+namespace WebSdk.Core.Editor.Helpers.Scripts
 {
     public static class IOSPostBuildStep {
         // Set the IDFA request description:
@@ -22,6 +22,7 @@ namespace IosHelpers.Editor.Scripts
 
         // Implement a function to read and write values to the plist file:
         static void AddPListValues(string pathToXcode) {
+#if UNITY_IOS
             // Retrieve the plist file from the Xcode project directory:
             string plistPath = pathToXcode + "/Info.plist";
             PlistDocument plistObj = new PlistDocument();
@@ -38,6 +39,9 @@ namespace IosHelpers.Editor.Scripts
 
             // Save changes to the plist:
             File.WriteAllText(plistPath, plistObj.WriteToString());
+            
+            Debug.Log("-------------------- ATT Post Process Build Complete");
+#endif
         }
     }
 }

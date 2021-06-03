@@ -1,9 +1,13 @@
 {
-    "name": "IvoryFox.IosHelpers.Editor",
+    "name": "IvoryFox.UnityATT.Runtime",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:00c479e63b1c74419820a39073267645",
+        "GUID:0757f9d8a63e79f4b86db76555f6c764"
+    ],
     "includePlatforms": [
-        "Editor"
+        "Editor",
+        "iOS"
     ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
