@@ -152,10 +152,10 @@ namespace WebSdk.Main.Runtime.Scripts
             else
             {
                 Debug.Log($"GlobalBlockUnity InitConfigs / canUse = false");
+                Helper.LoadNextScene();
             }
             
             _stopwatch.Stop();
-            //Helper.LoadNextScene();
         }
         
         #endregion
