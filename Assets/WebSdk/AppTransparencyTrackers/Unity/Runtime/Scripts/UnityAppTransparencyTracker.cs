@@ -37,6 +37,7 @@ namespace WebSdk.AppTransparencyTrackers.Unity.Runtime.Scripts
                 Status = AttStatus.AUTHORIZED;
                 
                 SendOnGetRequest();
+            }
 #else
             Debug.Log($"AppTransparencyTracker platform is not IOS /// skip request");
             Status = AttStatus.AUTHORIZED;
@@ -56,7 +57,6 @@ namespace WebSdk.AppTransparencyTrackers.Unity.Runtime.Scripts
             }
         }
 #endif
-
         private void GetAttStatus()
         {
             var s = ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
