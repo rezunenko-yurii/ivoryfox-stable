@@ -12,22 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: Adjust Helper
   m_EditorClassIdentifier: 
-  packageAsset: {fileID: 4900000, guid: e6eea6518e2ed974e95b1d80d093618d, type: 3}
-  localPackage:
-    name: 
-    version: 
-    description: 
-    displayName: 
-  gitPackage:
-    name: 
-    version: 
-    description: 
-    displayName: 
   packageName: IvoryFox Adjust Helper
-  packageId: com.ivotyfox.adjust-helper
+  packageId: com.ivoryfox.adjust-helper
   pathToPlugin: Assets/AdjustHelper
   type: 0
-  url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/AdjustHelper
   unityDependencies: []
   gitDependencies:
   - {fileID: 11400000, guid: f8921bbcd16d7b547aac91ab995ad4c3, type: 2}
