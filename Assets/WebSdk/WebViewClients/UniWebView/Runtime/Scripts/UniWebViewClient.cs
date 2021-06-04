@@ -18,8 +18,12 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         }
 
         private void ChangeOrientation(global::UniWebView webview, ScreenOrientation orientation) => _webView.Frame = new Rect(0, 0, Screen.width, Screen.height);
-        private void DisableDoubleClick() => _isEscape = false;
-    
+        private void DisableDoubleClick()
+        {
+            _isEscape = false;
+            Debug.Log($"Uniwebview: reset isEscape / {_isEscape}");
+        }
+
         private bool OnShouldClose(global::UniWebView webview)
         {
             Debug.Log($"Uniwebview: OnShouldClose / {_isEscape}");
@@ -35,9 +39,9 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
                 Debug.Log($"Uniwebview: Next click will close app");
                 _isEscape = true;
             
-                if (!_webView.IsInvoking(nameof(DisableDoubleClick)))
+                if (!webview.IsInvoking(nameof(DisableDoubleClick)))
                 {
-                    _webView.Invoke(nameof(DisableDoubleClick), TimeBetweenDoubleClick);
+                    webview.Invoke(nameof(DisableDoubleClick), TimeBetweenDoubleClick);
                 }
             }
 
@@ -65,14 +69,13 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         public void SetSettings()
         {
             _webView.SetContentInsetAdjustmentBehavior(UniWebViewContentInsetAdjustmentBehavior.Always);
-            //uniWV.SetImmersiveModeEnabled(true);
             _webView.SetBackButtonEnabled(true);
             _webView.Frame = new Rect(0, 0, Screen.safeArea.width, Screen.safeArea.height);
             _webView.OnOrientationChanged += ChangeOrientation;
             _webView.OnShouldClose += OnShouldClose;
             
             _webView.SetShowToolbar(true, true, false, true);
-            _webView.SetToolbarDoneButtonText("Exit");
+            _webView.SetToolbarDoneButtonText("");
             _webView.OnPageStarted += OnPageStarted;
 
             Screen.orientation = ScreenOrientation.AutoRotation;
