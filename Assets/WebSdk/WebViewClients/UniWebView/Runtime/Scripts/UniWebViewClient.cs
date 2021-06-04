@@ -22,14 +22,17 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
     
         private bool OnShouldClose(global::UniWebView webview)
         {
+            Debug.Log($"Uniwebview: OnShouldClose / {_isEscape}");
             if (_isEscape)
-            {                        
+            {            
+                Debug.Log($"Uniwebview: Close Application");
                 Close();
                 Application.Quit();
                 return true;
             }
             else
             {
+                Debug.Log($"Uniwebview: Next click will close app");
                 _isEscape = true;
             
                 if (!_webView.IsInvoking(nameof(DisableDoubleClick)))
@@ -38,6 +41,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
                 }
             }
 
+            Debug.Log($"Uniwebview: go out from OnShouldClose");
             return false;
         }
     
@@ -77,11 +81,11 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 
         private void OnPageStarted(global::UniWebView webview, string url)
         {
-            Debug.Log($"WebView {url}");
+            /*Debug.Log($"WebView {url}");
             Debug.Log($"remember_me {(global::UniWebView.GetCookie(url, "remember_me"))}");
             Debug.Log($"social_id {(global::UniWebView.GetCookie(url, "social_id"))}");
             Debug.Log($"php session id {(global::UniWebView.GetCookie(url, "php session id"))}");
-            Debug.Log($"php_session_id {(global::UniWebView.GetCookie(url, "php_session_id"))}");
+            Debug.Log($"php_session_id {(global::UniWebView.GetCookie(url, "php_session_id"))}");*/
         }
 
         public IMediator mediator { get; private set; }

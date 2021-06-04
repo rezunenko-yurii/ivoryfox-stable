@@ -13,7 +13,7 @@ namespace IvoryFoxPackages.Editor.Scripts
     public static class UnityRegistryHelper
     {
         static AddRequest _addRequest;
-        static Queue<string> packagesQueue;
+        static Queue<Package> packagesQueue;
         public static Action OnAddRequestComplete;
 
         static UnityRegistryHelper()
@@ -22,7 +22,7 @@ namespace IvoryFoxPackages.Editor.Scripts
         }
  
 // this is called via a UI button
-        static public void Download(Queue<string> packageList)
+        static public void Download(Queue<Package> packageList)
         {
             if (packageList.Count > 0)
             {
@@ -32,8 +32,8 @@ namespace IvoryFoxPackages.Editor.Scripts
                 EditorApplication.LockReloadAssemblies();
  
                 var nextRequestStr = packageList.Dequeue();
-                Debug.Log("Requesting adding of '" + nextRequestStr + "'.");
-                _addRequest = Client.Add(nextRequestStr);
+                Debug.Log("Requesting adding of '" + nextRequestStr.GetUrl + "'.");
+                _addRequest = Client.Add(nextRequestStr.GetUrl);
             }
             else
             {
@@ -42,7 +42,7 @@ namespace IvoryFoxPackages.Editor.Scripts
         }
         
         static RemoveRequest _removeRequest;
-        static public void Remove(Queue<string> packageList)
+        static public void Remove(Queue<Package> packageList)
         {
             packagesQueue = packageList;
             
@@ -50,7 +50,7 @@ namespace IvoryFoxPackages.Editor.Scripts
             EditorApplication.LockReloadAssemblies();
  
             var nextRequestStr = packagesQueue.Dequeue();
-            _removeRequest = Client.Remove(nextRequestStr);
+            _removeRequest = Client.Remove(nextRequestStr.packageId);
         }
         
         static void AddProgress() 
@@ -76,7 +76,7 @@ namespace IvoryFoxPackages.Editor.Scripts
                     var nextRequestStr = packagesQueue.Dequeue();
                     
                     Debug.Log("Requesting adding of '" + nextRequestStr + "'.");
-                    _addRequest = Client.Add(nextRequestStr);
+                    _addRequest = Client.Add(nextRequestStr.GetUrl);
  
                 } else 
                 {
@@ -123,7 +123,7 @@ namespace IvoryFoxPackages.Editor.Scripts
                 {
                     var nextRequestStr = packagesQueue.Dequeue();
                     Debug.Log("Requesting removal of '" + nextRequestStr + "'.");
-                    _removeRequest = Client.Remove(nextRequestStr);
+                    _removeRequest = Client.Remove(nextRequestStr.packageId);
  
                 } else {    // no more packages to remove
                     EditorApplication.update -= RemoveProgress;
