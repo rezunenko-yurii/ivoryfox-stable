@@ -26,6 +26,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 
         private bool OnShouldClose(global::UniWebView webview)
         {
+#if !UNITY_IOS
             Debug.Log($"Uniwebview: OnShouldClose / {_isEscape}");
             if (_isEscape)
             {            
@@ -49,7 +50,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
                     Debug.Log($"Uniwebview: can`t Invoke DisableDoubleClick");
                 }
             }
-
+#endif
+            
             Debug.Log($"Uniwebview: go out from OnShouldClose");
             return false;
         }
