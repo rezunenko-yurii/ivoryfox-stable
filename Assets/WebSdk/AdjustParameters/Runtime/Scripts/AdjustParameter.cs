@@ -85,20 +85,18 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
                 Debug.Log($"Adjust TryToGetDataFromAdjust: Adjust is Ready");
                 OnAdjustReady();
             }
-            else if (Time.time - TimeFromInit > _waitTime)
+            else if (!string.IsNullOrEmpty(Adjust.getAdid()))
             {
                 string adId = Adjust.getAdid();
                 
-                if (!string.IsNullOrEmpty(adId))
-                {
-                    Debug.Log($"-------------- Adjust TryToGetDataFromAdjust: Waiting is over // Adjust.adid = {adId} // Adjust.idfa = {Adjust.getIdfa()}");
-                    SetAdjustValue(adId);
-                }
-                else
-                {
-                    Debug.Log($"!!!!!!!!!!!!!! Adjust TryToGetDataFromAdjust: Waiting is over // add organic // Adjust.idfa = {Adjust.getIdfa()}");
-                    SetAdjustValue(Organic);
-                }
+                Debug.Log($"-------------- Adjust TryToGetDataFromAdjust: GetAdid alone // Adjust.adid = {adId} // Adjust.idfa = {Adjust.getIdfa()}");
+                SaveAdid(adId);
+                SetAdjustValue(adId);
+            }
+            else if (Time.time - TimeFromInit > _waitTime)
+            {
+                Debug.Log($"!!!!!!!!!!!!!! Adjust TryToGetDataFromAdjust: Waiting is over // add organic // Adjust.idfa = {Adjust.getIdfa()}");
+                SetAdjustValue(Organic);
             }
         }
         
@@ -108,6 +106,11 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
             string v = GlobalFacade.adjustHelper.GetAttribution(parameterAlias);
 
             Debug.Log($"AdjustParameter attribution key={parameterAlias} value={v}");
+            SaveAdid(v);
+        }
+
+        private void SaveAdid(string v)
+        {
             if (CheckSavedAdid(v))
             {
                 Debug.Log($"AdjustParameter remember adid // {v}");
