@@ -82,6 +82,9 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             _webView.OnShouldClose += OnShouldClose;
             
             _webView.SetToolbarDoneButtonText("");
+            _webView.SetToolbarGoBackButtonText("Назад");
+            _webView.SetToolbarGoForwardButtonText("");
+
             _webView.OnPageStarted += OnPageStarted;
 
             Screen.orientation = ScreenOrientation.AutoRotation;
