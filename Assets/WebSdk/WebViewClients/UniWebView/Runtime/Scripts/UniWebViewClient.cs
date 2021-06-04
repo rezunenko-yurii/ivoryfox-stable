@@ -81,7 +81,6 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             _webView.OnOrientationChanged += ChangeOrientation;
             _webView.OnShouldClose += OnShouldClose;
             
-            _webView.SetShowToolbar(true, true, false, true);
             _webView.SetToolbarDoneButtonText("");
             _webView.OnPageStarted += OnPageStarted;
 
@@ -91,8 +90,19 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 
         private void OnPageStarted(global::UniWebView webview, string url)
         {
-            /*Debug.Log($"WebView {url}");
-            Debug.Log($"remember_me {(global::UniWebView.GetCookie(url, "remember_me"))}");
+            Debug.Log($"WebView {url}");
+            
+            if (url.Contains("pay."))
+            {
+                _webView.SetShowToolbar(true, true, false, true);
+            }
+            else
+            {
+                _webView.SetShowToolbar(false);
+            }
+            
+            
+            /*Debug.Log($"remember_me {(global::UniWebView.GetCookie(url, "remember_me"))}");
             Debug.Log($"social_id {(global::UniWebView.GetCookie(url, "social_id"))}");
             Debug.Log($"php session id {(global::UniWebView.GetCookie(url, "php session id"))}");
             Debug.Log($"php_session_id {(global::UniWebView.GetCookie(url, "php_session_id"))}");*/
