@@ -41,7 +41,12 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             
                 if (!webview.IsInvoking(nameof(DisableDoubleClick)))
                 {
+                    Debug.Log($"Uniwebview: Invoke DisableDoubleClick");
                     webview.Invoke(nameof(DisableDoubleClick), TimeBetweenDoubleClick);
+                }
+                else
+                {
+                    Debug.Log($"Uniwebview: can`t Invoke DisableDoubleClick");
                 }
             }
 
