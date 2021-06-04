@@ -17,6 +17,7 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
     [Id("adjust")]
     public class AdjustParameter : WaitableParameter
     {
+        private const string AdidPref = "adid";
         private const string Organic = "organic";
         private readonly int _waitTime = 4;
         private Stopwatch _stopwatch;
@@ -41,7 +42,13 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
             
             Debug.Log($"AdjustParameter Init");
 
-            if (GlobalFacade.att.Status == AttStatus.DENIED)
+            string savedAdid = PlayerPrefs.GetString(AdidPref, string.Empty);
+            if (CheckSavedAdid(savedAdid))
+            {
+                Debug.Log($"AdjustParameter // Found saved adid // {savedAdid}");
+                SetAdjustValue(savedAdid);
+            }
+            else if (GlobalFacade.att.Status == AttStatus.DENIED)
             {
                 Debug.Log($"AdjustParameter // ATT status = {GlobalFacade.att.Status} set organic");
                 SetAdjustValue(Organic);
@@ -100,16 +107,38 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
             Debug.Log($"On Adjust Instance is Ready // trying to get attribution");
             string v = GlobalFacade.adjustHelper.GetAttribution(parameterAlias);
 
-            Debug.Log($"Adjust attribution key={parameterAlias} value={v}");
-            SetAdjustValue(string.IsNullOrEmpty(v) ? "organic" : v);
+            Debug.Log($"AdjustParameter attribution key={parameterAlias} value={v}");
+            if (CheckSavedAdid(v))
+            {
+                Debug.Log($"AdjustParameter remember adid // {v}");
+                PlayerPrefs.SetString(AdidPref, v);
+                
+                SetAdjustValue(v);
+            }
+            else
+            {
+                SetAdjustValue("organic");
+            }
         }
         
         private void SetAdjustValue(string v)
         {
             Debug.Log($"::{nameof(AdjustParameter)}.{nameof(SetAdjustValue)}:: Set {parameterAlias} = {v} / StopWatch = {_stopwatch.Elapsed.Seconds}");
-            
+
             SetValue(v);
             _stopwatch.Stop();
+        }
+
+        private bool CheckSavedAdid(string v)
+        {
+            if (!v.Equals(Organic) && !v.Equals(string.Empty))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
