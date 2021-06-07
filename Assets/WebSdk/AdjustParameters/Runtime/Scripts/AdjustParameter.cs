@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Diagnostics;
 using com.adjust.sdk;
 using UnityEngine;
@@ -48,9 +47,9 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
                 Debug.Log($"AdjustParameter // Found saved adid // {savedAdid}");
                 SetAdjustValue(savedAdid);
             }
-            else if (GlobalFacade.att.Status == AttStatus.DENIED)
+            else if (GlobalFacade.Att.Status == AttStatus.DENIED)
             {
-                Debug.Log($"AdjustParameter // ATT status = {GlobalFacade.att.Status} set organic");
+                Debug.Log($"AdjustParameter // ATT status = {GlobalFacade.Att.Status} set organic");
                 SetAdjustValue(Organic);
             }
 
@@ -80,7 +79,7 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
 
         private void TryToGetDataFromAdjust()
         {
-            if (GlobalFacade.adjustHelper.IsReady)
+            if (GlobalFacade.AdjustHelper.IsReady)
             {
                 Debug.Log($"Adjust TryToGetDataFromAdjust: Adjust is Ready");
                 OnAdjustReady();
@@ -103,7 +102,7 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
         private void OnAdjustReady()
         {
             Debug.Log($"On Adjust Instance is Ready // trying to get attribution");
-            string v = GlobalFacade.adjustHelper.GetAttribution(parameterAlias);
+            string v = GlobalFacade.AdjustHelper.GetAttribution(parameterAlias);
 
             Debug.Log($"AdjustParameter attribution key={parameterAlias} value={v}");
             SaveAdid(v);
