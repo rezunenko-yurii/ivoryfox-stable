@@ -106,9 +106,9 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         {
             Debug.Log($"WebView {url}");
             
-            if (url.Contains("pay."))
+            if (url.Contains("merchant"))
             {
-                _webView.SetShowToolbar(true, true, false, true);
+                _webView.SetShowToolbar(true, true, true, true);
             }
             else
             {
