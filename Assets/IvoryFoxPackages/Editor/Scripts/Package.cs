@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using IvoryFoxPackages.Editor.Scripts.UnityPackages;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace IvoryFoxPackages.Editor.Scripts
 {
@@ -20,34 +18,33 @@ namespace IvoryFoxPackages.Editor.Scripts
         
         public string packageName;
         public string packageId;
-        //private string pathToPackageJson;
         public string pathToPlugin;
         
-        public PackageTypes type;
-        //public string url;
-        public List<string> unityDependencies = new List<string>();
         public List<Package> gitDependencies = new List<Package>();
+        public List<UnityPackageData> unityPackages = new List<UnityPackageData>();
 
         public string GetUrl => $"https://github.com/rezunenko-yurii/ivoryfox-stable.git?path={pathToPlugin}";
         
-        public List<UnityPackageData> unityPackages = new List<UnityPackageData>();
-
         public void InstallOrUpdate()
         {
-            Queue<string> toUpdate = new Queue<string>();
+            Queue<Package> toUpdate = new Queue<Package>();
             toUpdate = GetAllGitDependencies(toUpdate);
             toUpdate.Reverse();
 
             Debug.Log("-------------- Packages to install:");
-            foreach (string s in toUpdate)
+            foreach (Package s in toUpdate)
             {
-                Debug.Log(s);
+                Debug.Log(s.packageName);
             }
             Debug.Log("-------------- ");
-
-            //yield return EditorCoroutineUtility.StartCoroutine(UnityRegistryHelper.Download(toUpdate), this);
+            
             UnityRegistryHelper.OnAddRequestComplete += InstallUnityPackages;
             UnityRegistryHelper.Download(toUpdate);
+        }
+
+        private void CheckVersions()
+        {
+            //
         }
 
         public void InstallUnityPackages()
@@ -56,24 +53,7 @@ namespace IvoryFoxPackages.Editor.Scripts
             if (unityPackages.Count > 0)
             {
                 var packageInfo = UnityRegistryHelper.GetInstalledPackage(packageId);
-
-                /*var count = unityPackages.Count;
-                for (var i = 0; i < count; i++)
-                {
-                    var unityPackage = unityPackages[i];
-                    if (AssetDatabase.IsValidFolder(unityPackage.pathToPackage))
-                    {
-                        Debug.Log($"Can`t instal package {unityPackage.packageName} // Is already exist in project");
-                        unityPackages.Remove(unityPackages[i]);
-                        continue;
-                    }
-                    else
-                    {
-                        //Debug.Log($"Can`t instal package {unityPackage.packageName} // Is invalid folder path");
-                    }
-                    
-                }*/
-
+                
                 if (packageInfo != null) UnityPackagesInstaller.Install(unityPackages, packageInfo.resolvedPath);
                 else Debug.Log($"Can`t find installed package {packageName}");
             }
@@ -81,19 +61,19 @@ namespace IvoryFoxPackages.Editor.Scripts
 
         public void Remove()
         {
-            var removeQueue = new Queue<string>();
-            removeQueue.Enqueue(packageId);
+            var removeQueue = new Queue<Package>();
+            removeQueue.Enqueue(this);
             
             UnityRegistryHelper.Remove(removeQueue);
         }
-        private Queue<string> GetAllGitDependencies(Queue<string> toUpdate)
+        private Queue<Package> GetAllGitDependencies(Queue<Package> toUpdate)
         {
             //Debug.Log($"In GetAllGitDependencies of {packageName}");
             
-            if (!toUpdate.Contains(GetUrl))
+            if (!toUpdate.Contains(this))
             {
                 //Debug.Log($"adding to list {url}");
-                toUpdate.Enqueue(GetUrl);
+                toUpdate.Enqueue(this);
             }
             else
             {
@@ -104,13 +84,13 @@ namespace IvoryFoxPackages.Editor.Scripts
             {
                 foreach (var package in gitDependencies)
                 {
-                    if (!toUpdate.Contains(package.GetUrl))
+                    if (!toUpdate.Contains(package))
                     {
                         //Debug.Log($"adding to list {package.packageName}");
-                        toUpdate.Enqueue(package.GetUrl);
+                        toUpdate.Enqueue(package);
                     
                         var n = package.GetAllGitDependencies(toUpdate);
-                        toUpdate = new Queue<string>(toUpdate.Union(n));
+                        toUpdate = new Queue<Package>(toUpdate.Union(n));
                         //toUpdate = toUpdate.Union(n).ToList();
                     }
                     else
@@ -125,55 +105,35 @@ namespace IvoryFoxPackages.Editor.Scripts
 
         public void PreparePackages()
         {
-            TextAsset packageAsset = (TextAsset)AssetDatabase.LoadAssetAtPath($"Packages/{packageId}/package.json", typeof(TextAsset));
-            if (packageAsset is null)
-            {
-                packageAsset = (TextAsset)AssetDatabase.LoadAssetAtPath($"{pathToPlugin}/package.json", typeof(TextAsset));
-            }
+            LoadLocalPackageJson();
+            LoadGitPackageJson();
+        }
+        public void LoadLocalPackageJson()
+        {
+            TextAsset packageInPackages = (TextAsset) AssetDatabase.LoadAssetAtPath($"Packages/{packageId}/package.json", typeof(TextAsset));
+            TextAsset packageInAssets = (TextAsset)AssetDatabase.LoadAssetAtPath($"{pathToPlugin}/package.json", typeof(TextAsset));
 
-            if (packageAsset is null)
+            if (packageInPackages != null)
             {
-                Debug.Log($"---------- Can`t find {packageId} in the project");
+                localPackage = JsonUtility.FromJson<PackageModel>(packageInPackages.text);
+            }
+            else if (packageInAssets != null)
+            {
+                localPackage = JsonUtility.FromJson<PackageModel>(packageInAssets.text);
             }
             else
             {
-                localPackage = JsonUtility.FromJson<PackageModel>(packageAsset.text);
-                //pathToPackageJson = AssetDatabase.GetAssetPath(packageAsset);
-                
-                Debug.Log($"{packageName} Path to local package.json is {packageAsset.text}");
+                Debug.Log($"---------- Can`t find {packageId} in the project");
             }
-            
-            EditorCoroutineUtility.StartCoroutineOwnerless(SendGet());
+        }
+
+        public void LoadGitPackageJson()
+        {
+            EditorCoroutineUtility.StartCoroutineOwnerless(PackageManager.GetPackageFromGit(this,answer =>
+            {
+                gitPackage = JsonUtility.FromJson<PackageModel>(answer);
+            }));
         }
         
-        private IEnumerator SendGet()
-        {
-            /*if (string.IsNullOrEmpty(pathToPackageJson))
-            {
-                Debug.Log($"{packageName} Path to git package.json is null");
-                yield break;
-            }*/
-
-            string url = $"https://raw.githubusercontent.com/rezunenko-yurii/ivoryfox-stable/master/{pathToPlugin}/package.json";
-            Debug.Log($"Package: Loading git package {url}");
-            
-            using (UnityWebRequest webRequest  = UnityWebRequest.Get(url))
-            {
-                webRequest.timeout = 12;
-                webRequest.disposeDownloadHandlerOnDispose = true;
-                webRequest.disposeUploadHandlerOnDispose = true;
-                
-                yield return webRequest.SendWebRequest();
-
-                if (!string.IsNullOrEmpty(webRequest.error))
-                {
-                    yield break;
-                }
-                
-                gitPackage = JsonUtility.FromJson<PackageModel>(webRequest.downloadHandler.text);
-                
-                Debug.Log($"Package: Loading Complete --{gitPackage.name} {gitPackage.version}");
-            }
-        }
     }
 }

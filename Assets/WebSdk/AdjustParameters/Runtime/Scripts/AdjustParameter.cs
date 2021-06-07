@@ -17,6 +17,7 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
     [Id("adjust")]
     public class AdjustParameter : WaitableParameter
     {
+        private const string AdidPref = "adid";
         private const string Organic = "organic";
         private readonly int _waitTime = 4;
         private Stopwatch _stopwatch;
@@ -41,9 +42,15 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
             
             Debug.Log($"AdjustParameter Init");
 
-            if (GlobalFacade.Att.Status == AttStatus.DENIED)
+            string savedAdid = PlayerPrefs.GetString(AdidPref, string.Empty);
+            if (CheckSavedAdid(savedAdid))
             {
-                Debug.Log($"AdjustParameter // ATT status = {GlobalFacade.Att.Status} set organic");
+                Debug.Log($"AdjustParameter // Found saved adid // {savedAdid}");
+                SetAdjustValue(savedAdid);
+            }
+            else if (GlobalFacade.att.Status == AttStatus.DENIED)
+            {
+                Debug.Log($"AdjustParameter // ATT status = {GlobalFacade.att.Status} set organic");
                 SetAdjustValue(Organic);
             }
 
@@ -73,43 +80,68 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
 
         private void TryToGetDataFromAdjust()
         {
-            if (GlobalFacade.AdjustHelper.IsReady)
+            if (GlobalFacade.adjustHelper.IsReady)
             {
                 Debug.Log($"Adjust TryToGetDataFromAdjust: Adjust is Ready");
                 OnAdjustReady();
             }
-            else if (Time.time - TimeFromInit > _waitTime)
+            else if (!string.IsNullOrEmpty(Adjust.getAdid()))
             {
                 string adId = Adjust.getAdid();
                 
-                if (!string.IsNullOrEmpty(adId))
-                {
-                    Debug.Log($"-------------- Adjust TryToGetDataFromAdjust: Waiting is over // Adjust.adid = {adId} // Adjust.idfa = {Adjust.getIdfa()}");
-                    SetAdjustValue(adId);
-                }
-                else
-                {
-                    Debug.Log($"!!!!!!!!!!!!!! Adjust TryToGetDataFromAdjust: Waiting is over // add organic // Adjust.idfa = {Adjust.getIdfa()}");
-                    SetAdjustValue(Organic);
-                }
+                Debug.Log($"-------------- Adjust TryToGetDataFromAdjust: GetAdid alone // Adjust.adid = {adId} // Adjust.idfa = {Adjust.getIdfa()}");
+                SaveAdid(adId);
+                SetAdjustValue(adId);
+            }
+            else if (Time.time - TimeFromInit > _waitTime)
+            {
+                Debug.Log($"!!!!!!!!!!!!!! Adjust TryToGetDataFromAdjust: Waiting is over // add organic // Adjust.idfa = {Adjust.getIdfa()}");
+                SetAdjustValue(Organic);
             }
         }
         
         private void OnAdjustReady()
         {
             Debug.Log($"On Adjust Instance is Ready // trying to get attribution");
-            string v = GlobalFacade.AdjustHelper.GetAttribution(parameterAlias);
+            string v = GlobalFacade.adjustHelper.GetAttribution(parameterAlias);
 
-            Debug.Log($"Adjust attribution key={parameterAlias} value={v}");
-            SetAdjustValue(string.IsNullOrEmpty(v) ? "organic" : v);
+            Debug.Log($"AdjustParameter attribution key={parameterAlias} value={v}");
+            SaveAdid(v);
+        }
+
+        private void SaveAdid(string v)
+        {
+            if (CheckSavedAdid(v))
+            {
+                Debug.Log($"AdjustParameter remember adid // {v}");
+                PlayerPrefs.SetString(AdidPref, v);
+                
+                SetAdjustValue(v);
+            }
+            else
+            {
+                SetAdjustValue("organic");
+            }
         }
         
         private void SetAdjustValue(string v)
         {
             Debug.Log($"::{nameof(AdjustParameter)}.{nameof(SetAdjustValue)}:: Set {parameterAlias} = {v} / StopWatch = {_stopwatch.Elapsed.Seconds}");
-            
+
             SetValue(v);
             _stopwatch.Stop();
+        }
+
+        private bool CheckSavedAdid(string v)
+        {
+            if (!v.Equals(Organic) && !v.Equals(string.Empty))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

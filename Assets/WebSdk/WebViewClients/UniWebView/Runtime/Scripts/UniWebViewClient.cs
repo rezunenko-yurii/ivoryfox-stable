@@ -26,26 +26,41 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             //_webView.Frame = new Rect(0, 0, Screen.width, Screen.height);
             _webView.Frame = _screenHelper.GetMainRectTransform.rect;
         }
-        private void DisableDoubleClick() => _isEscape = false;
+        private void DisableDoubleClick()
+        {
+            _isEscape = false;
+            Debug.Log($"Uniwebview: reset isEscape / {_isEscape}");
+        }
     
         private bool OnShouldClose(global::UniWebView webview)
         {
+#if !UNITY_IOS
+            Debug.Log($"Uniwebview: OnShouldClose / {_isEscape}");
             if (_isEscape)
-            {                        
+            {            
+                Debug.Log($"Uniwebview: Close Application");
                 Close();
                 Application.Quit();
                 return true;
             }
             else
             {
+                Debug.Log($"Uniwebview: Next click will close app");
                 _isEscape = true;
             
-                if (!_webView.IsInvoking(nameof(DisableDoubleClick)))
+                if (!webview.IsInvoking(nameof(DisableDoubleClick)))
                 {
-                    _webView.Invoke(nameof(DisableDoubleClick), TimeBetweenDoubleClick);
+                    Debug.Log($"Uniwebview: Invoke DisableDoubleClick");
+                    webview.Invoke(nameof(DisableDoubleClick), TimeBetweenDoubleClick);
+                }
+                else
+                {
+                    Debug.Log($"Uniwebview: can`t Invoke DisableDoubleClick");
                 }
             }
-
+#endif
+            
+            Debug.Log($"Uniwebview: go out from OnShouldClose");
             return false;
         }
     
@@ -69,7 +84,6 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         public void SetSettings()
         {
             _webView.SetContentInsetAdjustmentBehavior(UniWebViewContentInsetAdjustmentBehavior.Always);
-            //uniWV.SetImmersiveModeEnabled(true);
             _webView.SetBackButtonEnabled(true);
             
             //_webView.Frame = new Rect(0, 0, Screen.safeArea.width, Screen.safeArea.height);
@@ -78,8 +92,10 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             _webView.OnOrientationChanged += ChangeOrientation;
             _webView.OnShouldClose += OnShouldClose;
             
-            _webView.SetShowToolbar(true, true, false, true);
-            _webView.SetToolbarDoneButtonText("Exit");
+            _webView.SetToolbarDoneButtonText("");
+            _webView.SetToolbarGoBackButtonText("Назад");
+            _webView.SetToolbarGoForwardButtonText("");
+
             _webView.OnPageStarted += OnPageStarted;
 
             //Screen.orientation = ScreenOrientation.AutoRotation;
@@ -89,10 +105,15 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         private void OnPageStarted(global::UniWebView webview, string url)
         {
             Debug.Log($"WebView {url}");
-            Debug.Log($"remember_me {(global::UniWebView.GetCookie(url, "remember_me"))}");
-            Debug.Log($"social_id {(global::UniWebView.GetCookie(url, "social_id"))}");
-            Debug.Log($"php session id {(global::UniWebView.GetCookie(url, "php session id"))}");
-            Debug.Log($"php_session_id {(global::UniWebView.GetCookie(url, "php_session_id"))}");
+            
+            if (url.Contains("pay."))
+            {
+                _webView.SetShowToolbar(true, true, false, true);
+            }
+            else
+            {
+                _webView.SetShowToolbar(false);
+            }
         }
 
         public IMediator mediator { get; private set; }
