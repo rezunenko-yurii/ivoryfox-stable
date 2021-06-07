@@ -6,7 +6,7 @@ using AppDomain = System.AppDomain;
 using Activator = System.Activator;
 using Generic = System.Collections.Generic;
 
-namespace WebSdk.Core.Runtime.Helpers.Scripts
+namespace WebSdk.Core.Runtime.Helpers
 {
     public static class ReflectionHelper
     {

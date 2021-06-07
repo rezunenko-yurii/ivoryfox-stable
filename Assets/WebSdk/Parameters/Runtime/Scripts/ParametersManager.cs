@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WebSdk.Core.Runtime.GlobalPart;
-using WebSdk.Core.Runtime.Helpers.Scripts;
+using WebSdk.Core.Runtime.Helpers;
 using WebSdk.Core.Runtime.WebCore;
 
 namespace WebSdk.Parameters.Runtime.Scripts
@@ -31,7 +31,7 @@ namespace WebSdk.Parameters.Runtime.Scripts
             foreach (Parameter param in parameters)
             {
                 SetParamDependencies(param);
-                param.Init(GlobalFacade.monoBehaviour);
+                param.Init(GlobalFacade.MonoBehaviour);
                 
                 if (param.IsReady())
                 {

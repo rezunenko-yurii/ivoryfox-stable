@@ -11,22 +11,44 @@ namespace WebSdk.Core.Runtime.GlobalPart
 {
     public sealed class GlobalFacade
     {
-        public static ILogger logger;
-        public static IInternetChecker internetChecker;
-        public static IConfigsLoader configsLoader;
-        public static INotification notification;
-        public static MonoBehaviour monoBehaviour;
-        public static IAdjustHelper adjustHelper;
-        public static IAppTransparencyTracker att;
+        public static ILogger Logger;
+        public static IInternetChecker InternetChecker;
+        public static IConfigsLoader ConfigsLoader;
+        public static INotification Notification;
+        public static MonoBehaviour MonoBehaviour;
+        public static IAdjustHelper AdjustHelper;
+        public static IAppTransparencyTracker Att;
 
         static GlobalFacade()
         {
-            logger = new DummyLogger();
-            internetChecker = new DummyInternetChecker();
-            configsLoader = new DummyConfigLoader();
-            notification = new DummyNotificationsClient();
-            adjustHelper = new DummyAdjustHelper();
-            att = new DummyAppTrackingTransparency();
+            Logger = new DummyLogger();
+            InternetChecker = new DummyInternetChecker();
+            ConfigsLoader = new DummyConfigLoader();
+            Notification = new DummyNotificationsClient();
+            AdjustHelper = new DummyAdjustHelper();
+            Att = new DummyAppTrackingTransparency();
+        }
+
+        public static void Init(ILogger logger, IInternetChecker internetChecker, IConfigsLoader configsLoader, INotification notification, IAdjustHelper adjustHelper, IAppTransparencyTracker att)
+        {
+            Logger = logger;
+            InternetChecker = internetChecker;
+            ConfigsLoader = configsLoader;
+            Notification = notification;
+            AdjustHelper = adjustHelper;
+            Att = att;
+        }
+
+        public static void Init(IGlobalFactory factory)
+        {
+            AdjustHelper = factory.CreateAdjustHelper();
+            Logger = factory.CreateLogger();
+            InternetChecker = factory.CreateInternetChecker();
+            ConfigsLoader = factory.CreateConfigLoader();
+            Notification = factory.CreateNotifications();
+            Att = factory.CreateAppTransparencyTracker();
+
+            MonoBehaviour = factory.GameObject.gameObject.GetComponent<MonoBehaviour>();
         }
     }
 }

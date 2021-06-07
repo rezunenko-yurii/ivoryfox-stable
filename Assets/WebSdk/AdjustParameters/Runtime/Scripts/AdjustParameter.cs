@@ -41,9 +41,9 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
             
             Debug.Log($"AdjustParameter Init");
 
-            if (GlobalFacade.att.Status == AttStatus.DENIED)
+            if (GlobalFacade.Att.Status == AttStatus.DENIED)
             {
-                Debug.Log($"AdjustParameter // ATT status = {GlobalFacade.att.Status} set organic");
+                Debug.Log($"AdjustParameter // ATT status = {GlobalFacade.Att.Status} set organic");
                 SetAdjustValue(Organic);
             }
 
@@ -73,7 +73,7 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
 
         private void TryToGetDataFromAdjust()
         {
-            if (GlobalFacade.adjustHelper.IsReady)
+            if (GlobalFacade.AdjustHelper.IsReady)
             {
                 Debug.Log($"Adjust TryToGetDataFromAdjust: Adjust is Ready");
                 OnAdjustReady();
@@ -98,7 +98,7 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
         private void OnAdjustReady()
         {
             Debug.Log($"On Adjust Instance is Ready // trying to get attribution");
-            string v = GlobalFacade.adjustHelper.GetAttribution(parameterAlias);
+            string v = GlobalFacade.AdjustHelper.GetAttribution(parameterAlias);
 
             Debug.Log($"Adjust attribution key={parameterAlias} value={v}");
             SetAdjustValue(string.IsNullOrEmpty(v) ? "organic" : v);

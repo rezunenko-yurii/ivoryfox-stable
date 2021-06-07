@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WebSdk.Core.Runtime.Helpers.Scripts
+namespace WebSdk.Core.Runtime.Helpers
 {
     public static class WebHelper
     {

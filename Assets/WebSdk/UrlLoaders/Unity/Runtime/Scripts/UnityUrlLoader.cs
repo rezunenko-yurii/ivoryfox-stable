@@ -43,7 +43,7 @@ namespace WebSdk.UrlLoaders.Unity.Runtime.Scripts
             }
             else if (urlsConfig.HasServer)
             {
-                coroutine = GlobalFacade.monoBehaviour.StartCoroutine(SendGet());
+                coroutine = GlobalFacade.MonoBehaviour.StartCoroutine(SendGet());
             }
             else
             {
@@ -96,7 +96,7 @@ namespace WebSdk.UrlLoaders.Unity.Runtime.Scripts
         public void RemoveListeners()
         {
             OnSuccess = OnFailure = null;
-            GlobalFacade.monoBehaviour.StopCoroutine(coroutine);
+            GlobalFacade.MonoBehaviour.StopCoroutine(coroutine);
         }
     }
 }

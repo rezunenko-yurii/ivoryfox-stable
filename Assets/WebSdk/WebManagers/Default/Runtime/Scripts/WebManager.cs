@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.GlobalPart;
-using WebSdk.Core.Runtime.Helpers.Scripts;
+using WebSdk.Core.Runtime.Helpers;
 using WebSdk.Core.Runtime.WebCore;
 using Debug = UnityEngine.Debug;
 
@@ -41,16 +42,16 @@ namespace WebSdk.WebManagers.Default.Runtime.Scripts
         {
             Debug.Log("Load Web Configs");
             
-            List<string> ids = Helper.GetConsumableIds(UrlLoader, ParamsManager, WebViewClient);
+            List<string> ids = ConfigLoaderHelper.GetConsumableIds(UrlLoader, ParamsManager, WebViewClient);
 
             if (ids.Count > 0)
             {
-                GlobalFacade.configsLoader.Load(ids, InitConfigs);
+                GlobalFacade.ConfigsLoader.Load(ids, InitConfigs);
             }
             else
             {
                 Debug.Log("WebVariant1 // There is no configs to load / load next scene");
-                Helper.LoadNextScene();
+                SceneHelper.LoadNextScene();
             }
         }
 
@@ -58,7 +59,7 @@ namespace WebSdk.WebManagers.Default.Runtime.Scripts
         {
             Debug.Log("WebVariant1 InitConfigs");
             
-            Helper.SetConfigsToConsumables(configs, UrlLoader, ParamsManager);
+            ConfigLoaderHelper.SetConfigsToConsumables(configs, UrlLoader, ParamsManager);
             Debug.Log($"WebVariant1 Complete / StopWatch = {_stopwatch.Elapsed.Seconds} FromStart = {Time.realtimeSinceStartup}");
             _stopwatch.Stop();
             

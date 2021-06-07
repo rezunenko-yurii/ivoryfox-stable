@@ -2,31 +2,22 @@
 using System.Diagnostics;
 using TMPro;
 using UnityEngine;
-using WebSdk.Core.Runtime.AdjustHelpers;
-using WebSdk.Core.Runtime.AppTransparencyTrackers;
 using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.GlobalPart;
-using WebSdk.Core.Runtime.Helpers.Scripts;
-using WebSdk.Core.Runtime.InternetChecker;
+using WebSdk.Core.Runtime.Helpers;
 using WebSdk.Core.Runtime.WebCore;
 using Debug = UnityEngine.Debug;
-using ILogger = WebSdk.Core.Runtime.Logger.ILogger;
-using INotification = WebSdk.Core.Runtime.Notifications.INotification;
 
 namespace WebSdk.Main.Runtime.Scripts
 {
     public class WebSdkEntry : MonoBehaviour, IGlobalBlock
     {
         public TextMeshProUGUI textfield;
-        private ILogger Logger { get; set; }
-        private IInternetChecker InternetChecker { get; set; }
-        private IConfigsLoader ConfigLoader { get; set; }
-        private INotification Notification { get; set; }
-        private IAdjustHelper AdjustHelper { get; set; }
+        
         private IWebManager _webManager;
         private Stopwatch _stopwatch;
-
-        private IAppTransparencyTracker att;
+        private ModulesNavigation _navigation;
+        private ScreenHelper _screenHelper;
         
         private void Awake()
         {
@@ -40,63 +31,39 @@ namespace WebSdk.Main.Runtime.Scripts
             }
             
             DontDestroyOnLoad(this);
+
+            _screenHelper = gameObject.AddComponent<ScreenHelper>();
+            
+            _navigation = new ModulesNavigation();
+            _navigation.SetWebBlockSettings();
             
             _stopwatch = Stopwatch.StartNew();
 
-            StartFactory();
+            InitModules();
+            CheckAtt();
         }
         
-        private void StartFactory()
+        private void InitModules()
         {
-            Debug.Log("GlobalBlockUnity Creating factory");
+            Debug.Log("GlobalBlockUnity InitModules");
 
             var factory = Resources.Load<ScriptableObject>("WebSdkComponentsFactory") as IGlobalFactory;
             factory.GameObject = gameObject;
             
-            InitModules(factory);
-            CheckAtt();
-        }
-        
-        public void InitModules(IGlobalFactory factory)
-        {
-            Debug.Log("GlobalBlockUnity InitModules");
-
-            AdjustHelper = factory.CreateAdjustHelper();
-            Logger = factory.CreateLogger();
-            InternetChecker = factory.CreateInternetChecker();
-            ConfigLoader = factory.CreateConfigLoader();
-            Notification = factory.CreateNotifications();
             _webManager = factory.CreateWebBlock();
-            att = factory.CreateAppTransparencyTracker();
-            
-            ConnectToFacade();
+            GlobalFacade.Init(factory);
         }
-
-        public void ConnectToFacade()
-        {
-            Debug.Log("GlobalBlockUnity ConnectToFacade");
-            
-            GlobalFacade.logger = Logger;
-            GlobalFacade.internetChecker = InternetChecker;
-            GlobalFacade.configsLoader = ConfigLoader;
-            GlobalFacade.notification = Notification;
-            GlobalFacade.adjustHelper = AdjustHelper;
-            GlobalFacade.att = att;
-            
-            GlobalFacade.monoBehaviour = this;
-        }
-
         private void CheckAtt()
         {
             Debug.Log("Trying to get ATT");
-            att.OnGetRequest += CheckInternetConnection;
-            att.Init();
+            GlobalFacade.Att.OnGetRequest += CheckInternetConnection;
+            GlobalFacade.Att.Init();
         }
 
         private void CheckInternetConnection()
         {
-            InternetChecker.OnResult += TryLoadConfigs;
-            InternetChecker.Check(3);
+            GlobalFacade.InternetChecker.OnResult += TryLoadConfigs;
+            GlobalFacade.InternetChecker.Check(3);
         }
 
         #region Cofigs
@@ -107,28 +74,24 @@ namespace WebSdk.Main.Runtime.Scripts
             
             if (hasConnection)
             {
-                InternetChecker.OnResult -= TryLoadConfigs;
-
+                GlobalFacade.InternetChecker.OnResult -= TryLoadConfigs;
                 LoadConfigs();
             }
-            else
-            {
-                CheckRepeatsLeft();
-            }
+            else CheckRepeatsLeft();
         }
 
         private void LoadConfigs()
         {
-            List<string> ids = Helper.GetConsumableIds(Logger, Notification, AdjustHelper);
+            List<string> ids = ConfigLoaderHelper.GetConsumableIds(GlobalFacade.Logger, GlobalFacade.Notification, GlobalFacade.AdjustHelper);
             ids.Add("canUse");
 
             if (ids.Count > 0)
             {
-                ConfigLoader.Load(ids, InitConfigs);
+                GlobalFacade.ConfigsLoader.Load(ids, InitConfigs);
             }
             else
             {
-                Helper.LoadNextScene();
+                _navigation.GoToNativeBlock();
             }
         }
         
@@ -136,14 +99,14 @@ namespace WebSdk.Main.Runtime.Scripts
         {
             Debug.Log($"GlobalBlockUnity InitConfigs / StopWatch = {_stopwatch.Elapsed.Seconds} FromStart = {Time.realtimeSinceStartup}");
             
-            Helper.SetConfigsToConsumables(configs, AdjustHelper);
+            ConfigLoaderHelper.SetConfigsToConsumables(configs, GlobalFacade.AdjustHelper);
 
             configs.TryGetValue("canUse", out var canUseString);
             bool.TryParse(canUseString, out var canUse);
 
             if (canUse)
             {
-                Helper.SetConfigsToConsumables(configs, Logger, Notification);
+                ConfigLoaderHelper.SetConfigsToConsumables(configs, GlobalFacade.Logger, GlobalFacade.Notification);
                 
                 Debug.Log($"GlobalBlockUnity Complete / StopWatch = {_stopwatch.Elapsed.Seconds} FromStart = {Time.realtimeSinceStartup}");
                 
@@ -152,7 +115,7 @@ namespace WebSdk.Main.Runtime.Scripts
             else
             {
                 Debug.Log($"GlobalBlockUnity InitConfigs / canUse = false");
-                Helper.LoadNextScene();
+                _navigation.GoToNativeBlock();
             }
             
             _stopwatch.Stop();
@@ -162,19 +125,19 @@ namespace WebSdk.Main.Runtime.Scripts
 
         private void CheckRepeatsLeft()
         {
-            if (InternetChecker.RepeatsLeft() > 0)
+            if (GlobalFacade.InternetChecker.RepeatsLeft() > 0)
             {
                 textfield.text = "No internet connection. \n Please turn on the internet or wait ";
             }
             else
             {
-                Helper.LoadNextScene();
+                _navigation.GoToNativeBlock();
             }
         }
 
         private void OnDestroy()
         {
-            Logger.Clear();
+            GlobalFacade.Logger.Clear();
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.GlobalPart;
-using WebSdk.Core.Runtime.Helpers.Scripts;
+using WebSdk.Core.Runtime.Helpers;
 using WebSdk.Core.Runtime.Logger;
 
 namespace WebSdk.Loggers.Remote.Runtime.Scripts
@@ -56,7 +56,7 @@ namespace WebSdk.Loggers.Remote.Runtime.Scripts
                 {"Counter", counter.ToString()},
             };
             
-            var coroutine = GlobalFacade.monoBehaviour.StartCoroutine(SendGetRequest(dict));
+            var coroutine = GlobalFacade.MonoBehaviour.StartCoroutine(SendGetRequest(dict));
             _coroutines.Add(coroutine);
         }
 
@@ -80,7 +80,7 @@ namespace WebSdk.Loggers.Remote.Runtime.Scripts
         {
             foreach (Coroutine coroutine in _coroutines)
             {
-                GlobalFacade.monoBehaviour.StopCoroutine(coroutine);
+                GlobalFacade.MonoBehaviour.StopCoroutine(coroutine);
             }
             
             _coroutines.Clear();

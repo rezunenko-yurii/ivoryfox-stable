@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using UnityEngine;
-using WebSdk.Core.Runtime.Helpers.Scripts;
+using WebSdk.Core.Runtime.Helpers;
 using WebSdk.Core.Runtime.WebCore;
 using Debug = UnityEngine.Debug;
 
@@ -79,7 +79,7 @@ namespace WebSdk.WebManagers.Default.Runtime.Scripts
             string url = WebHelper.AttachParameters(_urlLoader.GetUrl(), _paramsManager.GetParams());
             if (WebHelper.IsValidUrl(url))
             {
-                Helper.TryLoadScene("WebviewScene");
+                //SceneHelper.TryLoadScene("WebviewScene");
                 
                 Debug.Log("open final url " + url);
                 _webViewClient.SetSettings();
