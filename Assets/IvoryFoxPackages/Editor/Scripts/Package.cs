@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using IvoryFoxPackages.Editor.Scripts.UnityPackages;
@@ -10,6 +11,8 @@ namespace IvoryFoxPackages.Editor.Scripts
     [CreateAssetMenu(fileName = "PackageModel", menuName = "IvoryFox/Create/PackageModel", order = 0)]
     public class Package : ScriptableObject
     {
+        public event Action OnGitPackagesJsonLoaded;
+        
         [System.NonSerialized]
         public PackageModel localPackage;
         
@@ -132,6 +135,7 @@ namespace IvoryFoxPackages.Editor.Scripts
             EditorCoroutineUtility.StartCoroutineOwnerless(PackageManager.GetPackageFromGit(this,answer =>
             {
                 gitPackage = JsonUtility.FromJson<PackageModel>(answer);
+                OnGitPackagesJsonLoaded?.Invoke();
             }));
         }
         
