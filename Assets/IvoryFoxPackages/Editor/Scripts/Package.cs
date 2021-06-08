@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using IvoryFoxPackages.Editor.Scripts.UnityPackages;
@@ -41,15 +42,52 @@ namespace IvoryFoxPackages.Editor.Scripts
             }
             Debug.Log("-------------- ");
             
-            UnityRegistryHelper.OnAddRequestComplete += InstallUnityPackages;
-            PackageManager.OnPackagesFiltrated += UnityRegistryHelper.Download;
+            //PackageManager.OnPackagesFiltrated += UnityRegistryHelper.Download;
 
-            EditorCoroutineUtility.StartCoroutineOwnerless(PackageManager.FiltratePackages(toUpdate));
+            EditorCoroutineUtility.StartCoroutineOwnerless(FiltratePackages(toUpdate));
         }
 
-        private void CheckVersions()
+        public IEnumerator FiltratePackages(Queue<Package> packages)
         {
-            //
+            Debug.Log($"PackageManager FiltratePackages packages {packages.Count}");
+            var installedPackages = UnityRegistryHelper.GetInstalledPackages();
+            Queue<Package> packagesForRemove = new Queue<Package>();
+
+            foreach (Package package in packages)
+            {
+                package.LoadLocalPackageJson();
+                
+                var installedPackage = installedPackages.First(x => x.packageId == package.packageId);
+
+                if (installedPackage != null)
+                {
+                    Debug.Log($"PackageManager found installed packag {installedPackage.name}");
+                    
+                    yield return EditorCoroutineUtility.StartCoroutineOwnerless(PackageManager.GetPackageFromGit(package,answer =>
+                    {
+                        package.gitPackage = JsonUtility.FromJson<PackageModel>(answer);
+                        Debug.Log($"PackageManager git package loaded");
+                    }));
+                    
+                    Version installedVersion = new Version(installedPackage.version);
+                    Version gitVersion = new Version(package.gitPackage.version);
+
+                    Debug.Log($"PackageManager gitVersion = {gitVersion} // installedVersion = {installedVersion}");
+                    
+                    if (gitVersion < installedVersion)
+                    {
+                        Debug.Log($"PackageManager version is lower // remove");
+                        packagesForRemove.Enqueue(package);
+                    }
+                }
+            }
+            
+            var toInstall = new Queue<Package>(packages.Union(packagesForRemove));
+            
+            Debug.Log($"PackageManager initial count = {packages.Count} // left = {toInstall.Count}");
+
+            UnityRegistryHelper.OnAddRequestComplete += InstallUnityPackages;
+            UnityRegistryHelper.Download(toInstall);
         }
 
         public void InstallUnityPackages()

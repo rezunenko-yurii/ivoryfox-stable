@@ -38,7 +38,7 @@ namespace IvoryFoxPackages.Editor.Scripts
             }
         }
 
-        public static IEnumerator FiltratePackages(Queue<Package> packages)
+        /*public static IEnumerator FiltratePackages(Queue<Package> packages)
         {
             Debug.Log($"PackageManager FiltratePackages packages {packages.Count}");
             var installedPackages = UnityRegistryHelper.GetInstalledPackages();
@@ -78,6 +78,6 @@ namespace IvoryFoxPackages.Editor.Scripts
             Debug.Log($"PackageManager initial count = {packages.Count} // left = {toInstall.Count}");
             OnPackagesFiltrated?.Invoke(toInstall);
             OnPackagesFiltrated = null;
-        }
+        }*/
     }
 }
