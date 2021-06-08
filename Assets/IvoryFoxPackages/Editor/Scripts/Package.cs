@@ -80,7 +80,7 @@ namespace IvoryFoxPackages.Editor.Scripts
 
                     Debug.Log($"PackageManager gitVersion = {gitVersion} // installedVersion = {installedVersion}");
                     
-                    if (gitVersion < installedVersion)
+                    if (gitVersion <= installedVersion)
                     {
                         Debug.Log($"PackageManager version is lower // remove");
                         packagesForRemove.Enqueue(package);
