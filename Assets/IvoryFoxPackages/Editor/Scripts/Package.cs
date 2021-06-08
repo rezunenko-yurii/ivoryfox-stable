@@ -44,7 +44,7 @@ namespace IvoryFoxPackages.Editor.Scripts
             UnityRegistryHelper.OnAddRequestComplete += InstallUnityPackages;
             PackageManager.OnPackagesFiltrated += UnityRegistryHelper.Download;
 
-            PackageManager.FiltratePackages(toUpdate);
+            EditorCoroutineUtility.StartCoroutineOwnerless(PackageManager.FiltratePackages(toUpdate));
         }
 
         private void CheckVersions()
