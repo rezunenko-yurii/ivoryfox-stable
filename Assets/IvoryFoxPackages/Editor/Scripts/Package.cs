@@ -57,7 +57,11 @@ namespace IvoryFoxPackages.Editor.Scripts
             {
                 package.LoadLocalPackageJson();
                 
-                var installedPackage = installedPackages.FirstOrDefault(x => x.packageId == package.packageId);
+                var installedPackage = installedPackages.FirstOrDefault(x =>
+                {
+                    Debug.Log($"---compare {x.packageId} & {package.packageId}");
+                    return x.packageId.Equals(package.packageId);
+                });
 
                 if (installedPackage != null)
                 {
