@@ -88,7 +88,7 @@ namespace IvoryFoxPackages.Editor.Scripts
                 }
             }
             
-            var toInstall = new Queue<Package>(packages.Union(packagesForRemove));
+            var toInstall = new Queue<Package>(packages.Except(packagesForRemove));
             
             Debug.Log($"PackageManager initial count = {packages.Count} // left = {toInstall.Count}");
 
@@ -139,7 +139,7 @@ namespace IvoryFoxPackages.Editor.Scripts
                         toUpdate.Enqueue(package);
                     
                         var n = package.GetAllGitDependencies(toUpdate);
-                        toUpdate = new Queue<Package>(toUpdate.Except(n));
+                        toUpdate = new Queue<Package>(toUpdate.Union(n));
                         //toUpdate = toUpdate.Union(n).ToList();
                     }
                     else

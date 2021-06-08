@@ -6,7 +6,7 @@ namespace IvoryFoxPackages.Editor.Scripts
     [CustomEditor(typeof(Package))]
     public class PackageEditor : UnityEditor.Editor
     {
-        public override void OnInspectorGUI()
+        /*public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
 
@@ -34,6 +34,6 @@ namespace IvoryFoxPackages.Editor.Scripts
             {
                 package.InstallUnityPackages();
             }
-        }
+        }*/
     }
 }
