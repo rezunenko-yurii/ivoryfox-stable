@@ -59,8 +59,10 @@ namespace IvoryFoxPackages.Editor.Scripts
                 
                 var installedPackage = installedPackages.FirstOrDefault(x =>
                 {
-                    Debug.Log($"---compare {x.packageId} & {package.packageId}");
-                    return x.packageId.Equals(package.packageId);
+                    string s = $"{package.packageId}@{package.GetUrl}";
+                    Debug.Log($"---compare {x.packageId} & {s}");
+                    
+                    return x.packageId.Equals(s);
                 });
 
                 if (installedPackage != null)
