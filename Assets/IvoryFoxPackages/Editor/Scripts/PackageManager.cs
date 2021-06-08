@@ -77,6 +77,7 @@ namespace IvoryFoxPackages.Editor.Scripts
             
             Debug.Log($"PackageManager initial count = {packages.Count} // left = {toInstall.Count}");
             OnPackagesFiltrated?.Invoke(toInstall);
+            OnPackagesFiltrated = null;
         }
     }
 }

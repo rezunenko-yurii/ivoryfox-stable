@@ -42,7 +42,9 @@ namespace IvoryFoxPackages.Editor.Scripts
             Debug.Log("-------------- ");
             
             UnityRegistryHelper.OnAddRequestComplete += InstallUnityPackages;
-            UnityRegistryHelper.Download(toUpdate);
+            PackageManager.OnPackagesFiltrated += UnityRegistryHelper.Download;
+
+            PackageManager.FiltratePackages(toUpdate);
         }
 
         private void CheckVersions()
