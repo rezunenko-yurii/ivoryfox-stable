@@ -139,7 +139,7 @@ namespace IvoryFoxPackages.Editor.Scripts
                         toUpdate.Enqueue(package);
                     
                         var n = package.GetAllGitDependencies(toUpdate);
-                        toUpdate = new Queue<Package>(toUpdate.Union(n));
+                        toUpdate = new Queue<Package>(toUpdate.Except(n));
                         //toUpdate = toUpdate.Union(n).ToList();
                     }
                     else
