@@ -35,7 +35,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             Debug.Log($"custom safeArea {_webView.Frame.center} {_webView.Frame.x} {_webView.Frame.y} {_webView.Frame.height} {_webView.Frame.width}");
             Debug.Log($"unity safeArea {Screen.safeArea.center} {Screen.safeArea.x} {Screen.safeArea.y} {Screen.safeArea.height} {Screen.safeArea.width}");
             
-            _webView.Frame = Screen.safeArea;
+            //_webView.Frame = Screen.safeArea;
+            _webView.ReferenceRectTransform = _screenHelper.GetMainRectTransform;
         }
         private void DisableDoubleClick()
         {
