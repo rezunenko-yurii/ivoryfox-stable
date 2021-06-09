@@ -29,7 +29,12 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             Debug.Log($"Uniwebview orientationChanged - {orientation}");
             
             _screenHelper.RecalculateSafeArea();
-            _webView.Frame = _screenHelper.GetMainRectTransform.rect;
+            //_webView.Frame = _screenHelper.GetMainRectTransform.rect;
+            
+            Debug.Log($"custom safeArea {_webView.Frame.center} {_webView.Frame.x} {_webView.Frame.y} {_webView.Frame.height} {_webView.Frame.width}");
+            Debug.Log($"unity safeArea {Screen.safeArea.center} {Screen.safeArea.x} {Screen.safeArea.y} {Screen.safeArea.height} {Screen.safeArea.width}");
+            
+            _webView.Frame = Screen.safeArea;
         }
         private void DisableDoubleClick()
         {

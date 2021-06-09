@@ -6,7 +6,6 @@ namespace WebSdk.Core.Runtime.Helpers
     public class ScreenHelper : MonoBehaviour
     {
         public event Action OnOrientationChanged;
-        
         private RectTransform _mainRectTransform;
         public RectTransform GetMainRectTransform => _mainRectTransform;
 
@@ -47,6 +46,8 @@ namespace WebSdk.Core.Runtime.Helpers
         
             _mainRectTransform.anchorMin = anchorMin;
             _mainRectTransform.anchorMax = anchorMax;
+            
+            Debug.Log($"ScreenHelper RecalculateSafeArea // new rect {_mainRectTransform.rect.center} {_mainRectTransform.rect.x} {_mainRectTransform.rect.y} {_mainRectTransform.rect.height} {_mainRectTransform.rect.width}");
         }
     }
 }
