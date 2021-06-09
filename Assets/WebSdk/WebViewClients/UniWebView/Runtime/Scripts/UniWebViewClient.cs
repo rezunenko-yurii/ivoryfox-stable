@@ -26,6 +26,9 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         private void ChangeOrientation(global::UniWebView webview, ScreenOrientation orientation)
         { 
             //_webView.Frame = new Rect(0, 0, Screen.width, Screen.height);
+            Debug.Log($"Uniwebview orientationChanged - {orientation}");
+            
+            _screenHelper.RecalculateSafeArea();
             _webView.Frame = _screenHelper.GetMainRectTransform.rect;
         }
         private void DisableDoubleClick()

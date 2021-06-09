@@ -1,18 +1,42 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace WebSdk.Core.Runtime.Helpers
 {
     public class ScreenHelper : MonoBehaviour
     {
+        public event Action OnOrientationChanged;
+        
         private RectTransform _mainRectTransform;
-        void Awake()
+        public RectTransform GetMainRectTransform => _mainRectTransform;
+
+        private DeviceOrientation _currentOrientation;
+        private void Awake()
         {
-            SetSafeArea();
+            _currentOrientation = Input.deviceOrientation;
         }
 
-        private void SetSafeArea()
+        private void Start()
         {
             _mainRectTransform = GetComponent<RectTransform>();
+            
+            RecalculateSafeArea();
+        }
+
+        private void Update()
+        {
+            if (Input.deviceOrientation != _currentOrientation)
+            {
+                Debug.Log($"ScreenHelper orientationChanged - {Input.deviceOrientation}");
+                
+                _currentOrientation = Input.deviceOrientation;
+                RecalculateSafeArea();
+                OnOrientationChanged?.Invoke();
+            }
+        }
+
+        public void RecalculateSafeArea()
+        {
             var safeArea = Screen.safeArea;
             var anchorMin = safeArea.position;
             var anchorMax = anchorMin + safeArea.size;
@@ -24,7 +48,5 @@ namespace WebSdk.Core.Runtime.Helpers
             _mainRectTransform.anchorMin = anchorMin;
             _mainRectTransform.anchorMax = anchorMax;
         }
-
-        public RectTransform GetMainRectTransform => _mainRectTransform;
     }
 }
