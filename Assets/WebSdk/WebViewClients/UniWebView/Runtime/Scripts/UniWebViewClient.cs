@@ -23,10 +23,11 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             Debug.Log($"UniWebViewClient _screenHelper is {_screenHelper}");
         }
 
-        private void ChangeOrientation(global::UniWebView webview, ScreenOrientation orientation)
+        //private void ChangeOrientation(global::UniWebView webview, ScreenOrientation orientation)
+        private void ChangeOrientation()
         { 
             //_webView.Frame = new Rect(0, 0, Screen.width, Screen.height);
-            Debug.Log($"Uniwebview orientationChanged - {orientation}");
+            Debug.Log($"Uniwebview orientationChanged");
             
             _screenHelper.RecalculateSafeArea();
             //_webView.Frame = _screenHelper.GetMainRectTransform.rect;
@@ -104,7 +105,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             Debug.Log($"UniWebViewClient Screen.safeArea is {Screen.safeArea}");
             _webView.Frame = Screen.safeArea;
             
-            _webView.OnOrientationChanged += ChangeOrientation;
+            _screenHelper.OnOrientationChanged += ChangeOrientation;
+            //_webView.OnOrientationChanged += ChangeOrientation;
             _webView.OnShouldClose += OnShouldClose;
             
             _webView.SetToolbarDoneButtonText("");
