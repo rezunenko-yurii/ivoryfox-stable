@@ -15,7 +15,7 @@ namespace IvoryFoxPackages.Editor.Scripts
         public static IEnumerator GetPackageFromGit(Package package,Action<string> callback)
         {
             string url = $"https://raw.githubusercontent.com/rezunenko-yurii/ivoryfox-stable/master/{package.pathToPlugin}/package.json";
-            Debug.Log($"Package: Loading package from git {url}");
+            //Debug.Log($"Package: Loading package from git {url}");
             
             using (UnityWebRequest webRequest  = UnityWebRequest.Get(url))
             {
