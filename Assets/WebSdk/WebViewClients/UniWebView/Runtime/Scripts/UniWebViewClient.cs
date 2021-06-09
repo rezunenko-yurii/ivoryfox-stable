@@ -19,6 +19,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         {
             _screenHelper = GlobalFacade.MonoBehaviour.gameObject.GetComponent<ScreenHelper>();
             _webView = GlobalFacade.MonoBehaviour.gameObject.AddComponent<global::UniWebView>();
+            
+            Debug.Log($"UniWebViewClient _screenHelper is {_screenHelper}");
         }
 
         private void ChangeOrientation(global::UniWebView webview, ScreenOrientation orientation)
@@ -83,10 +85,14 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 
         public void SetSettings()
         {
+            Debug.Log($"UniWebViewClient SetSettings");
+            
             _webView.SetContentInsetAdjustmentBehavior(UniWebViewContentInsetAdjustmentBehavior.Always);
             _webView.SetBackButtonEnabled(true);
             
             //_webView.Frame = new Rect(0, 0, Screen.safeArea.width, Screen.safeArea.height);
+            Debug.Log($"UniWebViewClient _screenHelper.GetMainRectTransform is {_screenHelper.GetMainRectTransform is null}");
+            Debug.Log($"UniWebViewClient _screenHelper.GetMainRectTransform.rect is {_screenHelper.GetMainRectTransform.rect}");
             _webView.Frame = _screenHelper.GetMainRectTransform.rect;
             
             _webView.OnOrientationChanged += ChangeOrientation;
