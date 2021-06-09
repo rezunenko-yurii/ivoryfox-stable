@@ -60,19 +60,19 @@ namespace IvoryFoxPackages.Editor.Scripts
                 var installedPackage = installedPackages.FirstOrDefault(x =>
                 {
                     string s = $"{package.packageId}@{package.GetUrl}";
-                    Debug.Log($"---compare {x.packageId} & {s}");
+                    //Debug.Log($"---compare {x.packageId} & {s}");
                     
                     return x.packageId.Equals(s);
                 });
 
                 if (installedPackage != null)
                 {
-                    Debug.Log($"PackageManager found installed packag {installedPackage.name}");
+                    Debug.Log($"PackageManager found installed package {installedPackage.name}");
                     
                     yield return EditorCoroutineUtility.StartCoroutineOwnerless(PackageManager.GetPackageFromGit(package,answer =>
                     {
                         package.gitPackage = JsonUtility.FromJson<PackageModel>(answer);
-                        Debug.Log($"PackageManager git package loaded");
+                        //Debug.Log($"PackageManager git package loaded");
                     }));
                     
                     Version installedVersion = new Version(installedPackage.version);

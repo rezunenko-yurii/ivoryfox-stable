@@ -27,12 +27,12 @@ namespace IvoryFoxPackages.Editor.Scripts
 
                 if (string.IsNullOrEmpty(webRequest.error))
                 {
-                    Debug.Log($"Package: Loading Complete --{package.packageId}");
+                    //Debug.Log($"Package: Loading Complete --{package.packageId}");
                     callback?.Invoke(webRequest.downloadHandler.text);
                 }
                 else
                 {
-                    Debug.Log($"Package: Loading Error --{package.packageId} {webRequest.downloadHandler.error}");
+                    //Debug.Log($"Package: Loading Error --{package.packageId} {webRequest.downloadHandler.error}");
                     yield break;
                 }
             }
