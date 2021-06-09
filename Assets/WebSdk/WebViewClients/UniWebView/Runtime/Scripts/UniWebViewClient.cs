@@ -101,7 +101,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             //_webView.Frame = new Rect(0, 0, Screen.safeArea.width, Screen.safeArea.height);
             Debug.Log($"UniWebViewClient _screenHelper.GetMainRectTransform is {_screenHelper.GetMainRectTransform is null}");
             Debug.Log($"UniWebViewClient _screenHelper.GetMainRectTransform.rect is {_screenHelper.GetMainRectTransform.rect}");
-            _webView.Frame = _screenHelper.GetMainRectTransform.rect;
+            Debug.Log($"UniWebViewClient Screen.safeArea is {Screen.safeArea}");
+            _webView.Frame = Screen.safeArea;
             
             _webView.OnOrientationChanged += ChangeOrientation;
             _webView.OnShouldClose += OnShouldClose;
