@@ -24,7 +24,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         }
 
         //private void ChangeOrientation(global::UniWebView webview, ScreenOrientation orientation)
-        private void ChangeOrientation()
+        /*private void ChangeOrientation()
         { 
             //_webView.Frame = new Rect(0, 0, Screen.width, Screen.height);
             Debug.Log($"Uniwebview orientationChanged");
@@ -37,7 +37,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             
             //_webView.Frame = Screen.safeArea;
             _webView.ReferenceRectTransform = _screenHelper.GetMainRectTransform;
-        }
+        }*/
         private void DisableDoubleClick()
         {
             _isEscape = false;
@@ -101,12 +101,13 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             _webView.SetBackButtonEnabled(true);
             
             //_webView.Frame = new Rect(0, 0, Screen.safeArea.width, Screen.safeArea.height);
-            Debug.Log($"UniWebViewClient _screenHelper.GetMainRectTransform is {_screenHelper.GetMainRectTransform is null}");
+            /*Debug.Log($"UniWebViewClient _screenHelper.GetMainRectTransform is {_screenHelper.GetMainRectTransform is null}");
             Debug.Log($"UniWebViewClient _screenHelper.GetMainRectTransform.rect is {_screenHelper.GetMainRectTransform.rect}");
-            Debug.Log($"UniWebViewClient Screen.safeArea is {Screen.safeArea}");
-            _webView.Frame = Screen.safeArea;
+            Debug.Log($"UniWebViewClient Screen.safeArea is {Screen.safeArea}");*/
             
-            _screenHelper.OnOrientationChanged += ChangeOrientation;
+            //_webView.Frame = Screen.safeArea;
+            
+            //_screenHelper.OnOrientationChanged += ChangeOrientation;
             //_webView.OnOrientationChanged += ChangeOrientation;
             _webView.OnShouldClose += OnShouldClose;
             
@@ -118,6 +119,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 
             //Screen.orientation = ScreenOrientation.AutoRotation;
             //Screen.autorotateToPortrait = true;
+            
+            _webView.ReferenceRectTransform = _screenHelper.GetMainRectTransform;
         }
 
         private void OnPageStarted(global::UniWebView webview, string url)
