@@ -51,7 +51,7 @@ namespace WebSdk.Main.Runtime.Scripts
             factory.GameObject = gameObject;
             
             _webManager = factory.CreateWebBlock();
-            GlobalFacade.Init(factory);
+            GlobalFacade.Init(factory, this);
         }
         private void CheckAtt()
         {

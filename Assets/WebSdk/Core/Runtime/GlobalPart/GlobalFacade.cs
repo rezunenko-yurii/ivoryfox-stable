@@ -39,7 +39,7 @@ namespace WebSdk.Core.Runtime.GlobalPart
             Att = att;
         }
 
-        public static void Init(IGlobalFactory factory)
+        public static void Init(IGlobalFactory factory, MonoBehaviour monoBehaviour)
         {
             AdjustHelper = factory.CreateAdjustHelper();
             Logger = factory.CreateLogger();
@@ -48,7 +48,7 @@ namespace WebSdk.Core.Runtime.GlobalPart
             Notification = factory.CreateNotifications();
             Att = factory.CreateAppTransparencyTracker();
 
-            MonoBehaviour = factory.GameObject.gameObject.GetComponent<MonoBehaviour>();
+            MonoBehaviour = monoBehaviour;
         }
     }
 }
