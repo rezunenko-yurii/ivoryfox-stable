@@ -3,16 +3,19 @@ using UnityEngine;
 
 namespace WebSdk.Core.Runtime.Helpers
 {
+    [ExecuteInEditMode]
     public class ScreenHelper : MonoBehaviour
     {
         public event Action OnOrientationChanged;
         private RectTransform _mainRectTransform;
         public RectTransform GetMainRectTransform => _mainRectTransform;
 
-        private DeviceOrientation _currentOrientation;
+        private DeviceOrientation _currentDeviceOrientation;
+        private ScreenOrientation _currentScreenOrientation;
         private void Awake()
         {
-            _currentOrientation = Input.deviceOrientation;
+            Debug.Log($"ScreenHelper Awake");
+            _currentDeviceOrientation = Input.deviceOrientation;
         }
 
         private void Start()
@@ -24,11 +27,18 @@ namespace WebSdk.Core.Runtime.Helpers
 
         private void Update()
         {
-            if (Input.deviceOrientation != _currentOrientation)
+#if UNITY_EDITOR
+            Debug.Log($"ScreenHelper Update");
+            Debug.Log($"SafeArea {Screen.safeArea}");
+            if (Screen.orientation != _currentScreenOrientation)
+#else
+            if (Input.deviceOrientation != _currentDeviceOrientation)
+#endif
             {
                 Debug.Log($"ScreenHelper orientationChanged - {Input.deviceOrientation}");
                 
-                _currentOrientation = Input.deviceOrientation;
+                _currentDeviceOrientation = Input.deviceOrientation;
+                _currentScreenOrientation = Screen.orientation;
                 RecalculateSafeArea();
                 OnOrientationChanged?.Invoke();
             }

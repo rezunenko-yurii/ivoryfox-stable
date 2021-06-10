@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ModulesNavigation
   m_EditorClassIdentifier: 
   webviewOrientation: 5
-  nativeOrientation: 3
+  nativeOrientation: 5

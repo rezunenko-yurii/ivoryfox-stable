@@ -22,7 +22,7 @@ namespace WebSdk.Main.Runtime.Scripts
         private void Awake()
         {
             Debug.Log("GlobalBlockUnity Awake");
-            WebSdkEntry[] systems = FindObjectsOfType<WebSdkEntry>();
+            /*WebSdkEntry[] systems = FindObjectsOfType<WebSdkEntry>();
             
             if (systems.Length > 1)
             {
@@ -30,9 +30,9 @@ namespace WebSdk.Main.Runtime.Scripts
                 return;
             }
             
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(this);*/
 
-            _screenHelper = gameObject.AddComponent<ScreenHelper>();
+            _screenHelper = gameObject.GetComponent<ScreenHelper>();
             
             _navigation = new ModulesNavigation();
             _navigation.SetWebBlockSettings();
