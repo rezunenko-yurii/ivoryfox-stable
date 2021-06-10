@@ -1,0 +1,37 @@
+﻿using System;
+using UnityEngine;
+
+namespace WebSdk.Core.Runtime.Helpers
+{
+    public class SafeAreaDetection : MonoBehaviour
+    {
+        public delegate void SafeAreaChanged(Rect safeArea);
+        
+        public static event Action OnRectChange;
+        public static event SafeAreaChanged OnSafeAreaChanged;
+
+        private Rect _safeArea;
+
+        private void Awake()
+        {
+            _safeArea = Screen.safeArea;
+        }
+
+        private void Update()
+        {
+
+            if (_safeArea != Screen.safeArea)
+            {
+                _safeArea = Screen.safeArea;
+                OnSafeAreaChanged?.Invoke(_safeArea);
+            }
+        }
+        
+        void OnRectTransformDimensionsChange() 
+        {
+            //Debug.Log($"ScreenHelper OnRectTransformDimensionsChange");
+            
+            OnRectChange?.Invoke();
+        }
+    }
+}
