@@ -120,9 +120,10 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             //Screen.orientation = ScreenOrientation.AutoRotation;
             //Screen.autorotateToPortrait = true;
             
-            _webView.ReferenceRectTransform = _screenHelper.GetMainRectTransform;
+            _webView.ReferenceRectTransform = _screenHelper.GetRectTransform;
             _webView.UpdateFrame();
-            _screenHelper.OnRectChange += _webView.UpdateFrame;
+            
+            SafeAreaDetection.OnRectChange += _webView.UpdateFrame;
         }
 
         private void OnPageStarted(global::UniWebView webview, string url)
