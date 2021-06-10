@@ -1,7 +1,9 @@
 {
     "name": "WebSdk.Core.Editor",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:0757f9d8a63e79f4b86db76555f6c764"
+    ],
     "includePlatforms": [
         "Editor"
     ],
