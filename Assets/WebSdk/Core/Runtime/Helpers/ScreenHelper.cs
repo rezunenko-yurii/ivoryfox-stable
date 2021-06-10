@@ -6,6 +6,7 @@ namespace WebSdk.Core.Runtime.Helpers
     [ExecuteInEditMode]
     public class ScreenHelper : MonoBehaviour
     {
+        public event Action OnRectChange;
         public event Action OnOrientationChanged;
         private RectTransform _mainRectTransform;
         public RectTransform GetMainRectTransform => _mainRectTransform;
@@ -42,6 +43,13 @@ namespace WebSdk.Core.Runtime.Helpers
                 RecalculateSafeArea();
                 OnOrientationChanged?.Invoke();
             }
+        }
+        
+        void OnRectTransformDimensionsChange() 
+        {
+            Debug.Log($"ScreenHelper OnRectTransformDimensionsChange");
+            
+            OnRectChange?.Invoke();
         }
 
         public void RecalculateSafeArea()

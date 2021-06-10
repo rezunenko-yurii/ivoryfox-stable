@@ -38,7 +38,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             //_webView.Frame = Screen.safeArea;
             _webView.ReferenceRectTransform = _screenHelper.GetMainRectTransform;
         }*/
-        private void DisableDoubleClick()
+        /*private void DisableDoubleClick()
         {
             _isEscape = false;
             Debug.Log($"Uniwebview: reset isEscape / {_isEscape}");
@@ -74,9 +74,9 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             
             Debug.Log($"Uniwebview: go out from OnShouldClose");
             return false;
-        }
+        }*/
     
-        private void Close() 
+        /*private void Close() 
         {
             if(_webView.IsInvoking(nameof(DisableDoubleClick)))
             {
@@ -85,7 +85,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         
             _webView.CleanCache();
             _webView = null;
-        }
+        }*/
 
         public void Open(string url)
         {
@@ -98,7 +98,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             Debug.Log($"UniWebViewClient SetSettings");
             
             _webView.SetContentInsetAdjustmentBehavior(UniWebViewContentInsetAdjustmentBehavior.Always);
-            _webView.SetBackButtonEnabled(true);
+            //_webView.SetBackButtonEnabled(true);
             
             //_webView.Frame = new Rect(0, 0, Screen.safeArea.width, Screen.safeArea.height);
             /*Debug.Log($"UniWebViewClient _screenHelper.GetMainRectTransform is {_screenHelper.GetMainRectTransform is null}");
@@ -109,11 +109,11 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             
             //_screenHelper.OnOrientationChanged += ChangeOrientation;
             //_webView.OnOrientationChanged += ChangeOrientation;
-            _webView.OnShouldClose += OnShouldClose;
+            //_webView.OnShouldClose += OnShouldClose;
             
-            _webView.SetToolbarDoneButtonText("");
+            /*_webView.SetToolbarDoneButtonText("");
             _webView.SetToolbarGoBackButtonText("Назад");
-            _webView.SetToolbarGoForwardButtonText("");
+            _webView.SetToolbarGoForwardButtonText("");*/
 
             _webView.OnPageStarted += OnPageStarted;
 
@@ -121,6 +121,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             //Screen.autorotateToPortrait = true;
             
             _webView.ReferenceRectTransform = _screenHelper.GetMainRectTransform;
+            _webView.UpdateFrame();
+            _screenHelper.OnRectChange += _webView.UpdateFrame;
         }
 
         private void OnPageStarted(global::UniWebView webview, string url)
@@ -129,11 +131,11 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             
             if (url.Contains("merchant"))
             {
-                _webView.SetShowToolbar(true, true, true, true);
+                //_webView.SetShowToolbar(true, true, true, true);
             }
             else
             {
-                _webView.SetShowToolbar(false);
+                //_webView.SetShowToolbar(false);
             }
         }
 
