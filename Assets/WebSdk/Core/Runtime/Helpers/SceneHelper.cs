@@ -45,7 +45,7 @@ namespace WebSdk.Core.Runtime.Helpers
             }
             else
             {
-                Application.Quit();
+                //Application.Quit();
             }
         }
         

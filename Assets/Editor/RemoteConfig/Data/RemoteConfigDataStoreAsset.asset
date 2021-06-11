@@ -12,66 +12,89 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"36265139-08b7-4b74-a8fb-41260d1b504e\"\r\n   
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4e1137b3-476f-4578-9e4a-6ec6bf7c224e\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"urlsConfig\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": \"{}\"\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"d3446a1b-1bed-43c5-bf33-643fcde14a0c\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"0ee23be8-f9ec-484a-8181-211e00931e41\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"paramsConfig\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": \"{}\"\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"ba35dd25-543d-4217-ba87-2e83d31d1df0\"\r\n   
-    },\r\n    \"rs\": {\r\n      \"key\": \"adjustToken\",\r\n      \"type\": \"string\",\r\n     
-    \"value\": \"\"\r\n    }\r\n  }\r\n]"
-  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"36265139-08b7-4b74-a8fb-41260d1b504e\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"bc5b0c5f-2b2d-4eca-9132-7e06abfc3bef\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"adjust\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": \"{}\"\r\n    }\r\n  },\r\n  {\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"22ab6907-702c-4887-bbb3-9b648aa88077\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"canUse\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"false\"\r\n    }\r\n  }\r\n]"
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4e1137b3-476f-4578-9e4a-6ec6bf7c224e\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"urlsConfig\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": \"{}\"\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"d3446a1b-1bed-43c5-bf33-643fcde14a0c\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"0ee23be8-f9ec-484a-8181-211e00931e41\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"paramsConfig\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": \"{}\"\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"ba35dd25-543d-4217-ba87-2e83d31d1df0\"\r\n   
-    },\r\n    \"rs\": {\r\n      \"key\": \"adjustToken\",\r\n      \"type\": \"string\",\r\n     
-    \"value\": \"\"\r\n    }\r\n  }\r\n]"
+    \"metadata\": {\r\n      \"entityId\": \"bc5b0c5f-2b2d-4eca-9132-7e06abfc3bef\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"adjust\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": \"{}\"\r\n    }\r\n  },\r\n  {\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"22ab6907-702c-4887-bbb3-9b648aa88077\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"canUse\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"false\"\r\n    }\r\n  }\r\n]"
   _environments: "[\r\n  {\r\n    \"projectId\": \"ab908d3b-3861-4155-a12b-61eecf11311e\",\r\n   
     \"name\": \"De\",\r\n    \"id\": \"e1f471af-b4b7-4b55-aeb0-94cb949d2ec6\",\r\n   
-    \"createdAt\": \"2021-04-14T08:17:16Z\",\r\n    \"updatedAt\": \"2021-04-14T08:23:16Z\",\r\n   
-    \"isDefault\": true\r\n  },\r\n  {\r\n    \"projectId\": \"ab908d3b-3861-4155-a12b-61eecf11311e\",\r\n   
-    \"name\": \"IvoryFox\",\r\n    \"id\": \"a9d861cf-dd35-4d07-a0f3-0437d9d1b5e2\",\r\n   
-    \"createdAt\": \"2021-04-14T08:17:41Z\",\r\n    \"updatedAt\": \"2021-04-14T08:23:16Z\",\r\n   
-    \"isDefault\": false\r\n  }\r\n]"
-  _rulesList: "[\r\n  {\r\n    \"id\": \"b411f954-76c6-410f-bf4d-ad72a30de2f1\",\r\n   
-    \"name\": \"canShow\",\r\n    \"type\": \"segmentation\",\r\n    \"condition\":
-    \"true\",\r\n    \"rolloutPercentage\": 100,\r\n    \"startDate\": \"\",\r\n   
-    \"endDate\": \"\",\r\n    \"priority\": 1000,\r\n    \"enabled\": false,\r\n   
-    \"value\": [\r\n      {\r\n        \"metadata\": {\r\n          \"entityId\":
-    \"36265139-08b7-4b74-a8fb-41260d1b504e\"\r\n        },\r\n        \"rs\": {\r\n         
-    \"key\": \"urlsConfig\",\r\n          \"type\": \"json\",\r\n          \"value\":
-    \"{   \\\"url\\\": \\\"https://exglavetune.net/SJdW2KTj\\\",   \\\"server\\\":
-    \\\"\\\" }\"\r\n        }\r\n      },\r\n      {\r\n        \"metadata\": {\r\n         
-    \"entityId\": \"d3446a1b-1bed-43c5-bf33-643fcde14a0c\"\r\n        },\r\n       
-    \"rs\": {\r\n          \"key\": \"paramsConfig\",\r\n          \"type\": \"json\",\r\n         
-    \"value\": \"{   \\\"items\\\": [     {       \\\"id\\\": \\\"adjust\\\",      
-    \\\"alias\\\": \\\"adid\\\" }   ] }\"\r\n        }\r\n      },\r\n      {\r\n       
-    \"metadata\": {\r\n          \"entityId\": \"ba35dd25-543d-4217-ba87-2e83d31d1df0\"\r\n       
-    },\r\n        \"rs\": {\r\n          \"key\": \"adjustToken\",\r\n          \"type\":
-    \"string\",\r\n          \"value\": \"9c5w1t84e48w\"\r\n        }\r\n      }\r\n   
-    ]\r\n  }\r\n]"
-  _lastCachedRulesList: "[\r\n  {\r\n    \"projectId\": \"ab908d3b-3861-4155-a12b-61eecf11311e\",\r\n   
-    \"environmentId\": \"e1f471af-b4b7-4b55-aeb0-94cb949d2ec6\",\r\n    \"configId\":
-    \"6dfb0eea-d4f4-4e0d-88b9-082ba105790c\",\r\n    \"name\": \"canShow\",\r\n   
-    \"enabled\": true,\r\n    \"condition\": \"true\",\r\n    \"rolloutPercentage\":
+    \"createdAt\": \"2021-04-14T08:17:16Z\",\r\n    \"updatedAt\": \"2021-06-11T09:39:09Z\",\r\n   
+    \"isDefault\": false\r\n  },\r\n  {\r\n    \"projectId\": \"ab908d3b-3861-4155-a12b-61eecf11311e\",\r\n   
+    \"name\": \"dd\",\r\n    \"id\": \"f1cafb0e-5f3a-4774-bd4c-8502e4bc91f3\",\r\n   
+    \"createdAt\": \"2021-06-11T09:39:09Z\",\r\n    \"updatedAt\": \"2021-06-11T09:41:50Z\",\r\n   
+    \"isDefault\": false\r\n  },\r\n  {\r\n    \"projectId\": \"ab908d3b-3861-4155-a12b-61eecf11311e\",\r\n   
+    \"name\": \"IvoryFox\",\r\n    \"id\": \"d91da3c0-cc52-4c53-b48d-a9b666c70204\",\r\n   
+    \"createdAt\": \"2021-06-11T09:41:50Z\",\r\n    \"updatedAt\": \"2021-06-11T09:41:50Z\",\r\n   
+    \"isDefault\": true\r\n  }\r\n]"
+  _rulesList: "[\r\n  {\r\n    \"projectId\": \"ab908d3b-3861-4155-a12b-61eecf11311e\",\r\n   
+    \"environmentId\": \"d91da3c0-cc52-4c53-b48d-a9b666c70204\",\r\n    \"configId\":
+    \"f1fe2c1a-3478-436a-9844-f3c420d4ec20\",\r\n    \"name\": \"canShow\",\r\n   
+    \"enabled\": true,\r\n    \"condition\": \"unity.country != 'US'\",\r\n    \"rolloutPercentage\":
     100,\r\n    \"value\": [\r\n      {\r\n        \"metadata\": {\r\n          \"entityId\":
-    \"36265139-08b7-4b74-a8fb-41260d1b504e\"\r\n        },\r\n        \"rs\": {\r\n         
-    \"key\": \"urlsConfig\",\r\n          \"type\": \"json\",\r\n          \"value\":
-    \"{   \\\"url\\\": \\\"https://exglavetune.net/SJdW2KTj\\\",   \\\"server\\\":
-    \\\"\\\" }\"\r\n        }\r\n      },\r\n      {\r\n        \"metadata\": {\r\n         
-    \"entityId\": \"d3446a1b-1bed-43c5-bf33-643fcde14a0c\"\r\n        },\r\n       
-    \"rs\": {\r\n          \"key\": \"paramsConfig\",\r\n          \"type\": \"json\",\r\n         
-    \"value\": \"{   \\\"items\\\": [     {       \\\"id\\\": \\\"adjust\\\",      
-    \\\"alias\\\": \\\"adid\\\" }   ] }\"\r\n        }\r\n      },\r\n      {\r\n       
-    \"metadata\": {\r\n          \"entityId\": \"ba35dd25-543d-4217-ba87-2e83d31d1df0\"\r\n       
-    },\r\n        \"rs\": {\r\n          \"key\": \"adjustToken\",\r\n          \"type\":
-    \"string\",\r\n          \"value\": \"9c5w1t84e48w\"\r\n        }\r\n      }\r\n   
-    ],\r\n    \"id\": \"b411f954-76c6-410f-bf4d-ad72a30de2f1\",\r\n    \"priority\":
-    1000,\r\n    \"type\": \"segmentation\",\r\n    \"startDate\": null,\r\n    \"endDate\":
-    null,\r\n    \"metadata\": null,\r\n    \"audience\": null,\r\n    \"kpi\": null,\r\n   
-    \"createdAt\": \"2021-04-14T08:17:18Z\",\r\n    \"updatedAt\": \"2021-04-14T08:17:18Z\"\r\n 
-    }\r\n]"
+    \"4e1137b3-476f-4578-9e4a-6ec6bf7c224e\"\r\n        },\r\n        \"rs\": {\r\n         
+    \"key\": \"urlsConfig\",\r\n          \"type\": \"json\",\r\n          \"schemaId\":
+    null,\r\n          \"value\": \"{   \\\"url\\\": \\\"https://exglavetune.net/SJdW2KTj\\\",  
+    \\\"server\\\": \\\"\\\" }\"\r\n        }\r\n      },\r\n      {\r\n        \"metadata\":
+    {\r\n          \"entityId\": \"0ee23be8-f9ec-484a-8181-211e00931e41\"\r\n       
+    },\r\n        \"rs\": {\r\n          \"key\": \"paramsConfig\",\r\n         
+    \"type\": \"json\",\r\n          \"schemaId\": null,\r\n          \"value\":
+    \"{   \\\"items\\\": [     {       \\\"id\\\": \\\"adjust\\\",       \\\"alias\\\":
+    \\\"adid\\\" }   ] }\"\r\n        }\r\n      },\r\n      {\r\n        \"metadata\":
+    {\r\n          \"entityId\": \"bc5b0c5f-2b2d-4eca-9132-7e06abfc3bef\"\r\n       
+    },\r\n        \"rs\": {\r\n          \"key\": \"adjust\",\r\n          \"type\":
+    \"json\",\r\n          \"schemaId\": null,\r\n          \"value\": \"{ \\\"token\\\":
+    \\\" 9c5w1t84e48w\\\" }\"\r\n        }\r\n      },\r\n      {\r\n        \"metadata\":
+    {\r\n          \"entityId\": \"22ab6907-702c-4887-bbb3-9b648aa88077\"\r\n       
+    },\r\n        \"rs\": {\r\n          \"key\": \"canUse\",\r\n          \"type\":
+    \"string\",\r\n          \"schemaId\": null,\r\n          \"value\": \"true\"\r\n       
+    }\r\n      }\r\n    ],\r\n    \"id\": \"a98180b5-8330-43e8-a183-66073ba09652\",\r\n   
+    \"priority\": 1000,\r\n    \"type\": \"segmentation\",\r\n    \"version\": \"93999ba3-ebaa-40e3-969f-a176a580efe9\",\r\n   
+    \"startDate\": null,\r\n    \"endDate\": null,\r\n    \"metadata\": null,\r\n   
+    \"audience\": null,\r\n    \"kpi\": null,\r\n    \"createdAt\": \"2021-06-11T09:41:52Z\",\r\n   
+    \"updatedAt\": \"2021-06-11T09:41:52Z\"\r\n  }\r\n]"
+  _lastCachedRulesList: "[\r\n  {\r\n    \"projectId\": \"ab908d3b-3861-4155-a12b-61eecf11311e\",\r\n   
+    \"environmentId\": \"d91da3c0-cc52-4c53-b48d-a9b666c70204\",\r\n    \"configId\":
+    \"f1fe2c1a-3478-436a-9844-f3c420d4ec20\",\r\n    \"name\": \"canShow\",\r\n   
+    \"enabled\": true,\r\n    \"condition\": \"unity.country != 'US'\",\r\n    \"rolloutPercentage\":
+    100,\r\n    \"value\": [\r\n      {\r\n        \"metadata\": {\r\n          \"entityId\":
+    \"4e1137b3-476f-4578-9e4a-6ec6bf7c224e\"\r\n        },\r\n        \"rs\": {\r\n         
+    \"key\": \"urlsConfig\",\r\n          \"type\": \"json\",\r\n          \"schemaId\":
+    null,\r\n          \"value\": \"{   \\\"url\\\": \\\"https://exglavetune.net/SJdW2KTj\\\",  
+    \\\"server\\\": \\\"\\\" }\"\r\n        }\r\n      },\r\n      {\r\n        \"metadata\":
+    {\r\n          \"entityId\": \"0ee23be8-f9ec-484a-8181-211e00931e41\"\r\n       
+    },\r\n        \"rs\": {\r\n          \"key\": \"paramsConfig\",\r\n         
+    \"type\": \"json\",\r\n          \"schemaId\": null,\r\n          \"value\":
+    \"{   \\\"items\\\": [     {       \\\"id\\\": \\\"adjust\\\",       \\\"alias\\\":
+    \\\"adid\\\" }   ] }\"\r\n        }\r\n      },\r\n      {\r\n        \"metadata\":
+    {\r\n          \"entityId\": \"bc5b0c5f-2b2d-4eca-9132-7e06abfc3bef\"\r\n       
+    },\r\n        \"rs\": {\r\n          \"key\": \"adjust\",\r\n          \"type\":
+    \"json\",\r\n          \"schemaId\": null,\r\n          \"value\": \"{ \\\"token\\\":
+    \\\" 9c5w1t84e48w\\\" }\"\r\n        }\r\n      },\r\n      {\r\n        \"metadata\":
+    {\r\n          \"entityId\": \"22ab6907-702c-4887-bbb3-9b648aa88077\"\r\n       
+    },\r\n        \"rs\": {\r\n          \"key\": \"canUse\",\r\n          \"type\":
+    \"string\",\r\n          \"schemaId\": null,\r\n          \"value\": \"true\"\r\n       
+    }\r\n      }\r\n    ],\r\n    \"id\": \"a98180b5-8330-43e8-a183-66073ba09652\",\r\n   
+    \"priority\": 1000,\r\n    \"type\": \"segmentation\",\r\n    \"version\": \"93999ba3-ebaa-40e3-969f-a176a580efe9\",\r\n   
+    \"startDate\": null,\r\n    \"endDate\": null,\r\n    \"metadata\": null,\r\n   
+    \"audience\": null,\r\n    \"kpi\": null,\r\n    \"createdAt\": \"2021-06-11T09:41:52Z\",\r\n   
+    \"updatedAt\": \"2021-06-11T09:41:52Z\"\r\n  }\r\n]"

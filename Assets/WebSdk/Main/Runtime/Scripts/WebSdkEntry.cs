@@ -13,12 +13,13 @@ namespace WebSdk.Main.Runtime.Scripts
     public class WebSdkEntry : MonoBehaviour, IGlobalBlock
     {
         public TextMeshProUGUI textfield;
-        
+
         private IWebManager _webManager;
         private Stopwatch _stopwatch;
         private ModulesNavigation _navigation;
-        private ScreenHelper _screenHelper;
-        
+
+        [SerializeField] private GameObject web;
+
         private void Awake()
         {
             Debug.Log("GlobalBlockUnity Awake");
@@ -32,8 +33,8 @@ namespace WebSdk.Main.Runtime.Scripts
             
             DontDestroyOnLoad(this);*/
 
-            _screenHelper = gameObject.GetComponent<ScreenHelper>();
-            
+            _webManager = web.GetComponent<IWebManager>();
+
             _navigation = new ModulesNavigation();
             _navigation.SetWebBlockSettings();
             
@@ -50,7 +51,7 @@ namespace WebSdk.Main.Runtime.Scripts
             var factory = Resources.Load<ScriptableObject>("WebSdkComponentsFactory") as IGlobalFactory;
             factory.GameObject = gameObject;
             
-            _webManager = factory.CreateWebBlock();
+            //_webManager = factory.CreateWebBlock();
             GlobalFacade.Init(factory, this);
         }
         private void CheckAtt()

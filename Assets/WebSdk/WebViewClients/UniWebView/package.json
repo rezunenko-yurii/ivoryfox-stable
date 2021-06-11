@@ -1,8 +1,8 @@
 {
   "name": "com.ivoryfox.uniwebview-client",
-  "version": "1.1.11",
+  "version": "1.2.0",
   "displayName": "IvoryFox UniWebView Client",
-  "description": "last edited 10/06/2021",
+  "description": "last edited 11/06/2021",
   "unity": "2019.4",
   "author": {
     "name": "exhale",

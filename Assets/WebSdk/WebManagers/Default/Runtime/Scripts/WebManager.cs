@@ -9,11 +9,13 @@ using Debug = UnityEngine.Debug;
 
 namespace WebSdk.WebManagers.Default.Runtime.Scripts
 {
-    public class WebManager: IWebManager
+    public class WebManager : MonoBehaviour, IWebManager
     {
         public IUrlLoader UrlLoader { get; private set; }
         public IParamsManager ParamsManager { get; private set; }
-        public IWebViewClient WebViewClient { get; private set; }
+
+        private IWebViewClient _webViewClient;
+        
         private IWebMediator _mediator;
         private Stopwatch _stopwatch;
 
@@ -33,16 +35,18 @@ namespace WebSdk.WebManagers.Default.Runtime.Scripts
             _mediator = factory.CreateMediator();
             UrlLoader = factory.CreateUrlLoader();
             ParamsManager = factory.CreateParamsManager();
-            WebViewClient = factory.CreateWebViewClient();
 
-            _mediator.Init(UrlLoader, ParamsManager, WebViewClient);
+            _webViewClient = GetComponent<IWebViewClient>();
+            //WebViewClient = factory.CreateWebViewClient();
+
+            _mediator.Init(UrlLoader, ParamsManager, _webViewClient);
         }
 
         public void LoadConfigs()
         {
             Debug.Log("Load Web Configs");
             
-            List<string> ids = ConfigLoaderHelper.GetConsumableIds(UrlLoader, ParamsManager, WebViewClient);
+            List<string> ids = ConfigLoaderHelper.GetConsumableIds(UrlLoader, ParamsManager, _webViewClient);
 
             if (ids.Count > 0)
             {

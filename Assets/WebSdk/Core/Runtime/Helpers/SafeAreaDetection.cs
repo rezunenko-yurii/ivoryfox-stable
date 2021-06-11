@@ -19,7 +19,6 @@ namespace WebSdk.Core.Runtime.Helpers
 
         private void Update()
         {
-
             if (_safeArea != Screen.safeArea)
             {
                 _safeArea = Screen.safeArea;

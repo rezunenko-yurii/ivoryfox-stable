@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections;
+
+#if UNITY_IOS
 using Unity.Advertisement.IosSupport;
-using UnityEngine;
 using UnityEngine.iOS;
+#endif
+
+using UnityEngine;
+
 using WebSdk.Core.Runtime.AppTransparencyTrackers;
 using Debug = UnityEngine.Debug;
 
@@ -59,6 +64,7 @@ namespace WebSdk.AppTransparencyTrackers.Unity.Runtime.Scripts
 #endif
         private void GetAttStatus()
         {
+#if UNITY_IOS && !UNITY_EDITOR
             var s = ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
 
             if(s != ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED)
@@ -78,7 +84,7 @@ namespace WebSdk.AppTransparencyTrackers.Unity.Runtime.Scripts
 
             _isReady = true;
             Debug.Log($"----- AppTransparencyTracker complete // status = {Status}");
-
+#endif
             SendOnGetRequest();
         }
 

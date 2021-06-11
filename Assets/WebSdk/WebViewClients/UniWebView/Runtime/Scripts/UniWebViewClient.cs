@@ -1,94 +1,35 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using WebSdk.Core.Runtime.GlobalPart;
 using WebSdk.Core.Runtime.Helpers;
 using WebSdk.Core.Runtime.WebCore;
 
 namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 {
-    public class UniWebViewClient : IWebViewClient
+    public class UniWebViewClient : MonoBehaviour, IWebViewClient
     {
         private global::UniWebView _webView;
-        private bool _isEscape;
         
-        private const string ClickAgainToExit = "click again to exit";
-        private const int TimeBetweenDoubleClick = 2;
+        [SerializeField] RectTransform navigationBar;
+        [SerializeField] RectTransform webviewContainer;
+        [SerializeField] Button backButton;
 
-        private ScreenHelper _screenHelper;
-    
-        public UniWebViewClient()
+        private string _startUrl;
+
+        private void Awake()
         {
-            _screenHelper = GlobalFacade.MonoBehaviour.gameObject.GetComponent<ScreenHelper>();
-            _webView = GlobalFacade.MonoBehaviour.gameObject.AddComponent<global::UniWebView>();
+            Debug.Log($"UniWebViewClient Awake");
             
-            Debug.Log($"UniWebViewClient _screenHelper is {_screenHelper}");
+            _webView = GetComponent<global::UniWebView>();
         }
 
-        //private void ChangeOrientation(global::UniWebView webview, ScreenOrientation orientation)
-        /*private void ChangeOrientation()
-        { 
-            //_webView.Frame = new Rect(0, 0, Screen.width, Screen.height);
-            Debug.Log($"Uniwebview orientationChanged");
-            
-            _screenHelper.RecalculateSafeArea();
-            //_webView.Frame = _screenHelper.GetMainRectTransform.rect;
-            
-            Debug.Log($"custom safeArea {_webView.Frame.center} {_webView.Frame.x} {_webView.Frame.y} {_webView.Frame.height} {_webView.Frame.width}");
-            Debug.Log($"unity safeArea {Screen.safeArea.center} {Screen.safeArea.x} {Screen.safeArea.y} {Screen.safeArea.height} {Screen.safeArea.width}");
-            
-            //_webView.Frame = Screen.safeArea;
-            _webView.ReferenceRectTransform = _screenHelper.GetMainRectTransform;
-        }*/
-        /*private void DisableDoubleClick()
-        {
-            _isEscape = false;
-            Debug.Log($"Uniwebview: reset isEscape / {_isEscape}");
-        }
-    
-        private bool OnShouldClose(global::UniWebView webview)
-        {
-#if !UNITY_IOS
-            Debug.Log($"Uniwebview: OnShouldClose / {_isEscape}");
-            if (_isEscape)
-            {            
-                Debug.Log($"Uniwebview: Close Application");
-                Close();
-                Application.Quit();
-                return true;
-            }
-            else
-            {
-                Debug.Log($"Uniwebview: Next click will close app");
-                _isEscape = true;
-            
-                if (!webview.IsInvoking(nameof(DisableDoubleClick)))
-                {
-                    Debug.Log($"Uniwebview: Invoke DisableDoubleClick");
-                    webview.Invoke(nameof(DisableDoubleClick), TimeBetweenDoubleClick);
-                }
-                else
-                {
-                    Debug.Log($"Uniwebview: can`t Invoke DisableDoubleClick");
-                }
-            }
-#endif
-            
-            Debug.Log($"Uniwebview: go out from OnShouldClose");
-            return false;
-        }*/
-    
-        /*private void Close() 
-        {
-            if(_webView.IsInvoking(nameof(DisableDoubleClick)))
-            {
-                _webView.CancelInvoke(nameof(DisableDoubleClick));
-            }
-        
-            _webView.CleanCache();
-            _webView = null;
-        }*/
+        private void OnBackButtonClick() =>  _webView.Load(_startUrl);
 
         public void Open(string url)
         {
+            _startUrl = url;
+            backButton.onClick.AddListener(OnBackButtonClick);
+            
             _webView.Load(url);
             _webView.Show();
         }
@@ -97,46 +38,28 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         {
             Debug.Log($"UniWebViewClient SetSettings");
             
-            _webView.SetContentInsetAdjustmentBehavior(UniWebViewContentInsetAdjustmentBehavior.Always);
-            //_webView.SetBackButtonEnabled(true);
+            _webView.OnPageFinished += PageFinished;
+            _webView.OnPageStarted += PageStart;
             
-            //_webView.Frame = new Rect(0, 0, Screen.safeArea.width, Screen.safeArea.height);
-            /*Debug.Log($"UniWebViewClient _screenHelper.GetMainRectTransform is {_screenHelper.GetMainRectTransform is null}");
-            Debug.Log($"UniWebViewClient _screenHelper.GetMainRectTransform.rect is {_screenHelper.GetMainRectTransform.rect}");
-            Debug.Log($"UniWebViewClient Screen.safeArea is {Screen.safeArea}");*/
+            SetNewSize();
             
-            //_webView.Frame = Screen.safeArea;
-            
-            //_screenHelper.OnOrientationChanged += ChangeOrientation;
-            //_webView.OnOrientationChanged += ChangeOrientation;
-            //_webView.OnShouldClose += OnShouldClose;
-            
-            /*_webView.SetToolbarDoneButtonText("");
-            _webView.SetToolbarGoBackButtonText("Назад");
-            _webView.SetToolbarGoForwardButtonText("");*/
-
-            _webView.OnPageStarted += OnPageStarted;
-
-            //Screen.orientation = ScreenOrientation.AutoRotation;
-            //Screen.autorotateToPortrait = true;
-            
-            _webView.ReferenceRectTransform = _screenHelper.GetRectTransform;
-            _webView.UpdateFrame();
-            
-            SafeAreaDetection.OnRectChange += _webView.UpdateFrame;
+            ScreenHelper.OnSafeRecalculated += () =>
+            {
+                Debug.Log($"UniWebViewClient OnOrientationChanged");
+                SetNewSize();
+            };
         }
 
-        private void OnPageStarted(global::UniWebView webview, string url)
+        private void SetNewSize()
         {
-            Debug.Log($"WebView {url}");
-            
-            if (url.Contains("merchant"))
+            if (navigationBar.gameObject.activeInHierarchy)
             {
-                //_webView.SetShowToolbar(true, true, true, true);
+                Vector2 size = webviewContainer.sizeDelta;
+                _webView.Frame = new Rect(0, navigationBar.sizeDelta.y, size.x, size.y);
             }
             else
             {
-                //_webView.SetShowToolbar(false);
+                _webView.Frame = new Rect(0, 0, Screen.safeArea.width, Screen.safeArea.height);
             }
         }
 
@@ -144,6 +67,51 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         public void SetMediator(IMediator mediator)
         {
             this.mediator = mediator;
+        }
+        
+        private void PageFinished(global::UniWebView webview, int errorCode, string message)
+        {
+            Debug.Log($"PageFinished: {_webView.Url}");
+            
+            if (string.IsNullOrEmpty(merchant) && !_webView.Url.Equals(_startUrl))
+            {
+                if (nextMerch)
+                {
+                    string[] tempArray = _webView.Url.Split("/"[0]);
+                    merchant = tempArray[2];
+                    Debug.Log($"merchant value: {merchant}");
+                    merchLook = true;
+                    _webView.SetUserInteractionEnabled(true);
+                }
+                nextMerch = true;
+            }
+        }
+        
+        string merchant = "";
+        bool nextMerch = false;
+        bool merchLook = false;
+        bool checkToolbar = false;
+
+        private void PageStart(global::UniWebView webview, string currentUrl)
+        {
+            //urlPage += "pay.";
+            Debug.Log($"OnPageStarted: {currentUrl} {_webView.Frame}");
+
+            if (merchLook)
+            {
+                if (((!currentUrl.Contains("way") && !currentUrl.Contains("pay.") && !currentUrl.Contains(merchant)) || currentUrl.Contains("social"))) //&& !checkToolbar)
+                {
+                    navigationBar.gameObject.SetActive(true);
+                    //checkToolbar = true;
+                    SetNewSize();
+                }
+                else if(navigationBar.gameObject.activeInHierarchy)
+                {
+                    navigationBar.gameObject.SetActive(false);
+                    //checkToolbar = false;
+                    SetNewSize();
+                }
+            }
         }
     }
 }

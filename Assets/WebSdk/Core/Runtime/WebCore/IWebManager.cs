@@ -4,9 +4,9 @@ namespace WebSdk.Core.Runtime.WebCore
 {
     public interface IWebManager
     {
-        IUrlLoader UrlLoader { get; }
+        /*IUrlLoader UrlLoader { get; }
         IParamsManager ParamsManager { get; }
-        IWebViewClient WebViewClient { get; }
+        IWebViewClient WebViewClient { get; }*/
         
         void Init();
         void InitModules(IWebFactory factory);

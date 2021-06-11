@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json.Serialization;
 using UnityEngine;
 
 namespace WebSdk.Core.Runtime.Helpers
@@ -6,28 +7,21 @@ namespace WebSdk.Core.Runtime.Helpers
     [ExecuteInEditMode]
     public class ScreenHelper : MonoBehaviour
     {
-        
-
+        public static event Action OnSafeRecalculated;
         private RectTransform _rectTransform;
-        public RectTransform GetRectTransform => _rectTransform;
-
-        //private DeviceOrientation _currentDeviceOrientation;
-        //private ScreenOrientation _currentScreenOrientation;
+        public Canvas _canvas;
+        private bool isRecalculated = false;
+        //public RectTransform GetRectTransform => _rectTransform;
+        
         private void Awake()
         {
             Debug.Log($"ScreenHelper Awake");
             
             _rectTransform = GetComponent<RectTransform>();
+            //_canvas = GetComponent<Canvas>();
             RefreshPanel(Screen.safeArea);
         }
-
-        private void Start()
-        {
-            _rectTransform = GetComponent<RectTransform>();
-            
-            RecalculateSafeArea();
-        }
-
+        
         /*private void Update()
         {
             if (Screen.orientation != _currentScreenOrientation)
@@ -63,7 +57,8 @@ namespace WebSdk.Core.Runtime.Helpers
         private void RefreshPanel(Rect safeArea)
         {
             Debug.Log($"Safe area {Screen.safeArea}");
-            Debug.Log($"Screen {Screen.height} {Screen.width}");
+            Debug.Log($"Screen {Screen.width} {Screen.height}");
+            Debug.Log($"Canvas {_canvas.scaleFactor}");
         
         
             Vector2 anchorMin = safeArea.position;
@@ -80,22 +75,57 @@ namespace WebSdk.Core.Runtime.Helpers
 
             _rectTransform.anchorMin = anchorMin;
             _rectTransform.anchorMax = anchorMax;
+            
+            isRecalculated = true;
+            
         }
 
+        private int i = 0;
+        private void Update()
+        {
+            if (isRecalculated)
+            {
+                i = i + 1;
+
+                if (i ==2 ) 
+                {
+                    Debug.Log($"--------------- ScreenHelper OnSafeRecalculated");
+                    isRecalculated = false;
+                    i=0;
+                    
+                    OnSafeRecalculated?.Invoke();
+                    
+                    
+                }
+            }
+        }
+
+
+        [ContextMenu("resize")]
         public void RecalculateSafeArea()
         {
-            /*var safeArea = Screen.safeArea;
-            var anchorMin = safeArea.position;
-            var anchorMax = anchorMin + safeArea.size;
+            Debug.Log($"Safe area {Screen.safeArea}");
+            Debug.Log($"Screen {Screen.width} {Screen.height}");
+            Debug.Log($"currentResolution {Screen.currentResolution}");
+            Debug.Log($"Canvas {_canvas.scaleFactor}");
+        
+        
+            Vector2 anchorMin = Screen.safeArea.position;
+            Vector2 anchorMax = Screen.safeArea.position + Screen.safeArea.size;
+        
+            Debug.Log($"Anchors {anchorMin} {anchorMax}");
+
             anchorMin.x /= Screen.width;
             anchorMin.y /= Screen.height;
             anchorMax.x /= Screen.width;
             anchorMax.y /= Screen.height;
         
-            _mainRectTransform.anchorMin = anchorMin;
-            _mainRectTransform.anchorMax = anchorMax;
+            Debug.Log($"After Anchors {anchorMin} {anchorMax}");
+
+            _rectTransform.anchorMin = anchorMin;
+            _rectTransform.anchorMax = anchorMax;
             
-            Debug.Log($"ScreenHelper RecalculateSafeArea // new rect {_mainRectTransform.rect.center} {_mainRectTransform.rect.x} {_mainRectTransform.rect.y} {_mainRectTransform.rect.height} {_mainRectTransform.rect.width}");*/
+            Debug.Log($"--------------- ScreenHelper OnSafeRecalculated");
         }
     }
 }
