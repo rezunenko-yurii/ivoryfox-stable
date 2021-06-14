@@ -36,7 +36,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         [ContextMenu("Show Back Button")]
         void ShowBackButton(bool show)
         {
-            h = show ? 0.95f : 1f;
+            if (show) h = Screen.width > Screen.height ? 0.9f : 0.95f;
+            else h = 1f;
             
             float toolbarOffset = Screen.safeArea.height * (1f - h);
             Debug.Log($"Univwebview ShowBackButton {toolbarOffset}");
