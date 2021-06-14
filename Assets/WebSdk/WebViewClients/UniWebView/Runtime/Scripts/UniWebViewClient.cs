@@ -10,36 +10,49 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 {
     public class UniWebViewClient : MonoBehaviour, IWebViewClient
     {
-        [SerializeField] private global::UniWebView _webView;
+        private global::UniWebView _webView;
         [SerializeField] RectTransform navigationBar;
         [SerializeField] RectTransform webviewContainer;
         [SerializeField] Button backButton;
 
         private string _startUrl;
         private SafeAreaAdjuster _safeAreaAdjuster;
-
+        float h = 1f;
         private void Awake()
         {
             Debug.Log($"UniWebViewClient Awake");
             //Debug.Log($"UniWebViewClient SetSettings");
-            _webView.ReferenceRectTransform = webviewContainer;
+            _webView = gameObject.AddComponent<global::UniWebView>();
+            UniWebViewLogger.Instance.LogLevel = UniWebViewLogger.Level.Verbose;
+            
+            //_webView.ReferenceRectTransform = webviewContainer;
             
             _webView.OnPageFinished += PageFinished;
             _webView.OnPageStarted += PageStart;
             
+            
             _webView.OnOrientationChanged += (view, orientation) =>
             {
                 Debug.Log("UniwebView orientatin changed");
-                Resize();
+                _webView.Frame = h == 1f ? Screen.safeArea : new Rect(Screen.safeArea.x, Screen.safeArea.y + Screen.safeArea.height * (1f - h), Screen.safeArea.width, Screen.safeArea.height * h);
+                //setbtn();
             };
             
             //_webView = GetComponent<global::UniWebView>();
+        }
+        
+        void ShowBackButton(bool show)
+        {
+            h = show ? 0.95f : 1f;
+
+            _webView.Frame = new Rect(Screen.safeArea.x, Screen.safeArea.y+ Screen.safeArea.height*(1f-h), Screen.safeArea.width, Screen.safeArea.height * h);
         }
 
         private void Start()
         {
             //_safeAreaNew = FindObjectOfType<SafeAreaNew>();
             _safeAreaAdjuster = FindObjectOfType<SafeAreaAdjuster>();
+            Debug.Log($"UniWebViewClient {_safeAreaAdjuster}");
         }
 
         private void OnBackButtonClick() =>  _webView.Load(_startUrl);
@@ -75,6 +88,11 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
                 Debug.Log($"UniWebViewClient OnOrientationChanged");
                 SetNewSize();
             };*/
+        }
+        
+        void OnRectTransformDimensionsChange() {
+            // Update web view's frame to match the reference rect transform.
+            _webView.UpdateFrame();
         }
 
         /*private void OnRectTransformDimensionsChange()
@@ -136,29 +154,21 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 
         private void PageStart(global::UniWebView webview, string currentUrl)
         {
-            //urlPage += "pay.";
-            //Debug.Log($"OnPageStarted: {currentUrl} {_webView.Frame}");
-
+            
             if (merchLook)
             {
                 if (((!currentUrl.Contains("way") && !currentUrl.Contains("pay.") && !currentUrl.Contains(merchant)) || currentUrl.Contains("social"))) //&& !checkToolbar)
                 {
                     navigationBar.gameObject.SetActive(true);
-                    webviewContainer.offsetMax = new Vector2(0, -100);//75
-                    _webView.UpdateFrame();
-                    //checkToolbar = true;
-                    //SetNewSize();
-                    /*Debug.Log("Uniwebview show nav bar");
-                    Resize();*/
+                    //webviewContainer.offsetMax = new Vector2(0, -100);//75
+
+                    ShowBackButton(true);
                 }
                 else if(navigationBar.gameObject.activeInHierarchy)
                 {
                     navigationBar.gameObject.SetActive(false);
-                    webviewContainer.offsetMax = new Vector2(0, 0);//75
-                    _webView.UpdateFrame();
-                    //checkToolbar = false;
-                    /*Debug.Log("Uniwebview hide nav bar");
-                    Resize();*/
+                    ShowBackButton(false);
+                    //webviewContainer.offsetMax = new Vector2(0, 0);//75
                 }
             }
         }
