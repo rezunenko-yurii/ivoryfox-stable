@@ -39,14 +39,21 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             
             _webView.OnPageFinished += PageFinished;
             _webView.OnPageStarted += PageStart;
+
+            _webView.ReferenceRectTransform = webviewContainer;
             
-            SetNewSize();
+            _webView.OnOrientationChanged += (view, orientation) =>
+            {
+                _webView.UpdateFrame();
+            };
+            
+            /*SetNewSize();
             
             SafeAreaNew.OnSafeRecalculated += () =>
             {
                 Debug.Log($"UniWebViewClient OnOrientationChanged");
                 SetNewSize();
-            };
+            };*/
         }
 
         private void SetNewSize()
@@ -102,13 +109,16 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
                 {
                     navigationBar.gameObject.SetActive(true);
                     //checkToolbar = true;
-                    SetNewSize();
+                    //SetNewSize();
+                    
+                    _webView.UpdateFrame();
                 }
                 else if(navigationBar.gameObject.activeInHierarchy)
                 {
                     navigationBar.gameObject.SetActive(false);
                     //checkToolbar = false;
-                    SetNewSize();
+                    
+                    _webView.UpdateFrame();
                 }
             }
         }
