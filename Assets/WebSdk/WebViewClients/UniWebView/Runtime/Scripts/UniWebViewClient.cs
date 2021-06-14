@@ -1,4 +1,5 @@
 ﻿using System;
+using SafeArea;
 using UnityEngine;
 using UnityEngine.UI;
 using WebSdk.Core.Runtime.GlobalPart;
@@ -15,18 +16,30 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         [SerializeField] Button backButton;
 
         private string _startUrl;
-        private SafeAreaNew _safeAreaNew;
+        private SafeAreaAdjuster _safeAreaAdjuster;
 
         private void Awake()
         {
             Debug.Log($"UniWebViewClient Awake");
+            //Debug.Log($"UniWebViewClient SetSettings");
+            _webView.ReferenceRectTransform = webviewContainer;
+            
+            _webView.OnPageFinished += PageFinished;
+            _webView.OnPageStarted += PageStart;
+            
+            _webView.OnOrientationChanged += (view, orientation) =>
+            {
+                Debug.Log("UniwebView orientatin changed");
+                Resize();
+            };
             
             //_webView = GetComponent<global::UniWebView>();
         }
 
         private void Start()
         {
-            _safeAreaNew = FindObjectOfType<SafeAreaNew>();
+            //_safeAreaNew = FindObjectOfType<SafeAreaNew>();
+            _safeAreaAdjuster = FindObjectOfType<SafeAreaAdjuster>();
         }
 
         private void OnBackButtonClick() =>  _webView.Load(_startUrl);
@@ -42,12 +55,12 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 
         public void SetSettings()
         {
-            Debug.Log($"UniWebViewClient SetSettings");
+            /*Debug.Log($"UniWebViewClient SetSettings");
             
             _webView.OnPageFinished += PageFinished;
             _webView.OnPageStarted += PageStart;
 
-            _webView.ReferenceRectTransform = webviewContainer;
+            _webView.ReferenceRectTransform = webviewContainer;*/
             
             /*_webView.OnOrientationChanged += (view, orientation) =>
             {
@@ -64,17 +77,19 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             };*/
         }
 
-        private void OnRectTransformDimensionsChange()
+        /*private void OnRectTransformDimensionsChange()
         {
             Debug.Log("UniwebView OnRectTransformDimensionsChange");
             Resize();
-        }
+        }*/
 
         private void Resize()
         {
-            Debug.Log("UniwebView Resize");
+            //Debug.Log("UniwebView Resize");
             //_safeAreaNew.ApplySafeArea();
+            _safeAreaAdjuster.Apply();
             _webView.UpdateFrame();
+            Debug.Log($"Uniwebview frame updated {_webView.Frame}");
         }
 
         /*private void SetNewSize()
