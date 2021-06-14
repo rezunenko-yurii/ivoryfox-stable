@@ -49,11 +49,11 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 
             _webView.ReferenceRectTransform = webviewContainer;
             
-            _webView.OnOrientationChanged += (view, orientation) =>
+            /*_webView.OnOrientationChanged += (view, orientation) =>
             {
                 Debug.Log("UniwebView orientatin changed");
                 Resize();
-            };
+            };*/
             
             /*SetNewSize();
             
@@ -64,14 +64,20 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             };*/
         }
 
+        private void OnRectTransformDimensionsChange()
+        {
+            Debug.Log("UniwebView OnRectTransformDimensionsChange");
+            Resize();
+        }
+
         private void Resize()
         {
             Debug.Log("UniwebView Resize");
-            _safeAreaNew.ApplySafeArea();
+            //_safeAreaNew.ApplySafeArea();
             _webView.UpdateFrame();
         }
 
-        private void SetNewSize()
+        /*private void SetNewSize()
         {
             if (navigationBar.gameObject.activeInHierarchy)
             {
@@ -82,7 +88,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             {
                 _webView.Frame = new Rect(0, 0, Screen.safeArea.width, Screen.safeArea.height);
             }
-        }
+        }*/
 
         public IMediator mediator { get; private set; }
         public void SetMediator(IMediator mediator)
@@ -125,15 +131,15 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
                     navigationBar.gameObject.SetActive(true);
                     //checkToolbar = true;
                     //SetNewSize();
-                    Debug.Log("Uniwebview show nav bar");
-                    Resize();
+                    /*Debug.Log("Uniwebview show nav bar");
+                    Resize();*/
                 }
                 else if(navigationBar.gameObject.activeInHierarchy)
                 {
                     navigationBar.gameObject.SetActive(false);
                     //checkToolbar = false;
-                    Debug.Log("Uniwebview hide nav bar");
-                    Resize();
+                    /*Debug.Log("Uniwebview hide nav bar");
+                    Resize();*/
                 }
             }
         }
