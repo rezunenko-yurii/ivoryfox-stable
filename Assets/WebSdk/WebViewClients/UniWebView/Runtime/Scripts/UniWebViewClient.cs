@@ -144,6 +144,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
                 if (((!currentUrl.Contains("way") && !currentUrl.Contains("pay.") && !currentUrl.Contains(merchant)) || currentUrl.Contains("social"))) //&& !checkToolbar)
                 {
                     navigationBar.gameObject.SetActive(true);
+                    webviewContainer.offsetMax = new Vector2(0, -100);//75
+                    _webView.UpdateFrame();
                     //checkToolbar = true;
                     //SetNewSize();
                     /*Debug.Log("Uniwebview show nav bar");
@@ -152,6 +154,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
                 else if(navigationBar.gameObject.activeInHierarchy)
                 {
                     navigationBar.gameObject.SetActive(false);
+                    webviewContainer.offsetMax = new Vector2(0, 0);//75
+                    _webView.UpdateFrame();
                     //checkToolbar = false;
                     /*Debug.Log("Uniwebview hide nav bar");
                     Resize();*/
