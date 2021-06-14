@@ -21,24 +21,18 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         private void Awake()
         {
             Debug.Log($"UniWebViewClient Awake");
-            //Debug.Log($"UniWebViewClient SetSettings");
+     
             _webView = gameObject.AddComponent<global::UniWebView>();
             UniWebViewLogger.Instance.LogLevel = UniWebViewLogger.Level.Verbose;
             
-            //_webView.ReferenceRectTransform = webviewContainer;
-            
             _webView.OnPageFinished += PageFinished;
             _webView.OnPageStarted += PageStart;
-            
             
             _webView.OnOrientationChanged += (view, orientation) =>
             {
                 Debug.Log("UniwebView orientatin changed");
                 _webView.Frame = h == 1f ? Screen.safeArea : new Rect(Screen.safeArea.x, Screen.safeArea.y + Screen.safeArea.height * (1f - h), Screen.safeArea.width, Screen.safeArea.height * h);
-                //setbtn();
             };
-            
-            //_webView = GetComponent<global::UniWebView>();
         }
         
         void ShowBackButton(bool show)
@@ -48,12 +42,6 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             _webView.Frame = new Rect(Screen.safeArea.x, Screen.safeArea.y+ Screen.safeArea.height*(1f-h), Screen.safeArea.width, Screen.safeArea.height * h);
         }
 
-        private void Start()
-        {
-            //_safeAreaNew = FindObjectOfType<SafeAreaNew>();
-            /*_safeAreaAdjuster = FindObjectOfType<SafeAreaAdjuster>();
-            Debug.Log($"UniWebViewClient {_safeAreaAdjuster}");*/
-        }
 
         private void OnBackButtonClick() =>  _webView.Load(_startUrl);
 
@@ -68,60 +56,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 
         public void SetSettings()
         {
-            /*Debug.Log($"UniWebViewClient SetSettings");
             
-            _webView.OnPageFinished += PageFinished;
-            _webView.OnPageStarted += PageStart;
-
-            _webView.ReferenceRectTransform = webviewContainer;*/
-            
-            /*_webView.OnOrientationChanged += (view, orientation) =>
-            {
-                Debug.Log("UniwebView orientatin changed");
-                Resize();
-            };*/
-            
-            /*SetNewSize();
-            
-            SafeAreaNew.OnSafeRecalculated += () =>
-            {
-                Debug.Log($"UniWebViewClient OnOrientationChanged");
-                SetNewSize();
-            };*/
         }
-        
-        void OnRectTransformDimensionsChange() {
-            // Update web view's frame to match the reference rect transform.
-            _webView.UpdateFrame();
-        }
-
-        /*private void OnRectTransformDimensionsChange()
-        {
-            Debug.Log("UniwebView OnRectTransformDimensionsChange");
-            Resize();
-        }*/
-
-        private void Resize()
-        {
-            //Debug.Log("UniwebView Resize");
-            //_safeAreaNew.ApplySafeArea();
-            //_safeAreaAdjuster.Apply();
-            _webView.UpdateFrame();
-            Debug.Log($"Uniwebview frame updated {_webView.Frame}");
-        }
-
-        /*private void SetNewSize()
-        {
-            if (navigationBar.gameObject.activeInHierarchy)
-            {
-                Vector2 size = webviewContainer.sizeDelta;
-                _webView.Frame = new Rect(0, navigationBar.sizeDelta.y, size.x, size.y);
-            }
-            else
-            {
-                _webView.Frame = new Rect(0, 0, Screen.safeArea.width, Screen.safeArea.height);
-            }
-        }*/
 
         public IMediator mediator { get; private set; }
         public void SetMediator(IMediator mediator)
