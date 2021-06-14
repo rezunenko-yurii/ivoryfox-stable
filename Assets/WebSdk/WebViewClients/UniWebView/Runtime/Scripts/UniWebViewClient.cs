@@ -8,8 +8,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 {
     public class UniWebViewClient : MonoBehaviour, IWebViewClient
     {
-        private global::UniWebView _webView;
-        
+        [SerializeField] private global::UniWebView _webView;
         [SerializeField] RectTransform navigationBar;
         [SerializeField] RectTransform webviewContainer;
         [SerializeField] Button backButton;
@@ -20,7 +19,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         {
             Debug.Log($"UniWebViewClient Awake");
             
-            _webView = GetComponent<global::UniWebView>();
+            //_webView = GetComponent<global::UniWebView>();
         }
 
         private void OnBackButtonClick() =>  _webView.Load(_startUrl);
@@ -43,7 +42,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             
             SetNewSize();
             
-            ScreenHelper.OnSafeRecalculated += () =>
+            SafeAreaNew.OnSafeRecalculated += () =>
             {
                 Debug.Log($"UniWebViewClient OnOrientationChanged");
                 SetNewSize();
