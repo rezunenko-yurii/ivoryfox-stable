@@ -1,9 +1,6 @@
-﻿using System;
-using SafeArea;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using WebSdk.Core.Runtime.GlobalPart;
-using WebSdk.Core.Runtime.Helpers;
 using WebSdk.Core.Runtime.WebCore;
 
 namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
@@ -16,7 +13,6 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         [SerializeField] Button backButton;
 
         private string _startUrl;
-        //private SafeAreaAdjuster _safeAreaAdjuster;
         float h = 1f;
         private void Awake()
         {
@@ -27,6 +23,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             
             _webView.OnPageFinished += PageFinished;
             _webView.OnPageStarted += PageStart;
+
+            _webView.Frame = Screen.safeArea;
             
             _webView.OnOrientationChanged += (view, orientation) =>
             {
@@ -35,11 +33,16 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             };
         }
         
+        [ContextMenu("Show Back Button")]
         void ShowBackButton(bool show)
         {
             h = show ? 0.95f : 1f;
-
-            _webView.Frame = new Rect(Screen.safeArea.x, Screen.safeArea.y+ Screen.safeArea.height*(1f-h), Screen.safeArea.width, Screen.safeArea.height * h);
+            
+            float toolbarOffset = Screen.safeArea.height * (1f - h);
+            Debug.Log($"Univwebview ShowBackButton {toolbarOffset}");
+            
+            _webView.Frame = new Rect(Screen.safeArea.x, Screen.safeArea.y + toolbarOffset, Screen.safeArea.width, Screen.safeArea.height * h);
+            navigationBar.offsetMax = new Vector2(0, toolbarOffset);
         }
 
 
@@ -96,15 +99,12 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
                 if (((!currentUrl.Contains("way") && !currentUrl.Contains("pay.") && !currentUrl.Contains(merchant)) || currentUrl.Contains("social"))) //&& !checkToolbar)
                 {
                     navigationBar.gameObject.SetActive(true);
-                    //webviewContainer.offsetMax = new Vector2(0, -100);//75
-
                     ShowBackButton(true);
                 }
                 else if(navigationBar.gameObject.activeInHierarchy)
                 {
                     navigationBar.gameObject.SetActive(false);
                     ShowBackButton(false);
-                    //webviewContainer.offsetMax = new Vector2(0, 0);//75
                 }
             }
         }
