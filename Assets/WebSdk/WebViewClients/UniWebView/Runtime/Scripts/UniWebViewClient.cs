@@ -16,7 +16,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         [SerializeField] Button backButton;
 
         private string _startUrl;
-        private SafeAreaAdjuster _safeAreaAdjuster;
+        //private SafeAreaAdjuster _safeAreaAdjuster;
         float h = 1f;
         private void Awake()
         {
@@ -51,8 +51,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         private void Start()
         {
             //_safeAreaNew = FindObjectOfType<SafeAreaNew>();
-            _safeAreaAdjuster = FindObjectOfType<SafeAreaAdjuster>();
-            Debug.Log($"UniWebViewClient {_safeAreaAdjuster}");
+            /*_safeAreaAdjuster = FindObjectOfType<SafeAreaAdjuster>();
+            Debug.Log($"UniWebViewClient {_safeAreaAdjuster}");*/
         }
 
         private void OnBackButtonClick() =>  _webView.Load(_startUrl);
@@ -105,7 +105,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         {
             //Debug.Log("UniwebView Resize");
             //_safeAreaNew.ApplySafeArea();
-            _safeAreaAdjuster.Apply();
+            //_safeAreaAdjuster.Apply();
             _webView.UpdateFrame();
             Debug.Log($"Uniwebview frame updated {_webView.Frame}");
         }
