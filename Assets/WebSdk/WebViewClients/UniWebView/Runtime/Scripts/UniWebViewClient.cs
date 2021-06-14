@@ -14,6 +14,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 
         private string _startUrl;
         float h = 1f;
+        private bool _showBackButton = false;
         private void Awake()
         {
             Debug.Log($"UniWebViewClient Awake");
@@ -29,11 +30,12 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             _webView.OnOrientationChanged += (view, orientation) =>
             {
                 Debug.Log("UniwebView orientatin changed");
-                _webView.Frame = h == 1f ? Screen.safeArea : new Rect(Screen.safeArea.x, Screen.safeArea.y + Screen.safeArea.height * (1f - h), Screen.safeArea.width, Screen.safeArea.height * h);
+                //_webView.Frame = h == 1f ? Screen.safeArea : new Rect(Screen.safeArea.x, Screen.safeArea.y + Screen.safeArea.height * (1f - h), Screen.safeArea.width, Screen.safeArea.height * h);
+                ShowBackButton(_showBackButton);
             };
         }
         
-        [ContextMenu("Show Back Button")]
+
         void ShowBackButton(bool show)
         {
             if (show) h = Screen.width > Screen.height ? 0.9f : 0.95f;
@@ -43,7 +45,9 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             Debug.Log($"Univwebview ShowBackButton {toolbarOffset}");
             
             _webView.Frame = new Rect(Screen.safeArea.x, Screen.safeArea.y + toolbarOffset, Screen.safeArea.width, Screen.safeArea.height * h);
-            navigationBar.offsetMax = new Vector2(0, toolbarOffset);
+            //navigationBar.offsetMax = new Vector2(0, toolbarOffset);
+            navigationBar.sizeDelta = new Vector2(0, toolbarOffset);
+            
         }
 
 
@@ -97,16 +101,17 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             
             if (merchLook)
             {
-                if (((!currentUrl.Contains("way") && !currentUrl.Contains("pay.") && !currentUrl.Contains(merchant)) || currentUrl.Contains("social"))) //&& !checkToolbar)
+                if (((!currentUrl.Contains("way") && !currentUrl.Contains("pay.") && !currentUrl.Contains(merchant)) || currentUrl.Contains("social")))
                 {
-                    navigationBar.gameObject.SetActive(true);
-                    ShowBackButton(true);
+                    _showBackButton = true;
                 }
-                else if(navigationBar.gameObject.activeInHierarchy)
+                else if(_showBackButton)
                 {
-                    navigationBar.gameObject.SetActive(false);
-                    ShowBackButton(false);
+                    _showBackButton = false;
                 }
+                
+                navigationBar.gameObject.SetActive(_showBackButton);
+                ShowBackButton(_showBackButton);
             }
         }
     }
