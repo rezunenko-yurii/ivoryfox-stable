@@ -43,6 +43,8 @@ namespace WebSdk.Core.Runtime.Helpers
             lastSafeArea = Screen.safeArea;
             _screen.width = Screen.width;
             _screen.height = Screen.height;
+            
+            OnSafeRecalculated?.Invoke();
         }
     }
 }
