@@ -24,9 +24,9 @@ namespace WebSdk.Core.Runtime.Helpers
             }
         }
 
-        private void ApplySafeArea() 
+        public void ApplySafeArea() 
         {
-            Debug.Log($"{Screen.height} {Screen.width}");
+            Debug.Log($"SafeAreaNew ApplySafeArea {Screen.height} {Screen.width} {Screen.safeArea}");
             Rect safeAreaRect = Screen.safeArea;
 
             float scaleRatio = parentRectTransform.rect.width / Screen.width;

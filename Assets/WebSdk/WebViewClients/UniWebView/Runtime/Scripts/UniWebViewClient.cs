@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using WebSdk.Core.Runtime.GlobalPart;
 using WebSdk.Core.Runtime.Helpers;
@@ -14,12 +15,18 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         [SerializeField] Button backButton;
 
         private string _startUrl;
+        private SafeAreaNew _safeAreaNew;
 
         private void Awake()
         {
             Debug.Log($"UniWebViewClient Awake");
             
             //_webView = GetComponent<global::UniWebView>();
+        }
+
+        private void Start()
+        {
+            _safeAreaNew = FindObjectOfType<SafeAreaNew>();
         }
 
         private void OnBackButtonClick() =>  _webView.Load(_startUrl);
@@ -44,7 +51,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             
             _webView.OnOrientationChanged += (view, orientation) =>
             {
-                _webView.UpdateFrame();
+                Debug.Log("UniwebView orientatin changed");
+                Resize();
             };
             
             /*SetNewSize();
@@ -54,6 +62,13 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
                 Debug.Log($"UniWebViewClient OnOrientationChanged");
                 SetNewSize();
             };*/
+        }
+
+        private void Resize()
+        {
+            Debug.Log("UniwebView Resize");
+            _safeAreaNew.ApplySafeArea();
+            _webView.UpdateFrame();
         }
 
         private void SetNewSize()
@@ -77,7 +92,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         
         private void PageFinished(global::UniWebView webview, int errorCode, string message)
         {
-            Debug.Log($"PageFinished: {_webView.Url}");
+            //Debug.Log($"PageFinished: {_webView.Url}");
             
             if (string.IsNullOrEmpty(merchant) && !_webView.Url.Equals(_startUrl))
             {
@@ -85,7 +100,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
                 {
                     string[] tempArray = _webView.Url.Split("/"[0]);
                     merchant = tempArray[2];
-                    Debug.Log($"merchant value: {merchant}");
+                    //Debug.Log($"merchant value: {merchant}");
                     merchLook = true;
                     _webView.SetUserInteractionEnabled(true);
                 }
@@ -101,7 +116,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         private void PageStart(global::UniWebView webview, string currentUrl)
         {
             //urlPage += "pay.";
-            Debug.Log($"OnPageStarted: {currentUrl} {_webView.Frame}");
+            //Debug.Log($"OnPageStarted: {currentUrl} {_webView.Frame}");
 
             if (merchLook)
             {
@@ -110,15 +125,15 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
                     navigationBar.gameObject.SetActive(true);
                     //checkToolbar = true;
                     //SetNewSize();
-                    
-                    _webView.UpdateFrame();
+                    Debug.Log("Uniwebview show nav bar");
+                    Resize();
                 }
                 else if(navigationBar.gameObject.activeInHierarchy)
                 {
                     navigationBar.gameObject.SetActive(false);
                     //checkToolbar = false;
-                    
-                    _webView.UpdateFrame();
+                    Debug.Log("Uniwebview hide nav bar");
+                    Resize();
                 }
             }
         }
