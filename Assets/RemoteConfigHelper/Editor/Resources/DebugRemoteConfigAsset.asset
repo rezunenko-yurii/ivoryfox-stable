@@ -26,6 +26,9 @@ MonoBehaviour:
   - name: canUse
     type: string
     value: false
+  - name: logger
+    type: json
+    value: '{}'
   rules:
   - name: canShow
     enabled: 1
@@ -45,3 +48,11 @@ MonoBehaviour:
     - name: canUse
       type: string
       value: true
+  - name: useAdjast
+    enabled: 1
+    conditions: 
+    rolloutPercentage: 100
+    configItems:
+    - name: adjust
+      type: json
+      value: '{ "token": " 9c5w1t84e48w" }'
