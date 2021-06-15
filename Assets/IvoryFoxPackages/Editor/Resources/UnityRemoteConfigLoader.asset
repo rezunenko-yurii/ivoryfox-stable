@@ -12,23 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: UnityRemoteConfigLoader
   m_EditorClassIdentifier: 
-  localPackage:
-    name: com.ivoryfox.config-loader-unity-remote-config
-    version: 1.0.2
-    description: last modified 26/05/21
-    displayName: Unity Remote Config Loader
-  gitPackage:
-    name: 
-    version: 
-    description: 
-    displayName: 
   packageName: Unity Remote Config Loader
-  packageId: com.ivoryfox.config-loader-unity-remome-config
+  packageId: com.ivoryfox.config-loader-unity-remote-config
   pathToPlugin: Assets/WebSdk/ConfigLoaders/UnityRemoteConfig
-  type: 0
-  url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/WebSdk/ConfigLoaders/UnityRemoteConfig
-  unityDependencies:
-  - com.unity.remote-config
   gitDependencies:
   - {fileID: 11400000, guid: f8921bbcd16d7b547aac91ab995ad4c3, type: 2}
   unityPackages: []
