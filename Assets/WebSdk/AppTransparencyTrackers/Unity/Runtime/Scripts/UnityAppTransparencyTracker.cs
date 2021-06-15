@@ -17,10 +17,7 @@ namespace WebSdk.AppTransparencyTrackers.Unity.Runtime.Scripts
     {
         public event Action OnGetRequest;
         public AttStatus Status { get; private set; }
-
         private bool _isReady = false;
-        private float _timeFromInit;
-        private const int WaitTime = 10;
 
         public void Init()
         {
@@ -32,8 +29,6 @@ namespace WebSdk.AppTransparencyTrackers.Unity.Runtime.Scripts
             if(currentVersion >= versionForCheck)
             {
                 Debug.Log($"AppTransparencyTracker IOS version is >= 14.5 /// Need to ask for tracking");
-                
-                _timeFromInit = Time.time;
                 StartCoroutine(WatchAttStatus());
             }
             else
@@ -71,11 +66,6 @@ namespace WebSdk.AppTransparencyTrackers.Unity.Runtime.Scripts
             {
                 Status = (AttStatus) Enum.Parse(typeof(AttStatus), s.ToString());
                 Debug.Log($"---------------- AppTransparencyTracker response from user // status is {Status.ToString()} / {s.ToString()}");
-            }
-            else if (Time.time - _timeFromInit > WaitTime)
-            {
-                Status = AttStatus.DENIED;
-                Debug.Log($"!!!!!!!!!!!!!!!!! AppTransparencyTracker time out // user did not response // status is {Status.ToString()} / {s.ToString()}");
             }
             else
             {
