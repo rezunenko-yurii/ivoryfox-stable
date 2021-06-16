@@ -14,9 +14,13 @@ namespace WebSdk.Core.Runtime.GlobalPart
         
         public void SetWebBlockSettings()
         {
-            Debug.Log($"ModulesNavigation SetWebBlockSettings // native screen orientation {Screen.orientation} // will set = {_data.webviewOrientation}");
+            Debug.Log($"ModulesNavigation SetWebBlockSettings // native screen orientation {Screen.orientation} // will set = {ScreenOrientation.AutoRotation}");
             
-            Screen.orientation = _data.webviewOrientation;
+            Screen.orientation = ScreenOrientation.AutoRotation;
+            Screen.autorotateToPortrait = true;
+            Screen.autorotateToLandscapeLeft = true;
+            Screen.autorotateToLandscapeRight = true;
+            Screen.autorotateToPortraitUpsideDown = true;
         }
 
         public void GoToNativeBlock()

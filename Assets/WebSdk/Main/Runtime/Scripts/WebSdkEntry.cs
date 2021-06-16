@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.GlobalPart;
-using WebSdk.Core.Runtime.Helpers;
 using WebSdk.Core.Runtime.WebCore;
 using Debug = UnityEngine.Debug;
 
@@ -23,15 +22,6 @@ namespace WebSdk.Main.Runtime.Scripts
         private void Awake()
         {
             Debug.Log("GlobalBlockUnity Awake");
-            /*WebSdkEntry[] systems = FindObjectsOfType<WebSdkEntry>();
-            
-            if (systems.Length > 1)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            
-            DontDestroyOnLoad(this);*/
 
             _webManager = web.GetComponent<IWebManager>();
 
@@ -50,8 +40,6 @@ namespace WebSdk.Main.Runtime.Scripts
 
             var factory = Resources.Load<ScriptableObject>("WebSdkComponentsFactory") as IGlobalFactory;
             factory.GameObject = gameObject;
-            
-            //_webManager = factory.CreateWebBlock();
             GlobalFacade.Init(factory, this);
         }
         private void CheckAtt()
