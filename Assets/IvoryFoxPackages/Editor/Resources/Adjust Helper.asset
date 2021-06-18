@@ -15,10 +15,9 @@ MonoBehaviour:
   packageName: IvoryFox Adjust Helper
   packageId: com.ivoryfox.adjust-helper
   pathToPlugin: Assets/AdjustHelper
-  type: 0
-  unityDependencies: []
   gitDependencies:
   - {fileID: 11400000, guid: f8921bbcd16d7b547aac91ab995ad4c3, type: 2}
+  - {fileID: 11400000, guid: f466fdd8241ae3848b479a8babe7d6f3, type: 2}
   unityPackages:
   - packageName: Adjust
     pathToPackage: /Package Resources/Adjust_4_29_1.unitypackage

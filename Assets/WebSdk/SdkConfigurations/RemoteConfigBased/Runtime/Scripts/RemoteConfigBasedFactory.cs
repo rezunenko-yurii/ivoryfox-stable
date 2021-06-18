@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using WebSdk.AppTransparencyTrackers.Unity.Runtime.Scripts;
 using WebSdk.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
 using WebSdk.Core.Runtime.AdjustHelpers;
 using WebSdk.Core.Runtime.AppTransparencyTrackers;
@@ -10,7 +9,6 @@ using WebSdk.Core.Runtime.Notifications;
 using WebSdk.Core.Runtime.WebCore;
 using WebSdk.InternetCheckers.Default.Runtime.Scripts;
 using WebSdk.Loggers.Remote.Runtime.Scripts;
-using WebSdk.WebManagers.Default.Runtime.Scripts;
 using ILogger = WebSdk.Core.Runtime.Logger.ILogger;
 
 namespace WebSdk.SdkConfigurations.RemoteConfigBased.Runtime.Scripts
@@ -42,17 +40,17 @@ namespace WebSdk.SdkConfigurations.RemoteConfigBased.Runtime.Scripts
 
         public IWebManager CreateWebBlock()
         {
-            return new WebManager();
+            return new DummyWebManager();
         }
 
         public IAdjustHelper CreateAdjustHelper()
         {
-            return new AdjustHelper.Runtime.Scripts.AdjustHelper();
+            return new DummyAdjustHelper();
         }
 
         public IAppTransparencyTracker CreateAppTransparencyTracker()
         {
-            return GameObject.AddComponent<UnityAppTransparencyTracker>();
+            return new DummyAppTrackingTransparency();
         }
     }
 }

@@ -8,6 +8,10 @@ namespace WebSdk.Core.Runtime.AdjustHelpers
         public bool IsUsedAtt => false;
         public int AttStatus => 0;
 
+        public DummyAdjustHelper()
+        {
+            Debug.Log($"--------- !!!!!!!!!!!! --------- DummyAdjustHelper");
+        }
         public string GetAttribution(string request)
         {
             Debug.Log($"{nameof(DummyAdjustHelper)} GetAttribution always return organic");

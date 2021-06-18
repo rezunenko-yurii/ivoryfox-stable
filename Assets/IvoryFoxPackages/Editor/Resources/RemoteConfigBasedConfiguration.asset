@@ -22,6 +22,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9d734215ea68cf6418f3ee0019e11ede, type: 2}
   - {fileID: 11400000, guid: f6e6a517448d37a41a5c5834a4afaaff, type: 2}
   - {fileID: 11400000, guid: 94d2dc0580b938d40b3f508078fa09a5, type: 2}
-  - {fileID: 11400000, guid: e0274c6e189aa7d4b88d9ac23e7a3b1b, type: 2}
-  - {fileID: 11400000, guid: 8de4e3f27b88df344970eb3fc9cfa229, type: 2}
   unityPackages: []
