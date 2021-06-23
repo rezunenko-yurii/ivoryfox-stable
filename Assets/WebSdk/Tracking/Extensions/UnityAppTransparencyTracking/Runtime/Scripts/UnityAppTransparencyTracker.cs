@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections;
-
-#if UNITY_IOS
+﻿#if UNITY_IOS
 using Unity.Advertisement.IosSupport;
 using UnityEngine.iOS;
 #endif
-
+using System;
 using UnityEngine;
-
 using WebSdk.Core.Runtime.AppTransparencyTrackers;
+using WebSdk.Core.Runtime.GlobalPart;
 using Debug = UnityEngine.Debug;
 
-namespace WebSdk.AppTransparencyTrackers.Unity.Runtime.Scripts
+namespace WebSdk.Tracking.Extensions.UnityAppTransparencyTracking.Runtime.Scripts
 {
     public class UnityAppTransparencyTracker: MonoBehaviour, IAppTransparencyTracker
     {
@@ -85,5 +82,7 @@ namespace WebSdk.AppTransparencyTrackers.Unity.Runtime.Scripts
             OnGetRequest?.Invoke();
             OnGetRequest = null;
         }
+
+        public IModulesHost Parent { get; set; }
     }
 }
