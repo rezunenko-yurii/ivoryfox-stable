@@ -16,7 +16,7 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
     [Id("adjust")]
     public class AdjustParameter : WaitableParameter
     {
-        private const string AdidPref = "adid";
+        private const string AdIdPref = "adid";
         private const string Organic = "organic";
         private readonly int _waitTime = 4;
         private Stopwatch _stopwatch;
@@ -41,17 +41,17 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
             
             Debug.Log($"AdjustParameter Init");
 
-            string savedAdid = PlayerPrefs.GetString(AdidPref, string.Empty);
+            string savedAdid = PlayerPrefs.GetString(AdIdPref, string.Empty);
             if (CheckSavedAdid(savedAdid))
             {
                 Debug.Log($"AdjustParameter // Found saved adid // {savedAdid}");
                 SetAdjustValue(savedAdid);
             }
-            else if (GlobalFacade.Att.Status == AttStatus.DENIED)
+            /*else if (GlobalFacade.Att.Status == AttStatus.DENIED)
             {
                 Debug.Log($"AdjustParameter // ATT status = {GlobalFacade.Att.Status} set organic");
                 SetAdjustValue(Organic);
-            }
+            }*/
 
             base.Init(_monoBehaviour);
         }
@@ -79,7 +79,7 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
 
         private void TryToGetDataFromAdjust()
         {
-            if (GlobalFacade.AdjustHelper.IsReady)
+            if (GlobalFacade.TrackingProvider.IsReady)
             {
                 Debug.Log($"Adjust TryToGetDataFromAdjust: Adjust is Ready");
                 OnAdjustReady();
@@ -102,7 +102,7 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
         private void OnAdjustReady()
         {
             Debug.Log($"On Adjust Instance is Ready // trying to get attribution");
-            string v = GlobalFacade.AdjustHelper.GetAttribution(parameterAlias);
+            string v = GlobalFacade.TrackingProvider.GetAttribution(parameterAlias);
 
             Debug.Log($"AdjustParameter attribution key={parameterAlias} value={v}");
             SaveAdid(v);
@@ -113,7 +113,7 @@ namespace WebSdk.AdjustParameters.Runtime.Scripts
             if (CheckSavedAdid(v))
             {
                 Debug.Log($"AdjustParameter remember adid // {v}");
-                PlayerPrefs.SetString(AdidPref, v);
+                PlayerPrefs.SetString(AdIdPref, v);
                 
                 SetAdjustValue(v);
             }

@@ -5,7 +5,7 @@ using WebSdk.Core.Runtime.WebCore;
 
 namespace WebSdk.WebViewClients.Browser.Runtime.Scripts
 {
-    public class BrowserWebviewClient : IWebViewClient
+    public class BrowserWebviewClient : MonoBehaviour, IWebViewClient
     {
         public BrowserWebviewClient()
         {
@@ -13,10 +13,10 @@ namespace WebSdk.WebViewClients.Browser.Runtime.Scripts
             Screen.autorotateToPortrait = true;
         }
         
-        public IMediator mediator { get; private set; }
+        public IMediator Mediator { get; private set; }
         public void SetMediator(IMediator mediator)
         {
-            this.mediator = mediator;
+            this.Mediator = mediator;
         }
 
         public void Open(string url)

@@ -6,7 +6,7 @@ using WebSdk.Core.Runtime.ConfigLoader;
 
 namespace WebSdk.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts
 {
-    public class RemoteConfigsLoader : IConfigsLoader
+    public class RemoteConfigsLoader : MonoBehaviour, IConfigsLoader
     {
         private struct userAttributes {}
         private struct appAttributes {}

@@ -3,16 +3,16 @@ using WebSdk.Core.Runtime.Helpers;
 
 namespace WebSdk.Core.Runtime.GlobalPart
 {
-    public class ModulesNavigation
+    public static class ModulesNavigation
     {
-        private ModulesNavigationData _data;
+        private static ModulesNavigationData _data;
 
-        public ModulesNavigation()
+        static ModulesNavigation()
         {
             _data = Resources.Load<ScriptableObject>("ModulesNavigation") as ModulesNavigationData;
         }
         
-        public void SetWebBlockSettings()
+        public static void SetWebBlockSettings()
         {
             Debug.Log($"ModulesNavigation SetWebBlockSettings // native screen orientation {Screen.orientation} // will set = {ScreenOrientation.AutoRotation}");
             
@@ -23,7 +23,7 @@ namespace WebSdk.Core.Runtime.GlobalPart
             Screen.autorotateToPortraitUpsideDown = true;
         }
 
-        public void GoToNativeBlock()
+        public static void GoToNativeBlock()
         {
             Debug.Log($"ModulesNavigation GoToNativeBlock // orientation = {_data.nativeOrientation}");
             

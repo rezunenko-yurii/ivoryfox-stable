@@ -67,10 +67,10 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             
         }
 
-        public IMediator mediator { get; private set; }
+        public IMediator Mediator { get; private set; }
         public void SetMediator(IMediator mediator)
         {
-            this.mediator = mediator;
+            this.Mediator = mediator;
         }
         
         private void PageFinished(global::UniWebView webview, int errorCode, string message)

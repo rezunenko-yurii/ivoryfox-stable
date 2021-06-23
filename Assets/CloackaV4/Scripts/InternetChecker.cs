@@ -9,12 +9,12 @@ namespace CloackaV4.Scripts
     {
         public event Action<bool> OnResult;
         public bool HasConnection { get; private set; } = false;
-        public bool IsBlocked { get; private set; } = false;
-        private int repeatCount = 0;
+        private int _repeatCount = 0;
+        private const string Url = "https://google.com";
         private IEnumerator SendRequest()
         {
-            if (repeatCount <= 0) repeatCount = 1;
-            repeatCount--;
+            if (_repeatCount <= 0) _repeatCount = 1;
+            _repeatCount--;
             
             if (Application.internetReachability == NetworkReachability.NotReachable)
             {
@@ -22,17 +22,14 @@ namespace CloackaV4.Scripts
             }
             else
             {
-                UnityWebRequest request = new UnityWebRequest("http://google.com") {timeout = 10};
+                var request = new UnityWebRequest(Url) {timeout = 10};
                 yield return request.SendWebRequest();
                 HasConnection = request.error == null;
             }
-                
-            //IsChecked = true;
-
-            if (HasConnection || repeatCount == 0)
+            
+            if (HasConnection || _repeatCount == 0)
             {
                 CancelInvoke(nameof(StartChecking));
-                IsBlocked = false;
             }
             
             OnResult?.Invoke(HasConnection);
@@ -41,11 +38,9 @@ namespace CloackaV4.Scripts
         
         public void Check(int repeatCount = 1)
         {
-            IsBlocked = true;
-            
             if (repeatCount > 1)
             {
-                this.repeatCount = repeatCount;
+                _repeatCount = repeatCount;
                 InvokeRepeating(nameof(StartChecking), 0f, 11f);
             }
             else
@@ -61,7 +56,7 @@ namespace CloackaV4.Scripts
         
         public int RepeatsLeft()
         {
-            return repeatCount;
+            return _repeatCount;
         }
     }
 }

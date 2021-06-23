@@ -3,7 +3,7 @@ using ILogger = WebSdk.Core.Runtime.Logger.ILogger;
 
 namespace WebSdk.Core.Runtime.Logger
 {
-    public class DummyLogger : ILogger
+    public class DummyLogger : MonoBehaviour, ILogger
     {
         public bool IsReady { get; set; }
         public LoggerData loggerData { get; set; }

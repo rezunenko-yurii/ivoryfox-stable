@@ -7,6 +7,7 @@ namespace WebSdk.Core.Runtime.AppTransparencyTrackers
     {
         event Action OnGetRequest;
         AttStatus Status{ get; }
-        void Init();
+        bool IsReady{ get; }
+        void DoRequest();
     }
 }

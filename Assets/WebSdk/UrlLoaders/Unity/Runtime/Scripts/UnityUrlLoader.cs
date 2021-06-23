@@ -7,54 +7,56 @@ using WebSdk.Core.Runtime.WebCore;
 
 namespace WebSdk.UrlLoaders.Unity.Runtime.Scripts
 {
-    public class UnityUrlLoader: IUrlLoader
+    public class UnityUrlLoader: MonoBehaviour, IUrlLoader
     {
         public event Action<string> OnFailure;
         public event Action<string> OnSuccess;
-        
-        public IMediator mediator { get; private set; }
+        public IMediator Mediator { get; private set; }
         public string ConfigName { get; } = "urlsConfig";
 
-        private Coroutine coroutine;
-        private UrlsConfig urlsConfig;
+        private Coroutine _coroutine;
+        private UrlsConfig _urlsConfig;
         
-        
-        public void SetConfig(string json) => urlsConfig = JsonUtility.FromJson<UrlsConfig>(json);
-        public string GetUrl() => urlsConfig.url;
+        public void SetConfig(string json) => _urlsConfig = JsonUtility.FromJson<UrlsConfig>(json);
+        public string GetUrl() => _urlsConfig.url;
 
         public void SetMediator(IMediator mediator)
         {
-            this.mediator = mediator;
+            Mediator = mediator;
         }
-        public void Start()
+        public void DoRequest()
         {
-            if (urlsConfig == null)
+            Debug.Log("UnityUrlLoader DoRequest");
+            
+            if (_urlsConfig == null)
             {
                 OnFailure?.Invoke("urlsConfig is null");
-                mediator.Notify(this,"Error");
+                Mediator.Notify(this,"Error");
                 
                 return;
             }
 
-            if (urlsConfig.HasUrl)
+            if (_urlsConfig.HasUrl)
             {
-                OnSuccess?.Invoke(urlsConfig.url);
-                mediator.Notify(this,"OnUrlLoaded");
+                OnSuccess?.Invoke(_urlsConfig.url);
+                Mediator.Notify(this,"OnUrlLoaded");
             }
-            else if (urlsConfig.HasServer)
+            else if (_urlsConfig.HasServer)
             {
-                coroutine = GlobalFacade.MonoBehaviour.StartCoroutine(SendGet());
+                _coroutine = StartCoroutine(SendGet());
             }
             else
             {
                 OnFailure?.Invoke("urlsConfig either hasn`t nor url nor server");
-                mediator.Notify(this,"Error");
+                Mediator.Notify(this,"Error");
             }
         }
         
         private IEnumerator SendGet()
         {
-            using (UnityWebRequest webRequest  = UnityWebRequest.Get(urlsConfig.server))
+            Debug.Log("UnityUrlLoader SendGet");
+            
+            using (UnityWebRequest webRequest  = UnityWebRequest.Get(_urlsConfig.server))
             {
                 webRequest.timeout = 12;
                 webRequest.disposeDownloadHandlerOnDispose = true;
@@ -65,7 +67,7 @@ namespace WebSdk.UrlLoaders.Unity.Runtime.Scripts
                 if (!string.IsNullOrEmpty(webRequest.error))
                 {
                     OnFailure?.Invoke(webRequest.error);
-                    mediator.Notify(this,"Error");
+                    Mediator.Notify(this,"Error");
                     
                     yield break;
                 }
@@ -75,19 +77,21 @@ namespace WebSdk.UrlLoaders.Unity.Runtime.Scripts
         }
         public void OnGetResponse(string response)
         {
+            Debug.Log("UnityUrlLoader OnGetResponse");
+            
             UrlResponseReader reader = new UrlResponseReader();
             string url = reader.GetUrl(response);
 
             if (string.IsNullOrEmpty(url))
             {
-                OnFailure?.Invoke("Can`t read response from UrlLoader");
-                mediator.Notify(this,"Error");
+                OnFailure?.Invoke("UnityUrlLoader // Can`t read response from UrlLoader");
+                Mediator.Notify(this,"Error");
             }
             else
             {
-                urlsConfig.url = url;
+                _urlsConfig.url = url;
                 OnSuccess?.Invoke(url);
-                mediator.Notify(this,"OnUrlLoaded");
+                Mediator.Notify(this,"OnUrlLoaded");
             }
             
             RemoveListeners();
@@ -95,8 +99,10 @@ namespace WebSdk.UrlLoaders.Unity.Runtime.Scripts
         
         public void RemoveListeners()
         {
+            Debug.Log("UnityUrlLoader RemoveListeners");
+            
             OnSuccess = OnFailure = null;
-            GlobalFacade.MonoBehaviour.StopCoroutine(coroutine);
+            StopCoroutine(_coroutine);
         }
     }
 }

@@ -1,14 +1,18 @@
 ﻿using System;
+using UnityEngine;
 
 namespace WebSdk.Core.Runtime.InternetChecker
 {
-    public class DummyInternetChecker : IInternetChecker
+    public class DummyInternetChecker : MonoBehaviour, IInternetChecker
     {
         public event Action<bool> OnResult;
         
         public void Check(int repeatCount = 1)
         {
-            OnResult?.Invoke(false);
+            Debug.Log("------------- DummyInternetChecker Check");
+            
+            HasConnection = Application.internetReachability != NetworkReachability.NotReachable;
+            OnResult?.Invoke(HasConnection);
             OnResult = null;
         }
 
@@ -17,7 +21,7 @@ namespace WebSdk.Core.Runtime.InternetChecker
             return 0;
         }
 
-        public bool HasConnection { get; } = false;
+        public bool HasConnection { get; private set; }
         public bool IsBlocked { get; }
     }
 }

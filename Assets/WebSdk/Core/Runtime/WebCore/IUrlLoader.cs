@@ -8,7 +8,7 @@ namespace WebSdk.Core.Runtime.WebCore
     {
         event Action<string> OnFailure;
         event Action<string> OnSuccess;
-        void Start();
+        void DoRequest();
         string GetUrl();
         void RemoveListeners();
         void OnGetResponse(string response);

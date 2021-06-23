@@ -1,23 +1,20 @@
 using System;
 using UnityEngine;
-using WebSdk.Core.Runtime.AdjustHelpers;
 
 namespace WebSdk.Core.Runtime.AppTransparencyTrackers
 {
-    public class DummyAppTrackingTransparency : IAppTransparencyTracker
+    public class DummyAppTrackingTransparency : MonoBehaviour, IAppTransparencyTracker
     {
         public event Action OnGetRequest;
         public AttStatus Status => AttStatus.AUTHORIZED;
+        public bool IsReady { get; } = true;
 
-
-        public DummyAppTrackingTransparency()
+        public void DoRequest()
         {
-            Debug.Log($"--------- !!!!!!!!!!!! --------- DummyAppTrackingTransparency");
-        }
-        public void Init()
-        {
-            Debug.Log("DummyAppTrackingTransparency Init");
-            //throw new NotImplementedException();
+            Debug.Log($"----------- DummyAppTrackingTransparency Init // Status = {Status.ToString()}");
+            
+            OnGetRequest?.Invoke();
+            OnGetRequest = null;
         }
     }
 }

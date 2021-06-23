@@ -8,10 +8,8 @@ using WebSdk.Core.Runtime.WebCore;
 
 namespace WebSdk.Parameters.Runtime.Scripts
 {
-    public class ParametersManager : IParamsManager
+    public class ParametersManager : MonoBehaviour, IParamsManager
     {
-        //private InputableParameters userParamsInput;
-        public event Action<Dictionary<string,string>> OnAllReady;
         public event Action<string> OnError;
         public event Action OnComplete;
 
@@ -31,7 +29,7 @@ namespace WebSdk.Parameters.Runtime.Scripts
             foreach (Parameter param in parameters)
             {
                 SetParamDependencies(param);
-                param.Init(GlobalFacade.MonoBehaviour);
+                param.Init(this);
                 
                 if (param.IsReady())
                 {
@@ -48,7 +46,7 @@ namespace WebSdk.Parameters.Runtime.Scripts
             if (parameters.Count == 0)
             {
                 OnComplete?.Invoke();
-                mediator.Notify(this,"OnParamsLoaded");
+                Mediator.Notify(this,"OnParamsLoaded");
             }
         }
 
@@ -76,7 +74,7 @@ namespace WebSdk.Parameters.Runtime.Scripts
         {
             ClearAttributesEvents();
             OnError?.Invoke($"Error!!! Can`t set value for attribute {parameter.GetAlias()}");
-            mediator.Notify(this,"Error");
+            Mediator.Notify(this,"Error");
             
             OnError = null;
         }
@@ -91,15 +89,10 @@ namespace WebSdk.Parameters.Runtime.Scripts
                 
             ClearAttributesEvents();
 
-            var dict = ConvertToDictionary();
-                
-            OnAllReady?.Invoke(dict);
-            OnAllReady = null;
-                
             OnComplete?.Invoke();
             OnComplete = null;
             
-            mediator.Notify(this,"OnParamsLoaded");
+            Mediator.Notify(this,"OnParamsLoaded");
         }
         private Dictionary<string, string> ConvertToDictionary()
         {
@@ -157,10 +150,10 @@ namespace WebSdk.Parameters.Runtime.Scripts
         }
         #endregion
         
-        public IMediator mediator { get; private set; }
+        public IMediator Mediator { get; private set; }
         public void SetMediator(IMediator mediator)
         {
-            this.mediator = mediator;
+            Mediator = mediator;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using WebSdk.Core.Runtime.AdjustHelpers;
-using WebSdk.Core.Runtime.AppTransparencyTrackers;
 using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.InternetChecker;
 using WebSdk.Core.Runtime.Logger;
@@ -16,39 +15,22 @@ namespace WebSdk.Core.Runtime.GlobalPart
         public static IConfigsLoader ConfigsLoader;
         public static INotification Notification;
         public static MonoBehaviour MonoBehaviour;
-        public static IAdjustHelper AdjustHelper;
-        public static IAppTransparencyTracker Att;
+        public static ITrackingProvider TrackingProvider;
+        //public static IAppTransparencyTracker Att;
 
-        static GlobalFacade()
+        private static GameObject GlobalGameObject;
+
+        public static void Init(GameObject globalGameObject)
         {
-            Logger = new DummyLogger();
-            InternetChecker = new DummyInternetChecker();
-            ConfigsLoader = new DummyConfigLoader();
-            Notification = new DummyNotificationsClient();
-            AdjustHelper = new DummyAdjustHelper();
-            Att = new DummyAppTrackingTransparency();
-        }
+            GlobalGameObject = globalGameObject;
+            MonoBehaviour = globalGameObject.GetComponent<MonoBehaviour>();
 
-        public static void Init(ILogger logger, IInternetChecker internetChecker, IConfigsLoader configsLoader, INotification notification, IAdjustHelper adjustHelper, IAppTransparencyTracker att)
-        {
-            Logger = logger;
-            InternetChecker = internetChecker;
-            ConfigsLoader = configsLoader;
-            Notification = notification;
-            AdjustHelper = adjustHelper;
-            Att = att;
-        }
-
-        public static void Init(IGlobalFactory factory, MonoBehaviour monoBehaviour)
-        {
-            AdjustHelper = factory.CreateAdjustHelper();
-            Logger = factory.CreateLogger();
-            InternetChecker = factory.CreateInternetChecker();
-            ConfigsLoader = factory.CreateConfigLoader();
-            Notification = factory.CreateNotifications();
-            Att = factory.CreateAppTransparencyTracker();
-
-            MonoBehaviour = monoBehaviour;
+            Logger = GlobalGameObject.gameObject.GetComponent<ILogger>() ?? GlobalGameObject.gameObject.AddComponent<DummyLogger>();
+            InternetChecker = GlobalGameObject.gameObject.GetComponent<IInternetChecker>() ?? GlobalGameObject.gameObject.AddComponent<DummyInternetChecker>();
+            ConfigsLoader = GlobalGameObject.gameObject.GetComponent<IConfigsLoader>() ?? GlobalGameObject.gameObject.AddComponent<DummyConfigLoader>();
+            Notification = GlobalGameObject.gameObject.GetComponent<INotification>() ?? GlobalGameObject.gameObject.AddComponent<DummyNotificationsClient>();
+            TrackingProvider = GlobalGameObject.gameObject.GetComponent<ITrackingProvider>() ?? GlobalGameObject.gameObject.AddComponent<DummyTrackingProvider>();
+            //Att = GlobalGameObject.gameObject.GetComponent<IAppTransparencyTracker>() ?? GlobalGameObject.gameObject.AddComponent<DummyAppTrackingTransparency>();
         }
     }
 }

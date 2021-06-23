@@ -1,8 +1,9 @@
 ﻿using System;
+using UnityEngine;
 
 namespace WebSdk.Core.Runtime.Notifications
 {
-    public class DummyNotificationsClient: INotification
+    public class DummyNotificationsClient: MonoBehaviour, INotification
     {
         public event Action OnReady;
 

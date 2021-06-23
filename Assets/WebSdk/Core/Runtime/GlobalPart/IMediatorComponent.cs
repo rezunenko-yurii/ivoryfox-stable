@@ -2,7 +2,7 @@
 {
     public interface IMediatorComponent
     {
-        IMediator mediator { get; }
+        IMediator Mediator { get; }
         void SetMediator(IMediator mediator);
     }
 }

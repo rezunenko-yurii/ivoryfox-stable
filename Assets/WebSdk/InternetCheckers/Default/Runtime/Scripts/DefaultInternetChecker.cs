@@ -9,11 +9,14 @@ namespace WebSdk.InternetCheckers.Default.Runtime.Scripts
     public class DefaultInternetChecker : MonoBehaviour, IInternetChecker
     {
         public event Action<bool> OnResult;
+        public event Action<bool> OnRepeatCounterEnds;
         public bool HasConnection { get; private set; } = false;
         public bool IsBlocked { get; private set; } = false;
         private int _repeatCount = 0;
         private IEnumerator SendRequest()
         {
+            Debug.Log("DefaultInternetChecker SendRequest");
+            
             if (_repeatCount <= 0) _repeatCount = 1;
             _repeatCount--;
             
@@ -34,6 +37,10 @@ namespace WebSdk.InternetCheckers.Default.Runtime.Scripts
             {
                 CancelInvoke(nameof(StartChecking));
                 IsBlocked = false;
+                
+                /*Debug.Log("DefaultInternetChecker RepeatCount == 0");
+                OnRepeatCounterEnds?.Invoke(HasConnection);
+                OnRepeatCounterEnds = null;*/
             }
             
             OnResult?.Invoke(HasConnection);
@@ -46,7 +53,7 @@ namespace WebSdk.InternetCheckers.Default.Runtime.Scripts
             
             if (repeatCount > 1)
             {
-                this._repeatCount = repeatCount;
+                _repeatCount = repeatCount;
                 InvokeRepeating(nameof(StartChecking), 0f, 11f);
             }
             else

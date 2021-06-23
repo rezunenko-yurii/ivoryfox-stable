@@ -17,9 +17,9 @@ namespace WebSdk.AppTransparencyTrackers.Unity.Runtime.Scripts
     {
         public event Action OnGetRequest;
         public AttStatus Status { get; private set; }
-        private bool _isReady = false;
+        public bool IsReady { get; private set; }
 
-        public void Init()
+        public void DoRequest()
         {
 #if UNITY_IOS && !UNITY_EDITOR
             Version currentVersion = new Version(Device.systemVersion); // Parse the version of the current OS
@@ -50,7 +50,7 @@ namespace WebSdk.AppTransparencyTrackers.Unity.Runtime.Scripts
         {
             ATTrackingStatusBinding.RequestAuthorizationTracking();
             
-            while (!_isReady)
+            while (!IsReady)
             {
                 yield return new WaitForSeconds(0.1f);
                 GetAttStatus();
@@ -72,7 +72,7 @@ namespace WebSdk.AppTransparencyTrackers.Unity.Runtime.Scripts
                 return;
             }
 
-            _isReady = true;
+            IsReady = true;
             Debug.Log($"----- AppTransparencyTracker complete // status = {Status}");
 #endif
             SendOnGetRequest();
