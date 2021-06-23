@@ -2,6 +2,7 @@
 using System.Globalization;
 using UnityEngine;
 using WebSdk.Core.Runtime.ConfigLoader;
+using WebSdk.Core.Runtime.GlobalPart;
 using WebSdk.Core.Runtime.Notifications; //using EasyMobile;
 using NotificationRepeat = WebSdk.Core.Runtime.Notifications.NotificationRepeat;
 
@@ -140,5 +141,7 @@ namespace WebSdk.Notifications.EasyMobile.Runtime.Scripts
                 return notificationModelLocals[2];
             }
         }
+
+        public IModulesHost Parent { get; set; }
     }
 }

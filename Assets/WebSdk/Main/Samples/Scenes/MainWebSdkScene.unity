@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 879698980}
   - component: {fileID: 879698977}
   m_Layer: 5
-  m_Name: EntryComponents
+  m_Name: GlobalComponents
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1065,6 +1065,7 @@ GameObject:
   - component: {fileID: 2099742881}
   - component: {fileID: 2099742883}
   - component: {fileID: 2099742882}
+  - component: {fileID: 2099742884}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1172,7 +1173,8 @@ MonoBehaviour:
   webGameObject: {fileID: 1898663487}
   trackingGameObject: {fileID: 667238600}
   textfield: {fileID: 1019226386}
-  _webMeditor: {fileID: 2099742883}
+  _webManager: {fileID: 2099742883}
+  _globalManager: {fileID: 2099742884}
   _trackingManager: {fileID: 2099742882}
 --- !u!114 &2099742882
 MonoBehaviour:
@@ -1196,5 +1198,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c27452fd3c504270976c868cb2e668cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2099742884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099742876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e05c1e6b00b4834b67ec99ec85b7c77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

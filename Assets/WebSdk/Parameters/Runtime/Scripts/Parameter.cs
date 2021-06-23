@@ -1,9 +1,10 @@
 ﻿using System;
 using UnityEngine;
+using WebSdk.Core.Runtime.GlobalPart;
 
 namespace WebSdk.Parameters.Runtime.Scripts
 {
-    public abstract class Parameter
+    public abstract class Parameter : IModule
     {
         public Action<Parameter> onReady;
         public Action<Parameter> onUnReady;
@@ -43,5 +44,7 @@ namespace WebSdk.Parameters.Runtime.Scripts
 
             return this;
         }
+
+        public IModulesHost Parent { get; set; }
     }
 }

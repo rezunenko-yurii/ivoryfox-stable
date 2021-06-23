@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using TMPro;
@@ -7,11 +8,12 @@ using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.GlobalPart;
 using WebSdk.Core.Runtime.WebCore;
 using WebSdk.Tracking;
+using WebSdk.Tracking.Runtime.Scripts;
 using Debug = UnityEngine.Debug;
 
 namespace WebSdk.Main.Runtime.Scripts
 {
-    public class WebSdkEntry : MonoBehaviour, IGlobalBlock
+    public class WebSdkEntry : MonoBehaviour, IModulesHost
     {
         [SerializeField] private GameObject globalGameObject;
         [SerializeField] private GameObject webGameObject;
@@ -20,6 +22,7 @@ namespace WebSdk.Main.Runtime.Scripts
         public TextMeshProUGUI textfield;
         
         [SerializeField] private WebManager _webManager;
+        [SerializeField] private GlobalComponentsManager _globalManager;
         [SerializeField] private TrackingManager _trackingManager;
         private Stopwatch _stopwatch;
 
@@ -27,14 +30,14 @@ namespace WebSdk.Main.Runtime.Scripts
         {
             Debug.Log("GlobalBlockUnity Awake");
             
-            _trackingManager.Init(trackingGameObject);
-            _webManager.Init(webGameObject);
+            _trackingManager.InitModules(trackingGameObject, this);
+            _globalManager.InitModules(globalGameObject, this);
+            _webManager.InitModules(webGameObject, this);
 
             ModulesNavigation.SetWebBlockSettings();
             
             _stopwatch = Stopwatch.StartNew();
-
-            GlobalFacade.Init(globalGameObject);
+            
             CheckAtt();
         }
         
@@ -50,40 +53,46 @@ namespace WebSdk.Main.Runtime.Scripts
         {
             Debug.Log("WebSdkEntry CheckInternetConnection");
             
-            GlobalFacade.InternetChecker.OnResult += TryLoadConfigs;
-            GlobalFacade.InternetChecker.Check(3);
+            _globalManager.InternetChecker.OnRepeatCheckResult += ChangeLoaderText;
+            _globalManager.InternetChecker.OnRepeatEndResult += TryLoadConfigs;
+
+            _globalManager.InternetChecker.Check(3);
         }
 
         #region Cofigs
         
-        public void TryLoadConfigs(bool hasConnection)
+        private void TryLoadConfigs(bool hasConnection)
         {
             Debug.Log($"WebSdkEntry TryLoadConfigs / hasConnection {hasConnection}");
             
-            if (hasConnection)
-            {
-                GlobalFacade.InternetChecker.OnResult -= TryLoadConfigs;
-                LoadConfigs();
-            }
+            if (hasConnection) LoadConfigs();
             else
             {
-                textfield.text = "No internet connection. \n Please turn on the internet or wait ";
-                CheckRepeatsLeft();
+                Debug.Log($"WebSdkEntry -> No internet connection -> GoToNativeBlock");
+                ModulesNavigation.GoToNativeBlock();
             }
+        }
+        
+        private void ChangeLoaderText(bool hasConnection)
+        {
+            Debug.Log($"WebSdkEntry TryLoadConfigs / hasConnection {hasConnection}");
+            
+            const string noInternetText = "No internet connection. \n Please turn on the internet or wait ";
+            const string loadingText = "Loading...";
+            
+            textfield.text = hasConnection ? loadingText : noInternetText;
         }
 
         private void LoadConfigs()
         {
             Debug.Log($"WebSdkEntry LoadConfigs");
-            var ids = ConfigLoaderHelper.GetConsumableIds(GlobalFacade.Logger, GlobalFacade.Notification);
-            ids.Add("canUse");
+
+            var ids = new List<string> {"canUse"};
+            ids = ids.Union(_globalManager.GetConfigIds()).ToList();
             ids = ids.Union(_trackingManager.GetConfigIds()).ToList();
             ids = ids.Union(_webManager.GetConfigIds()).ToList();
 
-            if (ids.Count > 0)
-            {
-                GlobalFacade.ConfigsLoader.Load(ids, InitConfigs);
-            }
+            if (ids.Count > 0) _globalManager.ConfigsLoader.Load(ids, InitConfigs);
             else
             {
                 Debug.Log($"WebSdkEntry -> GoToNativeBlock");
@@ -91,24 +100,18 @@ namespace WebSdk.Main.Runtime.Scripts
             }
         }
         
-        public void InitConfigs(Dictionary<string, string> configs)
+        private void InitConfigs(Dictionary<string, string> configs)
         {
             Debug.Log($"WebSdkEntry InitConfigs / StopWatch = {_stopwatch.Elapsed.Seconds} FromStart = {Time.realtimeSinceStartup}");
 
-            var a = _webManager.GetModulesForConfigs();
-            a = a.Union(_trackingManager.GetModulesForConfigs()).ToList();
-
-            ConfigLoaderHelper.SetConfigsToConsumables(configs, a.ToArray());
+            SetLoadedDataToModules(configs);
 
             configs.TryGetValue("canUse", out var canUseString);
             bool.TryParse(canUseString, out var canUse);
 
             if (canUse)
             {
-                ConfigLoaderHelper.SetConfigsToConsumables(configs, GlobalFacade.Logger, GlobalFacade.Notification);
-                
                 Debug.Log($"GlobalBlockUnity Complete / StopWatch = {_stopwatch.Elapsed.Seconds} FromStart = {Time.realtimeSinceStartup}");
-                
                 _webManager.DoWork();
             }
             else
@@ -119,26 +122,46 @@ namespace WebSdk.Main.Runtime.Scripts
             
             _stopwatch.Stop();
         }
-        
-        #endregion
 
-        private void CheckRepeatsLeft()
+        private void SetLoadedDataToModules(Dictionary<string, string> configs)
         {
-            if (GlobalFacade.InternetChecker.RepeatsLeft() > 0)
-            {
-                textfield.text = "No internet connection. \n Please turn on the internet or wait ";
-            }
-            else
-            {
-                Debug.Log($"WebSdkEntry -> No internet connection -> GoToNativeBlock");
-                ModulesNavigation.GoToNativeBlock();
-            }
+            List<IModule> modules = new List<IModule>();
+            modules = modules.Union(_globalManager.GetModulesForConfigs()).ToList();
+            modules = modules.Union(_webManager.GetModulesForConfigs()).ToList();
+            modules = modules.Union(_trackingManager.GetModulesForConfigs()).ToList();
+
+            ConfigLoaderHelper.SetConfigsToConsumables(configs, modules.ToArray());
         }
 
+        #endregion
+        
         private void OnDestroy()
         {
             Debug.Log($"WebSdkEntry OnDestroy");
-            GlobalFacade.Logger.Clear();
+            _globalManager.Logger.Clear();
+        }
+
+        public Dictionary<Type, IModule> Modules { get; set; } = new Dictionary<Type, IModule>();
+        public IModulesHost Parent { get; set; }
+
+        public IModule GetModule(Type moduleType)
+        {
+            if (Modules.ContainsKey(moduleType))
+            {
+                return Modules[moduleType];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public void AddModule(Type moduleType, IModule module)
+        {
+            if (!Modules.ContainsKey(moduleType))
+            {
+                Modules.Add(moduleType, module);
+            }
         }
     }
 }

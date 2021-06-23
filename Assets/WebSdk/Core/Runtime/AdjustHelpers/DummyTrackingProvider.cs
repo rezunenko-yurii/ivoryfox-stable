@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using WebSdk.Core.Runtime.GlobalPart;
 
 namespace WebSdk.Core.Runtime.AdjustHelpers
 {
@@ -17,5 +18,12 @@ namespace WebSdk.Core.Runtime.AdjustHelpers
             Debug.Log($"---------- {nameof(DummyTrackingProvider)} GetAttribution always return organic");
             return "organic";
         }
+
+        public string GetAdid()
+        {
+            return string.Empty;
+        }
+
+        public IModulesHost Parent { get; set; }
     }
 }

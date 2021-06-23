@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using WebSdk.Core.Runtime.GlobalPart;
 
 namespace WebSdk.Core.Runtime.AppTransparencyTrackers
 {
@@ -16,5 +17,7 @@ namespace WebSdk.Core.Runtime.AppTransparencyTrackers
             OnGetRequest?.Invoke();
             OnGetRequest = null;
         }
+
+        public IModulesHost Parent { get; set; }
     }
 }

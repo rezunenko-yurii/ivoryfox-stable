@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using WebSdk.Core.Runtime.GlobalPart;
 
 namespace WebSdk.Core.Runtime.Notifications
 {
@@ -16,5 +17,7 @@ namespace WebSdk.Core.Runtime.Notifications
         {
             return false;
         }
+
+        public IModulesHost Parent { get; set; }
     }
 }

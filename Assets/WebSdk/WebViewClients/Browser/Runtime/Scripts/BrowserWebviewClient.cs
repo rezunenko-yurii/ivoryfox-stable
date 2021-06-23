@@ -28,5 +28,7 @@ namespace WebSdk.WebViewClients.Browser.Runtime.Scripts
         {
             //throw new System.NotImplementedException();
         }
+
+        public IModulesHost Parent { get; set; }
     }
 }

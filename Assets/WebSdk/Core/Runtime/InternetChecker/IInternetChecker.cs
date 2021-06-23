@@ -5,7 +5,8 @@ namespace WebSdk.Core.Runtime.InternetChecker
 {
     public interface IInternetChecker : IModule
     {
-        event Action<bool> OnResult;
+        event Action<bool> OnRepeatCheckResult;
+        event Action<bool> OnRepeatEndResult;
         void Check(int repeatCount = 1);
         int RepeatsLeft();
         bool HasConnection { get;}

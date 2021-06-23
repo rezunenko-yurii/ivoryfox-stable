@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using WebSdk.Core.Runtime.GlobalPart;
 
 namespace WebSdk.Core.Runtime.ConfigLoader
 {
@@ -17,5 +18,7 @@ namespace WebSdk.Core.Runtime.ConfigLoader
             Debug.Log("-------------- DummyConfigLoader Load /// !!!!!!!!!!!!! return empty data");
             onComplete?.Invoke(new Dictionary<string, string>());
         }
+
+        public IModulesHost Parent { get; set; }
     }
 }

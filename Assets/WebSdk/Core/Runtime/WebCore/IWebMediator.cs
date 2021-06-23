@@ -5,7 +5,7 @@ using WebSdk.Core.Runtime.GlobalPart;
 
 namespace WebSdk.Core.Runtime.WebCore
 {
-    public interface IWebMediator : IMediator, IConfigsHandler
+    public interface IWebMediator : IMediator
     {
         void Init(GameObject webGameObject);
     }

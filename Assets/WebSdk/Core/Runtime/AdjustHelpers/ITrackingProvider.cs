@@ -7,5 +7,6 @@ namespace WebSdk.Core.Runtime.AdjustHelpers
     {
         bool IsReady { get; }
         string GetAttribution(string request);
+        string GetAdid();
     }
 }

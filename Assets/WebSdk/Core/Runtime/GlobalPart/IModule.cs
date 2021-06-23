@@ -2,6 +2,6 @@
 {
     public interface IModule
     {
-        //MonoBehaviour monoBehaviour { get; set; }
+        IModulesHost Parent { get; set; }
     }
 }

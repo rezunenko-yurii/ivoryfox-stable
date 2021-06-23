@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.Notifications.Android;
 using UnityEngine;
 using WebSdk.Core.Runtime.ConfigLoader;
+using WebSdk.Core.Runtime.GlobalPart;
 using WebSdk.Core.Runtime.Notifications;
 
 namespace WebSdk.Notifications.UnityAndroid.Runtime.Scripts
@@ -189,5 +190,6 @@ namespace WebSdk.Notifications.UnityAndroid.Runtime.Scripts
 
 #endregion
 
+public IModulesHost Parent { get; set; }
     }
 }

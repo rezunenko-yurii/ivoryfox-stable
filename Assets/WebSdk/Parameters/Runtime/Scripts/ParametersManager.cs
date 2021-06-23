@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using UnityEngine;
+
 using WebSdk.Core.Runtime.GlobalPart;
 using WebSdk.Core.Runtime.Helpers;
 using WebSdk.Core.Runtime.WebCore;
@@ -14,20 +16,22 @@ namespace WebSdk.Parameters.Runtime.Scripts
         public event Action OnComplete;
 
         public List<Parameter> parameters = new List<Parameter>();
-        private List<Parameter> readyParams = new List<Parameter>();
+        private List<Parameter> _readyParams = new List<Parameter>();
 
-        private int readyAttributesCounter = 0;
-        private ParameterItems parameterItems;
+        private int _readyAttributesCounter = 0;
+        private ParameterItems _parameterItems;
 
         public string ConfigName { get; } = "paramsConfig";
-        public void SetConfig(string json) => parameterItems = JsonUtility.FromJson<ParameterItems>(json);
+        public void SetConfig(string json) => _parameterItems = JsonUtility.FromJson<ParameterItems>(json);
         
         public void Init()
         {
-            SerialiseParams(parameterItems.items);
+            SerialiseParams(_parameterItems.items);
             
             foreach (Parameter param in parameters)
             {
+                param.Parent = this;
+                
                 SetParamDependencies(param);
                 param.Init(this);
                 
@@ -80,12 +84,12 @@ namespace WebSdk.Parameters.Runtime.Scripts
         }
         private void CheckParamsReady(Parameter parameter)
         {
-            if (readyParams.Contains(parameter)) return;
+            if (_readyParams.Contains(parameter)) return;
             
-            readyParams.Add(parameter);
-            readyAttributesCounter++;
+            _readyParams.Add(parameter);
+            _readyAttributesCounter++;
 
-            if (readyAttributesCounter != parameters.Count) return;
+            if (_readyAttributesCounter != parameters.Count) return;
                 
             ClearAttributesEvents();
 
@@ -102,10 +106,10 @@ namespace WebSdk.Parameters.Runtime.Scripts
         }
         private void RemoveFromReadyParams(Parameter parameter)
         {
-            if (readyParams.Contains(parameter))
+            if (_readyParams.Contains(parameter))
             {
-                readyParams.Remove(parameter);
-                readyAttributesCounter--;
+                _readyParams.Remove(parameter);
+                _readyAttributesCounter--;
             }
         }
         private void ClearAttributesEvents()
@@ -117,7 +121,7 @@ namespace WebSdk.Parameters.Runtime.Scripts
                 attribute.onUnReady -= RemoveFromReadyParams;
             }
 
-            readyParams = null;
+            _readyParams = null;
         }
         #endregion
         
@@ -154,6 +158,18 @@ namespace WebSdk.Parameters.Runtime.Scripts
         public void SetMediator(IMediator mediator)
         {
             Mediator = mediator;
+        }
+
+        public IModulesHost Parent { get; set; }
+        public Dictionary<Type, IModule> Modules { get; set; }
+        public IModule GetModule(Type moduleType)
+        {
+            return Parent.GetModule(moduleType);
+        }
+
+        public void AddModule(Type moduleType, IModule module)
+        {
+            Parent.AddModule(moduleType, module);
         }
     }
 }

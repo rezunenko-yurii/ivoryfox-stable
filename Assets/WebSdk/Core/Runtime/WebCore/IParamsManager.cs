@@ -5,11 +5,10 @@ using WebSdk.Core.Runtime.GlobalPart;
 
 namespace WebSdk.Core.Runtime.WebCore
 {
-    public interface IParamsManager : IModule, IConfigConsumer, IMediatorComponent
+    public interface IParamsManager : IModule, IConfigConsumer, IMediatorComponent, IModulesHost
     {
         event Action<string> OnError;
         event Action OnComplete;
-
         void Init();
         Dictionary<string, string> GetParams();
     }

@@ -13,7 +13,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         [SerializeField] Button backButton;
 
         private string _startUrl;
-        float h = 1f;
+        private float _height = 1f;
         private bool _showBackButton = false;
         private void Awake()
         {
@@ -38,13 +38,13 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 
         void ShowBackButton(bool show)
         {
-            if (show) h = Screen.width > Screen.height ? 0.9f : 0.95f;
-            else h = 1f;
+            if (show) _height = Screen.width > Screen.height ? 0.9f : 0.95f;
+            else _height = 1f;
             
-            float toolbarOffset = Screen.safeArea.height * (1f - h);
+            float toolbarOffset = Screen.safeArea.height * (1f - _height);
             Debug.Log($"Univwebview ShowBackButton {toolbarOffset}");
             
-            _webView.Frame = new Rect(Screen.safeArea.x, Screen.safeArea.y + toolbarOffset, Screen.safeArea.width, Screen.safeArea.height * h);
+            _webView.Frame = new Rect(Screen.safeArea.x, Screen.safeArea.y + toolbarOffset, Screen.safeArea.width, Screen.safeArea.height * _height);
             //navigationBar.offsetMax = new Vector2(0, toolbarOffset);
             navigationBar.sizeDelta = new Vector2(0, toolbarOffset);
             
@@ -77,31 +77,31 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         {
             //Debug.Log($"PageFinished: {_webView.Url}");
             
-            if (string.IsNullOrEmpty(merchant) && !_webView.Url.Equals(_startUrl))
+            if (string.IsNullOrEmpty(_merchant) && !_webView.Url.Equals(_startUrl))
             {
-                if (nextMerch)
+                if (_nextMerch)
                 {
                     string[] tempArray = _webView.Url.Split("/"[0]);
-                    merchant = tempArray[2];
+                    _merchant = tempArray[2];
                     //Debug.Log($"merchant value: {merchant}");
-                    merchLook = true;
+                    _merchLook = true;
                     _webView.SetUserInteractionEnabled(true);
                 }
-                nextMerch = true;
+                _nextMerch = true;
             }
         }
         
-        string merchant = "";
-        bool nextMerch = false;
-        bool merchLook = false;
-        bool checkToolbar = false;
+        private string _merchant = "";
+        private bool _nextMerch = false;
+        private bool _merchLook = false;
+        private bool _checkToolbar = false;
 
         private void PageStart(global::UniWebView webview, string currentUrl)
         {
             
-            if (merchLook)
+            if (_merchLook)
             {
-                if (((!currentUrl.Contains("way") && !currentUrl.Contains("pay.") && !currentUrl.Contains(merchant)) || currentUrl.Contains("social")))
+                if (((!currentUrl.Contains("way") && !currentUrl.Contains("pay.") && !currentUrl.Contains(_merchant)) || currentUrl.Contains("social")))
                 {
                     _showBackButton = true;
                 }
@@ -114,5 +114,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
                 ShowBackButton(_showBackButton);
             }
         }
+
+        public IModulesHost Parent { get; set; }
     }
 }

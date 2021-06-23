@@ -104,5 +104,7 @@ namespace WebSdk.UrlLoaders.Unity.Runtime.Scripts
             OnSuccess = OnFailure = null;
             StopCoroutine(_coroutine);
         }
+
+        public IModulesHost Parent { get; set; }
     }
 }

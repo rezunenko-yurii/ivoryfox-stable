@@ -5,10 +5,8 @@ namespace WebSdk.Parameters.Runtime.Scripts
 {
     public class WaitableParameter: Parameter
     {
-        protected float TimeFromInit;
+        protected float TimeFromInit { get; private set; }
         protected const int WaitTime = 12;
-        
-        public WaitableParameter(){}
         
         public override void Init(MonoBehaviour monoBehaviour)
         {

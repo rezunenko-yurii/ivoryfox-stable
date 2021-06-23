@@ -1,0 +1,19 @@
+{
+    "name": "WebSdk.AdjustParameters.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0757f9d8a63e79f4b86db76555f6c764",
+        "GUID:3eb8fcefcd9a5d643bd6a0eb95714e4d",
+        "GUID:ffa9f5008372f9d40a66cab2832f227a",
+        "GUID:e332b8b2849050747b1c80f666edf746"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
