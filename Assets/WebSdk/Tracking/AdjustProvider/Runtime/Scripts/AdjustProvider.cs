@@ -43,10 +43,8 @@ namespace WebSdk.Tracking.AdjustProvider.Runtime.Scripts
                 config.setPreinstallTrackingEnabled(true);
                 config.setAllowiAdInfoReading(true);
                 config.setAllowAdServicesInfoReading(true);
-                
                 config.setEventBufferingEnabled(true);
-                //config.setProcessName();
-
+                
                 Adjust.setEnabled(true);
                 Adjust.start(config);
                 
