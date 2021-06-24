@@ -4,8 +4,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using UnityEngine;
 using WebSdk.Core.Runtime.ConfigLoader;
-using WebSdk.Core.Runtime.GlobalPart;
+using WebSdk.Core.Runtime.Global;
 using WebSdk.Core.Runtime.Helpers;
+using WebSdk.Core.Runtime.WebCore.Parameters;
+using WebSdk.Core.Runtime.WebCore.Url;
+using WebSdk.Core.Runtime.WebCore.WebView;
 using Debug = UnityEngine.Debug;
 
 namespace WebSdk.Core.Runtime.WebCore

@@ -2,7 +2,7 @@
 using System.Globalization;
 using UnityEngine;
 using WebSdk.Core.Runtime.ConfigLoader;
-using WebSdk.Core.Runtime.GlobalPart;
+using WebSdk.Core.Runtime.Global;
 using WebSdk.Core.Runtime.Notifications; //using EasyMobile;
 using NotificationRepeat = WebSdk.Core.Runtime.Notifications.NotificationRepeat;
 

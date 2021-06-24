@@ -17,6 +17,4 @@ MonoBehaviour:
   pathToPlugin: Assets/WebSdk/Main
   gitDependencies:
   - {fileID: 11400000, guid: f8921bbcd16d7b547aac91ab995ad4c3, type: 2}
-  - {fileID: 11400000, guid: f466fdd8241ae3848b479a8babe7d6f3, type: 2}
-  - {fileID: 11400000, guid: 9d734215ea68cf6418f3ee0019e11ede, type: 2}
   unityPackages: []

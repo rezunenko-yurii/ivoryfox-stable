@@ -3,7 +3,8 @@ using System.Diagnostics;
 using CloackaV4.Scripts.Commands;
 using UnityEngine;
 using UnityEngine.Networking;
-using WebSdk.Global.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
+using WebSdk.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts;
+using WebSdk.Core.Runtime.ConfigLoader;
 using Debug = UnityEngine.Debug;
 
 namespace CloackaV4.Scripts
@@ -15,12 +16,12 @@ namespace CloackaV4.Scripts
     
         private CustomerTokenCommand _customerTokenCommand;
         private CheckCommand _checkCommand;
-        private RemoteConfigsLoader _remoteConfig;
+        private UnityRemoteConfigLoader _remoteConfig;
         private InternetChecker _internetChecker;
     
         void Start()
         {
-            _remoteConfig = new RemoteConfigsLoader();
+            _remoteConfig = new UnityRemoteConfigLoader();
             _urlLoader = GetComponent<UnityUrlLoader>();
             _dataCollector = GetComponent<DataCollector>();
             _internetChecker = GetComponent<InternetChecker>();

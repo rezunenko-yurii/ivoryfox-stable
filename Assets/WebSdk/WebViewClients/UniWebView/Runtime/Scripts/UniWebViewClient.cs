@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using WebSdk.Core.Runtime.GlobalPart;
+using WebSdk.Core.Runtime.Global;
 using WebSdk.Core.Runtime.WebCore;
+using WebSdk.Core.Runtime.WebCore.WebView;
 
 namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 {

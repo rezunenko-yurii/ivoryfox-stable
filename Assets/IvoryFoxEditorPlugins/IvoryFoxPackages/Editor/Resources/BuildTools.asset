@@ -12,23 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: BuildTools
   m_EditorClassIdentifier: 
-  packageAsset: {fileID: 4900000, guid: cace0fc1ae3f30046840a5bfb26f151d, type: 3}
-  localPackage:
-    name: 
-    version: 
-    description: 
-    displayName: 
-  gitPackage:
-    name: 
-    version: 
-    description: 
-    displayName: 
   packageName: Build Tools
   packageId: com.ivoryfox.build-tools
-  pathToPlugin: Assets/BuildTools
-  type: 0
-  url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/BuildTools
-  unityDependencies: []
+  pathToPlugin: Assets/IvoryFoxEditorPlugins/BuildTools
   gitDependencies:
   - {fileID: 11400000, guid: 99f1fbb4ebc75254f8904c6349249c80, type: 2}
   unityPackages: []

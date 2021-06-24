@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using UnityEditor;
 using UnityEngine;
+using WebSdk.Core.Runtime.Global;
 using WebSdk.Core.Runtime.Helpers;
 
 namespace WebSdk.Core.Editor.Helpers.Scripts

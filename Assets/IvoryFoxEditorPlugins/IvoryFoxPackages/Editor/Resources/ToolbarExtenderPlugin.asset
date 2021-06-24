@@ -12,21 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: ToolbarExtenderPlugin
   m_EditorClassIdentifier: 
-  localPackage:
-    name: com.ivoryfox.toolbar-extender
-    version: 1.0.1
-    description: ---
-    displayName: IvoryFox Toolbar Extender
-  gitPackage:
-    name: 
-    version: 
-    description: 
-    displayName: 
   packageName: Toolbar Extender
   packageId: com.ivoryfox.toolbar-extender
-  pathToPlugin: Assets/ToolbarExtenderPlugin
-  type: 0
-  url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/ToolbarExtenderPlugin
-  unityDependencies: []
+  pathToPlugin: Assets/IvoryFoxEditorPlugins/ToolbarExtenderPlugin
   gitDependencies: []
   unityPackages: []

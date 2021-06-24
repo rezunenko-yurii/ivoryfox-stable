@@ -12,23 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: CloudContentDeliveryConfigLoader
   m_EditorClassIdentifier: 
-  packageAsset: {fileID: 0}
-  localPackage:
-    name: 
-    version: 
-    description: 
-    displayName: 
-  gitPackage:
-    name: 
-    version: 
-    description: 
-    displayName: 
   packageName: Cloud Content Delivery Config Loader
   packageId: com.ivoryfox.config-loader-cloud-content-delivery
-  pathToPlugin: Assets/WebSdk/ConfigLoaders/CloudContentDeliveryClient
-  type: 0
-  url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/WebSdk/ConfigLoaders/CloudContentDeliveryClient
-  unityDependencies: []
+  pathToPlugin: Assets/WebSdk/ConfigLoaders/CloudContentDelivery
   gitDependencies:
   - {fileID: 11400000, guid: f8921bbcd16d7b547aac91ab995ad4c3, type: 2}
   unityPackages: []

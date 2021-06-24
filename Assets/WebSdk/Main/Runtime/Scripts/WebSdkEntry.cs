@@ -5,10 +5,9 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using WebSdk.Core.Runtime.ConfigLoader;
-using WebSdk.Core.Runtime.GlobalPart;
+using WebSdk.Core.Runtime.Global;
+using WebSdk.Core.Runtime.Tracking;
 using WebSdk.Core.Runtime.WebCore;
-using WebSdk.Tracking;
-using WebSdk.Tracking.Runtime.Scripts;
 using Debug = UnityEngine.Debug;
 
 namespace WebSdk.Main.Runtime.Scripts
@@ -34,7 +33,7 @@ namespace WebSdk.Main.Runtime.Scripts
             _globalManager.InitModules(globalGameObject, this);
             _webManager.InitModules(webGameObject, this);
 
-            ModulesNavigation.SetWebBlockSettings();
+            GameNavigation.SetWebBlockSettings();
             
             _stopwatch = Stopwatch.StartNew();
             
@@ -69,7 +68,7 @@ namespace WebSdk.Main.Runtime.Scripts
             else
             {
                 Debug.Log($"WebSdkEntry -> No internet connection -> GoToNativeBlock");
-                ModulesNavigation.GoToNativeBlock();
+                GameNavigation.GoToNativeBlock();
             }
         }
         
@@ -96,7 +95,7 @@ namespace WebSdk.Main.Runtime.Scripts
             else
             {
                 Debug.Log($"WebSdkEntry -> GoToNativeBlock");
-                ModulesNavigation.GoToNativeBlock();
+                GameNavigation.GoToNativeBlock();
             }
         }
         
@@ -117,7 +116,7 @@ namespace WebSdk.Main.Runtime.Scripts
             else
             {
                 Debug.Log($"WebSdkEntry / canUse = false -> GoToNativeBlock");
-                ModulesNavigation.GoToNativeBlock();
+                GameNavigation.GoToNativeBlock();
             }
             
             _stopwatch.Stop();

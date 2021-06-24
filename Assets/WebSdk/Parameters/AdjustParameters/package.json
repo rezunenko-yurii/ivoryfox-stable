@@ -1,0 +1,11 @@
+{
+  "name": "com.ivoryfox.adjust-parameters",
+  "version": "1.1.4",
+  "displayName": "Adjust Parameters",
+  "description": "last edited 24/06/21",
+  "unity": "2019.4",
+  "author": {
+    "name": "exhale",
+    "email": "exhale@syneforge.com"
+  }
+}

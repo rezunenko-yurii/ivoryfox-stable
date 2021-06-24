@@ -12,23 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1d923a56d5a8e4da8ce7fd206c2e58, type: 3}
   m_Name: GitHelper
   m_EditorClassIdentifier: 
-  localPackage:
-    name: com.ivoryfox.git-helper
-    version: 1.3.1
-    description: ---
-    displayName: IvoryFox Git Helper
-  gitPackage:
-    name: 
-    version: 
-    description: 
-    displayName: 
   packageName: Git Helper
   packageId: com.ivoryfox.git-helper
-  pathToPlugin: Assets/IvoryFoxGit
-  type: 0
-  url: https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/IvoryFoxGit
-  unityDependencies:
-  - com.unity.remote-config
+  pathToPlugin: Assets/IvoryFoxEditorPlugins/IvoryFoxGit
   gitDependencies:
   - {fileID: 11400000, guid: 38de392f148b922448aeded6a8f19e23, type: 2}
   unityPackages: []

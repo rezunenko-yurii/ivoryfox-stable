@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using WebSdk.Core.Runtime.GlobalPart;
+using WebSdk.Core.Runtime.Global;
 
 namespace WebSdk.Core.Runtime.ConfigLoader
 {

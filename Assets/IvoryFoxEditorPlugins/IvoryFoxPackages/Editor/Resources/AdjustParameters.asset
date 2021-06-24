@@ -14,12 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   packageName: AdjustParameters
   packageId: com.ivoryfox.adjust-parameters
-  pathToPlugin: Assets/WebSdk/AdjustParameters
-  type: 0
-  unityDependencies:
-  - 
+  pathToPlugin: Assets/WebSdk/Parameters/AdjustParameters
   gitDependencies:
   - {fileID: 11400000, guid: f8921bbcd16d7b547aac91ab995ad4c3, type: 2}
-  - {fileID: 11400000, guid: 8a199c3e686f40d44adda39ac098a9e7, type: 2}
   - {fileID: 11400000, guid: e0274c6e189aa7d4b88d9ac23e7a3b1b, type: 2}
   unityPackages: []

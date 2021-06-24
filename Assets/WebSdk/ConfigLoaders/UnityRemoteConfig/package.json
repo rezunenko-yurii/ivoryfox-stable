@@ -1,0 +1,13 @@
+{
+  "name": "com.ivoryfox.config-loader-unity-remote-config",
+  "version": "1.3.0",
+  "displayName": "IvoryFox Unity Remote Config",
+  "description": "last modified 23/06/2021",
+  "author": {
+    "name": "exhale",
+    "email": "exhale@syneforge.com"
+  },
+  "dependencies": {
+    "com.unity.remote-config": "2.0.1"
+  }
+}

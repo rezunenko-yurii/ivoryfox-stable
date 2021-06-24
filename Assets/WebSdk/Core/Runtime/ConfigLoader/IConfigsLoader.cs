@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using WebSdk.Core.Runtime.GlobalPart;
+using WebSdk.Core.Runtime.Global;
 
 namespace WebSdk.Core.Runtime.ConfigLoader
 {
