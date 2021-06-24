@@ -6,14 +6,14 @@ namespace WebSdk.Core.Runtime.Notifications
 {
     public class DummyNotificationsClient: MonoBehaviour, INotification
     {
-        public event Action OnReady;
+        public event Action Prepared;
 
         public bool IsUsing()
         {
             return false;
         }
 
-        public bool IsReady()
+        public bool IsPrepared()
         {
             return false;
         }

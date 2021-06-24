@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using WebSdk.Core.Runtime.AppTransparencyTrackers;
 using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.Global;
 

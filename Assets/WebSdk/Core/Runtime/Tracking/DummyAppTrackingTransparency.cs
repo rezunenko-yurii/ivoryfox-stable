@@ -2,11 +2,11 @@ using System;
 using UnityEngine;
 using WebSdk.Core.Runtime.Global;
 
-namespace WebSdk.Core.Runtime.AppTransparencyTrackers
+namespace WebSdk.Core.Runtime.Tracking
 {
     public class DummyAppTrackingTransparency : MonoBehaviour, IAppTransparencyTracker
     {
-        public event Action OnGetRequest;
+        public event Action RequestShowed;
         public AttStatus Status => AttStatus.AUTHORIZED;
         public bool IsReady { get; } = true;
 
@@ -14,8 +14,8 @@ namespace WebSdk.Core.Runtime.AppTransparencyTrackers
         {
             Debug.Log($"----------- DummyAppTrackingTransparency Init // Status = {Status.ToString()}");
             
-            OnGetRequest?.Invoke();
-            OnGetRequest = null;
+            RequestShowed?.Invoke();
+            RequestShowed = null;
         }
 
         public IModulesHost Parent { get; set; }

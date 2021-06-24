@@ -8,8 +8,8 @@ namespace WebSdk.Core.Runtime.InternetChecker
 {
     public class DefaultInternetChecker : MonoBehaviour, IInternetChecker
     {
-        public event Action<bool> OnRepeatCheckResult;
-        public event Action<bool> OnRepeatEndResult;
+        public event Action<bool> Checked;
+        public event Action<bool> RepeatsEnded;
         public bool HasConnection { get; private set; } = false;
         public bool IsBlocked { get; private set; } = false;
         private int _repeatCount = 0;
@@ -31,7 +31,7 @@ namespace WebSdk.Core.Runtime.InternetChecker
                 HasConnection = request.error == null;
             }
             
-            OnRepeatCheckResult?.Invoke(HasConnection);
+            Checked?.Invoke(HasConnection);
 
             if (HasConnection || _repeatCount == 0)
             {
@@ -40,10 +40,10 @@ namespace WebSdk.Core.Runtime.InternetChecker
                 
                 Debug.Log("DefaultInternetChecker RepeatCount == 0");
                 
-                OnRepeatEndResult?.Invoke(HasConnection);
+                RepeatsEnded?.Invoke(HasConnection);
                 
-                OnRepeatEndResult = null;
-                OnRepeatCheckResult = null;
+                RepeatsEnded = null;
+                Checked = null;
             }
         }
         

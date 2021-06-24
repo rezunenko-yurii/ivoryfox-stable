@@ -17,11 +17,11 @@ namespace WebSdk.Notifications.EasyMobile.Runtime.Scripts
     {
         private NotificationConfig config;
         private bool isReady = false;
-        public event Action OnReady;
+        public event Action Prepared;
         
         public string ConfigName { get; } = "notificationsConfig";
         public bool IsUsing() => config != null;
-        public bool IsReady() => isReady;
+        public bool IsPrepared() => isReady;
         
         public EasyMobileNotifsClient()
         {

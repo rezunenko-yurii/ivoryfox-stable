@@ -9,8 +9,8 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
 {
     public class ParametersManager : MonoBehaviour, IParamsManager
     {
-        public event Action<string> OnError;
-        public event Action OnComplete;
+        public event Action<string> Failed;
+        public event Action Completed;
 
         public List<Parameter> parameters = new List<Parameter>();
         private List<Parameter> _readyParams = new List<Parameter>();
@@ -34,20 +34,19 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
                 
                 if (param.IsReady())
                 {
-                    CheckParamsReady(param);
+                    CheckParamsPrepared(param);
                 }
                 else
                 {
-                    param.onError += StopParametersChecking;
-                    param.onReady += CheckParamsReady;
-                    param.onUnReady += RemoveFromReadyParams;
+                    param.Failed += StopParametersChecking;
+                    param.Prepared += CheckParamsPrepared;
+                    param.UnPrepared += RemoveFromPreparedParams;
                 }
             }
             
             if (parameters.Count == 0)
             {
-                OnComplete?.Invoke();
-                Mediator.Notify(this,"OnParamsLoaded");
+                Completed?.Invoke();
             }
         }
 
@@ -74,12 +73,10 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
         private void StopParametersChecking(Parameter parameter)
         {
             ClearAttributesEvents();
-            OnError?.Invoke($"Error!!! Can`t set value for attribute {parameter.GetAlias()}");
-            Mediator.Notify(this,"Error");
-            
-            OnError = null;
+            Failed?.Invoke($"Error!!! Can`t set value for attribute {parameter.GetAlias()}");
+            Failed = null;
         }
-        private void CheckParamsReady(Parameter parameter)
+        private void CheckParamsPrepared(Parameter parameter)
         {
             if (_readyParams.Contains(parameter)) return;
             
@@ -90,10 +87,8 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
                 
             ClearAttributesEvents();
 
-            OnComplete?.Invoke();
-            OnComplete = null;
-            
-            Mediator.Notify(this,"OnParamsLoaded");
+            Completed?.Invoke();
+            Completed = null;
         }
         private Dictionary<string, string> ConvertToDictionary()
         {
@@ -101,7 +96,7 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
             parameters.ForEach(parameter => dict.Add(parameter.GetAlias(), parameter.GetValue()));
             return dict;
         }
-        private void RemoveFromReadyParams(Parameter parameter)
+        private void RemoveFromPreparedParams(Parameter parameter)
         {
             if (_readyParams.Contains(parameter))
             {
@@ -113,9 +108,9 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
         {
             foreach (var attribute in parameters)
             {
-                attribute.onError -= StopParametersChecking;
-                attribute.onReady -= CheckParamsReady;
-                attribute.onUnReady -= RemoveFromReadyParams;
+                attribute.Failed -= StopParametersChecking;
+                attribute.Prepared -= CheckParamsPrepared;
+                attribute.UnPrepared -= RemoveFromPreparedParams;
             }
 
             _readyParams = null;
@@ -151,12 +146,6 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
         }
         #endregion
         
-        public IMediator Mediator { get; private set; }
-        public void SetMediator(IMediator mediator)
-        {
-            Mediator = mediator;
-        }
-
         public IModulesHost Parent { get; set; }
         public Dictionary<Type, IModule> Modules { get; set; }
         public IModule GetModule(Type moduleType)

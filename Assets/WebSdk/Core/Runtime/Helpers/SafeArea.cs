@@ -5,7 +5,7 @@ namespace WebSdk.Core.Runtime.Helpers
 {
     public class SafeArea : MonoBehaviour
     {
-        public static event Action OnSafeRecalculated;
+        public static event Action Recalculated;
     
         private Rect lastSafeArea;
         private RectTransform parentRectTransform;
@@ -44,7 +44,7 @@ namespace WebSdk.Core.Runtime.Helpers
             _screen.width = Screen.width;
             _screen.height = Screen.height;
             
-            OnSafeRecalculated?.Invoke();
+            Recalculated?.Invoke();
         }
     }
 }

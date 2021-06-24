@@ -11,12 +11,6 @@ namespace WebSdk.Core.Runtime.WebCore.WebView
             Screen.orientation = ScreenOrientation.AutoRotation;
             Screen.autorotateToPortrait = true;
         }
-        
-        public IMediator Mediator { get; private set; }
-        public void SetMediator(IMediator mediator)
-        {
-            this.Mediator = mediator;
-        }
 
         public void Open(string url)
         {

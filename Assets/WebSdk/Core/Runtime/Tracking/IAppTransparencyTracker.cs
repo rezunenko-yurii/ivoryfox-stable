@@ -1,12 +1,11 @@
 using System;
-using UnityEngine;
 using WebSdk.Core.Runtime.Global;
 
-namespace WebSdk.Core.Runtime.AppTransparencyTrackers
+namespace WebSdk.Core.Runtime.Tracking
 {
     public interface IAppTransparencyTracker : IModule
     {
-        event Action OnGetRequest;
+        event Action RequestShowed;
         AttStatus Status{ get; }
         bool IsReady{ get; }
         void DoRequest();

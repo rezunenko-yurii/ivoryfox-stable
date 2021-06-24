@@ -6,7 +6,7 @@ namespace WebSdk.Core.Runtime.Logger
 {
     public interface ICustomLogger : IModule
     {
-        bool IsReady { get; set; }
+        bool IsPrepared { get; set; }
         LoggerData loggerData { get; set; }
         int counter { get; set; }
         void Send(string condition, string stacktrace = "", LogType type = LogType.Log);

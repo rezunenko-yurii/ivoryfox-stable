@@ -8,9 +8,8 @@ namespace WebSdk.Core.Runtime.WebCore.Url
 {
     public class UnityUrlLoader: MonoBehaviour, IUrlLoader
     {
-        public event Action<string> OnFailure;
-        public event Action<string> OnSuccess;
-        public IMediator Mediator { get; private set; }
+        public event Action<string> LoadingFailed;
+        public event Action<string> LoadingSucceeded;
         public string ConfigName { get; } = "urlsConfig";
 
         private Coroutine _coroutine;
@@ -18,27 +17,20 @@ namespace WebSdk.Core.Runtime.WebCore.Url
         
         public void SetConfig(string json) => _urlsConfig = JsonUtility.FromJson<UrlsConfig>(json);
         public string GetUrl() => _urlsConfig.url;
-
-        public void SetMediator(IMediator mediator)
-        {
-            Mediator = mediator;
-        }
+        
         public void DoRequest()
         {
             Debug.Log("UnityUrlLoader DoRequest");
             
             if (_urlsConfig == null)
             {
-                OnFailure?.Invoke("urlsConfig is null");
-                Mediator.Notify(this,"Error");
-                
+                LoadingFailed?.Invoke("urlsConfig is null");
                 return;
             }
 
             if (_urlsConfig.HasUrl)
             {
-                OnSuccess?.Invoke(_urlsConfig.url);
-                Mediator.Notify(this,"OnUrlLoaded");
+                LoadingSucceeded?.Invoke(_urlsConfig.url);
             }
             else if (_urlsConfig.HasServer)
             {
@@ -46,8 +38,7 @@ namespace WebSdk.Core.Runtime.WebCore.Url
             }
             else
             {
-                OnFailure?.Invoke("urlsConfig either hasn`t nor url nor server");
-                Mediator.Notify(this,"Error");
+                LoadingFailed?.Invoke("urlsConfig either hasn`t nor url nor server");
             }
         }
         
@@ -65,9 +56,8 @@ namespace WebSdk.Core.Runtime.WebCore.Url
 
                 if (!string.IsNullOrEmpty(webRequest.error))
                 {
-                    OnFailure?.Invoke(webRequest.error);
-                    Mediator.Notify(this,"Error");
-                    
+                    LoadingFailed?.Invoke(webRequest.error);
+
                     yield break;
                 }
                 
@@ -83,14 +73,12 @@ namespace WebSdk.Core.Runtime.WebCore.Url
 
             if (string.IsNullOrEmpty(url))
             {
-                OnFailure?.Invoke("UnityUrlLoader // Can`t read response from UrlLoader");
-                Mediator.Notify(this,"Error");
+                LoadingFailed?.Invoke("UnityUrlLoader // Can`t read response from UrlLoader");
             }
             else
             {
                 _urlsConfig.url = url;
-                OnSuccess?.Invoke(url);
-                Mediator.Notify(this,"OnUrlLoaded");
+                LoadingSucceeded?.Invoke(url);
             }
             
             RemoveListeners();
@@ -100,7 +88,7 @@ namespace WebSdk.Core.Runtime.WebCore.Url
         {
             Debug.Log("UnityUrlLoader RemoveListeners");
             
-            OnSuccess = OnFailure = null;
+            LoadingSucceeded = LoadingFailed = null;
             StopCoroutine(_coroutine);
         }
 

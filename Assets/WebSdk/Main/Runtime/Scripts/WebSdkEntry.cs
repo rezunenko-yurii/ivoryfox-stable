@@ -44,7 +44,7 @@ namespace WebSdk.Main.Runtime.Scripts
         {
             Debug.Log("WebSdkEntry CheckAtt");
             
-            _trackingManager.Att.OnGetRequest += CheckInternetConnection;
+            _trackingManager.Att.RequestShowed += CheckInternetConnection;
             _trackingManager.Att.DoRequest();
         }
 
@@ -52,8 +52,8 @@ namespace WebSdk.Main.Runtime.Scripts
         {
             Debug.Log("WebSdkEntry CheckInternetConnection");
             
-            _globalManager.InternetChecker.OnRepeatCheckResult += ChangeLoaderText;
-            _globalManager.InternetChecker.OnRepeatEndResult += TryLoadConfigs;
+            _globalManager.InternetChecker.Checked += ChangeLoaderText;
+            _globalManager.InternetChecker.RepeatsEnded += TryLoadConfigs;
 
             _globalManager.InternetChecker.Check(3);
         }

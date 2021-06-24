@@ -11,9 +11,8 @@ namespace WebSdk.Core.Runtime.Logger
 {
     public class RemoteCustomLogger : MonoBehaviour, ICustomLogger, IConfigConsumer
     {
-        public static event Action OnReady;
-
-        public bool IsReady { get; set; } = false;
+        public static event Action Prepared;
+        public bool IsPrepared { get; set; } = false;
         public LoggerData loggerData { get; set; }
         public int counter { get; set; }
         private List<Coroutine> _coroutines = new List<Coroutine>();
@@ -26,7 +25,7 @@ namespace WebSdk.Core.Runtime.Logger
                 
                 Application.logMessageReceived += Send;
             
-                IsReady = true;
+                IsPrepared = true;
             
                 string ms = $"Старт логерра " 
                             + $"&url = {loggerData.url}"
@@ -37,12 +36,12 @@ namespace WebSdk.Core.Runtime.Logger
             
                 Send(ms, string.Empty, LogType.Log);
             
-                OnReady?.Invoke();
+                Prepared?.Invoke();
             }
         }
         public void Send(string condition, string stacktrace, LogType type = LogType.Log)
         {
-            if(!IsReady) return;
+            if(!IsPrepared) return;
             
             counter++;
                 
@@ -84,7 +83,7 @@ namespace WebSdk.Core.Runtime.Logger
             
             _coroutines.Clear();
             
-            OnReady = null;
+            Prepared = null;
             Application.logMessageReceived -= Send;
         }
         public string ConfigName { get; } = "logger";

@@ -6,9 +6,9 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
 {
     public abstract class Parameter : IModule
     {
-        public Action<Parameter> onReady;
-        public Action<Parameter> onUnReady;
-        public Action<Parameter> onError;
+        public event Action<Parameter> Prepared;
+        public event Action<Parameter> UnPrepared;
+        public event Action<Parameter> Failed;
 
         protected string parameterAlias = "alias";
         protected string Value;
@@ -23,11 +23,11 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
             {
                 Value = newValue;
                 
-                onReady?.Invoke(this);
+                Prepared?.Invoke(this);
             }
             else
             {
-                onUnReady?.Invoke(this);
+                UnPrepared?.Invoke(this);
             }
         }
         

@@ -6,7 +6,7 @@ namespace IvoryFoxPackagesHelper.Editor.Scripts
 {
     public static class IvoryFoxPackagesInstaller
     {
-        private const string PackageName = "https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/IvoryFoxPackages";
+        private const string PackageName = "https://github.com/rezunenko-yurii/ivoryfox-stable.git?path=Assets/IvoryFoxEditorPlugins/IvoryFoxPackages";
 
         [MenuItem("IvoryFox/Packages/Install Package Manager")]
         public static void Install()

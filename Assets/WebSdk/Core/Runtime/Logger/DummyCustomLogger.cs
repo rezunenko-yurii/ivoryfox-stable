@@ -5,7 +5,7 @@ namespace WebSdk.Core.Runtime.Logger
 {
     public class DummyCustomLogger : MonoBehaviour, ICustomLogger
     {
-        public bool IsReady { get; set; }
+        public bool IsPrepared { get; set; }
         public LoggerData loggerData { get; set; }
         public int counter { get; set; }
         

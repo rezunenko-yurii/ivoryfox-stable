@@ -1,4 +1,4 @@
-namespace WebSdk.Core.Runtime.AppTransparencyTrackers
+namespace WebSdk.Core.Runtime.Tracking
 {
     public enum AttStatus
     {

@@ -6,19 +6,19 @@ namespace WebSdk.Core.Runtime.InternetChecker
 {
     public class DummyInternetChecker : MonoBehaviour, IInternetChecker
     {
-        public event Action<bool> OnRepeatCheckResult;
-        public event Action<bool> OnRepeatEndResult;
+        public event Action<bool> Checked;
+        public event Action<bool> RepeatsEnded;
 
         public void Check(int repeatCount = 1)
         {
             Debug.Log("------------- DummyInternetChecker Check");
             
             HasConnection = Application.internetReachability != NetworkReachability.NotReachable;
-            OnRepeatCheckResult?.Invoke(HasConnection);
-            OnRepeatEndResult?.Invoke(HasConnection);
+            Checked?.Invoke(HasConnection);
+            RepeatsEnded?.Invoke(HasConnection);
 
-            OnRepeatEndResult = null;
-            OnRepeatCheckResult = null;
+            RepeatsEnded = null;
+            Checked = null;
         }
 
         public int RepeatsLeft()

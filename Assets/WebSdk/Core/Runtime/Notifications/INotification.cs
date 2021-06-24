@@ -5,8 +5,8 @@ namespace WebSdk.Core.Runtime.Notifications
 {
     public interface INotification: IModule
     {
-        event Action OnReady;
+        event Action Prepared;
         bool IsUsing();
-        bool IsReady();
+        bool IsPrepared();
     }
 }

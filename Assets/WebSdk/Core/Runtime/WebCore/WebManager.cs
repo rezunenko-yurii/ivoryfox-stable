@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using UnityEngine;
 using WebSdk.Core.Runtime.ConfigLoader;
@@ -13,7 +12,7 @@ using Debug = UnityEngine.Debug;
 
 namespace WebSdk.Core.Runtime.WebCore
 {
-    public class WebManager : MonoBehaviour, IModulesManager, IMediator
+    public class WebManager : MonoBehaviour, IModulesManager
     {
         private IUrlLoader _urlLoader;
         private IParamsManager _paramsManager;
@@ -49,14 +48,13 @@ namespace WebSdk.Core.Runtime.WebCore
             _webViewClient.Parent = this;
 
             Modules = Parent.Modules;
-            
+
             Modules.Add(_urlLoader.GetType(), _urlLoader);
             Modules.Add(_paramsManager.GetType(), _paramsManager);
             Modules.Add(_webViewClient.GetType(), _webViewClient);
 
-            _urlLoader.SetMediator(this);
-            _paramsManager.SetMediator(this);
-            _webViewClient.SetMediator(this);
+            _urlLoader.LoadingSucceeded += (s) => _paramsManager.Init();
+            _paramsManager.Completed += StartWebview;
         }
 
         public Dictionary<Type, IModule> Modules { get; set; }
@@ -77,23 +75,7 @@ namespace WebSdk.Core.Runtime.WebCore
         {
             Parent.AddModule(moduleType, module);
         }
-
-        public void Notify(object sender, string ev)
-        {
-            if (ev.Equals("OnUrlLoaded"))
-            {
-                _paramsManager.Init();
-            }
-            else if (ev.Equals("OnParamsLoaded"))
-            {
-                StartWebview();
-            }
-            else if (ev.Equals("Error"))
-            {
-                Debug.Log("WebManagerMediator Notify catch error");
-            }
-        }
-
+        
         private void StartWebview()
         {
             Debug.Log("WebManagerMediator StartWebview");

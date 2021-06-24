@@ -4,15 +4,15 @@ using UnityEngine.iOS;
 #endif
 using System;
 using UnityEngine;
-using WebSdk.Core.Runtime.AppTransparencyTrackers;
 using WebSdk.Core.Runtime.Global;
+using WebSdk.Core.Runtime.Tracking;
 using Debug = UnityEngine.Debug;
 
 namespace WebSdk.Tracking.UnityAppTransparencyTracking.Runtime.Scripts
 {
     public class UnityAppTransparencyTracker: MonoBehaviour, IAppTransparencyTracker
     {
-        public event Action OnGetRequest;
+        public event Action RequestShowed;
         public AttStatus Status { get; private set; }
         public bool IsReady { get; private set; }
 
@@ -39,7 +39,7 @@ namespace WebSdk.Tracking.UnityAppTransparencyTracking.Runtime.Scripts
             Debug.Log($"AppTransparencyTracker platform is not IOS /// skip request");
             Status = AttStatus.AUTHORIZED;
             
-            SendOnGetRequest();
+            OnRequestShowed();
 #endif
         }
 #if UNITY_IOS && !UNITY_EDITOR
@@ -72,15 +72,15 @@ namespace WebSdk.Tracking.UnityAppTransparencyTracking.Runtime.Scripts
             IsReady = true;
             Debug.Log($"----- AppTransparencyTracker complete // status = {Status}");
 #endif
-            SendOnGetRequest();
+            OnRequestShowed();
         }
 
-        private void SendOnGetRequest()
+        private void OnRequestShowed()
         {
             Debug.Log($"----- AppTransparencyTracker complete // SendOnGetRequest");
             
-            OnGetRequest?.Invoke();
-            OnGetRequest = null;
+            RequestShowed?.Invoke();
+            RequestShowed = null;
         }
 
         public IModulesHost Parent { get; set; }

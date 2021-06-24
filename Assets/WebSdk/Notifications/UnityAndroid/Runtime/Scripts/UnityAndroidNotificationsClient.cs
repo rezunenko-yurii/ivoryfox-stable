@@ -42,8 +42,8 @@ namespace WebSdk.Notifications.UnityAndroid.Runtime.Scripts
 
             isReady = true;
             
-            OnReady?.Invoke();
-            OnReady = null;
+            Prepared?.Invoke();
+            Prepared = null;
         }
 
         private static void SetChannel()
@@ -73,9 +73,9 @@ namespace WebSdk.Notifications.UnityAndroid.Runtime.Scripts
         
 #region INotification realizations
 
-        public event Action OnReady;
+        public event Action Prepared;
         public bool IsUsing() => config != null;
-        public bool IsReady()
+        public bool IsPrepared()
         {
             if (config is null)
             {
