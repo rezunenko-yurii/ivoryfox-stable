@@ -19,6 +19,6 @@ namespace WebSdk.Core.Runtime.ConfigLoader
             onComplete?.Invoke(new Dictionary<string, string>());
         }
 
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }

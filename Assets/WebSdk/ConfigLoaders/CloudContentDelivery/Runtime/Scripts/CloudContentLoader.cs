@@ -98,6 +98,6 @@ namespace WebSdk.ConfigLoaders.CloudContentDelivery.Runtime.Scripts
             return values2;
         }
 
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }

@@ -2,5 +2,5 @@
 
 namespace WebSdk.Core.Runtime.Global
 {
-    public interface IModulesManager : IConfigsHandler, IModulesHost, IModulesLoader { }
+    public interface IModulesManager : IConfigsHandler, IModulesLoader { }
 }

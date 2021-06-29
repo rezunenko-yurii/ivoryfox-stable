@@ -72,6 +72,6 @@ namespace WebSdk.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts
             callback.Invoke(dict);
         }
 
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }

@@ -28,6 +28,6 @@ namespace WebSdk.Core.Runtime.InternetChecker
 
         public bool HasConnection { get; private set; }
         public bool IsBlocked { get; }
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }

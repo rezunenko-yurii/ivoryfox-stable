@@ -18,6 +18,6 @@ namespace WebSdk.Core.Runtime.Notifications
             return false;
         }
 
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }

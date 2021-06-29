@@ -142,6 +142,6 @@ namespace WebSdk.Notifications.EasyMobile.Runtime.Scripts
             }
         }
 
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }

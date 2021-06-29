@@ -12,7 +12,7 @@ using Debug = UnityEngine.Debug;
 
 namespace WebSdk.Main.Runtime.Scripts
 {
-    public class WebSdkEntry : MonoBehaviour, IModulesHost
+    public class WebSdkEntry : ModulesHost
     {
         [SerializeField] private GameObject globalGameObject;
         [SerializeField] private GameObject webGameObject;
@@ -139,23 +139,8 @@ namespace WebSdk.Main.Runtime.Scripts
             Debug.Log($"WebSdkEntry OnDestroy");
             _globalManager.Logger.Clear();
         }
-
-        public Dictionary<Type, IModule> Modules { get; set; } = new Dictionary<Type, IModule>();
-        public IModulesHost Parent { get; set; }
-
-        public IModule GetModule(Type moduleType)
-        {
-            if (Modules.ContainsKey(moduleType))
-            {
-                return Modules[moduleType];
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public void AddModule(Type moduleType, IModule module)
+        
+        protected override void AddModule(Type moduleType, IModule module)
         {
             if (!Modules.ContainsKey(moduleType))
             {

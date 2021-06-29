@@ -92,6 +92,6 @@ namespace WebSdk.Core.Runtime.WebCore.Url
             StopCoroutine(_coroutine);
         }
 
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }

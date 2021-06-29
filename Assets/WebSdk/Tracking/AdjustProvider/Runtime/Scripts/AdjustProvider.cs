@@ -94,6 +94,6 @@ namespace WebSdk.Tracking.AdjustProvider.Runtime.Scripts
             return Adjust.getAdid();
         }
 
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }

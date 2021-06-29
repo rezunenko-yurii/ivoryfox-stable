@@ -2,6 +2,6 @@
 {
     public interface IModule
     {
-        IModulesHost Parent { get; set; }
+        ModulesHost Parent { get; set; }
     }
 }

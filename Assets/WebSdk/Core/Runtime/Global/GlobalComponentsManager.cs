@@ -7,7 +7,7 @@ using WebSdk.Core.Runtime.Logger;
 
 namespace WebSdk.Core.Runtime.Global
 {
-    public class GlobalComponentsManager : MonoBehaviour, IModulesManager
+    public class GlobalComponentsManager : ModulesHost, IModulesManager
     {
         public GameObject HostGameObject { get; private set; }
         public ICustomLogger Logger { get; private set; }
@@ -24,37 +24,16 @@ namespace WebSdk.Core.Runtime.Global
             return new List<IModule> {Logger, InternetChecker, ConfigsLoader};
         }
         
-        public void InitModules(GameObject hostGameObject, IModulesHost parent)
+        public void InitModules(GameObject hostGameObject, ModulesHost parent)
         {
-            Parent = parent;
             HostGameObject = hostGameObject;
             
             Logger = HostGameObject.gameObject.GetComponent<ICustomLogger>() ?? HostGameObject.gameObject.AddComponent<DummyCustomLogger>();
             InternetChecker = HostGameObject.gameObject.GetComponent<IInternetChecker>() ?? HostGameObject.gameObject.AddComponent<DummyInternetChecker>();
             ConfigsLoader = HostGameObject.gameObject.GetComponent<IConfigsLoader>() ?? HostGameObject.gameObject.AddComponent<DummyConfigLoader>();
-
-            Logger.Parent = this;
-            InternetChecker.Parent = this;
-            ConfigsLoader.Parent = this;
             
-            Modules = Parent.Modules;
-            
-            Modules.Add(Logger.GetType(), Logger);
-            Modules.Add(InternetChecker.GetType(), InternetChecker);
-            Modules.Add(ConfigsLoader.GetType(), ConfigsLoader);
-        }
-
-        public Dictionary<Type, IModule> Modules { get; set; }
-        public IModulesHost Parent { get; set; }
-
-        public IModule GetModule(Type moduleType)
-        {
-            return Parent.GetModule(moduleType);
-        }
-
-        public void AddModule(Type moduleType, IModule module)
-        {
-            Parent.AddModule(moduleType, module);
+            SetParent(parent);
+            AddModules(Logger, InternetChecker, ConfigsLoader);
         }
     }
 }

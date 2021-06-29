@@ -6,8 +6,7 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
 {
     public abstract class Parameter : IModule
     {
-        public event Action<Parameter> Prepared;
-        public event Action<Parameter> UnPrepared;
+        public event Action<Parameter, bool> Prepared;
         public event Action<Parameter> Failed;
 
         protected string parameterAlias = "alias";
@@ -23,11 +22,11 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
             {
                 Value = newValue;
                 
-                Prepared?.Invoke(this);
+                Prepared?.Invoke(this, true);
             }
             else
             {
-                UnPrepared?.Invoke(this);
+                Prepared?.Invoke(this, false);
             }
         }
         
@@ -45,6 +44,6 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
             return this;
         }
 
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }

@@ -18,6 +18,6 @@ namespace WebSdk.Core.Runtime.Tracking
             RequestShowed = null;
         }
 
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }

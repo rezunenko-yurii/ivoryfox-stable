@@ -83,6 +83,6 @@ namespace WebSdk.Tracking.UnityAppTransparencyTracking.Runtime.Scripts
             RequestShowed = null;
         }
 
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }

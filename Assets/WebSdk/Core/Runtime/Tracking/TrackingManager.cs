@@ -6,13 +6,13 @@ using WebSdk.Core.Runtime.Global;
 
 namespace WebSdk.Core.Runtime.Tracking
 {
-    public class TrackingManager : MonoBehaviour, IModulesManager
+    public class TrackingManager : ModulesHost, IModulesManager
     {
         public GameObject HostGameObject { get; private set; }
         public IAppTransparencyTracker Att { get; private set; }
         private ITrackingProvider _provider;
 
-        public void InitModules(GameObject trackingGameObject, IModulesHost parent)
+        public void InitModules(GameObject trackingGameObject, ModulesHost parent)
         {
             Debug.Log("TrackingManager Init");
             Parent = parent;
@@ -25,13 +25,12 @@ namespace WebSdk.Core.Runtime.Tracking
             
             Att.Parent = this;
             _provider.Parent = this;
-            
-            Modules.Add(Att.GetType(), Att);
-            Modules.Add(_provider.GetType(), _provider);
-        }
 
-        public Dictionary<Type, IModule> Modules { get; set; }
-        public IModulesHost Parent { get; set; }
+            AddModules(Att, _provider);
+
+            /*Modules.Add(Att.GetType(), Att);
+            Modules.Add(_provider.GetType(), _provider);*/
+        }
 
         public List<string> GetConfigIds()
         {
@@ -41,16 +40,6 @@ namespace WebSdk.Core.Runtime.Tracking
         public List<IModule> GetModulesForConfigs()
         {
             return new List<IModule> {_provider};
-        }
-
-        public IModule GetModule(Type moduleType)
-        {
-            return Parent.GetModule(moduleType);
-        }
-
-        public void AddModule(Type moduleType, IModule module)
-        {
-            Parent.AddModule(moduleType, module);
         }
     }
 }

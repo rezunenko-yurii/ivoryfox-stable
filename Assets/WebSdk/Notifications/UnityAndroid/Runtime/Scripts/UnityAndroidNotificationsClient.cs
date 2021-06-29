@@ -190,6 +190,6 @@ namespace WebSdk.Notifications.UnityAndroid.Runtime.Scripts
 
 #endregion
 
-public IModulesHost Parent { get; set; }
+public ModulesHost Parent { get; set; }
     }
 }

@@ -2,124 +2,70 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.Global;
 using WebSdk.Core.Runtime.Helpers;
 
 namespace WebSdk.Core.Runtime.WebCore.Parameters
 {
-    public class ParametersManager : MonoBehaviour, IParamsManager
+    public class ParametersManager : ModulesHost, IConfigConsumer
     {
         public event Action<string> Failed;
         public event Action Completed;
 
-        public List<Parameter> parameters = new List<Parameter>();
-        private List<Parameter> _readyParams = new List<Parameter>();
-
-        private int _readyAttributesCounter = 0;
-        private ParameterItems _parameterItems;
+        List<Parameter> _parameters = new List<Parameter>();
+        ParameterModels _parameterModels;
+        ParametersWaiter _parametersWaiter;
 
         public string ConfigName { get; } = "paramsConfig";
-        public void SetConfig(string json) => _parameterItems = JsonUtility.FromJson<ParameterItems>(json);
+        public void SetConfig(string json) => _parameterModels = JsonUtility.FromJson<ParameterModels>(json);
         
         public void Init()
         {
-            SerialiseParams(_parameterItems.items);
+            SerialiseParams(_parameterModels.items);
             
-            foreach (Parameter param in parameters)
+            if (_parameters.Count == 0) Completed?.Invoke();
+            else
             {
-                param.Parent = this;
+                _parametersWaiter = new ParametersWaiter(_parameters);
+                _parametersWaiter.Prepared += Completed;
+                _parametersWaiter.Failed += Failed;
                 
-                SetParamDependencies(param);
-                param.Init(this);
+                foreach (Parameter param in _parameters)
+                {
+                    param.Parent = this;
                 
-                if (param.IsReady())
-                {
-                    CheckParamsPrepared(param);
+                    SetParamDependencies(param);
+                    param.Init(this);
+                
+                    _parametersWaiter.CheckParam(param);
                 }
-                else
-                {
-                    param.Failed += StopParametersChecking;
-                    param.Prepared += CheckParamsPrepared;
-                    param.UnPrepared += RemoveFromPreparedParams;
-                }
-            }
-            
-            if (parameters.Count == 0)
-            {
-                Completed?.Invoke();
             }
         }
 
         public Dictionary<string, string> GetParams() => ConvertToDictionary();
 
-        private void SetParamDependencies(Parameter parameter)
+        void SetParamDependencies(Parameter parameter)
         {
-            IDependent dependent = parameter as IDependent;
-            
-            if(dependent is null) return;
+            if(!(parameter is IDependent dependent)) return;
 
             var types = dependent.DependsOn();
             var dependencies = new List<object>();
 
-            foreach (var obj in parameters)
+            foreach (var obj in _parameters)
             {
-                if (types.Contains(obj.GetType())) dependencies.Add(obj);
+                if(types.Contains(obj.GetType())) dependencies.Add(obj);
             }
             
             dependent.SetDependencies(dependencies);
         }
-        
-        #region ATTRIBUTES EVENTS
-        private void StopParametersChecking(Parameter parameter)
-        {
-            ClearAttributesEvents();
-            Failed?.Invoke($"Error!!! Can`t set value for attribute {parameter.GetAlias()}");
-            Failed = null;
-        }
-        private void CheckParamsPrepared(Parameter parameter)
-        {
-            if (_readyParams.Contains(parameter)) return;
-            
-            _readyParams.Add(parameter);
-            _readyAttributesCounter++;
-
-            if (_readyAttributesCounter != parameters.Count) return;
-                
-            ClearAttributesEvents();
-
-            Completed?.Invoke();
-            Completed = null;
-        }
-        private Dictionary<string, string> ConvertToDictionary()
+        Dictionary<string, string> ConvertToDictionary()
         {
             var dict = new Dictionary<string, string>();
-            parameters.ForEach(parameter => dict.Add(parameter.GetAlias(), parameter.GetValue()));
+            _parameters.ForEach(parameter => dict.Add(parameter.GetAlias(), parameter.GetValue()));
             return dict;
         }
-        private void RemoveFromPreparedParams(Parameter parameter)
-        {
-            if (_readyParams.Contains(parameter))
-            {
-                _readyParams.Remove(parameter);
-                _readyAttributesCounter--;
-            }
-        }
-        private void ClearAttributesEvents()
-        {
-            foreach (var attribute in parameters)
-            {
-                attribute.Failed -= StopParametersChecking;
-                attribute.Prepared -= CheckParamsPrepared;
-                attribute.UnPrepared -= RemoveFromPreparedParams;
-            }
-
-            _readyParams = null;
-        }
-        #endregion
-        
-        #region FIND ATTRIBUTES REGION
-        
-        private void SerialiseParams(List<ParameterModel> parameterModels)
+        void SerialiseParams(List<ParameterModel> parameterModels)
         {
             Debug.Log(" In ParametersManager.SerialiseParams");
             
@@ -133,7 +79,7 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
                     if(attribute.Key is null) return;
                 
                     Parameter parameter = ReflectionHelper.CreateByType<Parameter>(attribute.Key).InitByModel(model);
-                    parameters.Add(parameter);
+                    _parameters.Add(parameter);
                         
                     Debug.Log($"::{nameof(ParametersManager)}.{nameof(SerialiseParams)}:: Serialised {model.id} {attribute.Key}");
                 });
@@ -142,20 +88,6 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
             {
                 Debug.Log($"::{nameof(ParametersManager)}.{nameof(SerialiseParams)}:: ------------------ CAN`T SERIALISE PARAMS MODELS / CAN`T FIND ATTRIBUTES WITH LIST IDS ----------");
             }
-            
-        }
-        #endregion
-        
-        public IModulesHost Parent { get; set; }
-        public Dictionary<Type, IModule> Modules { get; set; }
-        public IModule GetModule(Type moduleType)
-        {
-            return Parent.GetModule(moduleType);
-        }
-
-        public void AddModule(Type moduleType, IModule module)
-        {
-            Parent.AddModule(moduleType, module);
         }
     }
 }

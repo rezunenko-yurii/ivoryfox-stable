@@ -5,7 +5,7 @@ using UnityEngine;
 namespace WebSdk.Core.Runtime.WebCore.Parameters
 {
     [Serializable]
-    public class ParameterItems
+    public class ParameterModels
     {
         [SerializeField]
         public List<ParameterModel> items = new List<ParameterModel>();

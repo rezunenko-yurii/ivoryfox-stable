@@ -110,6 +110,6 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             }
         }
 
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }

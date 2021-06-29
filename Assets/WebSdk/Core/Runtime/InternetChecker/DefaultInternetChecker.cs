@@ -72,6 +72,6 @@ namespace WebSdk.Core.Runtime.InternetChecker
             return _repeatCount;
         }
 
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }

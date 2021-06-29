@@ -22,6 +22,6 @@ namespace WebSdk.Core.Runtime.WebCore.WebView
             //throw new System.NotImplementedException();
         }
 
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }

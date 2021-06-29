@@ -19,6 +19,6 @@ namespace WebSdk.Core.Runtime.Logger
             //throw new System.NotImplementedException();
         }
 
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }

@@ -24,6 +24,6 @@ namespace WebSdk.Core.Runtime.Tracking
             return string.Empty;
         }
 
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }

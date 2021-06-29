@@ -146,6 +146,6 @@ namespace WebSdk.Parameters.AdjustParameters.Runtime.Scripts
             }
         }
 
-        public new IModulesHost Parent => base.Parent;
+        public new ModulesHost Parent => base.Parent;
     }
 }
