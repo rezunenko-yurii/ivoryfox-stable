@@ -111,7 +111,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             {
                 ShowToolbar();
             }
-            else
+            else if(IsNavigationBarActive)
             {
                 HideToolbar();
             }
