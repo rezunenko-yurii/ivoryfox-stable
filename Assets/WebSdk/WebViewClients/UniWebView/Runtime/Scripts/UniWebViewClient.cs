@@ -1,6 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 using WebSdk.Core.Runtime.Global;
+using WebSdk.Core.Runtime.Helpers;
 using WebSdk.Core.Runtime.WebCore.WebView;
 
 namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
@@ -34,7 +37,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         private void AddWebviewListeners()
         {
             _webView.OnPageFinished += PageFinished;
-            _webView.OnPageStarted += PageStart;
+            //_webView.OnPageStarted += PageStart;
             _webView.OnOrientationChanged += OnOrientationChanged;
         }
         
@@ -99,18 +102,18 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         private void PageFinished(global::UniWebView webview, int errorCode, string message)
         {
             Debug.Log($"PageFinished {_webView.Url}");
-            if (string.IsNullOrEmpty(_merchant) && !_webView.Url.Equals(_startUrl))
+            
+            var query = WebHelper.DecodeQueryParameters(new Uri(_webView.Url));
+            if(query.ContainsKey("merchantReference")) query.TryGetValue("merchantReference", out _merchant);
+
+            var intersect = query.Keys.Intersect(_keyWords);
+            if (intersect.Any() || _webView.Url.Contains("social"))
             {
-                if (_nextMerch)
-                {
-                    string[] tempArray = _webView.Url.Split("/"[0]);
-                    _merchant = tempArray[2];
-                    _merchLook = true;
-                    _webView.SetUserInteractionEnabled(true);
-                    
-                    Debug.Log($"Merch {_merchant}");
-                }
-                _nextMerch = true;
+                ShowToolbar();
+            }
+            else
+            {
+                HideToolbar();
             }
         }
         
@@ -132,5 +135,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         }
 
         public IModulesHost Parent { get; set; }
+
+        private readonly string[] _keyWords = {"apple-payment", "google-payment"};
     }
 }
