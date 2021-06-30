@@ -106,8 +106,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             var query = WebHelper.DecodeQueryParameters(new Uri(_webView.Url));
             if(query.ContainsKey("merchantReference")) query.TryGetValue("merchantReference", out _merchant);
 
-            var intersect = query.Keys.Intersect(_keyWords);
-            if (intersect.Any() || _webView.Url.Contains("social"))
+            bool isContainsKey = _keyWords.Any(s=>_webView.Url.Contains(s));
+            if(isContainsKey)
             {
                 ShowToolbar();
             }
@@ -136,6 +136,6 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 
         public IModulesHost Parent { get; set; }
 
-        private readonly string[] _keyWords = {"apple-payment", "google-payment"};
+        private readonly string[] _keyWords = {"apple-payment", "google-payment", "social"};
     }
 }
