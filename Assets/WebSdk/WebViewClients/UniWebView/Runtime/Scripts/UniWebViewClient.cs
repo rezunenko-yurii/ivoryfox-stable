@@ -27,7 +27,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             _webView.Frame = Screen.safeArea;
             
             AddWebviewListeners();
-            UniWebViewLogger.Instance.LogLevel = UniWebViewLogger.Level.Verbose;
+            //UniWebViewLogger.Instance.LogLevel = UniWebViewLogger.Level.Verbose;
             HideToolbar();
         }
 
@@ -55,6 +55,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         
         void ShowToolbar()
         {
+            Debug.Log($"{nameof(UniWebViewClient)} {nameof(ShowToolbar)}");
+            
             var frameHeight = GetFrameHeightWithToolbar();
             var toolbarHeight = CalculateToolbarHeight(frameHeight);
 
@@ -64,6 +66,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         
         private void HideToolbar()
         {
+            Debug.Log($"{nameof(UniWebViewClient)} {nameof(HideToolbar)}");
+            
             UpdateScreen(1f, 0f);
             SetToolbarState(false);
         }
@@ -113,7 +117,6 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 
         private void PageStart(global::UniWebView webview, string currentUrl)
         {
-            
             if (_merchLook)
             {
                 if (!currentUrl.Contains("way") && !currentUrl.Contains("pay.") && !currentUrl.Contains(_merchant) || currentUrl.Contains("social"))
