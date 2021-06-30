@@ -98,6 +98,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         
         private void PageFinished(global::UniWebView webview, int errorCode, string message)
         {
+            Debug.Log($"PageFinished {_webView.Url}");
             if (string.IsNullOrEmpty(_merchant) && !_webView.Url.Equals(_startUrl))
             {
                 if (_nextMerch)
@@ -106,6 +107,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
                     _merchant = tempArray[2];
                     _merchLook = true;
                     _webView.SetUserInteractionEnabled(true);
+                    
+                    Debug.Log($"Merch {_merchant}");
                 }
                 _nextMerch = true;
             }
@@ -117,13 +120,14 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 
         private void PageStart(global::UniWebView webview, string currentUrl)
         {
+            Debug.Log($"PageStart {currentUrl}");
             if (_merchLook)
             {
-                if (!currentUrl.Contains("way") && !currentUrl.Contains("pay.") && !currentUrl.Contains(_merchant) || currentUrl.Contains("social"))
+                if (currentUrl.Contains("pay.") || currentUrl.Contains("social"))
                 {
                     ShowToolbar();
                 }
-                else if(IsNavigationBarActive) HideToolbar();
+                else HideToolbar();
             }
         }
 
