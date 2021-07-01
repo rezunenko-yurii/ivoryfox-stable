@@ -65,7 +65,14 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         private void SearchMerchantReference()
         {
             var query = WebHelper.DecodeQueryParameters(new Uri(_webView.Url));
-            if(query.ContainsKey(MerchantReference)) query.TryGetValue(MerchantReference, out _merchant);
+            if (query.ContainsKey(MerchantReference))
+            {
+                query.TryGetValue(MerchantReference, out _merchant);
+                if (!WebHelper.IsValidUrl(_merchant))
+                {
+                    _merchant = $"https://{_merchant}";
+                }
+            }
         }
 
         private void AddListeners()
