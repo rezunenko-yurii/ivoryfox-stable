@@ -14,7 +14,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         [SerializeField] Button backButton;
 
         private const string MerchantReference = "merchantReference";
-        private readonly string[] _keyWords = {"apple-payment", "google-payment", "social"};
+        private readonly string[] _keyWords = {"apple-payment", "google-payment", "social", "api.twitter.com", "accounts.google.com", "facebook.com"};
         
         private string _merchant = string.Empty;
         private string _startUrl = string.Empty;
