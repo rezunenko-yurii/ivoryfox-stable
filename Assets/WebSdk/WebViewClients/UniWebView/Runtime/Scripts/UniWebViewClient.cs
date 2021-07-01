@@ -21,12 +21,6 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         private global::UniWebView _webView;
         private UniWebViewToolbar _toolbar;
         
-        private void Awake()
-        {
-            Debug.Log($"{nameof(UniWebViewClient)} {nameof(Awake)}");
-            SetSettings();
-        }
-        
         public void Open(string url)
         {
             Debug.Log($"{nameof(UniWebViewClient)} {nameof(Open)} {url}");
@@ -56,6 +50,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         
         private void AddListeners()
         {
+            Debug.Log($"{nameof(UniWebViewClient)} {nameof(AddListeners)}");
+            
             _webView.OnPageFinished += PageFinished;
             _webView.OnOrientationChanged += OnOrientationChanged;
             

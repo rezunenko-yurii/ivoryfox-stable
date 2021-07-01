@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,12 +5,12 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 {
     public class UniWebViewToolbar
     {
-        private RectTransform _toolbarTransform;
+        private RectTransform _transform;
         private Button _backButton;
         
-        public UniWebViewToolbar(RectTransform toolbarTransform, Button backButton)
+        public UniWebViewToolbar(RectTransform transform, Button backButton)
         {
-            _toolbarTransform = toolbarTransform;
+            _transform = transform;
             _backButton = backButton;
         }
         
@@ -37,7 +36,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             SetSize(0, 0f);
         }
         
-        private float GetHeightCoef()
+        private float GetHeightСoefficient()
         {
             return Screen.width > Screen.height ? 0.1f : 0.05f;
         }
@@ -46,7 +45,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         {
             if (IsActive())
             {
-                return Screen.safeArea.height*GetHeightCoef();
+                return Screen.safeArea.height*GetHeightСoefficient();
             }
             else
             {
@@ -56,17 +55,17 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 
         private void SetSize(float width, float height)
         {
-            _toolbarTransform.sizeDelta = new Vector2(width, height);
+            _transform.sizeDelta = new Vector2(width, height);
         }
         
         public bool IsActive()
         {
-            return _toolbarTransform.gameObject.activeInHierarchy;
+            return _transform.gameObject.activeInHierarchy;
         }
         
         private void SetState(bool isActive)
         {
-            _toolbarTransform.gameObject.SetActive(isActive);
+            _transform.gameObject.SetActive(isActive);
         }
     }
 }
