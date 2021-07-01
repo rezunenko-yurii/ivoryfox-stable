@@ -28,11 +28,17 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         
         public void Open(string url)
         {
-            backButton.onClick.AddListener(OnBackButtonClick);
+            Debug.Log($"{nameof(UniWebViewClient)} {nameof(Open)} {url}");
             
             _startUrl = url;
-            _webView.Load(url);
+            LoadUrl(url);
             _webView.Show();
+        }
+
+        private void LoadUrl(string url)
+        {
+            Debug.Log($"{nameof(UniWebViewClient)} {nameof(LoadUrl)} {url}");
+            _webView.Load(url);
         }
 
         public void SetSettings()
@@ -42,7 +48,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             _webView = gameObject.AddComponent<global::UniWebView>();
             _webView.Frame = Screen.safeArea;
             
-            AddWebviewListeners();
+            AddListeners();
             HideToolbar();
         }
         
@@ -62,10 +68,12 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             if(query.ContainsKey(MerchantReference)) query.TryGetValue(MerchantReference, out _merchant);
         }
 
-        private void AddWebviewListeners()
+        private void AddListeners()
         {
             _webView.OnPageFinished += PageFinished;
             _webView.OnOrientationChanged += OnOrientationChanged;
+            
+            backButton.onClick.AddListener(OnBackButtonClick);
         }
         
         private void OnOrientationChanged(global::UniWebView view, ScreenOrientation orientation)
@@ -117,7 +125,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         
         private void SetToolbarState(bool isActive) => navigationBar.gameObject.SetActive(isActive);
         
-        private void OnBackButtonClick() => _webView.Load(!string.IsNullOrEmpty(_merchant) ? _merchant : _startUrl);
+        private void OnBackButtonClick() => LoadUrl(!string.IsNullOrEmpty(_merchant) ? _merchant : _startUrl);
         
         private bool IsUrlContainsAnyKey(string url) => _keyWords.Any(url.Contains);
         
