@@ -19,6 +19,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         private string _merchant = string.Empty;
         private string _startUrl = string.Empty;
         private global::UniWebView _webView;
+        private UniWebViewToolbar _toolbar;
         
         private void Awake()
         {
@@ -47,9 +48,18 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             
             _webView = gameObject.AddComponent<global::UniWebView>();
             _webView.Frame = Screen.safeArea;
+
+            _toolbar = new UniWebViewToolbar(navigationBar, backButton);
             
             AddListeners();
-            HideToolbar();
+        }
+        
+        private void AddListeners()
+        {
+            _webView.OnPageFinished += PageFinished;
+            _webView.OnOrientationChanged += OnOrientationChanged;
+            
+            backButton.onClick.AddListener(OnBackButtonClick);
         }
         
         private void PageFinished(global::UniWebView webview, int errorCode, string message)
@@ -57,9 +67,22 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             Debug.Log($"PageFinished {_webView.Url}");
             
             SearchMerchantReference();
+
+            if (IsUrlContainsAnyKey(_webView.Url))
+            {
+                _toolbar.Show();
+            }
+            else if (_toolbar.IsActive())
+            {
+                _toolbar.Hide();
+            }
             
-            if(IsUrlContainsAnyKey(_webView.Url)) ShowToolbar();
-            else if(IsNavigationBarActive) HideToolbar();
+            UpdateScreen();
+        }
+        
+        private bool IsUrlContainsAnyKey(string url)
+        {
+            return _keyWords.Any(url.Contains);
         }
         
         private void SearchMerchantReference()
@@ -74,67 +97,30 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
                 }
             }
         }
-
-        private void AddListeners()
-        {
-            _webView.OnPageFinished += PageFinished;
-            _webView.OnOrientationChanged += OnOrientationChanged;
-            
-            backButton.onClick.AddListener(OnBackButtonClick);
-        }
         
         private void OnOrientationChanged(global::UniWebView view, ScreenOrientation orientation)
         {
             Debug.Log($"{nameof(UniWebViewClient)} {nameof(OnOrientationChanged)}");
-            UpdateToolbarState();
-        }
-
-        private void UpdateToolbarState()
-        {
-            if (IsNavigationBarActive) ShowToolbar();
-            else HideToolbar();
-        }
-        
-        void ShowToolbar()
-        {
-            Debug.Log($"{nameof(UniWebViewClient)} {nameof(ShowToolbar)}");
+            _toolbar.UpdateState();
             
-            var frameHeight = GetFrameHeightWithToolbar();
-            var toolbarHeight = CalculateToolbarHeight(frameHeight);
-
-            UpdateScreen(frameHeight, toolbarHeight);
-            SetToolbarState(true);
+            UpdateScreen();
         }
         
-        private void HideToolbar()
+        private void UpdateScreen()
         {
-            Debug.Log($"{nameof(UniWebViewClient)} {nameof(HideToolbar)}");
-            
-            UpdateScreen(1f, 0f);
-            SetToolbarState(false);
+            var toolbarHeight = _toolbar.GetHeight();
+            SetFrameSize(Screen.safeArea.x, Screen.safeArea.y + toolbarHeight, Screen.safeArea.width, Screen.safeArea.height - toolbarHeight);
         }
-
-        private void UpdateScreen(float frameHeight, float toolbarHeight)
+        
+        private void SetFrameSize(float x, float y, float w, float h)
         {
-            SetFrameSize(Screen.safeArea.x, Screen.safeArea.y + toolbarHeight, Screen.safeArea.width, Screen.safeArea.height * frameHeight);
-            SetNavigationBarSize(0, toolbarHeight);
+            _webView.Frame = new Rect(x, y, w, h);
         }
-
-        private float GetFrameHeightWithToolbar() => Screen.width > Screen.height ? 0.9f : 0.95f;
         
-        private float CalculateToolbarHeight(float frameHeight) => Screen.safeArea.height * (1f - frameHeight);
-        
-        private void SetFrameSize(float x, float y, float w, float h) => _webView.Frame = new Rect(x, y, w, h);
-        
-        private void SetNavigationBarSize(float width, float height) => navigationBar.sizeDelta = new Vector2(width, height);
-
-        private bool IsNavigationBarActive => navigationBar.gameObject.activeInHierarchy;
-        
-        private void SetToolbarState(bool isActive) => navigationBar.gameObject.SetActive(isActive);
-        
-        private void OnBackButtonClick() => LoadUrl(!string.IsNullOrEmpty(_merchant) ? _merchant : _startUrl);
-        
-        private bool IsUrlContainsAnyKey(string url) => _keyWords.Any(url.Contains);
+        private void OnBackButtonClick()
+        {
+            LoadUrl(!string.IsNullOrEmpty(_merchant) ? _merchant : _startUrl);
+        }
         
         public IModulesHost Parent { get; set; }
     }
