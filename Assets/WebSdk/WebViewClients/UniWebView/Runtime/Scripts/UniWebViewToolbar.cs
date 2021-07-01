@@ -22,7 +22,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         
         public void Show()
         {
-            Debug.Log($"{nameof(UniWebViewClient)} {nameof(Show)}");
+            Debug.Log($"{nameof(UniWebViewToolbar)} {nameof(Show)}");
             
             SetState(true);
             SetSize(0, GetHeight());
@@ -30,7 +30,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             
         public void Hide()
         {
-            Debug.Log($"{nameof(UniWebViewClient)} {nameof(Hide)}");
+            Debug.Log($"{nameof(UniWebViewToolbar)} {nameof(Hide)}");
                 
             SetState(false);
             SetSize(0, 0f);
