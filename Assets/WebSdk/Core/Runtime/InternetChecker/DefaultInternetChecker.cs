@@ -10,23 +10,25 @@ namespace WebSdk.Core.Runtime.InternetChecker
     {
         public event Action<bool> Checked;
         public event Action<bool> RepeatsEnded;
-        public bool HasConnection { get; private set; } = false;
-        public bool IsBlocked { get; private set; } = false;
-        private int _repeatCount = 0;
+        
+        //private 
+        
+        public bool HasConnection { get; private set; }
+        private int _repeatCount;
+        
         private IEnumerator SendRequest()
         {
-            Debug.Log("DefaultInternetChecker SendRequest");
-            
-            if (_repeatCount <= 0) _repeatCount = 1;
-            _repeatCount--;
-            
+            Debug.Log($"{nameof(DefaultInternetChecker)} {nameof(SendRequest)}");
+
+            DecreaseRepeatCount();
+
             if (Application.internetReachability == NetworkReachability.NotReachable)
             {
                 HasConnection = false;
             }
             else
             {
-                UnityWebRequest request = new UnityWebRequest("http://google.com") {timeout = 10};
+                var request = new UnityWebRequest("http://google.com") {timeout = 5};
                 yield return request.SendWebRequest();
                 HasConnection = request.error == null;
             }
@@ -36,8 +38,7 @@ namespace WebSdk.Core.Runtime.InternetChecker
             if (HasConnection || _repeatCount == 0)
             {
                 CancelInvoke(nameof(StartChecking));
-                IsBlocked = false;
-                
+
                 Debug.Log("DefaultInternetChecker RepeatCount == 0");
                 
                 RepeatsEnded?.Invoke(HasConnection);
@@ -46,11 +47,19 @@ namespace WebSdk.Core.Runtime.InternetChecker
                 Checked = null;
             }
         }
-        
+
+        private void DecreaseRepeatCount()
+        {
+            if (_repeatCount <= 0)
+            {
+                _repeatCount = 1;
+            }
+
+            _repeatCount--;
+        }
+
         public void Check(int repeatCount = 1)
         {
-            IsBlocked = true;
-            
             if (repeatCount > 1)
             {
                 _repeatCount = repeatCount;
@@ -62,6 +71,7 @@ namespace WebSdk.Core.Runtime.InternetChecker
             }
             
         }
+        
         private void StartChecking()
         {
             StartCoroutine(SendRequest());

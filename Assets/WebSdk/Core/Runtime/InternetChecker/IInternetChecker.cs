@@ -10,6 +10,5 @@ namespace WebSdk.Core.Runtime.InternetChecker
         void Check(int repeatCount = 1);
         int RepeatsLeft();
         bool HasConnection { get;}
-        bool IsBlocked { get; }
     }
 }

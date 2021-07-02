@@ -1,115 +1,123 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 using WebSdk.Core.Runtime.Global;
-using WebSdk.Core.Runtime.WebCore;
+using WebSdk.Core.Runtime.Helpers;
 using WebSdk.Core.Runtime.WebCore.WebView;
 
 namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 {
     public class UniWebViewClient : MonoBehaviour, IWebViewClient
     {
-        private global::UniWebView _webView;
         [SerializeField] RectTransform navigationBar;
-        [SerializeField] RectTransform webviewContainer;
         [SerializeField] Button backButton;
 
-        private string _startUrl;
-        private float _height = 1f;
-        private bool _showBackButton = false;
-        private void Awake()
-        {
-            Debug.Log($"UniWebViewClient Awake");
-     
-            _webView = gameObject.AddComponent<global::UniWebView>();
-            UniWebViewLogger.Instance.LogLevel = UniWebViewLogger.Level.Verbose;
-            
-            _webView.OnPageFinished += PageFinished;
-            _webView.OnPageStarted += PageStart;
-
-            _webView.Frame = Screen.safeArea;
-            
-            _webView.OnOrientationChanged += (view, orientation) =>
-            {
-                Debug.Log("UniwebView orientatin changed");
-                //_webView.Frame = h == 1f ? Screen.safeArea : new Rect(Screen.safeArea.x, Screen.safeArea.y + Screen.safeArea.height * (1f - h), Screen.safeArea.width, Screen.safeArea.height * h);
-                ShowBackButton(_showBackButton);
-            };
-        }
+        private const string MerchantReference = "merchantReference";
+        private readonly string[] _keyWords = {"apple-payment", "google-payment", "social", "api.twitter.com", "accounts.google.com", "facebook.com"};
         
-
-        void ShowBackButton(bool show)
-        {
-            if (show) _height = Screen.width > Screen.height ? 0.9f : 0.95f;
-            else _height = 1f;
-            
-            float toolbarOffset = Screen.safeArea.height * (1f - _height);
-            Debug.Log($"Univwebview ShowBackButton {toolbarOffset}");
-            
-            _webView.Frame = new Rect(Screen.safeArea.x, Screen.safeArea.y + toolbarOffset, Screen.safeArea.width, Screen.safeArea.height * _height);
-            //navigationBar.offsetMax = new Vector2(0, toolbarOffset);
-            navigationBar.sizeDelta = new Vector2(0, toolbarOffset);
-            
-        }
-
-
-        private void OnBackButtonClick() =>  _webView.Load(_startUrl);
-
+        private string _merchant = string.Empty;
+        private string _startUrl = string.Empty;
+        private global::UniWebView _webView;
+        private UniWebViewToolbar _toolbar;
+        
         public void Open(string url)
         {
-            _startUrl = url;
-            backButton.onClick.AddListener(OnBackButtonClick);
+            Debug.Log($"{nameof(UniWebViewClient)} {nameof(Open)} {url}");
             
-            _webView.Load(url);
+            _startUrl = url;
+            LoadUrl(url);
             _webView.Show();
+        }
+
+        private void LoadUrl(string url)
+        {
+            Debug.Log($"{nameof(UniWebViewClient)} {nameof(LoadUrl)} {url}");
+            _webView.Load(url);
         }
 
         public void SetSettings()
         {
+            Debug.Log($"{nameof(UniWebViewClient)} {nameof(SetSettings)}");
             
+            _webView = gameObject.AddComponent<global::UniWebView>();
+            _webView.Frame = Screen.safeArea;
+
+            _toolbar = new UniWebViewToolbar(navigationBar, backButton);
+            
+            AddListeners();
+        }
+        
+        private void AddListeners()
+        {
+            Debug.Log($"{nameof(UniWebViewClient)} {nameof(AddListeners)}");
+            
+            _webView.OnPageFinished += PageFinished;
+            _webView.OnOrientationChanged += OnOrientationChanged;
+            
+            backButton.onClick.AddListener(OnBackButtonClick);
         }
         
         private void PageFinished(global::UniWebView webview, int errorCode, string message)
         {
-            //Debug.Log($"PageFinished: {_webView.Url}");
+            Debug.Log($"PageFinished {_webView.Url}");
             
-            if (string.IsNullOrEmpty(_merchant) && !_webView.Url.Equals(_startUrl))
+            SearchMerchantReference();
+
+            if (IsUrlContainsAnyKey(_webView.Url))
             {
-                if (_nextMerch)
+                _toolbar.Show();
+            }
+            else if (_toolbar.IsActive())
+            {
+                _toolbar.Hide();
+            }
+            
+            UpdateScreen();
+        }
+        
+        private bool IsUrlContainsAnyKey(string url)
+        {
+            return _keyWords.Any(url.Contains);
+        }
+        
+        private void SearchMerchantReference()
+        {
+            var query = WebHelper.DecodeQueryParameters(new Uri(_webView.Url));
+            if (query.ContainsKey(MerchantReference))
+            {
+                query.TryGetValue(MerchantReference, out _merchant);
+                if (!WebHelper.IsValidUrl(_merchant))
                 {
-                    string[] tempArray = _webView.Url.Split("/"[0]);
-                    _merchant = tempArray[2];
-                    //Debug.Log($"merchant value: {merchant}");
-                    _merchLook = true;
-                    _webView.SetUserInteractionEnabled(true);
+                    _merchant = $"https://{_merchant}";
                 }
-                _nextMerch = true;
             }
         }
         
-        private string _merchant = "";
-        private bool _nextMerch = false;
-        private bool _merchLook = false;
-        private bool _checkToolbar = false;
-
-        private void PageStart(global::UniWebView webview, string currentUrl)
+        private void OnOrientationChanged(global::UniWebView view, ScreenOrientation orientation)
         {
+            Debug.Log($"{nameof(UniWebViewClient)} {nameof(OnOrientationChanged)}");
+            _toolbar.UpdateState();
             
-            if (_merchLook)
-            {
-                if (((!currentUrl.Contains("way") && !currentUrl.Contains("pay.") && !currentUrl.Contains(_merchant)) || currentUrl.Contains("social")))
-                {
-                    _showBackButton = true;
-                }
-                else if(_showBackButton)
-                {
-                    _showBackButton = false;
-                }
-                
-                navigationBar.gameObject.SetActive(_showBackButton);
-                ShowBackButton(_showBackButton);
-            }
+            UpdateScreen();
         }
-
-        public ModulesHost Parent { get; set; }
+        
+        private void UpdateScreen()
+        {
+            var toolbarHeight = _toolbar.GetHeight();
+            SetFrameSize(Screen.safeArea.x, Screen.safeArea.y + toolbarHeight, Screen.safeArea.width, Screen.safeArea.height - toolbarHeight);
+        }
+        
+        private void SetFrameSize(float x, float y, float w, float h)
+        {
+            _webView.Frame = new Rect(x, y, w, h);
+        }
+        
+        private void OnBackButtonClick()
+        {
+            LoadUrl(!string.IsNullOrEmpty(_merchant) ? _merchant : _startUrl);
+        }
+        
+        public IModulesHost Parent { get; set; }
     }
 }
