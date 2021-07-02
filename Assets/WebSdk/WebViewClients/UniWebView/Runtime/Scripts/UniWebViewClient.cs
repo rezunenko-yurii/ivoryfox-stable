@@ -118,6 +118,6 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             LoadUrl(!string.IsNullOrEmpty(_merchant) ? _merchant : _startUrl);
         }
         
-        public IModulesHost Parent { get; set; }
+        public ModulesHost Parent { get; set; }
     }
 }
