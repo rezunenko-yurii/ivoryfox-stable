@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using WebSdk.Core.Runtime.Global;
 
 namespace WebSdk.Core.Runtime.Logger
@@ -18,7 +20,5 @@ namespace WebSdk.Core.Runtime.Logger
         {
             //throw new System.NotImplementedException();
         }
-
-        public ModulesHost Parent { get; set; }
     }
 }

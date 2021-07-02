@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using WebSdk.Core.Runtime.Global;
 
@@ -21,7 +23,5 @@ namespace WebSdk.Core.Runtime.WebCore.WebView
         {
             //throw new System.NotImplementedException();
         }
-
-        public ModulesHost Parent { get; set; }
     }
 }

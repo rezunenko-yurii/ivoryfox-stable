@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -117,7 +118,5 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         {
             LoadUrl(!string.IsNullOrEmpty(_merchant) ? _merchant : _startUrl);
         }
-        
-        public ModulesHost Parent { get; set; }
     }
 }

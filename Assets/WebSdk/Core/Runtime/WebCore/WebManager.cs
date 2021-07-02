@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 using UnityEngine;
 
-using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.Global;
 using WebSdk.Core.Runtime.Helpers;
 using WebSdk.Core.Runtime.WebCore.Parameters;
@@ -14,47 +12,35 @@ using Debug = UnityEngine.Debug;
 
 namespace WebSdk.Core.Runtime.WebCore
 {
-    public class WebManager : ModulesHost, IModulesManager
+    public class WebManager : MonoBehaviour, IModulesHandler
     {
+        [SerializeField] private GameObject webGameObject;
+
         private IUrlLoader _urlLoader;
         private ParametersManager _paramsManager;
         private IWebViewClient _webViewClient;
         private Stopwatch _stopwatch;
+        
+        public event Action Completed;
 
-        public List<string> GetConfigIds()
-        {
-            return ConfigLoaderHelper.GetConsumableIds(_urlLoader, _paramsManager, _webViewClient);
-        }
-
-        public List<IModule> GetModulesForConfigs()
-        {
-            return new List<IModule> {_urlLoader, _paramsManager, _webViewClient};
-        }
-
-        public GameObject HostGameObject { get; private set; }
-
-        public void InitModules(GameObject webGameObject, ModulesHost parent)
+        public void PrepareForWork()
         {
             Debug.Log($"WebManagerMediator Init");
             _stopwatch = Stopwatch.StartNew();
-
-            HostGameObject = webGameObject;
-            Parent = parent;
-
-            _urlLoader = HostGameObject.gameObject.GetComponent<IUrlLoader>();
-            _paramsManager = HostGameObject.gameObject.GetComponent<ParametersManager>();
-            _webViewClient = HostGameObject.gameObject.GetComponent<IWebViewClient>();
-
-            _urlLoader.Parent = this;
-            _paramsManager.Parent = this;
-            _webViewClient.Parent = this;
-
-            Modules = Parent.Modules;
             
-            AddModules(_urlLoader, _paramsManager, _webViewClient);
+            _urlLoader = webGameObject.gameObject.GetComponent<IUrlLoader>();
+            _paramsManager = webGameObject.gameObject.GetComponent<ParametersManager>();
+            _webViewClient = webGameObject.gameObject.GetComponent<IWebViewClient>();
 
-            _urlLoader.LoadingSucceeded += (s) => _paramsManager.Init();
+            _paramsManager.PrepareForWork();
+            
+            _urlLoader.LoadingSucceeded += (s) => _paramsManager.DoWork();
             _paramsManager.Completed += StartWebview;
+        }
+
+        public void ResolveDependencies(ModulesOwner owner)
+        {
+            owner.Add(_urlLoader, _paramsManager, _webViewClient);
         }
 
         public void DoWork()

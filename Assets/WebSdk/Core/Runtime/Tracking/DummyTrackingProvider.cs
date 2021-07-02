@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using WebSdk.Core.Runtime.Global;
 
 namespace WebSdk.Core.Runtime.Tracking
@@ -23,7 +25,5 @@ namespace WebSdk.Core.Runtime.Tracking
         {
             return string.Empty;
         }
-
-        public ModulesHost Parent { get; set; }
     }
 }

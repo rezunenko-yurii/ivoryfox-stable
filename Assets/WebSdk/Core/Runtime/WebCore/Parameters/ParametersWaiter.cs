@@ -9,10 +9,10 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
         public event Action Prepared;
         
         int _readyCounter;
-        List<Parameter> _parameters;
+        Parameter[] _parameters;
         List<Parameter> _readyParams;
 
-        public ParametersWaiter(List<Parameter> parameters)
+        public ParametersWaiter(Parameter[] parameters)
         {
             _parameters = parameters;
             _readyParams = new List<Parameter>();
@@ -47,7 +47,7 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
 
         private void CheckIsAllPrepared()
         {
-            if (_readyCounter != _parameters.Count) return;
+            if (_readyCounter != _parameters.Length) return;
 
             Clear();
             OnPrepared();
@@ -83,7 +83,11 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
         
         private void Clear()
         {
-            _parameters.ForEach(RemoveListeners);
+            foreach (var parameter in _parameters)
+            {
+                RemoveListeners(parameter);
+            }
+            
             _readyParams = null;
         }
     }

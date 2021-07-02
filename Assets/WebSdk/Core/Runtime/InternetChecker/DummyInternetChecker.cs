@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using WebSdk.Core.Runtime.Global;
 
@@ -27,7 +28,5 @@ namespace WebSdk.Core.Runtime.InternetChecker
         }
 
         public bool HasConnection { get; private set; }
-        public bool IsBlocked { get; }
-        public ModulesHost Parent { get; set; }
     }
 }

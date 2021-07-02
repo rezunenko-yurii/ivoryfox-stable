@@ -37,7 +37,7 @@ namespace CloackaV4.Scripts
             if (hasConnection)
             {
                 _internetChecker.OnResult -= CheckConnection;
-                _remoteConfig.Load("data", AnalyzeRemoteConfigData);
+                //_remoteConfig.Load("data", AnalyzeRemoteConfigData);
             }
             else
             {

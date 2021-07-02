@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using com.adjust.sdk;
 using UnityEngine;
 using WebSdk.Core.Runtime.ConfigLoader;
@@ -10,12 +12,7 @@ namespace WebSdk.Tracking.AdjustProvider.Runtime.Scripts
     {
         public bool IsReady { get; private set; }
         private AdjustData _adjustData;
-
-        public AdjustProvider()
-        {
-            Debug.Log($"In AdjustHelper constructor");
-        }
-
+        
         public string ConfigName { get; } = "adjust";
 
         public void SetConfig(string json)
@@ -93,7 +90,5 @@ namespace WebSdk.Tracking.AdjustProvider.Runtime.Scripts
         {
             return Adjust.getAdid();
         }
-
-        public ModulesHost Parent { get; set; }
     }
 }

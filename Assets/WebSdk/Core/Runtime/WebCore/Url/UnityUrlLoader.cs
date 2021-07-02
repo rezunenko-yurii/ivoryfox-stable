@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using WebSdk.Core.Runtime.Global;
@@ -91,7 +92,5 @@ namespace WebSdk.Core.Runtime.WebCore.Url
             LoadingSucceeded = LoadingFailed = null;
             StopCoroutine(_coroutine);
         }
-
-        public ModulesHost Parent { get; set; }
     }
 }

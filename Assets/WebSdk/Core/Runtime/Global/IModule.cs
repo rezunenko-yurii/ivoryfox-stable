@@ -1,7 +1,9 @@
-﻿namespace WebSdk.Core.Runtime.Global
+﻿using System;
+using System.Collections.Generic;
+
+namespace WebSdk.Core.Runtime.Global
 {
     public interface IModule
     {
-        ModulesHost Parent { get; set; }
     }
 }

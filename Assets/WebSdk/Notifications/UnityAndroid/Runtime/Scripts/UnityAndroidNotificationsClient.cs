@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Unity.Notifications.Android;
@@ -189,7 +190,5 @@ namespace WebSdk.Notifications.UnityAndroid.Runtime.Scripts
         }
 
 #endregion
-
-public ModulesHost Parent { get; set; }
     }
 }

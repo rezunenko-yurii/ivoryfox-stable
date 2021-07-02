@@ -6,7 +6,8 @@ namespace WebSdk.Core.Runtime.ConfigLoader
 {
     public interface IConfigsLoader: IModule
     {
-        void Load(string configName, Action<Dictionary<string, string>> onComplete);
-        void Load(List<string> configNames, Action<Dictionary<string, string>> onComplete);
+        event Action<Dictionary<string, string>> Completed;
+        void Load(string configName);
+        void Load(List<string> configNames);
     }
 }

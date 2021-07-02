@@ -4,7 +4,7 @@ using WebSdk.Core.Runtime.Global;
 
 namespace WebSdk.Core.Runtime.WebCore.Url
 {
-    public interface IUrlLoader: IModule, IConfigConsumer//, IMediatorComponent
+    public interface IUrlLoader: IModule, IConfigConsumer
     {
         event Action<string> LoadingFailed;
         event Action<string> LoadingSucceeded;

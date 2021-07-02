@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Scripting;
 using WebSdk.Core.Runtime.Global;
@@ -13,7 +16,7 @@ using Debug = UnityEngine.Debug;
 namespace WebSdk.Parameters.AdjustParameters.Runtime.Scripts
 {
     [Id("adjust")]
-    public class AdjustParameter : WaitableParameter
+    public class AdjustParameter : WaitableParameter, IModuleRequest
     {
         private const string AdIdPref = "adid";
         private const string Organic = "organic";
@@ -22,26 +25,11 @@ namespace WebSdk.Parameters.AdjustParameters.Runtime.Scripts
         private MonoBehaviour _monoBehaviour;
 
         private AdjustProvider _adjustProvider;
-
-        [RuntimeInitializeOnLoadMethod]
-        public static void Initialize()
-        {
-            Debug.Log("AdjustParameter Initialize");
-        }
-
-        [Preserve]
-        public AdjustParameter()
-        {
-            Debug.Log("AdjustParameter Constructor");
-        }
         
-        public override void Init(MonoBehaviour monoBehaviour)
+        public override void Init()
         {
             _stopwatch = Stopwatch.StartNew();
-            _monoBehaviour = monoBehaviour;
 
-            _adjustProvider = (AdjustProvider) Parent.GetModule(typeof(AdjustProvider));
-            
             Debug.Log($"AdjustParameter Init");
 
             string savedAdid = PlayerPrefs.GetString(AdIdPref, string.Empty);
@@ -56,7 +44,7 @@ namespace WebSdk.Parameters.AdjustParameters.Runtime.Scripts
                 SetAdjustValue(Organic);
             }*/
 
-            base.Init(_monoBehaviour);
+            base.Init();
         }
 
         protected override IEnumerator WatchValue()
@@ -146,6 +134,14 @@ namespace WebSdk.Parameters.AdjustParameters.Runtime.Scripts
             }
         }
 
-        public new ModulesHost Parent => base.Parent;
+        public List<Type> GetRequiredModules()
+        {
+            return new List<Type>(){typeof(AdjustProvider)};
+        }
+
+        public void SetRequiredModules(List<IModule> modules)
+        {
+            _adjustProvider = (AdjustProvider) modules.First(x => x.GetType() == typeof(AdjustProvider));
+        }
     }
 }

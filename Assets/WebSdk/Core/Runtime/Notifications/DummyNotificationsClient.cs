@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using WebSdk.Core.Runtime.Global;
 
@@ -17,7 +18,5 @@ namespace WebSdk.Core.Runtime.Notifications
         {
             return false;
         }
-
-        public ModulesHost Parent { get; set; }
     }
 }

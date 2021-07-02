@@ -18,18 +18,18 @@ namespace WebSdk.ConfigLoaders.CloudContentDelivery.Runtime.Scripts
         private CloudContentSettings _settings;
         private Dictionary<string, string> _data;
         private List<string> _configNames;
-        private Action<Dictionary<string, string>> _callback;
-    
-        public void Load(string configName, Action<Dictionary<string, string>> onComplete)
+
+        public event Action<Dictionary<string, string>> Completed;
+
+        public void Load(string configName)
         {
             var list = new List<string>{configName};
-            Load(list, onComplete);
+            Load(list);
         }
 
-        public void Load(List<string> configNames, Action<Dictionary<string, string>> onComplete)
+        public void Load(List<string> configNames)
         {
-            this._configNames = configNames;
-            _callback = onComplete;
+            _configNames = configNames;
 
             if (_data is null) DownloadConfig();
             GetDataFromConfig();
@@ -47,7 +47,8 @@ namespace WebSdk.ConfigLoaders.CloudContentDelivery.Runtime.Scripts
                 }
             }
 
-            _callback.Invoke(dict);
+            Completed?.Invoke(dict);
+            Completed = null;
         }
 
         private void DownloadConfig()
@@ -97,7 +98,5 @@ namespace WebSdk.ConfigLoaders.CloudContentDelivery.Runtime.Scripts
             }
             return values2;
         }
-
-        public ModulesHost Parent { get; set; }
     }
 }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using WebSdk.Core.Runtime.ConfigLoader;
+
 using WebSdk.Core.Runtime.Global;
 using WebSdk.Core.Runtime.Tracking;
 using WebSdk.Core.Runtime.WebCore;
@@ -12,64 +8,43 @@ using Debug = UnityEngine.Debug;
 
 namespace WebSdk.Main.Runtime.Scripts
 {
-    public class WebSdkEntry : ModulesHost
+    public class WebSdkEntry : MonoBehaviour
     {
-        [SerializeField] private GameObject globalGameObject;
-        [SerializeField] private GameObject webGameObject;
-        [SerializeField] private GameObject trackingGameObject;
-        
+        private WebManager _webManager;
+        private GlobalComponentsManager _globalManager;
+        private TrackingManager _trackingManager;
+
+        private ModulesOwner _modulesOwner;
         public TextMeshProUGUI textfield;
-        
-        [SerializeField] private WebManager _webManager;
-        [SerializeField] private GlobalComponentsManager _globalManager;
-        [SerializeField] private TrackingManager _trackingManager;
-        private Stopwatch _stopwatch;
 
         private void Awake()
         {
             Debug.Log("GlobalBlockUnity Awake");
+
+            _modulesOwner = new ModulesOwner();
+
+            _trackingManager = GetComponent<TrackingManager>();
+            _globalManager = GetComponent<GlobalComponentsManager>();
+            _webManager = GetComponent<WebManager>();
             
-            _trackingManager.InitModules(trackingGameObject, this);
-            _globalManager.InitModules(globalGameObject, this);
-            _webManager.InitModules(webGameObject, this);
+            _trackingManager.PrepareForWork();
+            _globalManager.PrepareForWork();
+            _webManager.PrepareForWork();
+            
+            _trackingManager.ResolveDependencies(_modulesOwner);
+            _globalManager.ResolveDependencies(_modulesOwner);
+            _webManager.ResolveDependencies(_modulesOwner);
 
             GameNavigation.SetWebBlockSettings();
-            
-            _stopwatch = Stopwatch.StartNew();
-            
-            CheckAtt();
-        }
-        
-        private void CheckAtt()
-        {
-            Debug.Log("WebSdkEntry CheckAtt");
-            
-            _trackingManager.Att.RequestShowed += CheckInternetConnection;
-            _trackingManager.Att.DoRequest();
+
+            _trackingManager.Completed += OnTrackingManagerCompleted;
+            _trackingManager.DoWork();
         }
 
-        private void CheckInternetConnection()
+        private void OnTrackingManagerCompleted()
         {
-            Debug.Log("WebSdkEntry CheckInternetConnection");
-            
-            _globalManager.InternetChecker.Checked += ChangeLoaderText;
-            _globalManager.InternetChecker.RepeatsEnded += TryLoadConfigs;
-
-            _globalManager.InternetChecker.Check(3);
-        }
-
-        #region Cofigs
-        
-        private void TryLoadConfigs(bool hasConnection)
-        {
-            Debug.Log($"WebSdkEntry TryLoadConfigs / hasConnection {hasConnection}");
-            
-            if (hasConnection) LoadConfigs();
-            else
-            {
-                Debug.Log($"WebSdkEntry -> No internet connection -> GoToNativeBlock");
-                GameNavigation.GoToNativeBlock();
-            }
+            _globalManager.Completed += _webManager.DoWork;
+            _globalManager.DoWork();
         }
         
         private void ChangeLoaderText(bool hasConnection)
@@ -81,71 +56,10 @@ namespace WebSdk.Main.Runtime.Scripts
             
             textfield.text = hasConnection ? loadingText : noInternetText;
         }
-
-        private void LoadConfigs()
-        {
-            Debug.Log($"WebSdkEntry LoadConfigs");
-
-            var ids = new List<string> {"canUse"};
-            ids = ids.Union(_globalManager.GetConfigIds()).ToList();
-            ids = ids.Union(_trackingManager.GetConfigIds()).ToList();
-            ids = ids.Union(_webManager.GetConfigIds()).ToList();
-
-            if (ids.Count > 0) _globalManager.ConfigsLoader.Load(ids, InitConfigs);
-            else
-            {
-                Debug.Log($"WebSdkEntry -> GoToNativeBlock");
-                GameNavigation.GoToNativeBlock();
-            }
-        }
-        
-        private void InitConfigs(Dictionary<string, string> configs)
-        {
-            Debug.Log($"WebSdkEntry InitConfigs / StopWatch = {_stopwatch.Elapsed.Seconds} FromStart = {Time.realtimeSinceStartup}");
-
-            SetLoadedDataToModules(configs);
-
-            configs.TryGetValue("canUse", out var canUseString);
-            bool.TryParse(canUseString, out var canUse);
-
-            if (canUse)
-            {
-                Debug.Log($"GlobalBlockUnity Complete / StopWatch = {_stopwatch.Elapsed.Seconds} FromStart = {Time.realtimeSinceStartup}");
-                _webManager.DoWork();
-            }
-            else
-            {
-                Debug.Log($"WebSdkEntry / canUse = false -> GoToNativeBlock");
-                GameNavigation.GoToNativeBlock();
-            }
-            
-            _stopwatch.Stop();
-        }
-
-        private void SetLoadedDataToModules(Dictionary<string, string> configs)
-        {
-            List<IModule> modules = new List<IModule>();
-            modules = modules.Union(_globalManager.GetModulesForConfigs()).ToList();
-            modules = modules.Union(_webManager.GetModulesForConfigs()).ToList();
-            modules = modules.Union(_trackingManager.GetModulesForConfigs()).ToList();
-
-            ConfigLoaderHelper.SetConfigsToConsumables(configs, modules.ToArray());
-        }
-
-        #endregion
         
         private void OnDestroy()
         {
             Debug.Log($"WebSdkEntry OnDestroy");
-            _globalManager.Logger.Clear();
-        }
-        
-        protected override void AddModule(Type moduleType, IModule module)
-        {
-            if (!Modules.ContainsKey(moduleType))
-            {
-                Modules.Add(moduleType, module);
-            }
         }
     }
 }

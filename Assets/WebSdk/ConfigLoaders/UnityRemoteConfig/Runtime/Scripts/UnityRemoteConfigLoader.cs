@@ -13,18 +13,18 @@ namespace WebSdk.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts
         private struct appAttributes {}
 
         private List<string> configNames;
-        private Action<Dictionary<string, string>> callback;
 
-        public void Load(string configName, Action<Dictionary<string, string>> onComplete)
+        public event Action<Dictionary<string, string>> Completed;
+
+        public void Load(string configName)
         {
             Debug.Log($"UnityConfigsLoader Load {configName}");
             configNames = new List<string> {configName};
-            callback = onComplete;
-            
+
             FetchConfigs();
         }
 
-        public void Load(List<string> configNames, Action<Dictionary<string, string>> onComplete)
+        public void Load(List<string> configNames)
         {
             string cn = string.Empty;
             foreach (string configName in configNames)
@@ -35,8 +35,7 @@ namespace WebSdk.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts
             Debug.Log($"UnityConfigsLoader Load {cn}");
             
             this.configNames = configNames;
-            callback = onComplete;
-            
+
             FetchConfigs();
         }
         
@@ -53,10 +52,13 @@ namespace WebSdk.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts
             Debug.Log($"UnityConfigsLoader {nameof(OnConfigsFetched)} configResponse {configResponse.requestOrigin}");
             
             ConfigManager.FetchCompleted -= OnConfigsFetched;
-            ReturnConfigs();
+            var dict = ReturnConfigs();
+            
+            Completed?.Invoke(dict);
+            Completed = null;
         }
         
-        private void ReturnConfigs()
+        private Dictionary<string, string> ReturnConfigs()
         {
             var dict = new Dictionary<string, string>();
 
@@ -69,9 +71,7 @@ namespace WebSdk.ConfigLoaders.UnityRemoteConfig.Runtime.Scripts
                 }
             }
 
-            callback.Invoke(dict);
+            return dict;
         }
-
-        public ModulesHost Parent { get; set; }
     }
 }

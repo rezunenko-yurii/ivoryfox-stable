@@ -3,6 +3,7 @@ using Unity.Advertisement.IosSupport;
 using UnityEngine.iOS;
 #endif
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using WebSdk.Core.Runtime.Global;
 using WebSdk.Core.Runtime.Tracking;
@@ -82,7 +83,5 @@ namespace WebSdk.Tracking.UnityAppTransparencyTracking.Runtime.Scripts
             RequestShowed?.Invoke();
             RequestShowed = null;
         }
-
-        public ModulesHost Parent { get; set; }
     }
 }

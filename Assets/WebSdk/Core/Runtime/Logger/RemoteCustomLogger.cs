@@ -87,6 +87,5 @@ namespace WebSdk.Core.Runtime.Logger
             Application.logMessageReceived -= Send;
         }
         public string ConfigName { get; } = "logger";
-        public ModulesHost Parent { get; set; }
     }
 }

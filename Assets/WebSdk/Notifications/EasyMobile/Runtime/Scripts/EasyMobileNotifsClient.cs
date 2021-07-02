@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using WebSdk.Core.Runtime.ConfigLoader;
@@ -141,7 +142,5 @@ namespace WebSdk.Notifications.EasyMobile.Runtime.Scripts
                 return notificationModelLocals[2];
             }
         }
-
-        public ModulesHost Parent { get; set; }
     }
 }

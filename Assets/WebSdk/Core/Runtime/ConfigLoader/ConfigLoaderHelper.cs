@@ -5,7 +5,7 @@ namespace WebSdk.Core.Runtime.ConfigLoader
 {
     public static class ConfigLoaderHelper
     {
-        public static List<string> GetConsumableIds(params IModule[] modules)
+        public static List<string> GetConsumableIds(IEnumerable<IModule> modules)
         {
             List<string> ids = new List<string>();
             
@@ -19,8 +19,8 @@ namespace WebSdk.Core.Runtime.ConfigLoader
 
             return ids;
         }
-        
-        public static void SetConfigsToConsumables(Dictionary<string,string> configs, params IModule[] modules)
+
+        public static void SetConfigsToConsumables(Dictionary<string,string> configs, IEnumerable<IModule> modules)
         {
             foreach (var module in modules)
             {

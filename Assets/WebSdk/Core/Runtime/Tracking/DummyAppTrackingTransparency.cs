@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using WebSdk.Core.Runtime.Global;
 
@@ -17,7 +18,5 @@ namespace WebSdk.Core.Runtime.Tracking
             RequestShowed?.Invoke();
             RequestShowed = null;
         }
-
-        public ModulesHost Parent { get; set; }
     }
 }

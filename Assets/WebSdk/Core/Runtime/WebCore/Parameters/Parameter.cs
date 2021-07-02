@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using WebSdk.Core.Runtime.Global;
 
 namespace WebSdk.Core.Runtime.WebCore.Parameters
 {
-    public abstract class Parameter : IModule
+    public abstract class Parameter : MonoBehaviour, IModule
     {
         public event Action<Parameter, bool> Prepared;
         public event Action<Parameter> Failed;
@@ -12,7 +13,7 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
         protected string parameterAlias = "alias";
         protected string Value;
 
-        public virtual void Init(MonoBehaviour monoBehaviour){}
+        public virtual void Init(){}
         public virtual bool IsReady() => !string.IsNullOrEmpty(Value);
         public virtual string GetAlias() => parameterAlias;
         public virtual string GetValue() => Value;
@@ -43,7 +44,5 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
 
             return this;
         }
-
-        public ModulesHost Parent { get; set; }
     }
 }
