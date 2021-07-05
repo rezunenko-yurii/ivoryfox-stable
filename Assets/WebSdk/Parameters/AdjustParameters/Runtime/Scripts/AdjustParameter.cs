@@ -54,7 +54,7 @@ namespace WebSdk.Parameters.AdjustParameters.Runtime.Scripts
         {
 #if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
 
-            while (!IsReady())
+            while (!IsPrepared())
             {
                 yield return new WaitForSeconds(0.1f);
 
