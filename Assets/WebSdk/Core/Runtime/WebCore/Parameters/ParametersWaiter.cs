@@ -31,7 +31,7 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
 
         public void CheckParam(Parameter param)
         {
-            if (param.IsReady()) Add(param);
+            if (param.IsPrepared()) Add(param);
             else AddListeners(param);
         }
         private void Add(Parameter parameter, bool isPrepared = true)
@@ -77,7 +77,7 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
         {
             Clear();
             
-            Failed?.Invoke($"Error!!! Can`t set value for attribute {parameter.GetAlias()}");
+            Failed?.Invoke($"Error!!! Can`t set value for attribute {parameter.Alias}");
             Failed = null;
         }
         

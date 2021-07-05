@@ -18,11 +18,12 @@ namespace WebSdk.Parameters.AdjustParameters.Runtime.Scripts
     [Id("adjust")]
     public class AdjustParameter : WaitableParameter, IModuleRequest
     {
+        [SerializeField] private string aliasText;
+        
         private const string AdIdPref = "adid";
         private const string Organic = "organic";
         private readonly int _maxWaitTime = 4;
         private Stopwatch _stopwatch;
-        private MonoBehaviour _monoBehaviour;
 
         private AdjustProvider _adjustProvider;
         
@@ -31,6 +32,8 @@ namespace WebSdk.Parameters.AdjustParameters.Runtime.Scripts
             _stopwatch = Stopwatch.StartNew();
 
             Debug.Log($"AdjustParameter Init");
+
+            Alias = aliasText;
 
             string savedAdid = PlayerPrefs.GetString(AdIdPref, string.Empty);
             if (CheckSavedAdid(savedAdid))
@@ -93,9 +96,9 @@ namespace WebSdk.Parameters.AdjustParameters.Runtime.Scripts
         private void OnAdjustReady()
         {
             Debug.Log($"On Adjust Instance is Ready // trying to get attribution");
-            string v = _adjustProvider.GetAttribution(parameterAlias);
+            string v = _adjustProvider.GetAttribution(Alias);
 
-            Debug.Log($"AdjustParameter attribution key={parameterAlias} value={v}");
+            Debug.Log($"AdjustParameter attribution key={Alias} value={v}");
             SaveAdid(v);
         }
 
@@ -116,9 +119,9 @@ namespace WebSdk.Parameters.AdjustParameters.Runtime.Scripts
         
         private void SetAdjustValue(string v)
         {
-            Debug.Log($"::{nameof(AdjustParameter)}.{nameof(SetAdjustValue)}:: Set {parameterAlias} = {v} / StopWatch = {_stopwatch.Elapsed.Seconds}");
+            Debug.Log($"::{nameof(AdjustParameter)}.{nameof(SetAdjustValue)}:: Set {Alias} = {v} / StopWatch = {_stopwatch.Elapsed.Seconds}");
 
-            SetValue(v);
+            Value = v;
             _stopwatch.Stop();
         }
 

@@ -803,6 +803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67b8a39b8beff0d439f2b74881b4220a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aliasText: adid
 --- !u!1 &1371045810
 GameObject:
   m_ObjectHideFlags: 0

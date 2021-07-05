@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 using WebSdk.Core.Runtime.Global;
 
@@ -10,39 +9,31 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
         public event Action<Parameter, bool> Prepared;
         public event Action<Parameter> Failed;
 
-        protected string parameterAlias = "alias";
-        protected string Value;
+        public string Alias { get; protected set; } = "alias";
 
-        public virtual void Init(){}
-        public virtual bool IsReady() => !string.IsNullOrEmpty(Value);
-        public virtual string GetAlias() => parameterAlias;
-        public virtual string GetValue() => Value;
-        public virtual void SetValue(string newValue)
+        private string _value;
+        public string Value
         {
-            if (!string.IsNullOrEmpty(newValue))
+            get => _value;
+            protected set
             {
-                Value = newValue;
-                
-                Prepared?.Invoke(this, true);
-            }
-            else
-            {
-                Prepared?.Invoke(this, false);
+                if (!string.IsNullOrEmpty(value))
+                {
+                    _value = value;
+                    Prepared?.Invoke(this, true);
+                }
+                else
+                {
+                    Prepared?.Invoke(this, false);
+                }
             }
         }
-        
-        public virtual void HandleOuterData(string newValue) { }
-        public virtual void SetAlias(string alias)
-        {
-            parameterAlias = alias;
-        }
 
-        public virtual Parameter InitByModel(ParameterModel model)
-        {
-            parameterAlias = model.alias;
-            HandleOuterData(model.value);
+        public abstract void Init();
 
-            return this;
+        public bool IsPrepared()
+        {
+            return !string.IsNullOrEmpty(_value);
         }
     }
 }

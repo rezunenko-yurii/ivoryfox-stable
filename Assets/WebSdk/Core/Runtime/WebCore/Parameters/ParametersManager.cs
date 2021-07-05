@@ -109,7 +109,7 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
 
             foreach (var parameter in _parameters)
             {
-                dict.Add(parameter.GetAlias(), parameter.GetValue());
+                dict.Add(parameter.Alias, parameter.Value);
             }
             
             return dict;
