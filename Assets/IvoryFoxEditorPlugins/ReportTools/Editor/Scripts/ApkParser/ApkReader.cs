@@ -330,13 +330,21 @@ namespace ReportTools.Editor.Scripts.ApkParser
                 Debug.LogError(error);
                 return s;
             }
+
+            try
+            {
+                var splitString = output.Split('\n');
+                var certificateHash_SHA1 = splitString.First(i => i.Contains("Signer #1 certificate SHA-1 digest:"));
+                var publicKey_SHA1 = splitString.First(i => i.Contains("Signer #1 public key SHA-1 digest:"));
             
-            var splitString = output.Split('\n');
-            var certificateHash_SHA1 = splitString.First(i => i.Contains("Signer #1 certificate SHA-1 digest:"));
-            var publicKey_SHA1 = splitString.First(i => i.Contains("Signer #1 public key SHA-1 digest:"));
-            
-            s.Add(Regex.Replace(certificateHash_SHA1, @"\t|\n|\r", ""));
-            s.Add(Regex.Replace(publicKey_SHA1, @"\t|\n|\r", ""));
+                s.Add(Regex.Replace(certificateHash_SHA1, @"\t|\n|\r", ""));
+                s.Add(Regex.Replace(publicKey_SHA1, @"\t|\n|\r", ""));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                //throw;
+            }
 
             //return $"{certificateHash_SHA1}\n{publicKey_SHA1}";
             return s;

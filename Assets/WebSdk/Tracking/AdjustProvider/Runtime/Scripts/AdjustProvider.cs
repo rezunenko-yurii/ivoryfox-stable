@@ -63,7 +63,7 @@ namespace WebSdk.Tracking.AdjustProvider.Runtime.Scripts
                 return;
             }
             
-            Debug.Log($"{nameof(AdjustProvider)} {nameof(SetAdjustConfig)}");
+            Debug.Log($"{nameof(AdjustProvider)} {nameof(SetAdjustConfig)}  // token {token}");
             
             var config = new AdjustConfig(token, AdjustEnvironment.Production, false);
             config.setLogLevel(AdjustLogLevel.Verbose);

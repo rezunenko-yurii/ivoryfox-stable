@@ -48,8 +48,15 @@ namespace ReportTools.Editor.Scripts
             builder.AppendLine($"* Permissions");
             foreach (string permission in info.permissions) builder.AppendLine($"** {permission}");
             builder.AppendLine($"* keysHash");
-            builder.AppendLine($"** {info.keysHash[0]}");
-            builder.Append($"** {info.keysHash[1]}");
+            try
+            {
+                builder.AppendLine($"** {info.keysHash[0]}");
+                builder.Append($"** {info.keysHash[1]}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
             builder.AppendLine("{panel}");
             
             builder.AppendLine("{panel:title=Unity Settings|borderStyle=dashed|borderColor=#ccc|titleBGColor=#ACAEEB|bgColor=#D9E0FD}");
