@@ -20,7 +20,7 @@ namespace WebSdk.Core.Runtime.WebCore
         private ParametersManager _paramsManager;
         private IWebViewClient _webViewClient;
         private Stopwatch _stopwatch;
-        
+
         public event Action Completed;
 
         public void PrepareForWork()
@@ -41,6 +41,7 @@ namespace WebSdk.Core.Runtime.WebCore
         public void ResolveDependencies(ModulesOwner owner)
         {
             owner.Add(_urlLoader, _paramsManager, _webViewClient);
+            _paramsManager.ResolveDependencies(owner);
         }
 
         public void DoWork()

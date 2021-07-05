@@ -17,7 +17,7 @@ namespace WebSdk.Tracking.AdjustProvider.Runtime.Scripts
 
         public void SetConfig(string json)
         {
-            Debug.Log($"---- AdjustHelper SetConfig // Json {json}");
+            Debug.Log($"---- AdjustProvider SetConfig // Json {json}");
             
             if (!string.IsNullOrEmpty(json) && !json.Equals("{}"))
             {
@@ -28,7 +28,10 @@ namespace WebSdk.Tracking.AdjustProvider.Runtime.Scripts
                     Debug.Log("!!!!!!!!!!!!!!!! Error: Adjust Token is Empty ");
                     return;
                 }
-                else Debug.Log($"AdjustHelper Init // Token {_adjustData.token}");
+                else
+                {
+                    Debug.Log($"AdjustProvider Init // Token {_adjustData.token}");
+                }
 
                 var config = new AdjustConfig(_adjustData.token, AdjustEnvironment.Production, false);
                 config.setLogLevel(AdjustLogLevel.Verbose);
