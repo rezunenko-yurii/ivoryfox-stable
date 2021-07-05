@@ -6,7 +6,7 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
 {
     public abstract class Parameter : MonoBehaviour, IModule
     {
-        public event Action<Parameter, bool> Prepared;
+        public event Action<Parameter> Prepared;
         public event Action<Parameter> Failed;
 
         public string Alias { get; protected set; } = "alias";
@@ -20,11 +20,7 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
                 if (!string.IsNullOrEmpty(value))
                 {
                     _value = value;
-                    Prepared?.Invoke(this, true);
-                }
-                else
-                {
-                    Prepared?.Invoke(this, false);
+                    Prepared?.Invoke(this);
                 }
             }
         }

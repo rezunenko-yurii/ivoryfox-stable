@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WebSdk.Core.Runtime.WebCore.Parameters
 {
@@ -8,19 +9,23 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
         public event Action<string> Failed;
         public event Action Prepared;
         
-        int _readyCounter;
-        Parameter[] _parameters;
-        List<Parameter> _readyParams;
+        private int _readyCounter;
+        private Parameter[] _parameters;
+        private List<Parameter> _readyParams = new List<Parameter>();
 
         public ParametersWaiter(Parameter[] parameters)
         {
             _parameters = parameters;
-            _readyParams = new List<Parameter>();
         }
 
         private void Remove(Parameter parameter, bool isPrepared = false)
         {
-            if (!isPrepared) return;
+            Debug.Log($"{nameof(ParametersWaiter)} {nameof(Remove)} // parameter={parameter.Alias} isPrepared={isPrepared}");
+            
+            if (!isPrepared)
+            {
+                return;
+            }
             
             if (_readyParams.Contains(parameter))
             {
@@ -31,13 +36,23 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
 
         public void CheckParam(Parameter param)
         {
-            if (param.IsPrepared()) Add(param);
-            else AddListeners(param);
+            if (param.IsPrepared())
+            {
+                AddToPrepared(param);
+            }
+            else
+            {
+                AddListeners(param);
+            }
         }
-        private void Add(Parameter parameter, bool isPrepared = true)
+        private void AddToPrepared(Parameter parameter)
         {
-            if(!isPrepared) return;
-            if (_readyParams.Contains(parameter)) return;
+            Debug.Log($"{nameof(ParametersWaiter)} {nameof(AddToPrepared)} // parameter={parameter.Alias}");
+            
+            if (_readyParams.Contains(parameter))
+            {
+                return;
+            }
             
             _readyParams.Add(parameter);
             _readyCounter++;
@@ -47,7 +62,10 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
 
         private void CheckIsAllPrepared()
         {
-            if (_readyCounter != _parameters.Length) return;
+            if (_readyCounter != _parameters.Length)
+            {
+                return;
+            }
 
             Clear();
             OnPrepared();
@@ -55,22 +73,24 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
 
         private void OnPrepared()
         {
+            Debug.Log($"{nameof(ParametersWaiter)} {nameof(OnPrepared)} is prepared");
+            
+            Clear();
+            
             Prepared?.Invoke();
             Prepared = null;
         }
         
-        private void AddListeners(Parameter param)
+        private void AddListeners(Parameter parameter)
         {
-            param.Failed += OnFailed;
-            param.Prepared += Add;
-            param.Prepared += Remove;
+            parameter.Failed += OnFailed;
+            parameter.Prepared += AddToPrepared;
         }
         
-        private void RemoveListeners(Parameter attribute)
+        private void RemoveListeners(Parameter parameter)
         {
-            attribute.Failed -= OnFailed;
-            attribute.Prepared -= Add;
-            attribute.Prepared -= Remove;
+            parameter.Failed -= OnFailed;
+            parameter.Prepared -= AddToPrepared;
         }
 
         private void OnFailed(Parameter parameter)

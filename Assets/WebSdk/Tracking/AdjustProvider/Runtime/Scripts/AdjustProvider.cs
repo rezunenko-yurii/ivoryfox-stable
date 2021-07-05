@@ -10,11 +10,31 @@ namespace WebSdk.Tracking.AdjustProvider.Runtime.Scripts
 {
     public class AdjustProvider : MonoBehaviour, ITrackingProvider, IConfigConsumer
     {
+        private const string AdjustTokenPrefs = "adjust_token";
+        
+        [SerializeField] private string inAppToken = string.Empty;
         public bool IsReady { get; private set; }
         private AdjustData _adjustData;
         
         public string ConfigName { get; } = "adjust";
 
+        private void Awake()
+        {
+            var t = SavedToken;
+
+            if (string.IsNullOrEmpty(t) && !string.IsNullOrEmpty(inAppToken))
+            {
+                SavedToken = t = inAppToken;
+            }
+            
+            SetAdjustConfig(t);
+        }
+
+        private string SavedToken
+        {
+            get => PlayerPrefs.GetString(AdjustTokenPrefs, string.Empty);
+            set => PlayerPrefs.SetString(AdjustTokenPrefs, value);
+        }
         public void SetConfig(string json)
         {
             Debug.Log($"---- AdjustProvider SetConfig // Json {json}");
@@ -22,38 +42,42 @@ namespace WebSdk.Tracking.AdjustProvider.Runtime.Scripts
             if (!string.IsNullOrEmpty(json) && !json.Equals("{}"))
             {
                 _adjustData = JsonUtility.FromJson<AdjustData>(json);
-                
-                if (string.IsNullOrEmpty(_adjustData.token))
-                {
-                    Debug.Log("!!!!!!!!!!!!!!!! Error: Adjust Token is Empty ");
-                    return;
-                }
-                else
-                {
-                    Debug.Log($"AdjustProvider Init // Token {_adjustData.token}");
-                }
 
-                var config = new AdjustConfig(_adjustData.token, AdjustEnvironment.Production, false);
-                config.setLogLevel(AdjustLogLevel.Verbose);
-                config.setSendInBackground(true);
-                config.setAttributionChangedDelegate(AttributionChangedCallback);
-            
-                config.setDefaultTracker(_adjustData.token);
-                config.setAllowIdfaReading(true);
-                config.setPreinstallTrackingEnabled(true);
-                config.setAllowiAdInfoReading(true);
-                config.setAllowAdServicesInfoReading(true);
-                config.setEventBufferingEnabled(true);
-                
-                Adjust.setEnabled(true);
-                Adjust.start(config);
-                
-                Debug.Log($"Adjust started");
+                if (!string.IsNullOrEmpty(_adjustData.token) && !_adjustData.token.Equals(SavedToken))
+                {
+                    SavedToken = _adjustData.token;
+                    SetAdjustConfig(_adjustData.token);
+                }
             }
             else
             {
                 Debug.Log($"!!!!!!!!!!!!!!!! AdjustHelper isn`t inited");
             }
+        }
+
+        private void SetAdjustConfig(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+            {
+                Debug.Log($"{nameof(AdjustProvider)} {nameof(SetAdjustConfig)} // token is empty");
+                return;
+            }
+            
+            Debug.Log($"{nameof(AdjustProvider)} {nameof(SetAdjustConfig)}");
+            
+            var config = new AdjustConfig(token, AdjustEnvironment.Production, false);
+            config.setLogLevel(AdjustLogLevel.Verbose);
+            config.setSendInBackground(true);
+            config.setAttributionChangedDelegate(AttributionChangedCallback);
+            config.setLaunchDeferredDeeplink(true);
+                
+            config.setAllowIdfaReading(true);
+            config.setAllowiAdInfoReading(true);
+            config.setAllowAdServicesInfoReading(true);
+            config.setEventBufferingEnabled(true);
+                
+            Adjust.setEnabled(true);
+            Adjust.start(config);
         }
 
         private void AttributionChangedCallback(AdjustAttribution obj)

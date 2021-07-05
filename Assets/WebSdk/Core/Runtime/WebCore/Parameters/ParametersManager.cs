@@ -8,7 +8,7 @@ using WebSdk.Core.Runtime.Helpers;
 
 namespace WebSdk.Core.Runtime.WebCore.Parameters
 {
-    public class ParametersManager : MonoBehaviour, IModule, IConfigConsumer, IModulesHandler
+    public class ParametersManager : MonoBehaviour, IModule, IModulesHandler
     {
         [SerializeField] private GameObject parametersGameObject;
         
@@ -16,12 +16,8 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
         public event Action Completed;
 
         Parameter[] _parameters;
-        ParameterModels _parameterModels;
         ParametersWaiter _parametersWaiter;
-
-        public string ConfigName { get; } = "paramsConfig";
-        public void SetConfig(string json) => _parameterModels = JsonUtility.FromJson<ParameterModels>(json);
-
+        
         public void PrepareForWork()
         {
             _parameters = parametersGameObject.gameObject.GetComponents<Parameter>();
@@ -48,6 +44,8 @@ namespace WebSdk.Core.Runtime.WebCore.Parameters
 
         public void DoWork()
         {
+            Debug.Log($"{nameof(ParametersManager)} {nameof(DoWork)} // parameters.Count={_parameters.Length}");
+            
             if (_parameters.Length == 0) Completed?.Invoke();
             else
             {
