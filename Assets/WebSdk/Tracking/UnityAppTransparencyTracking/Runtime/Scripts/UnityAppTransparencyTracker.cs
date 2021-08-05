@@ -3,9 +3,9 @@ using Unity.Advertisement.IosSupport;
 using UnityEngine.iOS;
 #endif
 using System;
-using System.Collections.Generic;
+using System.Collections;
+
 using UnityEngine;
-using WebSdk.Core.Runtime.Global;
 using WebSdk.Core.Runtime.Tracking;
 using Debug = UnityEngine.Debug;
 

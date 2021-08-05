@@ -12,28 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4e1137b3-476f-4578-9e4a-6ec6bf7c224e\"\r\n   
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"1768b5c7-c074-4dfd-a1ab-5321293dab4d\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"urlsConfig\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": \"{}\"\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"0ee23be8-f9ec-484a-8181-211e00931e41\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"ac4d603f-464a-4e3f-9524-fdecd4aea96b\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"paramsConfig\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": \"{}\"\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"bc5b0c5f-2b2d-4eca-9132-7e06abfc3bef\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"e2a58ecf-048b-4909-a918-6da861265f57\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"adjust\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": \"{}\"\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"22ab6907-702c-4887-bbb3-9b648aa88077\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"d748ce88-71b8-4466-ab55-32571b104ddd\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"canUse\",\r\n      \"type\": \"string\",\r\n     
     \"value\": \"false\"\r\n    }\r\n  }\r\n]"
-  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4e1137b3-476f-4578-9e4a-6ec6bf7c224e\"\r\n   
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"1768b5c7-c074-4dfd-a1ab-5321293dab4d\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"urlsConfig\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": \"{}\"\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"0ee23be8-f9ec-484a-8181-211e00931e41\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"ac4d603f-464a-4e3f-9524-fdecd4aea96b\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"paramsConfig\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": \"{}\"\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"bc5b0c5f-2b2d-4eca-9132-7e06abfc3bef\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"e2a58ecf-048b-4909-a918-6da861265f57\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"adjust\",\r\n      \"type\": \"json\",\r\n     
     \"schemaId\": null,\r\n      \"value\": \"{}\"\r\n    }\r\n  },\r\n  {\r\n   
-    \"metadata\": {\r\n      \"entityId\": \"22ab6907-702c-4887-bbb3-9b648aa88077\"\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"d748ce88-71b8-4466-ab55-32571b104ddd\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"canUse\",\r\n      \"type\": \"string\",\r\n     
     \"value\": \"false\"\r\n    }\r\n  }\r\n]"
   _environments: "[\r\n  {\r\n    \"projectId\": \"ab908d3b-3861-4155-a12b-61eecf11311e\",\r\n   
@@ -46,55 +46,40 @@ MonoBehaviour:
     \"name\": \"IvoryFox\",\r\n    \"id\": \"d91da3c0-cc52-4c53-b48d-a9b666c70204\",\r\n   
     \"createdAt\": \"2021-06-11T09:41:50Z\",\r\n    \"updatedAt\": \"2021-06-11T09:41:50Z\",\r\n   
     \"isDefault\": true\r\n  }\r\n]"
-  _rulesList: "[\r\n  {\r\n    \"projectId\": \"ab908d3b-3861-4155-a12b-61eecf11311e\",\r\n   
-    \"environmentId\": \"d91da3c0-cc52-4c53-b48d-a9b666c70204\",\r\n    \"configId\":
-    \"f1fe2c1a-3478-436a-9844-f3c420d4ec20\",\r\n    \"name\": \"canShow\",\r\n   
-    \"enabled\": true,\r\n    \"condition\": \"unity.country != 'US'\",\r\n    \"rolloutPercentage\":
-    100,\r\n    \"value\": [\r\n      {\r\n        \"metadata\": {\r\n          \"entityId\":
-    \"4e1137b3-476f-4578-9e4a-6ec6bf7c224e\"\r\n        },\r\n        \"rs\": {\r\n         
-    \"key\": \"urlsConfig\",\r\n          \"type\": \"json\",\r\n          \"schemaId\":
-    null,\r\n          \"value\": \"{   \\\"url\\\": \\\"https://exglavetune.net/SJdW2KTj\\\",  
-    \\\"server\\\": \\\"\\\" }\"\r\n        }\r\n      },\r\n      {\r\n        \"metadata\":
-    {\r\n          \"entityId\": \"0ee23be8-f9ec-484a-8181-211e00931e41\"\r\n       
-    },\r\n        \"rs\": {\r\n          \"key\": \"paramsConfig\",\r\n         
-    \"type\": \"json\",\r\n          \"schemaId\": null,\r\n          \"value\":
-    \"{   \\\"items\\\": [     {       \\\"id\\\": \\\"adjust\\\",       \\\"alias\\\":
-    \\\"adid\\\" }   ] }\"\r\n        }\r\n      },\r\n      {\r\n        \"metadata\":
-    {\r\n          \"entityId\": \"bc5b0c5f-2b2d-4eca-9132-7e06abfc3bef\"\r\n       
-    },\r\n        \"rs\": {\r\n          \"key\": \"adjust\",\r\n          \"type\":
-    \"json\",\r\n          \"schemaId\": null,\r\n          \"value\": \"{ \\\"token\\\":
-    \\\" 9c5w1t84e48w\\\" }\"\r\n        }\r\n      },\r\n      {\r\n        \"metadata\":
-    {\r\n          \"entityId\": \"22ab6907-702c-4887-bbb3-9b648aa88077\"\r\n       
+  _rulesList: "[\r\n  {\r\n    \"id\": \"a98180b5-8330-43e8-a183-66073ba09652\",\r\n   
+    \"name\": \"canShow\",\r\n    \"type\": \"segmentation\",\r\n    \"condition\":
+    \"unity.country != 'US'\",\r\n    \"rolloutPercentage\": 100,\r\n    \"startDate\":
+    \"\",\r\n    \"endDate\": \"\",\r\n    \"priority\": 1000,\r\n    \"enabled\":
+    true,\r\n    \"value\": [\r\n      {\r\n        \"metadata\": {\r\n         
+    \"entityId\": \"1768b5c7-c074-4dfd-a1ab-5321293dab4d\"\r\n        },\r\n       
+    \"rs\": {\r\n          \"key\": \"urlsConfig\",\r\n          \"type\": \"json\",\r\n         
+    \"schemaId\": null,\r\n          \"value\": {\r\n            \"url\": \"https://cakeglobal-offers.com/?s=70&ref=ca_w92386p477_17432-ios-exhale&click_id=8595b76b12c441d615458e928fd473ca_%7Bclickid%7D&url=register\",\r\n           
+    \"server\": \"\"\r\n          }\r\n        }\r\n      },\r\n      {\r\n       
+    \"metadata\": {\r\n          \"entityId\": \"d748ce88-71b8-4466-ab55-32571b104ddd\"\r\n       
     },\r\n        \"rs\": {\r\n          \"key\": \"canUse\",\r\n          \"type\":
     \"string\",\r\n          \"schemaId\": null,\r\n          \"value\": \"true\"\r\n       
-    }\r\n      }\r\n    ],\r\n    \"id\": \"a98180b5-8330-43e8-a183-66073ba09652\",\r\n   
-    \"priority\": 1000,\r\n    \"type\": \"segmentation\",\r\n    \"version\": \"93999ba3-ebaa-40e3-969f-a176a580efe9\",\r\n   
-    \"startDate\": null,\r\n    \"endDate\": null,\r\n    \"metadata\": null,\r\n   
-    \"audience\": null,\r\n    \"kpi\": null,\r\n    \"createdAt\": \"2021-06-11T09:41:52Z\",\r\n   
-    \"updatedAt\": \"2021-06-11T09:41:52Z\"\r\n  }\r\n]"
+    }\r\n      },\r\n      {\r\n        \"metadata\": {\r\n          \"entityId\":
+    \"ac4d603f-464a-4e3f-9524-fdecd4aea96b\"\r\n        },\r\n        \"rs\": {\r\n         
+    \"key\": \"paramsConfig\",\r\n          \"type\": \"json\",\r\n          \"schemaId\":
+    null,\r\n          \"value\": \"{}\"\r\n        }\r\n      }\r\n    ]\r\n  }\r\n]"
   _lastCachedRulesList: "[\r\n  {\r\n    \"projectId\": \"ab908d3b-3861-4155-a12b-61eecf11311e\",\r\n   
     \"environmentId\": \"d91da3c0-cc52-4c53-b48d-a9b666c70204\",\r\n    \"configId\":
     \"f1fe2c1a-3478-436a-9844-f3c420d4ec20\",\r\n    \"name\": \"canShow\",\r\n   
     \"enabled\": true,\r\n    \"condition\": \"unity.country != 'US'\",\r\n    \"rolloutPercentage\":
     100,\r\n    \"value\": [\r\n      {\r\n        \"metadata\": {\r\n          \"entityId\":
-    \"4e1137b3-476f-4578-9e4a-6ec6bf7c224e\"\r\n        },\r\n        \"rs\": {\r\n         
+    \"1768b5c7-c074-4dfd-a1ab-5321293dab4d\"\r\n        },\r\n        \"rs\": {\r\n         
     \"key\": \"urlsConfig\",\r\n          \"type\": \"json\",\r\n          \"schemaId\":
-    null,\r\n          \"value\": \"{   \\\"url\\\": \\\"https://exglavetune.net/SJdW2KTj\\\",  
-    \\\"server\\\": \\\"\\\" }\"\r\n        }\r\n      },\r\n      {\r\n        \"metadata\":
-    {\r\n          \"entityId\": \"0ee23be8-f9ec-484a-8181-211e00931e41\"\r\n       
-    },\r\n        \"rs\": {\r\n          \"key\": \"paramsConfig\",\r\n         
-    \"type\": \"json\",\r\n          \"schemaId\": null,\r\n          \"value\":
-    \"{   \\\"items\\\": [     {       \\\"id\\\": \\\"adjust\\\",       \\\"alias\\\":
-    \\\"adid\\\" }   ] }\"\r\n        }\r\n      },\r\n      {\r\n        \"metadata\":
-    {\r\n          \"entityId\": \"bc5b0c5f-2b2d-4eca-9132-7e06abfc3bef\"\r\n       
-    },\r\n        \"rs\": {\r\n          \"key\": \"adjust\",\r\n          \"type\":
-    \"json\",\r\n          \"schemaId\": null,\r\n          \"value\": \"{ \\\"token\\\":
-    \\\" 9c5w1t84e48w\\\" }\"\r\n        }\r\n      },\r\n      {\r\n        \"metadata\":
-    {\r\n          \"entityId\": \"22ab6907-702c-4887-bbb3-9b648aa88077\"\r\n       
+    null,\r\n          \"value\": {\r\n            \"url\": \"https://cakeglobal-offers.com/?s=70&ref=ca_w92386p477_17432-ios-exhale&click_id=8595b76b12c441d615458e928fd473ca_%7Bclickid%7D&url=register\",\r\n           
+    \"server\": \"\"\r\n          }\r\n        }\r\n      },\r\n      {\r\n       
+    \"metadata\": {\r\n          \"entityId\": \"d748ce88-71b8-4466-ab55-32571b104ddd\"\r\n       
     },\r\n        \"rs\": {\r\n          \"key\": \"canUse\",\r\n          \"type\":
     \"string\",\r\n          \"schemaId\": null,\r\n          \"value\": \"true\"\r\n       
-    }\r\n      }\r\n    ],\r\n    \"id\": \"a98180b5-8330-43e8-a183-66073ba09652\",\r\n   
-    \"priority\": 1000,\r\n    \"type\": \"segmentation\",\r\n    \"version\": \"93999ba3-ebaa-40e3-969f-a176a580efe9\",\r\n   
+    }\r\n      },\r\n      {\r\n        \"metadata\": {\r\n          \"entityId\":
+    \"ac4d603f-464a-4e3f-9524-fdecd4aea96b\"\r\n        },\r\n        \"rs\": {\r\n         
+    \"key\": \"paramsConfig\",\r\n          \"type\": \"json\",\r\n          \"schemaId\":
+    null,\r\n          \"value\": \"{}\"\r\n        }\r\n      }\r\n    ],\r\n   
+    \"id\": \"a98180b5-8330-43e8-a183-66073ba09652\",\r\n    \"priority\": 1000,\r\n   
+    \"type\": \"segmentation\",\r\n    \"version\": \"e3708d17-78b9-4d70-bc99-ecfa8d520f34\",\r\n   
     \"startDate\": null,\r\n    \"endDate\": null,\r\n    \"metadata\": null,\r\n   
     \"audience\": null,\r\n    \"kpi\": null,\r\n    \"createdAt\": \"2021-06-11T09:41:52Z\",\r\n   
-    \"updatedAt\": \"2021-06-11T09:41:52Z\"\r\n  }\r\n]"
+    \"updatedAt\": \"2021-06-30T15:15:27Z\"\r\n  }\r\n]"
