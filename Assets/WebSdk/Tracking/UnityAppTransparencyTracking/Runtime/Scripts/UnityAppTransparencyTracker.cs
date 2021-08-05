@@ -34,7 +34,7 @@ namespace WebSdk.Tracking.UnityAppTransparencyTracking.Runtime.Scripts
                 Debug.Log($"AppTransparencyTracker IOS version is lower than 14.5 /// skip request");
                 Status = AttStatus.AUTHORIZED;
                 
-                SendOnGetRequest();
+                OnRequestShowed();
             }
 #else
             Debug.Log($"AppTransparencyTracker platform is not IOS /// skip request");
