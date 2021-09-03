@@ -36,6 +36,7 @@ namespace WebSdk.Main.Runtime.Scripts
             _webManager.ResolveDependencies(_modulesOwner);
 
             GameNavigation.SetWebBlockSettings();
+            
 
             _trackingManager.Completed += OnTrackingManagerCompleted;
             _trackingManager.DoWork();
