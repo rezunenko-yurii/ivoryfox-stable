@@ -15,7 +15,6 @@ namespace WebSdk.Main.Runtime.Scripts
         private TrackingManager _trackingManager;
 
         private ModulesOwner _modulesOwner;
-        public TextMeshProUGUI textfield;
 
         private void Awake()
         {
@@ -47,17 +46,7 @@ namespace WebSdk.Main.Runtime.Scripts
             _globalManager.Completed += _webManager.DoWork;
             _globalManager.DoWork();
         }
-        
-        private void ChangeLoaderText(bool hasConnection)
-        {
-            Debug.Log($"WebSdkEntry TryLoadConfigs / hasConnection {hasConnection}");
-            
-            const string noInternetText = "No internet connection. \n Please turn on the internet or wait ";
-            const string loadingText = "Loading...";
-            
-            textfield.text = hasConnection ? loadingText : noInternetText;
-        }
-        
+
         private void OnDestroy()
         {
             Debug.Log($"WebSdkEntry OnDestroy");

@@ -42,6 +42,7 @@ namespace WebSdk.Core.Runtime.WebCore
         {
             owner.Add(_urlLoader, _paramsManager, _webViewClient);
             _paramsManager.ResolveDependencies(owner);
+            _webViewClient.ResolveDependencies(owner);
         }
 
         public void DoWork()

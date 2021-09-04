@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a88aae3fa047d3a479e194806d8f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inAppToken: 
 --- !u!1 &678340905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,6 +1076,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navigationBar: {fileID: 1624277986}
   backButton: {fileID: 678340907}
+  _textfield: {fileID: 1019226386}
 --- !u!114 &1898663492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1219,7 +1221,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 611b9cc1382e4417a871e257da3c2556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textfield: {fileID: 1019226386}
 --- !u!114 &2099742882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,3 +1260,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   globalGameObject: {fileID: 879698975}
+  textfield: {fileID: 1019226386}

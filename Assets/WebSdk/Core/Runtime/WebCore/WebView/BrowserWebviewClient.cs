@@ -23,5 +23,21 @@ namespace WebSdk.Core.Runtime.WebCore.WebView
         {
             //throw new System.NotImplementedException();
         }
+
+        public event Action Completed;
+        public void PrepareForWork()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ResolveDependencies(ModulesOwner owner)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DoWork()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

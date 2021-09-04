@@ -58,8 +58,8 @@ namespace WebSdk.Core.Runtime.Global
             else
             {
                 Debug.Log($"WebSdkEntry -> No internet connection -> GoToNativeBlock");
-                textfield.text = "No internet connection. \n Please turn on the internet and restart app";
-                //GameNavigation.GoToNativeBlock();
+                //textfield.text = "No internet connection. \n Please turn on the internet and restart app";
+                GameNavigation.GoToNativeBlock();
             }
         }
         

@@ -11,6 +11,8 @@ namespace WebSdk.Core.Runtime.InternetChecker
     {
         public event Action<bool> Checked;
         public event Action<bool> RepeatsEnded;
+
+        private readonly int _infinityChecking = -1;
         
         //private 
         
@@ -21,7 +23,7 @@ namespace WebSdk.Core.Runtime.InternetChecker
         {
             Debug.Log($"{nameof(DefaultInternetChecker)} {nameof(SendRequest)}");
 
-            DecreaseRepeatCount();
+            
 
             if (Application.internetReachability == NetworkReachability.NotReachable)
             {
@@ -35,18 +37,24 @@ namespace WebSdk.Core.Runtime.InternetChecker
             }
             
             Checked?.Invoke(HasConnection);
-
-            if (HasConnection || _repeatCount == 0)
+            
+            if (_repeatCount != _infinityChecking)
             {
-                CancelInvoke(nameof(StartChecking));
+                DecreaseRepeatCount();
+            
+                if (HasConnection || _repeatCount == 0)
+                {
+                    CancelInvoke(nameof(StartChecking));
 
-                Debug.Log("DefaultInternetChecker RepeatCount == 0");
+                    Debug.Log("DefaultInternetChecker RepeatCount == 0");
                 
-                RepeatsEnded?.Invoke(HasConnection);
+                    RepeatsEnded?.Invoke(HasConnection);
                 
-                RepeatsEnded = null;
-                Checked = null;
+                    RepeatsEnded = null;
+                    Checked = null;
+                } 
             }
+            
         }
 
         private void DecreaseRepeatCount()
@@ -61,10 +69,10 @@ namespace WebSdk.Core.Runtime.InternetChecker
 
         public void Check(int repeatCount = 1)
         {
-            if (repeatCount > 1)
+            if (repeatCount > 1 || repeatCount == _infinityChecking)
             {
                 _repeatCount = repeatCount;
-                InvokeRepeating(nameof(StartChecking), 0f, 11f);
+                InvokeRepeating(nameof(StartChecking), 0f, 5f);
             }
             else
             {

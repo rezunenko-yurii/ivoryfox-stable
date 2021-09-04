@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using WebSdk.Core.Runtime.Global;
 using WebSdk.Core.Runtime.Helpers;
+using WebSdk.Core.Runtime.InternetChecker;
 using WebSdk.Core.Runtime.WebCore.WebView;
 
 namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
@@ -13,6 +14,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
     {
         [SerializeField] RectTransform navigationBar;
         [SerializeField] Button backButton;
+        [SerializeField] private TextMeshProUGUI _textfield;
 
         private const string MerchantReference = "merchantReference";
         private readonly string[] _keyWords = {"apple-payment", "google-payment", "social", "api.twitter.com", 
@@ -22,6 +24,10 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         private string _startUrl = string.Empty;
         private global::UniWebView _webView;
         private UniWebViewToolbar _toolbar;
+
+        private IInternetChecker _internetChecker;
+        const string noInternetText = "No internet connection. \n Please turn on the internet";
+        const string loadingText = "Loading...";
         
         public void Open(string url)
         {
@@ -118,6 +124,30 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         private void OnBackButtonClick()
         {
             LoadUrl(!string.IsNullOrEmpty(_merchant) ? _merchant : _startUrl);
+        }
+
+        public event Action Completed;
+        public void PrepareForWork()
+        {
+            _internetChecker.Checked += InternetCheckerOnChecked;
+            _internetChecker.Check(-1);
+        }
+
+        private void InternetCheckerOnChecked(bool hasConnection)
+        {
+            _webView.Alpha = hasConnection ? 1 : 0; 
+            _toolbar.SetActive(hasConnection);
+            _textfield.text = hasConnection ? loadingText : noInternetText;
+        }
+
+        public void ResolveDependencies(ModulesOwner owner)
+        {
+            _internetChecker = (IInternetChecker) owner.Get(typeof(IInternetChecker));
+        }
+
+        public void DoWork()
+        {
+            //throw new NotImplementedException();
         }
     }
 }

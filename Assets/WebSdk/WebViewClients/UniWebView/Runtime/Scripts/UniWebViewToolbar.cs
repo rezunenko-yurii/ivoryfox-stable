@@ -62,6 +62,11 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         {
             return _transform.gameObject.activeInHierarchy;
         }
+
+        public void SetActive(bool isActive)
+        {
+            _transform.gameObject.SetActive(isActive);
+        }
         
         private void SetState(bool isActive)
         {
