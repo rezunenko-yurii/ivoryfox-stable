@@ -7,10 +7,12 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
     {
         private RectTransform _transform;
         private Button _backButton;
+        private CanvasGroup _group;
         
         public UniWebViewToolbar(RectTransform transform, Button backButton)
         {
             _transform = transform;
+            _group = transform.GetComponent<CanvasGroup>();
             _backButton = backButton;
         }
         
@@ -63,9 +65,9 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             return _transform.gameObject.activeInHierarchy;
         }
 
-        public void SetActive(bool isActive)
+        public void SetVisible(bool isActive)
         {
-            _transform.gameObject.SetActive(isActive);
+            _group.alpha = isActive ? 1 : 0;
         }
         
         private void SetState(bool isActive)

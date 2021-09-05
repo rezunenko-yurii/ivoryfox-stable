@@ -33,7 +33,10 @@ namespace WebSdk.Core.Runtime.InternetChecker
             {
                 var request = new UnityWebRequest("http://google.com") {timeout = 5};
                 yield return request.SendWebRequest();
+                
                 HasConnection = request.error == null;
+                
+                request.Dispose();
             }
             
             Checked?.Invoke(HasConnection);
@@ -72,7 +75,7 @@ namespace WebSdk.Core.Runtime.InternetChecker
             if (repeatCount > 1 || repeatCount == _infinityChecking)
             {
                 _repeatCount = repeatCount;
-                InvokeRepeating(nameof(StartChecking), 0f, 5f);
+                InvokeRepeating(nameof(StartChecking), 0f, 3f);
             }
             else
             {

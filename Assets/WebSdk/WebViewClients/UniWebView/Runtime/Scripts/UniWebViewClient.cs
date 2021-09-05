@@ -136,7 +136,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         private void InternetCheckerOnChecked(bool hasConnection)
         {
             _webView.Alpha = hasConnection ? 1 : 0; 
-            _toolbar.SetActive(hasConnection);
+            _toolbar.SetVisible(hasConnection);
             _textfield.text = hasConnection ? loadingText : noInternetText;
         }
 

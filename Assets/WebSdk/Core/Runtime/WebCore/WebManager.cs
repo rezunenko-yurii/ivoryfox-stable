@@ -33,7 +33,7 @@ namespace WebSdk.Core.Runtime.WebCore
             _webViewClient = webGameObject.gameObject.GetComponent<IWebViewClient>();
 
             _paramsManager.PrepareForWork();
-            
+
             _urlLoader.LoadingSucceeded += (s) => _paramsManager.DoWork();
             _paramsManager.Completed += StartWebview;
         }
@@ -58,6 +58,7 @@ namespace WebSdk.Core.Runtime.WebCore
             if (WebHelper.IsValidUrl(url))
             {
                 Debug.Log("open final url " + url);
+                _webViewClient.PrepareForWork();
                 _webViewClient.SetSettings();
                 _webViewClient.Open(url);
             }
