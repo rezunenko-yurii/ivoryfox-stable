@@ -18,7 +18,8 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
 
         private const string MerchantReference = "merchantReference";
         private readonly string[] _keyWords = {"apple-payment", "google-payment", "social", "api.twitter.com", 
-            "accounts.google.com", "facebook.com", "acs-visasecure", "vk.com", "ok.ru", "mail.ru", "yandex.ru", "yandex.ua"};
+            "accounts.google.com", "facebook.com", "acs-visasecure", "vk.com", "ok.ru", "mail.ru", "yandex.ru",
+            "yandex.ua", "3dsecure", "skbbank.ru", "wallet.piastrix.com"};
         
         private string _merchant = string.Empty;
         private string _startUrl = string.Empty;
