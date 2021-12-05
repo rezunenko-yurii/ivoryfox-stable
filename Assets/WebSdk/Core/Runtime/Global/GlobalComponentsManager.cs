@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using TMPro;
 using UnityEngine;
 using WebSdk.Core.Runtime.ConfigLoader;
 using WebSdk.Core.Runtime.InternetChecker;
@@ -11,6 +11,7 @@ namespace WebSdk.Core.Runtime.Global
     public class GlobalComponentsManager : MonoBehaviour, IModulesHandler
     {
         [SerializeField] private GameObject globalGameObject;
+        [SerializeField] private TextMeshProUGUI textfield;
         
         public event Action Completed;
         
@@ -57,6 +58,7 @@ namespace WebSdk.Core.Runtime.Global
             else
             {
                 Debug.Log($"WebSdkEntry -> No internet connection -> GoToNativeBlock");
+                //textfield.text = "No internet connection. \n Please turn on the internet and restart app";
                 GameNavigation.GoToNativeBlock();
             }
         }

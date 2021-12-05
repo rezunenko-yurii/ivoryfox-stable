@@ -11,17 +11,26 @@ namespace WebSdk.Core.Runtime.InternetChecker
     {
         public event Action<bool> Checked;
         public event Action<bool> RepeatsEnded;
-        
-        //private 
-        
+
+        private readonly int _infinityChecking = -1;
+
+        private void OnEnable()
+        {
+            Check(_repeatCount);
+        }
+
+        private void OnDisable()
+        {
+            CancelInvoke(nameof(StartChecking));
+        }
+
         public bool HasConnection { get; private set; }
-        private int _repeatCount;
+        private int _repeatCount = 0;
+        private UnityWebRequest request;
         
         private IEnumerator SendRequest()
         {
             Debug.Log($"{nameof(DefaultInternetChecker)} {nameof(SendRequest)}");
-
-            DecreaseRepeatCount();
 
             if (Application.internetReachability == NetworkReachability.NotReachable)
             {
@@ -29,24 +38,34 @@ namespace WebSdk.Core.Runtime.InternetChecker
             }
             else
             {
-                var request = new UnityWebRequest("http://google.com") {timeout = 5};
+                request = new UnityWebRequest("http://google.com") {timeout = 10};
                 yield return request.SendWebRequest();
+                
                 HasConnection = request.error == null;
+                
+                request.Dispose();
+                request = null;
             }
             
             Checked?.Invoke(HasConnection);
-
-            if (HasConnection || _repeatCount == 0)
+            
+            if (_repeatCount != _infinityChecking)
             {
-                CancelInvoke(nameof(StartChecking));
+                DecreaseRepeatCount();
+            
+                if (HasConnection || _repeatCount == 0)
+                {
+                    CancelInvoke(nameof(StartChecking));
 
-                Debug.Log("DefaultInternetChecker RepeatCount == 0");
+                    Debug.Log("DefaultInternetChecker RepeatCount == 0");
                 
-                RepeatsEnded?.Invoke(HasConnection);
+                    RepeatsEnded?.Invoke(HasConnection);
                 
-                RepeatsEnded = null;
-                Checked = null;
+                    RepeatsEnded = null;
+                    Checked = null;
+                } 
             }
+            
         }
 
         private void DecreaseRepeatCount()
@@ -61,22 +80,29 @@ namespace WebSdk.Core.Runtime.InternetChecker
 
         public void Check(int repeatCount = 1)
         {
-            if (repeatCount > 1)
+            if (repeatCount > 1 || repeatCount == _infinityChecking)
             {
                 _repeatCount = repeatCount;
-                InvokeRepeating(nameof(StartChecking), 0f, 11f);
+                InvokeRepeating(nameof(StartChecking), 0f, 5);
             }
-            else
+            else if(repeatCount == 1)
             {
-                StartCoroutine(SendRequest());
+                StartChecking();
             }
             
         }
         
         private void StartChecking()
         {
+            if (IsChecking)
+            {
+                return;
+            }
+            
             StartCoroutine(SendRequest());
         }
+
+        private bool IsChecking => request != null;
         
         public int RepeatsLeft()
         {

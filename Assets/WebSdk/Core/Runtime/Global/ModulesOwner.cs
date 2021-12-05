@@ -9,8 +9,35 @@ namespace WebSdk.Core.Runtime.Global
         
         public IModule Get(Type moduleType)
         {
-            return _modules[moduleType];
+            IModule m = null;
+            
+            if (_modules.ContainsKey(moduleType))
+            {
+                m = _modules[moduleType];
+            }
+            
+            if (m == null)
+            {
+                foreach (var module in _modules)
+                {
+                    if (IsSameOrSubclass(moduleType, module.Key))
+                    {
+                        m = module.Value;
+                        break;
+                    }
+                }
+            }
+            
+            return m;
         }
+        
+        public bool IsSameOrSubclass(Type potentialBase, Type potentialDescendant)
+        {
+            return potentialDescendant.IsSubclassOf(potentialBase)
+                   || potentialDescendant == potentialBase
+                   || potentialBase.IsAssignableFrom(potentialDescendant);
+        }
+        
         public List<IModule> GetAll<T>()
         {
             var list = new List<IModule>();

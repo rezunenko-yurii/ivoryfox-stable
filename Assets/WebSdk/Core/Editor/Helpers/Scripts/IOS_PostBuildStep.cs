@@ -22,7 +22,7 @@ namespace WebSdk.Core.Editor.Helpers.Scripts
 
         // Implement a function to read and write values to the plist file:
         static void AddPListValues(string pathToXcode) {
-#if UNITY_IOS
+/*#if UNITY_IOS
             // Retrieve the plist file from the Xcode project directory:
             string plistPath = pathToXcode + "/Info.plist";
             PlistDocument plistObj = new PlistDocument();
@@ -41,7 +41,7 @@ namespace WebSdk.Core.Editor.Helpers.Scripts
             File.WriteAllText(plistPath, plistObj.WriteToString());
             
             Debug.Log("-------------------- ATT Post Process Build Complete");
-#endif
+#endif*/
         }
     }
 }

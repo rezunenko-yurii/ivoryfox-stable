@@ -2,7 +2,7 @@
 
 namespace WebSdk.Core.Runtime.WebCore.WebView
 {
-    public interface IWebViewClient: IModule
+    public interface IWebViewClient: IModule,IModulesHandler
     {
         void Open(string url);
         void SetSettings();
