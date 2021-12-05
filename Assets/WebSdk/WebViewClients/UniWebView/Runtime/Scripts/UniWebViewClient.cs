@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RestSharp.Contrib;
 using UnityEngine;
 using UnityEngine.UI;
 using WebSdk.Core.Runtime.Global;
@@ -15,7 +16,13 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         [SerializeField] Button backButton;
 
         private const string MerchantReference = "merchantReference";
-        private readonly string[] _keyWords = {"apple-payment", "google-payment", "social", "api.twitter.com", "accounts.google.com", "facebook.com", "acs-visasecure"};
+        private readonly string[] _keyWords = 
+        {
+            "apple-payment", "google-payment", "social", "api.twitter.com", 
+            "accounts.google.com", "facebook.com", "acs-visasecure",
+            "connect.ok.ru", "vk.com"
+        };
+        
         
         private string _merchant = string.Empty;
         private string _startUrl = string.Empty;
@@ -63,9 +70,12 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         {
             Debug.Log($"PageFinished {_webView.Url}");
             
-            SearchMerchantReference();
+            //SearchMerchantReference();
 
-            if (IsUrlContainsAnyKey(_webView.Url))
+            bool canShow = CanShow(_webView.Url);
+
+            //if (IsUrlContainsAnyKey(_webView.Url))
+            if (canShow)
             {
                 _toolbar.Show();
             }
@@ -76,13 +86,60 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
             
             UpdateScreen();
         }
-        
-        private bool IsUrlContainsAnyKey(string url)
+
+        private bool CanShow(string url)
         {
-            return _keyWords.Any(url.Contains);
+            string m = "merchantReference";
+            var u = new Uri(url);
+            
+            string queryString = u.Query;
+            var queryDictionary = HttpUtility.ParseQueryString(queryString);
+            
+            if(queryDictionary[m] != null)
+            {
+                _merchant = queryDictionary[m];
+            }
+            else
+            {
+                _merchant = string.Empty;
+            }
+
+            bool canShow = true;
+
+            if (MerchantReference.Equals(string.Empty))
+            {
+                Debug.Log($"{nameof(UniWebViewClient)} {nameof(CanShow)} Hide button " +
+                          $"| reason = MerchantReference is empty");
+                canShow = false;
+            }
+            else if(u.Host.Equals(MerchantReference))
+            {
+                Debug.Log($"{nameof(UniWebViewClient)} {nameof(CanShow)} Hide button " +
+                          $"| reason = MerchantReference equals Host");
+                canShow = false;
+            }
+            else if(u.Host.Contains("pay.") && u.AbsolutePath.Contains("app"))
+            {
+                Debug.Log($"{nameof(UniWebViewClient)} {nameof(CanShow)} Hide button " +
+                          $"| reason = Host contains pay and path contains app");
+                canShow = false;
+            }
+            else if(u.Host.Contains("hpp.") && u.AbsolutePath.Contains("app"))
+            {
+                Debug.Log($"{nameof(UniWebViewClient)} {nameof(CanShow)} Hide button " +
+                          $"| reason = Host contains hpp and path contains app");
+                canShow = false;
+            }
+
+            return canShow;
         }
         
-        private void SearchMerchantReference()
+        /*private bool IsUrlContainsAnyKey(string url)
+        {
+            return _keyWords.Any(url.Contains);
+        }*/
+        
+        /*private void SearchMerchantReference()
         {
             var query = WebHelper.DecodeQueryParameters(new Uri(_webView.Url));
             if (query.ContainsKey(MerchantReference))
@@ -93,7 +150,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
                     _merchant = $"https://{_merchant}";
                 }
             }
-        }
+        }*/
         
         private void OnOrientationChanged(global::UniWebView view, ScreenOrientation orientation)
         {
@@ -116,7 +173,7 @@ namespace WebSdk.WebViewClients.UniWebView.Runtime.Scripts
         
         private void OnBackButtonClick()
         {
-            LoadUrl(!string.IsNullOrEmpty(_merchant) ? _merchant : _startUrl);
+            LoadUrl(!string.IsNullOrEmpty(_merchant) ? $"https://{_merchant}" : _startUrl);
         }
     }
 }
