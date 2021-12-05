@@ -28,7 +28,7 @@ namespace BuildTools.Editor.Scripts
             PlayerSettings.Android.useCustomKeystore = data.useCustomKeystore;
             PlayerSettings.defaultInterfaceOrientation = data.screenOrientation;
 
-            SetIcons(data.icon);
+            //SetIcons(data.icon);
             
             if (data.useCustomKeystore)
             {
@@ -77,7 +77,7 @@ namespace BuildTools.Editor.Scripts
             Debug.Log("------------------------------------------------");
         }
         
-        private static void SetIcons(Texture2D textures)
+        /*private static void SetIcons(Texture2D textures)
         {
             var platform = BuildTargetGroup.Android;
             var kind = AndroidPlatformIconKind.Legacy;
@@ -87,6 +87,6 @@ namespace BuildTools.Editor.Scripts
             foreach (var t in icons) t.SetTexture(textures);
     
             PlayerSettings.SetPlatformIcons(platform, kind, icons);
-        }
+        }*/
     }
 }

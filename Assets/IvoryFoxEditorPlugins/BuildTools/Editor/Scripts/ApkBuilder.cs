@@ -14,7 +14,7 @@ namespace BuildTools.Editor.Scripts
         {
             ManifestsChecker.Inspect();
             PlayerHelper.PrintPlayerSettings();
-            CheckIcons();
+            //CheckIcons();
             if (!data.development && !KeyGenerator.DetectKey("STPN-" + data.taskNumber)) Debug.LogError("Нет ключа");
 
             string buildPath = $"{buildsFolderPath}\\{data.GetApkName(true)}";
@@ -50,7 +50,7 @@ namespace BuildTools.Editor.Scripts
             }
         }
 
-        private static void CheckIcons()
+        /*private static void CheckIcons()
         {
             var platform = BuildTargetGroup.Android;
             var kind = AndroidPlatformIconKind.Legacy;
@@ -64,7 +64,7 @@ namespace BuildTools.Editor.Scripts
             }
             
             Debug.Log($"<color=green>Иконки присувствуют</color>");
-        }
+        }*/
         private static string[] GetScenePaths() 
         {
             string[] scenes = new string[EditorBuildSettings.scenes.Length];

@@ -11,10 +11,12 @@ namespace BuildTools.Editor.Scripts
     public static class KeyGenerator
     {
         private static readonly string KeystorePath = $"{Application.dataPath}".Replace("/", "\\");
-        private static readonly string KeytoolPath = $"{AndroidExternalToolsSettings.jdkRootPath.Replace("\\", "/")}/bin";
+        //private static readonly string KeytoolPath = $"{AndroidExternalToolsSettings.jdkRootPath.Replace("\\", "/")}/bin";
 
         public static void Create(string companyName, string keyName, string keyPass)
         {
+            return;
+            
             string pathToProcess =
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "cmd.exe");
             
@@ -29,7 +31,7 @@ namespace BuildTools.Editor.Scripts
                     StartInfo =
                     {
                         FileName = pathToProcess,
-                        WorkingDirectory = KeytoolPath,
+                        //WorkingDirectory = KeytoolPath,
                         WindowStyle = ProcessWindowStyle.Normal,
 
                         RedirectStandardInput = true,
